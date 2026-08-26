@@ -1,35 +1,32 @@
 /* =========================================================
-   AMDADUL HOQUE - INTERACTIVE & ANIMATED RESUME SCRIPT
+   KHAMER VIRTUAL RESTAURANT - INTERACTIVE SCRIPT
+   Supervisor: Amdadul Hoque
    ========================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initCanvasBackground();
+    initAmbientEmberCanvas();
     initTypewriter();
+    initMenuTabs();
+    initServiceBell();
     initMobileNav();
     initHeaderScroll();
     initScrollSpy();
     initScrollReveal();
-    initCardTilt();
 });
 
 /* ---------------------------------------------------------
-   1. CANVAS INTERACTIVE PARTICLE NETWORK
+   1. AMBIENT CANDLELIGHT & GOLDEN EMBER PARTICLES
    --------------------------------------------------------- */
-function initCanvasBackground() {
-    const canvas = document.getElementById('bg-canvas');
+function initAmbientEmberCanvas() {
+    const canvas = document.getElementById('ambient-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
     let width, height;
     let particles = [];
-    const particleCount = Math.min(window.innerWidth < 768 ? 35 : 70, 80);
-    const maxDistance = 140;
+    const particleCount = Math.min(window.innerWidth < 768 ? 35 : 65, 75);
 
-    let mouse = {
-        x: null,
-        y: null,
-        radius: 150
-    };
+    let mouse = { x: null, y: null, radius: 120 };
 
     function resize() {
         width = canvas.width = window.innerWidth;
@@ -49,24 +46,29 @@ function initCanvasBackground() {
         mouse.y = null;
     });
 
-    class Particle {
+    class Ember {
         constructor() {
+            this.reset(true);
+        }
+
+        reset(initial = false) {
             this.x = Math.random() * width;
-            this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.7;
-            this.vy = (Math.random() - 0.5) * 0.7;
-            this.radius = Math.random() * 2 + 1;
-            this.color = Math.random() > 0.5 ? 'rgba(6, 182, 212, ' : 'rgba(139, 92, 246, ';
+            this.y = initial ? Math.random() * height : height + Math.random() * 20;
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = -(Math.random() * 0.7 + 0.3); // Drift upward like embers
+            this.radius = Math.random() * 2.5 + 1;
+            this.alpha = Math.random() * 0.6 + 0.2;
+            this.color = Math.random() > 0.3 ? '245, 158, 11' : (Math.random() > 0.5 ? '251, 191, 36' : '225, 29, 72');
         }
 
         update() {
             this.x += this.vx;
             this.y += this.vy;
 
-            if (this.x < 0 || this.x > width) this.vx *= -1;
-            if (this.y < 0 || this.y > height) this.vy *= -1;
+            // Gentle wobble
+            this.vx += (Math.random() - 0.5) * 0.02;
 
-            // Mouse collision / gentle deflection
+            // Mouse repulsion / breeze
             if (mouse.x !== null && mouse.y !== null) {
                 const dx = mouse.x - this.x;
                 const dy = mouse.y - this.y;
@@ -78,20 +80,24 @@ function initCanvasBackground() {
                     this.y -= Math.sin(angle) * force * 2;
                 }
             }
+
+            if (this.y < -10 || this.x < -10 || this.x > width + 10) {
+                this.reset();
+            }
         }
 
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = this.color + '0.7)';
-            ctx.shadowBlur = 6;
-            ctx.shadowColor = this.color + '0.8)';
+            ctx.fillStyle = `rgba(${this.color}, ${this.alpha})`;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = `rgba(${this.color}, 0.8)`;
             ctx.fill();
         }
     }
 
     for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
+        particles.push(new Ember());
     }
 
     function animate() {
@@ -100,24 +106,6 @@ function initCanvasBackground() {
         for (let i = 0; i < particles.length; i++) {
             particles[i].update();
             particles[i].draw();
-
-            // Connect nearby particles
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist < maxDistance) {
-                    const alpha = (1 - dist / maxDistance) * 0.25;
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = `rgba(6, 182, 212, ${alpha})`;
-                    ctx.lineWidth = 0.8;
-                    ctx.shadowBlur = 0;
-                    ctx.stroke();
-                }
-            }
         }
 
         requestAnimationFrame(animate);
@@ -127,7 +115,7 @@ function initCanvasBackground() {
 }
 
 /* ---------------------------------------------------------
-   2. DYNAMIC TYPEWRITER EFFECT
+   2. TYPEWRITER EFFECT FOR RESTAURANT ROLES
    --------------------------------------------------------- */
 function initTypewriter() {
     const textElement = document.getElementById('typing-text');
@@ -135,10 +123,10 @@ function initTypewriter() {
 
     const words = [
         'Restaurant Supervisor',
-        'Automation Specialist',
-        'Warehouse Management Expert',
-        'AI Tool Specialist',
-        'Multilingual Communicator'
+        'Automation & AI Specialist',
+        'Warehouse & Stock Controller',
+        '5 Languages Hospitality Host',
+        'Operations Problem Solver'
     ];
 
     let wordIndex = 0;
@@ -152,11 +140,11 @@ function initTypewriter() {
         if (isDeleting) {
             textElement.textContent = currentWord.substring(0, charIndex - 1);
             charIndex--;
-            typeSpeed = 45;
+            typeSpeed = 40;
         } else {
             textElement.textContent = currentWord.substring(0, charIndex + 1);
             charIndex++;
-            typeSpeed = 90;
+            typeSpeed = 85;
         }
 
         if (!isDeleting && charIndex === currentWord.length) {
@@ -165,7 +153,7 @@ function initTypewriter() {
         } else if (isDeleting && charIndex === 0) {
             isDeleting = false;
             wordIndex = (wordIndex + 1) % words.length;
-            typeSpeed = 400; // Pause before next word
+            typeSpeed = 400; // Pause before new word
         }
 
         setTimeout(type, typeSpeed);
@@ -175,7 +163,87 @@ function initTypewriter() {
 }
 
 /* ---------------------------------------------------------
-   3. MOBILE NAVIGATION MENU
+   3. INTERACTIVE RESUME MENU TABS
+   --------------------------------------------------------- */
+function initMenuTabs() {
+    const tabButtons = document.querySelectorAll('.menu-tab-btn');
+    const menuPages = document.querySelectorAll('.menu-page');
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabButtons.forEach(b => b.classList.remove('active'));
+            menuPages.forEach(p => p.classList.remove('active'));
+
+            btn.classList.add('active');
+            const targetId = btn.getAttribute('data-tab');
+            const targetPage = document.getElementById(targetId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+        });
+    });
+}
+
+/* ---------------------------------------------------------
+   4. SYNTHETIC SERVICE BELL DING & TOAST NOTIFICATION
+   --------------------------------------------------------- */
+function initServiceBell() {
+    const bellBtn = document.getElementById('bell-btn');
+    const bellToast = document.getElementById('bell-toast');
+
+    if (!bellBtn) return;
+
+    // Web Audio API Dual Tone Bell Chime (Realistic Ding)
+    function playBellSound() {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            const ctx = new AudioContext();
+
+            // Tone 1: High metallic ring
+            const osc1 = ctx.createOscillator();
+            const gain1 = ctx.createGain();
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(1760, ctx.currentTime); // A6
+            gain1.gain.setValueAtTime(0.35, ctx.currentTime);
+            gain1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.4);
+
+            osc1.connect(gain1);
+            gain1.connect(ctx.destination);
+            osc1.start();
+            osc1.stop(ctx.currentTime + 1.4);
+
+            // Tone 2: Warm fundamental
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+            osc2.type = 'triangle';
+            osc2.frequency.setValueAtTime(880, ctx.currentTime); // A5
+            gain2.gain.setValueAtTime(0.2, ctx.currentTime);
+            gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+
+            osc2.connect(gain2);
+            gain2.connect(ctx.destination);
+            osc2.start();
+            osc2.stop(ctx.currentTime + 1.2);
+        } catch (e) {
+            console.log('Web Audio tone played.');
+        }
+    }
+
+    bellBtn.addEventListener('click', () => {
+        playBellSound();
+
+        if (bellToast) {
+            bellToast.classList.add('show');
+            setTimeout(() => {
+                bellToast.classList.remove('show');
+            }, 4500);
+        }
+    });
+}
+
+/* ---------------------------------------------------------
+   5. MOBILE NAVIGATION MENU
    --------------------------------------------------------- */
 function initMobileNav() {
     const navMenu = document.getElementById('nav-menu');
@@ -183,13 +251,13 @@ function initMobileNav() {
     const navClose = document.getElementById('nav-close');
     const navLinks = document.querySelectorAll('.nav__link');
 
-    if (navToggle) {
+    if (navToggle && navMenu) {
         navToggle.addEventListener('click', () => {
             navMenu.classList.add('show-menu');
         });
     }
 
-    if (navClose) {
+    if (navClose && navMenu) {
         navClose.addEventListener('click', () => {
             navMenu.classList.remove('show-menu');
         });
@@ -203,10 +271,12 @@ function initMobileNav() {
 }
 
 /* ---------------------------------------------------------
-   4. HEADER SCROLL EFFECT
+   6. HEADER SCROLL BACKGROUND
    --------------------------------------------------------- */
 function initHeaderScroll() {
     const header = document.getElementById('header');
+    if (!header) return;
+
     window.addEventListener('scroll', () => {
         if (window.scrollY >= 50) {
             header.classList.add('scroll-header');
@@ -217,7 +287,7 @@ function initHeaderScroll() {
 }
 
 /* ---------------------------------------------------------
-   5. SCROLL SPY (ACTIVE NAV LINK)
+   7. SCROLL SPY
    --------------------------------------------------------- */
 function initScrollSpy() {
     const sections = document.querySelectorAll('section[id]');
@@ -245,7 +315,7 @@ function initScrollSpy() {
 }
 
 /* ---------------------------------------------------------
-   6. SCROLL REVEAL ANIMATIONS
+   8. SCROLL REVEAL ANIMATIONS
    --------------------------------------------------------- */
 function initScrollReveal() {
     const reveals = document.querySelectorAll('.reveal');
@@ -266,53 +336,24 @@ function initScrollReveal() {
 }
 
 /* ---------------------------------------------------------
-   7. CARD 3D TILT EFFECT ON HOVER
+   9. TABLE RESERVATION FORM HANDLER
    --------------------------------------------------------- */
-function initCardTilt() {
-    const cards = document.querySelectorAll('.skill__card, .education__card, .stat__card, .project-highlight');
-    
-    if (window.innerWidth < 768) return; // Disable on touch devices
-
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const deltaX = (x - centerX) / centerX;
-            const deltaY = (y - centerY) / centerY;
-            
-            card.style.transform = `perspective(1000px) rotateX(${-deltaY * 4}deg) rotateY(${deltaX * 4}deg) translateY(-4px)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
-        });
-    });
-}
-
-/* ---------------------------------------------------------
-   8. CONTACT FORM HANDLER
-   --------------------------------------------------------- */
-function handleFormSubmit() {
-    const nameInput = document.getElementById('name');
-    const feedback = document.getElementById('form-feedback');
-    const submitBtn = document.getElementById('submit-btn');
+function handleReservationSubmit() {
+    const nameInput = document.getElementById('res-name');
+    const feedback = document.getElementById('res-feedback');
+    const submitBtn = document.getElementById('res-submit-btn');
 
     if (!nameInput || !feedback) return;
 
-    submitBtn.innerHTML = `<span>Sending...</span> <i class="fa-solid fa-spinner fa-spin"></i>`;
+    submitBtn.innerHTML = `<span>Sending Reservation...</span> <i class="fa-solid fa-spinner fa-spin"></i>`;
     submitBtn.disabled = true;
 
     setTimeout(() => {
-        feedback.className = 'form-feedback success';
-        feedback.innerHTML = `Thank you <strong>${nameInput.value}</strong>! Your message has been received. I will get back to you shortly.`;
+        feedback.className = 'res-feedback success';
+        feedback.innerHTML = `Thank you <strong>${nameInput.value}</strong>! Your table/inquiry message has been delivered to Supervisor Amdadul Hoque.`;
         
-        document.getElementById('contact-form').reset();
-        submitBtn.innerHTML = `<span>Send Message</span> <i class="fa-regular fa-paper-plane"></i>`;
+        document.getElementById('reservation-form').reset();
+        submitBtn.innerHTML = `<i class="fa-solid fa-utensils"></i> <span>Send Reservation Message</span>`;
         submitBtn.disabled = false;
 
         setTimeout(() => {

@@ -3,36 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amdadul Hoque | Restaurant Supervisor & Automation Specialist</title>
+    <title>Amdadul Hoque | Virtual Restaurant Experience & Resume</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Canvas Particle Background -->
-    <canvas id="bg-canvas"></canvas>
+    <!-- Virtual Restaurant Ambient Steam & Bokeh Canvas -->
+    <canvas id="ambient-canvas"></canvas>
 
-    <!-- Navigation Bar -->
-    <header class="header" id="header">
+    <!-- Bell Ding Notification Popup -->
+    <div id="bell-toast" class="bell-toast">
+        <i class="fa-solid fa-bell bell-icon-anim"></i>
+        <div>
+            <strong>*Ding!* Welcome to Khamer Virtual Lounge!</strong>
+            <p>Supervisor Amdadul Hoque is delighted to host you.</p>
+        </div>
+    </div>
+
+    <!-- Restaurant Header / Canopy Navbar -->
+    <header class="restaurant-header" id="header">
         <nav class="nav container">
-            <a href="#hero" class="nav__logo">
-                <span class="logo__bracket">&lt;</span>
-                <span class="logo__text">Amdadul Hoque</span>
-                <span class="logo__bracket">&gt;</span>
+            <a href="#entrance" class="nav__logo">
+                <span class="logo__icon"><i class="fa-solid fa-utensils"></i></span>
+                <span class="logo__text">Khamer <span class="accent-gold">Lounge</span></span>
             </a>
 
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
-                    <li class="nav__item"><a href="#hero" class="nav__link active-link">Home</a></li>
-                    <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-                    <li class="nav__item"><a href="#experience" class="nav__link">Experience</a></li>
-                    <li class="nav__item"><a href="#education" class="nav__link">Education</a></li>
-                    <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
-                    <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+                    <li class="nav__item"><a href="#entrance" class="nav__link active-link"><i class="fa-solid fa-door-open"></i> Entrance</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link"><i class="fa-solid fa-circle-user"></i> About Supervisor</a></li>
+                    <li class="nav__item"><a href="#experience" class="nav__link"><i class="fa-solid fa-bowl-food"></i> Experience</a></li>
+                    <li class="nav__item"><a href="#education" class="nav__link"><i class="fa-solid fa-graduation-cap"></i> Education</a></li>
+                    <li class="nav__item"><a href="#skills" class="nav__link"><i class="fa-solid fa-pepper-hot"></i> Skills</a></li>
+                    <li class="nav__item"><a href="#reservation" class="nav__link"><i class="fa-solid fa-calendar-check"></i> Reserve Table</a></li>
                 </ul>
                 <div class="nav__close" id="nav-close">
                     <i class="fa-solid fa-xmark"></i>
@@ -40,9 +48,13 @@
             </div>
 
             <div class="nav__actions">
-                <button class="btn btn-outline btn-sm print-btn" onclick="window.print()" title="Print / Save Resume as PDF">
-                    <i class="fa-solid fa-file-arrow-down"></i>
-                    <span>Print CV</span>
+                <button class="btn btn-bell" id="bell-btn" title="Ring the Reception Bell">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="bell-text">Ring Bell</span>
+                </button>
+                <button class="btn btn-gold btn-sm print-btn" onclick="window.print()" title="Print / Download Menu Resume">
+                    <i class="fa-solid fa-receipt"></i>
+                    <span>Takeaway CV</span>
                 </button>
                 <div class="nav__toggle" id="nav-toggle">
                     <i class="fa-solid fa-bars-staggered"></i>
@@ -52,485 +64,532 @@
     </header>
 
     <main class="main">
-        <!-- Hero Section -->
-        <section class="hero section" id="hero">
+        <!-- Entrance & Host Stand (Hero Section) -->
+        <section class="hero section" id="entrance">
             <div class="hero__container container">
                 <div class="hero__content">
-                    <div class="hero__badge reveal">
-                        <span class="pulse-dot"></span>
-                        <span>Restaurant Supervisor &amp; Automation Specialist</span>
+                    <div class="bistro-badge reveal">
+                        <span class="candle-flame"></span>
+                        <span>Table Reserved • Supervised by Amdadul Hoque</span>
                     </div>
                     <h1 class="hero__title reveal">
-                        Hi, I'm <span class="gradient-text">Amdadul Hoque</span>
+                        Welcome to My <span class="gold-gradient-text">Virtual Restaurant</span>
                     </h1>
                     <div class="hero__subtitle-wrapper reveal">
-                        <span class="hero__prefix">Role:</span>
+                        <span class="hero__prefix">I am your</span>
                         <span class="typing-text" id="typing-text"></span>
                         <span class="cursor">&nbsp;</span>
                     </div>
                     <p class="hero__description reveal">
-                        Experienced Restaurant Supervisor with a background in Warehouse Management. Expert in inventory control, team leadership, and social media management using AI tools. Fluent in 5 languages (Arabic, English, Hindi, Urdu, Bengali) for seamless international communication.
+                        Step inside the digital dining &amp; operations hub of <strong>Amdadul Hoque</strong>. Experienced Restaurant Supervisor with deep expertise in warehouse inventory control, multi-department team leadership, AI operational workflows, and multilingual customer service.
                     </p>
                     <div class="hero__buttons reveal">
-                        <a href="https://wa.me/966544575530" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                            <i class="fa-brands fa-whatsapp"></i>
-                            <span>WhatsApp Me</span>
+                        <a href="#resume-menu" class="btn btn-primary-gold">
+                            <i class="fa-solid fa-book-open"></i>
+                            <span>Explore Resume Menu</span>
                         </a>
-                        <a href="mailto:ahameddruboo@gmail.com" class="btn btn-secondary">
-                            <i class="fa-regular fa-envelope"></i>
-                            <span>Send Email</span>
+                        <a href="#reservation" class="btn btn-secondary-gold">
+                            <i class="fa-regular fa-calendar-check"></i>
+                            <span>Book Consultation</span>
                         </a>
                     </div>
                     <div class="hero__socials reveal">
-                        <a href="tel:+966544575530" class="social__link" title="Call +966544575530">
+                        <a href="tel:+966544575530" class="bistro-social" title="Direct Hotline">
                             <i class="fa-solid fa-phone"></i>
                         </a>
-                        <a href="https://wa.me/966544575530" target="_blank" rel="noopener noreferrer" class="social__link" title="WhatsApp">
+                        <a href="https://wa.me/966544575530" target="_blank" rel="noopener noreferrer" class="bistro-social" title="WhatsApp Table Concierge">
                             <i class="fa-brands fa-whatsapp"></i>
                         </a>
-                        <a href="mailto:ahameddruboo@gmail.com" class="social__link" title="Email">
+                        <a href="mailto:ahameddruboo@gmail.com" class="bistro-social" title="Email Supervisor">
                             <i class="fa-regular fa-envelope"></i>
                         </a>
-                        <a href="https://github.com/ggptamdas-commits" target="_blank" rel="noopener noreferrer" class="social__link" title="GitHub">
+                        <a href="https://github.com/ggptamdas-commits" target="_blank" rel="noopener noreferrer" class="bistro-social" title="GitHub Repositories">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </div>
                 </div>
 
                 <div class="hero__visual reveal">
-                    <div class="visual__card glass-card">
-                        <!-- Profile Image with Neon Rotating Glow Ring -->
-                        <div class="visual__avatar-wrapper">
-                            <div class="visual__glow-ring"></div>
-                            <div class="visual__image-box">
-                                <img src="profile.jpg" alt="Amdadul Hoque" class="profile__img" onerror="this.onerror=null; this.src='https://avatars.githubusercontent.com/u/282988582?v=4';">
+                    <div class="bistro-frame glass-card">
+                        <!-- Glowing Amber Lantern Aura & Profile Picture -->
+                        <div class="bistro-avatar-box">
+                            <div class="lantern-glow"></div>
+                            <div class="avatar-ring">
+                                <img src="profile.jpg" alt="Amdadul Hoque" class="supervisor-photo" onerror="this.onerror=null; this.src='https://avatars.githubusercontent.com/u/282988582?v=4';">
                             </div>
                         </div>
 
-                        <div class="visual__floating-badge badge-top">
+                        <!-- Floating Badges -->
+                        <div class="bistro-floating-badge badge-top">
                             <i class="fa-solid fa-boxes-stacked"></i>
                             <div>
-                                <span class="badge__title">Warehouse &amp; Inventory</span>
-                                <span class="badge__sub">Stock Control &amp; App</span>
+                                <span class="badge__title">Warehouse App Live</span>
+                                <span class="badge__sub">khamer.vercel.app</span>
                             </div>
                         </div>
-                        <div class="visual__floating-badge badge-bottom">
-                            <i class="fa-solid fa-language"></i>
+                        <div class="bistro-floating-badge badge-bottom">
+                            <i class="fa-solid fa-earth-americas"></i>
                             <div>
                                 <span class="badge__title">5 Languages Fluent</span>
-                                <span class="badge__sub">Arabic, English, Hindi, Urdu, Bengali</span>
+                                <span class="badge__sub">Arabic • English • Hindi • Urdu • Bengali</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Info Bar -->
-            <div class="stats container reveal">
-                <div class="stat__card glass-card">
-                    <div class="stat__icon"><i class="fa-solid fa-location-dot"></i></div>
-                    <div class="stat__info">
-                        <h3 class="stat__number">Jizan</h3>
-                        <p class="stat__label">Saudi Arabia</p>
+            <!-- Operations Dashboard (Stats) -->
+            <div class="dashboard container reveal">
+                <div class="dash-card glass-card">
+                    <div class="dash-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+                    <div class="dash-info">
+                        <h3 class="dash-number">Active</h3>
+                        <p class="dash-label">Restaurant Supervisor</p>
                     </div>
                 </div>
-                <div class="stat__card glass-card">
-                    <div class="stat__icon"><i class="fa-solid fa-language"></i></div>
-                    <div class="stat__info">
-                        <h3 class="stat__number">5</h3>
-                        <p class="stat__label">Languages Fluent</p>
+                <div class="dash-card glass-card">
+                    <div class="dash-icon"><i class="fa-solid fa-language"></i></div>
+                    <div class="dash-info">
+                        <h3 class="dash-number">5</h3>
+                        <p class="dash-label">Languages Fluent</p>
                     </div>
                 </div>
-                <div class="stat__card glass-card">
-                    <div class="stat__icon"><i class="fa-solid fa-utensils"></i></div>
-                    <div class="stat__info">
-                        <h3 class="stat__number">Khamer</h3>
-                        <p class="stat__label">Restaurant Supervisor</p>
+                <div class="dash-card glass-card">
+                    <div class="dash-icon"><i class="fa-solid fa-store"></i></div>
+                    <div class="dash-info">
+                        <h3 class="dash-number">Khamer</h3>
+                        <p class="dash-label">Saudi Arabia</p>
                     </div>
                 </div>
-                <div class="stat__card glass-card">
-                    <div class="stat__icon"><i class="fa-solid fa-laptop-code"></i></div>
-                    <div class="stat__info">
-                        <h3 class="stat__number">Web &amp; AI</h3>
-                        <p class="stat__label">Automation Solutions</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Me Section -->
-        <section class="about section" id="about">
-            <div class="container">
-                <div class="section__header reveal">
-                    <span class="section__subtitle">Profile</span>
-                    <h2 class="section__title">About <span class="gradient-text">Me</span></h2>
-                    <div class="section__line"></div>
-                </div>
-
-                <div class="about__container">
-                    <div class="about__content glass-card reveal">
-                        <h3 class="about__heading">Professional Summary</h3>
-                        <p class="about__text">
-                            Experienced Restaurant Supervisor with a background in Warehouse Management. Expert in inventory control, team leadership, and social media management using AI tools. Fluent in 5 languages (Arabic, English, Hindi, Urdu, Bengali), allowing for seamless communication with international customers and diverse teams.
-                        </p>
-
-                        <div class="about__info-grid">
-                            <div class="info__item">
-                                <span class="info__title"><i class="fa-solid fa-user"></i> Name:</span>
-                                <span class="info__value">Amdadul Hoque</span>
-                            </div>
-                            <div class="info__item">
-                                <span class="info__title"><i class="fa-solid fa-briefcase"></i> Designation:</span>
-                                <span class="info__value">Restaurant Supervisor</span>
-                            </div>
-                            <div class="info__item">
-                                <span class="info__title"><i class="fa-solid fa-phone"></i> Phone:</span>
-                                <a href="tel:+966544575530" class="info__value link-highlight">+966 54 457 5530</a>
-                            </div>
-                            <div class="info__item">
-                                <span class="info__title"><i class="fa-solid fa-envelope"></i> Email:</span>
-                                <a href="mailto:ahameddruboo@gmail.com" class="info__value link-highlight">ahameddruboo@gmail.com</a>
-                            </div>
-                            <div class="info__item">
-                                <span class="info__title"><i class="fa-solid fa-location-dot"></i> Location:</span>
-                                <span class="info__value">Jizan, Saudi Arabia</span>
-                            </div>
-                            <div class="info__item">
-                                <span class="info__title"><i class="fa-solid fa-language"></i> Languages:</span>
-                                <span class="info__value">Arabic, English, Hindi, Urdu, Bengali</span>
-                            </div>
-                        </div>
-
-                        <div class="about__badges">
-                            <span class="tech-pill"><i class="fa-solid fa-boxes-stacked"></i> Inventory Control</span>
-                            <span class="tech-pill"><i class="fa-solid fa-users"></i> Team Leadership</span>
-                            <span class="tech-pill"><i class="fa-solid fa-robot"></i> AI Tool Specialist</span>
-                            <span class="tech-pill"><i class="fa-solid fa-laptop-code"></i> Web App Development</span>
-                            <span class="tech-pill"><i class="fa-solid fa-bolt"></i> Electrical Troubleshooting</span>
-                        </div>
+                <div class="dash-card glass-card">
+                    <div class="dash-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                    <div class="dash-info">
+                        <h3 class="dash-number">AI &amp; Web</h3>
+                        <p class="dash-label">Automation Solutions</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Experience Section -->
-        <section class="experience section" id="experience">
+        <!-- The Interactive Resume Menu Explorer -->
+        <section class="menu-section section" id="resume-menu">
             <div class="container">
                 <div class="section__header reveal">
-                    <span class="section__subtitle">Work History</span>
-                    <h2 class="section__title">Work <span class="gradient-text">Experience</span></h2>
+                    <span class="section__subtitle">Interactive Catalog</span>
+                    <h2 class="section__title">The Chef's Specialty <span class="gold-gradient-text">Resume Menu</span></h2>
                     <div class="section__line"></div>
+                    <p class="section__description">Select a dish from the menu below to explore each facet of my career and skills.</p>
                 </div>
 
-                <div class="timeline">
-                    <div class="timeline__item reveal">
-                        <div class="timeline__marker"></div>
-                        <div class="timeline__content glass-card">
-                            <div class="timeline__header-top">
-                                <div>
-                                    <h3 class="timeline__role">Restaurant Supervisor &amp; Automation Specialist</h3>
-                                    <h4 class="timeline__company"><i class="fa-solid fa-store"></i> Khamer Restaurant, Saudi Arabia</h4>
+                <!-- Menu Tab Switcher -->
+                <div class="menu-tabs reveal">
+                    <button class="menu-tab-btn active" data-tab="tab-about">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <span>1. Appetizers (About Me)</span>
+                    </button>
+                    <button class="menu-tab-btn" data-tab="tab-experience">
+                        <i class="fa-solid fa-utensils"></i>
+                        <span>2. Entrées (Experience)</span>
+                    </button>
+                    <button class="menu-tab-btn" data-tab="tab-education">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>3. Academy (Education)</span>
+                    </button>
+                    <button class="menu-tab-btn" data-tab="tab-skills">
+                        <i class="fa-solid fa-pepper-hot"></i>
+                        <span>4. Ingredients (Skills)</span>
+                    </button>
+                    <button class="menu-tab-btn" data-tab="tab-app">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                        <span>5. Digital Kiosk (App)</span>
+                    </button>
+                </div>
+
+                <!-- Menu Pages Container -->
+                <div class="menu-display glass-card reveal">
+                    
+                    <!-- TAB 1: ABOUT ME -->
+                    <div class="menu-page active" id="tab-about">
+                        <div class="menu-page-header">
+                            <span class="dish-badge">Course 01</span>
+                            <h3 class="dish-title">Executive Summary &amp; Professional Philosophy</h3>
+                            <p class="dish-subtitle">A seasoned supervisor bringing harmony to operations, warehouse stocks, and guest satisfaction.</p>
+                        </div>
+                        <div class="dish-content">
+                            <p class="dish-text">
+                                Experienced Restaurant Supervisor with a background in Warehouse Management. Expert in inventory control, team leadership, and social media management using AI tools. Fluent in 5 languages (Arabic, English, Hindi, Urdu, Bengali), allowing for seamless communication with international customers and diverse teams.
+                            </p>
+                            <div class="bistro-info-grid">
+                                <div class="bistro-info-item">
+                                    <span class="b-label"><i class="fa-solid fa-signature"></i> Full Name:</span>
+                                    <span class="b-val">Amdadul Hoque</span>
                                 </div>
-                                <div class="timeline__date"><i class="fa-regular fa-calendar"></i> Dec 2023 - Present</div>
-                            </div>
-                            
-                            <ul class="experience__list">
-                                <li>
-                                    <strong><i class="fa-solid fa-circle-check"></i> Versatile Leadership:</strong>
-                                    Manage daily operations and lead the service team, stepping in as Cashier, Warehouse Manager, or Server during staff shortages.
-                                </li>
-                                <li>
-                                    <strong><i class="fa-solid fa-circle-check"></i> Custom Warehouse Solution:</strong>
-                                    Developed and deployed a specialized warehouse management application: 
-                                    <a href="https://khamer.vercel.app" target="_blank" rel="noopener noreferrer" class="app-link">
-                                        <i class="fa-solid fa-arrow-up-right-from-square"></i> khamer.vercel.app
-                                    </a>
-                                </li>
-                                <li>
-                                    <strong><i class="fa-solid fa-circle-check"></i> Operational Automation:</strong>
-                                    Designed AI assisted tools for kitchen stock tracking and modern digital menus to streamline restaurant workflows.
-                                </li>
-                                <li>
-                                    <strong><i class="fa-solid fa-circle-check"></i> Multilingual Expertise:</strong>
-                                    Utilize fluency in 5 languages (Arabic, English, Hindi, Urdu, Bengali) to serve a diverse international clientele.
-                                </li>
-                                <li>
-                                    <strong><i class="fa-solid fa-circle-check"></i> Technical Troubleshooting:</strong>
-                                    Handle on-site electrical maintenance and basic technical problem-solving.
-                                </li>
-                            </ul>
-
-                            <div class="timeline__tags">
-                                <span class="tag">Daily Operations</span>
-                                <span class="tag">Inventory Control</span>
-                                <span class="tag">khamer.vercel.app</span>
-                                <span class="tag">AI Tools</span>
-                                <span class="tag">5 Languages</span>
-                                <span class="tag">Electrical Maintenance</span>
+                                <div class="bistro-info-item">
+                                    <span class="b-label"><i class="fa-solid fa-id-badge"></i> Current Position:</span>
+                                    <span class="b-val">Restaurant Supervisor</span>
+                                </div>
+                                <div class="bistro-info-item">
+                                    <span class="b-label"><i class="fa-solid fa-phone"></i> Direct Contact:</span>
+                                    <a href="tel:+966544575530" class="b-val gold-link">+966 54 457 5530</a>
+                                </div>
+                                <div class="bistro-info-item">
+                                    <span class="b-label"><i class="fa-solid fa-envelope"></i> Email Address:</span>
+                                    <a href="mailto:ahameddruboo@gmail.com" class="b-val gold-link">ahameddruboo@gmail.com</a>
+                                </div>
+                                <div class="bistro-info-item">
+                                    <span class="b-label"><i class="fa-solid fa-map-location-dot"></i> Base of Operations:</span>
+                                    <span class="b-val">Jizan, Saudi Arabia</span>
+                                </div>
+                                <div class="bistro-info-item">
+                                    <span class="b-label"><i class="fa-solid fa-language"></i> Language Fluency:</span>
+                                    <span class="b-val">Arabic, English, Hindi, Urdu, Bengali</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Education Section -->
-        <section class="education section" id="education">
-            <div class="container">
-                <div class="section__header reveal">
-                    <span class="section__subtitle">Academic Background</span>
-                    <h2 class="section__title">My <span class="gradient-text">Education</span></h2>
-                    <div class="section__line"></div>
-                </div>
-
-                <div class="education__grid">
-                    <div class="education__card glass-card reveal">
-                        <div class="education__icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                        <div class="education__info">
-                            <span class="education__badge">Higher Secondary</span>
-                            <h3 class="education__degree">Higher Secondary Certificate (HSC) in Accounting</h3>
-                            <h4 class="education__institute"><i class="fa-solid fa-school"></i> Fazlur Rahman Memorial College of Technology</h4>
-                            <p class="education__desc">Specialized study with strong foundation in accounting principles, records management, and analytical skills.</p>
+                    <!-- TAB 2: EXPERIENCE -->
+                    <div class="menu-page" id="tab-experience">
+                        <div class="menu-page-header">
+                            <span class="dish-badge">Course 02</span>
+                            <h3 class="dish-title">Signature Experience — Khamer Restaurant</h3>
+                            <p class="dish-subtitle">Saudi Arabia • Dec 2023 - Present</p>
+                        </div>
+                        <div class="dish-content">
+                            <div class="exp-card">
+                                <h4 class="exp-role"><i class="fa-solid fa-award"></i> Restaurant Supervisor &amp; Automation Specialist</h4>
+                                <ul class="bistro-bullet-list">
+                                    <li>
+                                        <strong><i class="fa-solid fa-check"></i> Versatile Leadership:</strong>
+                                        Manage daily operations and lead the service team, stepping in as Cashier, Warehouse Manager, or Server during staff shortages.
+                                    </li>
+                                    <li>
+                                        <strong><i class="fa-solid fa-check"></i> Custom Warehouse Solution:</strong>
+                                        Developed and deployed a specialized warehouse management application: 
+                                        <a href="https://khamer.vercel.app" target="_blank" rel="noopener noreferrer" class="app-pill">
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i> khamer.vercel.app
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <strong><i class="fa-solid fa-check"></i> Operational Automation:</strong>
+                                        Designed AI assisted tools for kitchen stock tracking and modern digital menus to streamline restaurant workflows.
+                                    </li>
+                                    <li>
+                                        <strong><i class="fa-solid fa-check"></i> Multilingual Expertise:</strong>
+                                        Utilize fluency in 5 languages (Arabic, English, Hindi, Urdu, Bengali) to serve a diverse international clientele.
+                                    </li>
+                                    <li>
+                                        <strong><i class="fa-solid fa-check"></i> Technical Troubleshooting:</strong>
+                                        Handle on-site electrical maintenance and basic technical problem-solving.
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="education__card glass-card reveal">
-                        <div class="education__icon"><i class="fa-solid fa-award"></i></div>
-                        <div class="education__info">
-                            <span class="education__badge">Secondary</span>
-                            <h3 class="education__degree">Secondary School Certificate (SSC)</h3>
-                            <h4 class="education__institute"><i class="fa-solid fa-school"></i> Bharasar High School</h4>
-                            <p class="education__desc">Completed secondary education with comprehensive academic curriculum.</p>
+                    <!-- TAB 3: EDUCATION -->
+                    <div class="menu-page" id="tab-education">
+                        <div class="menu-page-header">
+                            <span class="dish-badge">Course 03</span>
+                            <h3 class="dish-title">Academic Credentials &amp; Foundation</h3>
+                            <p class="dish-subtitle">Education in accounting principles, analytical methods, and records management.</p>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                        <div class="dish-content">
+                            <div class="edu-bistro-grid">
+                                <div class="edu-bistro-card">
+                                    <div class="edu-bistro-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                                    <div>
+                                        <span class="edu-tag">Higher Secondary</span>
+                                        <h4 class="edu-title">Higher Secondary Certificate (HSC) in Accounting</h4>
+                                        <h5 class="edu-school"><i class="fa-solid fa-building-columns"></i> Fazlur Rahman Memorial College of Technology</h5>
+                                        <p class="edu-text">Focused on business accounting, financial arithmetic, and administrative documentation.</p>
+                                    </div>
+                                </div>
 
-        <!-- Skills Section -->
-        <section class="skills section" id="skills">
-            <div class="container">
-                <div class="section__header reveal">
-                    <span class="section__subtitle">Core Competencies</span>
-                    <h2 class="section__title">Skills &amp; <span class="gradient-text">Expertise</span></h2>
-                    <div class="section__line"></div>
-                </div>
-
-                <div class="skills__grid">
-                    <!-- Skill 1 -->
-                    <div class="skill__card glass-card reveal">
-                        <div class="skill__header">
-                            <div class="skill__icon-box"><i class="fa-solid fa-boxes-stacked"></i></div>
-                            <div>
-                                <h3 class="skill__category">Inventory Management</h3>
-                                <p class="skill__sub">Stock tracking &amp; warehouse control</p>
+                                <div class="edu-bistro-card">
+                                    <div class="edu-bistro-icon"><i class="fa-solid fa-school"></i></div>
+                                    <div>
+                                        <span class="edu-tag">Secondary</span>
+                                        <h4 class="edu-title">Secondary School Certificate (SSC)</h4>
+                                        <h5 class="edu-school"><i class="fa-solid fa-school"></i> Bharasar High School</h5>
+                                        <p class="edu-text">Completed broad secondary education with foundational science, languages, and math.</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="skill__bar-group">
-                            <div class="skill__bar-info">
-                                <span>Warehouse Stock &amp; Inventory Systems</span>
-                                <span>95%</span>
-                            </div>
-                            <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 95%;"></div></div>
                         </div>
                     </div>
 
-                    <!-- Skill 2 -->
-                    <div class="skill__card glass-card reveal">
-                        <div class="skill__header">
-                            <div class="skill__icon-box"><i class="fa-solid fa-users"></i></div>
-                            <div>
-                                <h3 class="skill__category">Team Leadership</h3>
-                                <p class="skill__sub">Service coordination &amp; staff supervision</p>
-                            </div>
+                    <!-- TAB 4: SKILLS -->
+                    <div class="menu-page" id="tab-skills">
+                        <div class="menu-page-header">
+                            <span class="dish-badge">Course 04</span>
+                            <h3 class="dish-title">Core Ingredients &amp; Special Competencies</h3>
+                            <p class="dish-subtitle">A balanced blend of hospitality leadership, tech automation, and multilingual fluency.</p>
                         </div>
-                        <div class="skill__bar-group">
-                            <div class="skill__bar-info">
-                                <span>Operations &amp; Team Management</span>
-                                <span>90%</span>
+                        <div class="dish-content">
+                            <div class="skills-bistro-grid">
+                                <div class="skill-item">
+                                    <div class="skill-head">
+                                        <span><i class="fa-solid fa-boxes-stacked"></i> Inventory Management</span>
+                                        <span>95%</span>
+                                    </div>
+                                    <div class="skill-track"><div class="skill-progress" style="width: 95%;"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-head">
+                                        <span><i class="fa-solid fa-users"></i> Team Leadership</span>
+                                        <span>90%</span>
+                                    </div>
+                                    <div class="skill-track"><div class="skill-progress" style="width: 90%;"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-head">
+                                        <span><i class="fa-solid fa-laptop-code"></i> Web App Development</span>
+                                        <span>88%</span>
+                                    </div>
+                                    <div class="skill-track"><div class="skill-progress" style="width: 88%;"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-head">
+                                        <span><i class="fa-solid fa-robot"></i> AI Tool Specialist</span>
+                                        <span>92%</span>
+                                    </div>
+                                    <div class="skill-track"><div class="skill-progress" style="width: 92%;"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-head">
+                                        <span><i class="fa-solid fa-bolt"></i> Electrical Troubleshooting</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div class="skill-track"><div class="skill-progress" style="width: 85%;"></div></div>
+                                </div>
+                                <div class="skill-item language-highlight-box">
+                                    <span class="lang-title"><i class="fa-solid fa-language"></i> 5 Fluent Languages:</span>
+                                    <div class="lang-pills">
+                                        <span class="lpill"><i class="fa-solid fa-check"></i> Arabic</span>
+                                        <span class="lpill"><i class="fa-solid fa-check"></i> English</span>
+                                        <span class="lpill"><i class="fa-solid fa-check"></i> Hindi</span>
+                                        <span class="lpill"><i class="fa-solid fa-check"></i> Urdu</span>
+                                        <span class="lpill"><i class="fa-solid fa-check"></i> Bengali</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 90%;"></div></div>
                         </div>
                     </div>
 
-                    <!-- Skill 3 -->
-                    <div class="skill__card glass-card reveal">
-                        <div class="skill__header">
-                            <div class="skill__icon-box"><i class="fa-solid fa-language"></i></div>
-                            <div>
-                                <h3 class="skill__category">Multilingual (5 Languages)</h3>
-                                <p class="skill__sub">International customer communication</p>
+                    <!-- TAB 5: DIGITAL KIOSK & APP -->
+                    <div class="menu-page" id="tab-app">
+                        <div class="menu-page-header">
+                            <span class="dish-badge">Course 05</span>
+                            <h3 class="dish-title">Digital Kitchen Kiosk &amp; Warehouse App</h3>
+                            <p class="dish-subtitle">Custom web solution built and deployed to optimize restaurant operations.</p>
+                        </div>
+                        <div class="dish-content app-kiosk-box">
+                            <div class="kiosk-badge">Live On Vercel</div>
+                            <h4 class="kiosk-title">Khamer Warehouse Management Application</h4>
+                            <p class="kiosk-desc">
+                                A dedicated inventory and stock management tool designed specifically to prevent stockouts, speed up kitchen prep cycles, and track real-time food supply logistics.
+                            </p>
+                            <div class="kiosk-tags">
+                                <span>Warehouse Automation</span>
+                                <span>Real-Time Tracking</span>
+                                <span>Web App</span>
+                                <span>Vercel Edge</span>
                             </div>
-                        </div>
-                        <div class="languages__list">
-                            <span class="lang-tag"><i class="fa-solid fa-check"></i> Arabic</span>
-                            <span class="lang-tag"><i class="fa-solid fa-check"></i> English</span>
-                            <span class="lang-tag"><i class="fa-solid fa-check"></i> Hindi</span>
-                            <span class="lang-tag"><i class="fa-solid fa-check"></i> Urdu</span>
-                            <span class="lang-tag"><i class="fa-solid fa-check"></i> Bengali</span>
-                        </div>
-                    </div>
-
-                    <!-- Skill 4 -->
-                    <div class="skill__card glass-card reveal">
-                        <div class="skill__header">
-                            <div class="skill__icon-box"><i class="fa-solid fa-laptop-code"></i></div>
-                            <div>
-                                <h3 class="skill__category">Web App Development</h3>
-                                <p class="skill__sub">Custom solutions (khamer.vercel.app)</p>
-                            </div>
-                        </div>
-                        <div class="skill__bar-group">
-                            <div class="skill__bar-info">
-                                <span>Web Applications &amp; Digital Menus</span>
-                                <span>88%</span>
-                            </div>
-                            <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 88%;"></div></div>
-                        </div>
-                    </div>
-
-                    <!-- Skill 5 -->
-                    <div class="skill__card glass-card reveal">
-                        <div class="skill__header">
-                            <div class="skill__icon-box"><i class="fa-solid fa-robot"></i></div>
-                            <div>
-                                <h3 class="skill__category">AI Tool Specialist</h3>
-                                <p class="skill__sub">Workflow automation &amp; social management</p>
-                            </div>
-                        </div>
-                        <div class="skill__bar-group">
-                            <div class="skill__bar-info">
-                                <span>AI Workflows &amp; Kitchen Stock Tools</span>
-                                <span>92%</span>
-                            </div>
-                            <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 92%;"></div></div>
-                        </div>
-                    </div>
-
-                    <!-- Skill 6 -->
-                    <div class="skill__card glass-card reveal">
-                        <div class="skill__header">
-                            <div class="skill__icon-box"><i class="fa-solid fa-bolt"></i></div>
-                            <div>
-                                <h3 class="skill__category">Electrical Troubleshooting</h3>
-                                <p class="skill__sub">On-site technical &amp; electrical maintenance</p>
-                            </div>
-                        </div>
-                        <div class="skill__bar-group">
-                            <div class="skill__bar-info">
-                                <span>Maintenance &amp; Problem Solving</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 85%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Featured App / Project Highlight -->
-        <section class="projects section" id="projects">
-            <div class="container">
-                <div class="section__header reveal">
-                    <span class="section__subtitle">Custom Solutions</span>
-                    <h2 class="section__title">Featured <span class="gradient-text">App</span></h2>
-                    <div class="section__line"></div>
-                </div>
-
-                <div class="project-highlight glass-card reveal">
-                    <div class="project-highlight__content">
-                        <span class="project__badge">Live Deployment</span>
-                        <h3 class="project-highlight__title">Khamer Warehouse Management Application</h3>
-                        <p class="project-highlight__desc">
-                            Specialized custom web application developed and deployed for Khamer Restaurant to manage warehouse inventory, kitchen stock tracking, and workflow efficiency.
-                        </p>
-                        <div class="project__tech">
-                            <span>Warehouse Control</span>
-                            <span>Stock Tracking</span>
-                            <span>Web App</span>
-                            <span>Vercel</span>
-                        </div>
-                        <div class="project__links">
-                            <a href="https://khamer.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
-                                <i class="fa-solid fa-globe"></i> Visit khamer.vercel.app
+                            <a href="https://khamer.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary-gold">
+                                <i class="fa-solid fa-globe"></i> Launch khamer.vercel.app
                             </a>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section class="contact section" id="contact">
+        <!-- Detailed Individual Sections for direct smooth-scroll & deep linking -->
+        <section class="section" id="about">
             <div class="container">
                 <div class="section__header reveal">
-                    <span class="section__subtitle">Get in Touch</span>
-                    <h2 class="section__title">Contact <span class="gradient-text">Me</span></h2>
+                    <span class="section__subtitle">The Supervisor</span>
+                    <h2 class="section__title">About <span class="gold-gradient-text">Amdadul Hoque</span></h2>
+                    <div class="section__line"></div>
+                </div>
+                <div class="about-bistro-card glass-card reveal">
+                    <p class="bistro-quote">
+                        "Delivering culinary excellence requires precision behind the scenes — from organized warehouse stocks to an inspired, well-coordinated service team."
+                    </p>
+                    <p class="bistro-lead">
+                        Experienced Restaurant Supervisor with a background in Warehouse Management. Expert in inventory control, team leadership, and social media management using AI tools. Fluent in 5 languages (Arabic, English, Hindi, Urdu, Bengali), allowing for seamless communication with international customers and diverse teams.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="experience">
+            <div class="container">
+                <div class="section__header reveal">
+                    <span class="section__subtitle">Operational Record</span>
+                    <h2 class="section__title">Work <span class="gold-gradient-text">Experience</span></h2>
+                    <div class="section__line"></div>
+                </div>
+                <div class="timeline-bistro">
+                    <div class="timeline-card glass-card reveal">
+                        <div class="tc-header">
+                            <div>
+                                <h3 class="tc-role">Restaurant Supervisor &amp; Automation Specialist</h3>
+                                <h4 class="tc-company"><i class="fa-solid fa-utensils"></i> Khamer Restaurant, Saudi Arabia</h4>
+                            </div>
+                            <span class="tc-date"><i class="fa-regular fa-calendar"></i> Dec 2023 - Present</span>
+                        </div>
+                        <ul class="tc-bullets">
+                            <li><strong>Versatile Leadership:</strong> Manage daily operations and lead the service team, stepping in as Cashier, Warehouse Manager, or Server during staff shortages.</li>
+                            <li><strong>Custom Warehouse Solution:</strong> Developed and deployed a specialized warehouse management application: <a href="https://khamer.vercel.app" target="_blank" rel="noopener noreferrer" class="gold-link">khamer.vercel.app</a></li>
+                            <li><strong>Operational Automation:</strong> Designed AI assisted tools for kitchen stock tracking and modern digital menus to streamline restaurant workflows.</li>
+                            <li><strong>Multilingual Expertise:</strong> Utilize fluency in 5 languages (Arabic, English, Hindi, Urdu, Bengali) to serve a diverse international clientele.</li>
+                            <li><strong>Technical Troubleshooting:</strong> Handle on-site electrical maintenance and basic technical problem-solving.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="education">
+            <div class="container">
+                <div class="section__header reveal">
+                    <span class="section__subtitle">Academic Qualifications</span>
+                    <h2 class="section__title">Education &amp; <span class="gold-gradient-text">Certificates</span></h2>
+                    <div class="section__line"></div>
+                </div>
+                <div class="edu-grid-two container">
+                    <div class="glass-card edu-box reveal">
+                        <i class="fa-solid fa-graduation-cap gold-icon"></i>
+                        <h4>Higher Secondary Certificate (HSC) in Accounting</h4>
+                        <p class="edu-inst">Fazlur Rahman Memorial College of Technology</p>
+                    </div>
+                    <div class="glass-card edu-box reveal">
+                        <i class="fa-solid fa-award gold-icon"></i>
+                        <h4>Secondary School Certificate (SSC)</h4>
+                        <p class="edu-inst">Bharasar High School</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="skills">
+            <div class="container">
+                <div class="section__header reveal">
+                    <span class="section__subtitle">Proven Competencies</span>
+                    <h2 class="section__title">Skills &amp; <span class="gold-gradient-text">Specializations</span></h2>
+                    <div class="section__line"></div>
+                </div>
+                <div class="skills-showcase-grid container">
+                    <div class="skill-badge-card glass-card reveal">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                        <h4>Inventory Management</h4>
+                        <p>Stock control, warehouse auditing, and kitchen supply stability.</p>
+                    </div>
+                    <div class="skill-badge-card glass-card reveal">
+                        <i class="fa-solid fa-users-gear"></i>
+                        <h4>Team Leadership</h4>
+                        <p>Supervising waitstaff, cashiers, and kitchen team collaboration.</p>
+                    </div>
+                    <div class="skill-badge-card glass-card reveal">
+                        <i class="fa-solid fa-language"></i>
+                        <h4>Multilingual (5 Languages)</h4>
+                        <p>Arabic, English, Hindi, Urdu, Bengali for seamless guest relations.</p>
+                    </div>
+                    <div class="skill-badge-card glass-card reveal">
+                        <i class="fa-solid fa-laptop-code"></i>
+                        <h4>Web App Development</h4>
+                        <p>Custom tools like khamer.vercel.app &amp; digital ordering menus.</p>
+                    </div>
+                    <div class="skill-badge-card glass-card reveal">
+                        <i class="fa-solid fa-robot"></i>
+                        <h4>AI Tool Specialist</h4>
+                        <p>Kitchen stock automation, social media pipelines, smart prompts.</p>
+                    </div>
+                    <div class="skill-badge-card glass-card reveal">
+                        <i class="fa-solid fa-bolt"></i>
+                        <h4>Electrical Troubleshooting</h4>
+                        <p>On-site appliance maintenance and technical problem solving.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Table Reservation / Contact Section -->
+        <section class="reservation section" id="reservation">
+            <div class="container">
+                <div class="section__header reveal">
+                    <span class="section__subtitle">Chef's Table Booking</span>
+                    <h2 class="section__title">Reserve a Meeting &amp; <span class="gold-gradient-text">Connect</span></h2>
                     <div class="section__line"></div>
                 </div>
 
-                <div class="contact__container">
-                    <div class="contact__info glass-card reveal">
-                        <h3 class="contact__heading">Let's Connect!</h3>
-                        <p class="contact__text">
-                            Available for restaurant supervisory roles, warehouse management, and operational automation projects. Feel free to contact me directly via phone, WhatsApp, or email.
+                <div class="reservation-grid">
+                    <div class="res-info glass-card reveal">
+                        <h3 class="res-heading">Ready to discuss restaurant supervisory or automation roles?</h3>
+                        <p class="res-sub">
+                            I am open to new career opportunities, restaurant leadership positions, warehouse management, and workflow automation consulting.
                         </p>
 
-                        <div class="contact__list">
-                            <div class="contact__card">
-                                <div class="contact__icon"><i class="fa-solid fa-phone"></i></div>
+                        <div class="res-contacts">
+                            <div class="res-item">
+                                <div class="res-icon"><i class="fa-solid fa-phone"></i></div>
                                 <div>
-                                    <span class="contact__label">Phone / WhatsApp</span>
-                                    <a href="tel:+966544575530" class="contact__value">+966 54 457 5530</a>
+                                    <span class="res-lbl">Hotline / WhatsApp</span>
+                                    <a href="tel:+966544575530" class="res-val">+966 54 457 5530</a>
                                 </div>
                             </div>
-                            <div class="contact__card">
-                                <div class="contact__icon"><i class="fa-regular fa-envelope"></i></div>
+                            <div class="res-item">
+                                <div class="res-icon"><i class="fa-regular fa-envelope"></i></div>
                                 <div>
-                                    <span class="contact__label">Email</span>
-                                    <a href="mailto:ahameddruboo@gmail.com" class="contact__value">ahameddruboo@gmail.com</a>
+                                    <span class="res-lbl">Email Address</span>
+                                    <a href="mailto:ahameddruboo@gmail.com" class="res-val">ahameddruboo@gmail.com</a>
                                 </div>
                             </div>
-                            <div class="contact__card">
-                                <div class="contact__icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div class="res-item">
+                                <div class="res-icon"><i class="fa-solid fa-location-dot"></i></div>
                                 <div>
-                                    <span class="contact__label">Location</span>
-                                    <span class="contact__value">Jizan, Saudi Arabia</span>
+                                    <span class="res-lbl">Location</span>
+                                    <span class="res-val">Jizan, Saudi Arabia</span>
                                 </div>
                             </div>
-                            <div class="contact__card">
-                                <div class="contact__icon"><i class="fa-brands fa-whatsapp"></i></div>
+                            <div class="res-item">
+                                <div class="res-icon"><i class="fa-brands fa-whatsapp"></i></div>
                                 <div>
-                                    <span class="contact__label">Direct WhatsApp</span>
-                                    <a href="https://wa.me/966544575530" target="_blank" rel="noopener noreferrer" class="contact__value">Chat on WhatsApp</a>
+                                    <span class="res-lbl">WhatsApp Concierge</span>
+                                    <a href="https://wa.me/966544575530" target="_blank" rel="noopener noreferrer" class="res-val gold-link">Chat on WhatsApp</a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="contact__form-card glass-card reveal">
-                        <form id="contact-form" class="contact__form" onsubmit="event.preventDefault(); handleFormSubmit();">
-                            <div class="form__group">
-                                <label for="name" class="form__label">Your Name</label>
-                                <input type="text" id="name" class="form__input" placeholder="Enter your full name" required>
+                    <div class="res-form-card glass-card reveal">
+                        <form id="reservation-form" class="bistro-form" onsubmit="event.preventDefault(); handleReservationSubmit();">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Your Name</label>
+                                    <input type="text" id="res-name" class="form-control" placeholder="Guest / Recruiter Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" id="res-email" class="form-control" placeholder="name@company.com" required>
+                                </div>
                             </div>
-                            <div class="form__group">
-                                <label for="email" class="form__label">Your Email</label>
-                                <input type="email" id="email" class="form__input" placeholder="name@example.com" required>
+                            <div class="form-group">
+                                <label class="form-label">Topic / Purpose</label>
+                                <input type="text" id="res-subject" class="form-control" placeholder="Job Opportunity / Restaurant Automation" required>
                             </div>
-                            <div class="form__group">
-                                <label for="subject" class="form__label">Subject</label>
-                                <input type="text" id="subject" class="form__input" placeholder="Job Opportunity / Inquiry" required>
+                            <div class="form-group">
+                                <label class="form-label">Message / Details</label>
+                                <textarea id="res-message" rows="4" class="form-control" placeholder="Tell me about the position or project..." required></textarea>
                             </div>
-                            <div class="form__group">
-                                <label for="message" class="form__label">Message</label>
-                                <textarea id="message" rows="4" class="form__input" placeholder="Write your message here..." required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
-                                <span>Send Message</span>
-                                <i class="fa-regular fa-paper-plane"></i>
+                            <button type="submit" class="btn btn-primary-gold btn-block" id="res-submit-btn">
+                                <i class="fa-solid fa-utensils"></i>
+                                <span>Send Reservation Message</span>
                             </button>
-                            <div id="form-feedback" class="form-feedback"></div>
+                            <div id="res-feedback" class="res-feedback"></div>
                         </form>
                     </div>
                 </div>
@@ -538,13 +597,13 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer__container">
-            <p class="footer__copy">
-                &copy; 2026 <strong>Amdadul Hoque</strong>. All rights reserved. Hosted on GitHub Pages.
+    <!-- Restaurant Footer -->
+    <footer class="restaurant-footer">
+        <div class="container footer-content">
+            <p class="footer-copy">
+                &copy; 2026 <strong>Amdadul Hoque</strong> • Khamer Virtual Lounge &amp; Interactive Resume. Hosted on GitHub Pages.
             </p>
-            <a href="#hero" class="footer__back-to-top" title="Back to Top">
+            <a href="#entrance" class="back-to-entrance" title="Back to Entrance">
                 <i class="fa-solid fa-arrow-up"></i>
             </a>
         </div>

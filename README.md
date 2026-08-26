@@ -1,29 +1,28 @@
-# 💼 Amdadul Hoque — Interactive & Animated Resume
+# 🍽️ Khamer Virtual Restaurant & Interactive Resume Lounge
+### Supervisor: **Amdadul Hoque** (Restaurant Supervisor & Automation Specialist)
 
-Interactive, modern, and responsive online resume and portfolio website for **Amdadul Hoque** (Restaurant Supervisor & Automation Specialist). Designed for high visual impact and hosted directly on **GitHub Pages**.
-
----
-
-## 📋 Resume Summary
-
-- **Name:** Amdadul Hoque
-- **Role:** Restaurant Supervisor & Automation Specialist
-- **Contact:** +966 54 457 5530 | ahameddruboo@gmail.com | Jizan, Saudi Arabia
-- **Languages (5):** Arabic, English, Hindi, Urdu, Bengali
-- **Experience:** Khamer Restaurant, Saudi Arabia (Dec 2023 - Present)
-- **Custom Application:** [khamer.vercel.app](https://khamer.vercel.app)
-- **Education:**
-  - HSC in Accounting — Fazlur Rahman Memorial College of Technology
-  - SSC — Bharasar High School
+An interactive, immersive **Virtual Restaurant & Dining Lounge** theme showcasing the professional credentials, warehouse automation achievements, skills, and multilingual capabilities of **Amdadul Hoque**.
 
 ---
 
-## 🌐 How to Host on GitHub Pages
+## ✨ Highlights of the Virtual Restaurant Experience
 
-1. Open the repository: [ggptamdas-commits/animated-resume](https://github.com/ggptamdas-commits/animated-resume)
-2. Go to **Settings** > **Pages**.
-3. Under **Branch**, select `main` and root `/`, then click **Save**.
-4. Access your live website at:
-   ```
-   https://ggptamdas-commits.github.io/animated-resume/
-   ```
+- **🛎️ Interactive Reception Bell**: Visitors can ring the front-desk bell with real-time audio synthesis and animated welcome greeting.
+- **📜 Chef's Specialty Resume Menu**: Interactive tabbed menu that guides recruiters and guests through:
+  1. *Appetizers (About Me)*
+  2. *Entrées (Experience at Khamer Restaurant)*
+  3. *Academy (HSC & SSC Education)*
+  4. *Ingredients (Core Skills & 5 Languages)*
+  5. *Digital Kiosk (Live App: khamer.vercel.app)*
+- **🕯️ Ambient Candlelight & Embers**: Subtle canvas particle system creating a warm, luxurious dining ambiance.
+- **📱 Table Reservation / Direct Contact**: Dedicated direct hotline, WhatsApp concierge, and inquiry form.
+- **📋 Takeaway Bill / Print Mode**: High-contrast, clean printable resume layout for PDF downloads.
+
+---
+
+## 🌐 Live Website
+
+- Hosted directly on **GitHub Pages**:
+  ```
+  https://ggptamdas-commits.github.io/animated-resume/
+  ```
