@@ -1,34 +1,60 @@
-# 🍽️ Amdadul Hoque | 2D Virtual Restaurant RPG Game Resume
+# 🍽️ RestoTrack - Real-Time Restaurant Order Tracking & Kitchen Display System (KDS)
 
-An interactive, playable 2D HTML5 Canvas Top-Down Restaurant RPG Game that turns the executive resume of **Amdadul Hoque (মোঃ এমদাদুল হক)** into an engaging gourmet exploration experience.
-
----
-
-## 🎮 Game Features & Mechanics
-
-1. **Walkable 2D Canvas Restaurant World**:
-   - Playable Chef/Manager character (Amdadul) controllable via **WASD**, **Arrow Keys**, **Click/Tap-to-Walk**, or on-screen **Mobile D-Pad**.
-   - Distinct interactive zones: Reception Host Stand, VIP Dining Tables, Executive Kitchen, Supply Warehouse, AI Smart Ops Lab, Mixology Bar, and POS Checkout Desk.
-   - Dynamic steam particles, collision handling, and ambient audio synthesizer.
-
-2. **Retro RPG Dialogue Engine**:
-   - Proximity prompt bubble (`[E]` / `[TAP]`).
-   - Speaker portrait, typewriter sound chirps, and interactive choice branches revealing verified career KPIs, supervision records (15+ staff), and batch prep standards.
-
-3. **Shift Commander Mini-Game**:
-   - 30-second time-attack challenge to handle rush-hour kitchen orders and operational dilemmas.
-
-4. **Skill Mixology Shaker**:
-   - Interactive cocktail shaker combining core competencies into high-yield restaurant synergies.
-
-5. **Recruiter Takeaway Mode (1-Click Print CV)**:
-   - Dedicated Thermal Receipt layout with `@media print` optimization for instant physical printing, PDF export, or direct WhatsApp hire dispatch.
+রেস্তোরাঁর গ্রাহকদের জন্য লাইভ অর্ডার ট্র্যাকিং এবং কিচেন/স্টাফদের জন্য কিচেন ডিসপ্লে সিস্টেম (KDS) ম্যানেজমেন্ট ড্যাশবোর্ড।
 
 ---
 
-## 🚀 Technologies Used
-- HTML5 Canvas & 2D Context API
-- Web Audio API (Synthesized SFX)
-- Modern Vanilla JavaScript (No heavy frameworks, fast load)
-- Responsive CSS & Accessible UI Overlays
-- Font Awesome & Google Fonts (Cinzel, Outfit, Press Start 2P, VT323)
+## 🌟 Key Features / মূল বৈশিষ্ট্যসমূহ
+
+### 1. 📱 Customer Live Order Tracker (গ্রাহক লাইভ ট্র্যাকিং)
+- **4-Stage Visual Progress Stepper:**
+  1. 📝 Order Placed & Confirmed (অর্ডার গৃহীত ও নিশ্চিত)
+  2. 🍳 In Kitchen / Chef Preparing (রান্না চলছে)
+  3. 📦 Ready for Service / Pickup (খাবার প্রস্তুত)
+  4. ✅ Served / Delivered (পরিবেশিত / সম্পন্ন)
+- **Live Countdown & ETA:** রিয়েল-টাইম কাউন্টডাউন এবং আনুমানিক অপেক্ষার সময় প্রদর্শন।
+- **Instant Search & Track:** Order ID দিয়ে তাৎক্ষণিক ট্র্যাকিং এবং সক্রিয় অর্ডারগুলোর কুইক চিপস।
+- **Detailed Invoice & Receipt:** আইটেমাইজড ব্রেকডাউন, ১৫% ভ্যাট ট্যাক্স হিসাব এবং প্রিন্টেবল রসিদ জেনারেটর।
+
+### 2. 👨‍🍳 Kitchen Display System & Staff Kanban (কিচেন ড্যাশবোর্ড)
+- **Live Kanban Board:** ৪টি আলাদা কলামে (Pending, Kitchen, Ready, Completed) অর্ডার সরানো ও স্ট্যাটাস আপডেট করার সুবিধা।
+- **Real-Time Kitchen Metrics:**
+  - মোট সক্রিয় অর্ডার (Active Orders)
+  - রান্নাধীন অর্ডার (In Kitchen)
+  - ডেলিভারির জন্য প্রস্তুত (Ready for Pickup)
+  - আজকের মোট আয় (Today's Revenue)
+- **Filter & Search:** ডাইন-ইন (Dine-in), টেকঅ্যাওয়ে (Pickup), এবং হোম ডেলিভারি (Delivery) অনুযায়ী ফিল্টারিং।
+- **Auto-Simulator Engine:** ডেমো ও টেস্টিংয়ের জন্য লাইভ অর্ডার অটোমেশন সিমুলেটর।
+
+### 3. 🛍️ Interactive Order Placement & Cart (নতুন অর্ডার তৈরি)
+- মেন্যু ক্যাটাগরি ব্রাউজার (Main Dishes, Grills, Breads & Sides, Drinks & Sweets)।
+- কার্টে আইটেম যুক্ত ও পরিমাণ নিয়ন্ত্রণের সুবিধা।
+- কাস্টমার নাম, ফোন নম্বর, টেবিল নাম্বার এবং বিশেষ রান্নার নির্দেশনা (Chef Notes) ইনপুট।
+
+### 4. 🔊 Audio Chimes & LocalStorage Persistence
+- Web Audio API সিন্থেসাইজারের মাধ্যমে অর্ডার তৈরি ও স্ট্যাটাস পরিবর্তনের লাইভ সাউন্ড নোটিফিকেশন।
+- সম্পূর্ণ ডাটা ব্রাউজারের `localStorage`-এ সংরক্ষিত থাকে।
+
+---
+
+## 🚀 Live Demo & Deployment (GitHub Pages)
+
+এই প্রজেক্টটি সরাসরি **GitHub Pages**-এ হোস্ট করা যায়:
+1. GitHub রিপোজিটরির **Settings**-এ যান।
+2. বাম পাশের মেন্যু থেকে **Pages** নির্বাচন করুন।
+3. Branch হিসেবে `main` এবং ফোল্ডার হিসেবে `/ (root)` সিলেক্ট করে **Save** দিন।
+4. কয়েক সেকেন্ডের মধ্যে আপনার লাইভ লিংক প্রস্তুত হয়ে যাবে:
+   `https://<username>.github.io/<repository-name>/`
+
+---
+
+## 🛠️ Tech Stack
+
+- **HTML5 & CSS3:** Modern Responsive UI/UX Design System (slate/emerald/amber theme, glassmorphism, responsive grid).
+- **Vanilla JavaScript (ES6+):** Clean state management, dynamic DOM rendering, Web Audio chime synthesizer.
+- **LocalStorage:** Instant offline & persistent data syncing.
+
+---
+
+## 📝 License
+MIT License

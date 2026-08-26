@@ -1,1182 +1,804 @@
-/* ==========================================================================
-   THE VIRTUAL RESTAURANT 2D RPG GAME ENGINE & RESUME CONTROLLER
-   Candidate: Amdadul Hoque (মোঃ এমদাদুল হক)
-   ========================================================================== */
+/**
+ * RestoTrack - Restaurant Order Tracking & Kitchen Management System
+ * Interactive Single Page Application Logic
+ */
 
-/* 1. SYNTHESIZED WEB AUDIO ENGINE */
-class GameAudioEngine {
-    constructor() {
-        this.ctx = null;
-        this.isMuted = false;
-    }
+// =============================================================================
+// 1. DATA MODELS & INITIAL STATE
+// =============================================================================
 
-    init() {
-        if (!this.ctx) {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (AudioContext) this.ctx = new AudioContext();
-        }
-        if (this.ctx && this.ctx.state === 'suspended') {
-            this.ctx.resume();
-        }
-    }
+const MENU_ITEMS = [
+  { id: 'm1', name: 'Special Chicken Mandi', category: 'mains', price: 12.50, desc: 'Smoked fragrant basmati rice with tender roasted half chicken', badge: 'Popular' },
+  { id: 'm2', name: 'Royal Mutton Kabsa', category: 'mains', price: 16.00, desc: 'Slow-cooked spiced lamb shank served with spiced rice', badge: 'Chef Special' },
+  { id: 'm3', name: 'Fresh Wood-Fired Khamir', category: 'breads', price: 3.50, desc: 'Traditional stone-baked warm puffy bread with black seeds' },
+  { id: 'm4', name: 'Charcoal Mixed Grill', category: 'grills', price: 18.50, desc: 'Shish Tawook, Lamb Kofta, and Kebab skewers with garlic dip', badge: 'Best Seller' },
+  { id: 'm5', name: 'Garlic Yogurt Dip & Salata', category: 'breads', price: 2.50, desc: 'Creamy garlic sauce and fresh chopped Arabian salad' },
+  { id: 'm6', name: 'Authentic Cheese Kunafa', category: 'drinks', price: 6.00, desc: 'Crispy warm shredded pastry layered with sweet melted cheese' },
+  { id: 'm7', name: 'Fresh Mint Lemonade', category: 'drinks', price: 3.00, desc: 'Cold pressed lemon juice with fresh garden crushed mint' },
+  { id: 'm8', name: 'Arabic Spiced Tea / Qahwa', category: 'drinks', price: 2.00, desc: 'Cardamom infused traditional warm black tea' }
+];
 
-    playTone(freq, type = 'sine', duration = 0.08, gainVal = 0.08) {
-        if (this.isMuted) return;
-        this.init();
-        if (!this.ctx) return;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-        gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + duration);
-    }
-
-    playStep() {
-        this.playTone(180 + Math.random() * 30, 'triangle', 0.04, 0.03);
-    }
-
-    playBleep() {
-        this.playTone(520 + Math.random() * 80, 'sine', 0.03, 0.04);
-    }
-
-    playInteract() {
-        this.playTone(659.25, 'triangle', 0.08, 0.1);
-        setTimeout(() => this.playTone(880, 'triangle', 0.1, 0.1), 60);
-    }
-
-    playBell() {
-        if (this.isMuted) return;
-        this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        [1760, 3520, 5280].forEach((freq, idx) => {
-            const osc = this.ctx.createOscillator();
-            const gain = this.ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(freq, now);
-            gain.gain.setValueAtTime(0.12 / (idx + 1), now);
-            gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
-            osc.connect(gain);
-            gain.connect(this.ctx.destination);
-            osc.start(now);
-            osc.stop(now + 1.2);
-        });
-    }
-
-    playUnlock() {
-        if (this.isMuted) return;
-        this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const notes = [523.25, 659.25, 783.99, 1046.50]; // C, E, G, High C
-        notes.forEach((freq, idx) => {
-            const osc = this.ctx.createOscillator();
-            const gain = this.ctx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(freq, now + idx * 0.07);
-            gain.gain.setValueAtTime(0.1, now + idx * 0.07);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.25);
-            osc.connect(gain);
-            gain.connect(this.ctx.destination);
-            osc.start(now + idx * 0.07);
-            osc.stop(now + idx * 0.07 + 0.25);
-        });
-    }
-
-    playShaker() {
-        if (this.isMuted) return;
-        this.init();
-        if (!this.ctx) return;
-        const bufferSize = this.ctx.sampleRate * 0.08;
-        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
-        const noise = this.ctx.createBufferSource();
-        noise.buffer = buffer;
-        const filter = this.ctx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.value = 2400;
-        const gain = this.ctx.createGain();
-        gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
-        noise.connect(filter);
-        filter.connect(gain);
-        gain.connect(this.ctx.destination);
-        noise.start();
-    }
-
-    toggleMute() {
-        this.isMuted = !this.isMuted;
-        const label = document.getElementById('sound-label');
-        const icon = document.getElementById('sound-icon');
-        if (label) label.innerText = this.isMuted ? 'OFF' : 'ON';
-        if (icon) icon.className = this.isMuted ? 'fa-solid fa-volume-xmark text-muted' : 'fa-solid fa-volume-high text-gold';
-        if (!this.isMuted) this.playTone(440, 'sine', 0.06);
-    }
-}
-
-const gameAudio = new GameAudioEngine();
-
-/* 2. GAME STATE & QUEST TRACKER */
-const gameState = {
-    xp: 50,
-    level: 1,
-    visitedStations: new Set(['host']),
-    stations: [
-        { id: 'host', name: 'Reception & Host Stand', desc: 'Meet Amdadul Hoque and discover his career ethos & bilingual leadership.', icon: '🛎️' },
-        { id: 'dining', name: 'Khamer VIP Dining Floor', desc: 'Interact with guests to review 2024–Present supervisor KPIs (+25% turnaround, 15+ staff).', icon: '🍽️' },
-        { id: 'kitchen', name: 'Executive Kitchen & Prep', desc: 'Inspect batch gravy meal-prep standards, HACCP hygiene & -18% waste reduction.', icon: '🍳' },
-        { id: 'warehouse', name: 'Supply Dock & Warehouse', desc: 'Audit Miah Store experience (1,200+ SKUs, FIFO barcode control, -30% loss).', icon: '📦' },
-        { id: 'terminal', name: 'Smart Ops AI Terminal', desc: 'Inspect Falak Creation n8n webhook pipelines, WhatsApp bots & AWS EC2 cloud.', icon: '🤖' },
-        { id: 'cashier', name: 'Checkout POS & Takeaway', desc: 'Generate official Takeaway Resume statement & instant WhatsApp hire dispatch.', icon: '🧾' }
+const INITIAL_ORDERS = [
+  {
+    id: 'ORD-1081',
+    customerName: 'Ahmed Al-Harbi',
+    customerPhone: '+966 54 221 9988',
+    orderType: 'Pickup',
+    tableOrAddress: 'Counter Pickup',
+    placedTime: '12:20 PM',
+    placedTimestamp: Date.now() - 25 * 60 * 1000,
+    status: 'ready', // 'placed', 'kitchen', 'ready', 'completed'
+    items: [
+      { id: 'm1', name: 'Special Chicken Mandi', qty: 2, price: 12.50 },
+      { id: 'm7', name: 'Fresh Mint Lemonade', qty: 2, price: 3.00 }
     ],
-    selectedMixSkills: []
+    notes: 'Extra hot sauce and napkins please',
+    estMinutes: 0
+  },
+  {
+    id: 'ORD-1082',
+    customerName: 'Md. Emdadul',
+    customerPhone: '+966 50 123 4567',
+    orderType: 'Dine-in',
+    tableOrAddress: 'Table #4 (Main Hall)',
+    placedTime: '12:35 PM',
+    placedTimestamp: Date.now() - 10 * 60 * 1000,
+    status: 'kitchen',
+    items: [
+      { id: 'm2', name: 'Royal Mutton Kabsa', qty: 1, price: 16.00 },
+      { id: 'm3', name: 'Fresh Wood-Fired Khamir', qty: 2, price: 3.50 },
+      { id: 'm5', name: 'Garlic Yogurt Dip & Salata', qty: 1, price: 2.50 }
+    ],
+    notes: 'Mild spicy, extra crispy Khamir bread',
+    estMinutes: 12
+  },
+  {
+    id: 'ORD-1083',
+    customerName: 'Fahad Al-Shehri',
+    customerPhone: '+966 56 778 3344',
+    orderType: 'Delivery',
+    tableOrAddress: 'Sabya North District, Villa 12',
+    placedTime: '12:42 PM',
+    placedTimestamp: Date.now() - 3 * 60 * 1000,
+    status: 'placed',
+    items: [
+      { id: 'm4', name: 'Charcoal Mixed Grill', qty: 1, price: 18.50 },
+      { id: 'm6', name: 'Authentic Cheese Kunafa', qty: 1, price: 6.00 }
+    ],
+    notes: 'Ring the door bell when arrived',
+    estMinutes: 25
+  },
+  {
+    id: 'ORD-1080',
+    customerName: 'Rashid Khan',
+    customerPhone: '+966 55 990 1122',
+    orderType: 'Dine-in',
+    tableOrAddress: 'Table #2',
+    placedTime: '11:55 AM',
+    placedTimestamp: Date.now() - 50 * 60 * 1000,
+    status: 'completed',
+    items: [
+      { id: 'm1', name: 'Special Chicken Mandi', qty: 1, price: 12.50 },
+      { id: 'm8', name: 'Arabic Spiced Tea / Qahwa', qty: 2, price: 2.00 }
+    ],
+    notes: 'Paid via Apple Pay',
+    estMinutes: 0
+  }
+];
+
+// Local Storage Key
+const STORAGE_KEY = 'restotrack_orders_v2';
+
+// Application State
+let appState = {
+  orders: [],
+  selectedOrderId: 'ORD-1082',
+  currentView: 'customer', // 'customer' | 'kitchen'
+  soundEnabled: true,
+  autoSimulating: false,
+  simIntervalId: null,
+  activeCart: {}, // itemId -> qty
+  kdsFilter: 'all',
+  kdsSearchQuery: ''
 };
 
-function addXP(amount, reason = '') {
-    gameState.xp = Math.min(gameState.xp + amount, 500);
-    updateHUD();
-    checkLevelProgression();
-    if (reason) showToast(`+${amount} XP: ${reason}`);
+// =============================================================================
+// 2. AUDIO CHIME ENGINE (Web Audio API Synthesizer)
+// =============================================================================
+
+function playNotificationSound(type = 'chime') {
+  if (!appState.soundEnabled) return;
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+
+    if (type === 'success' || type === 'chime') {
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc1.type = 'sine';
+      osc2.type = 'triangle';
+      osc1.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
+      osc1.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15); // A5
+
+      osc2.frequency.setValueAtTime(880, ctx.currentTime);
+      osc2.frequency.exponentialRampToValueAtTime(1174.66, ctx.currentTime + 0.2); // D6
+
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc1.start();
+      osc2.start();
+      osc1.stop(ctx.currentTime + 0.35);
+      osc2.stop(ctx.currentTime + 0.35);
+    } else if (type === 'advance') {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+      osc.frequency.exponentialRampToValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.25);
+    }
+  } catch (e) {
+    console.log('Audio playback context error:', e);
+  }
 }
 
-function updateHUD() {
-    const xpText = document.getElementById('hud-xp-text');
-    const xpFill = document.getElementById('hud-xp-fill');
-    const rankLabel = document.getElementById('hud-rank-label');
-    const levelPill = document.getElementById('hud-level-pill');
-    const questCount = document.getElementById('quest-progress-count');
+// =============================================================================
+// 3. STORAGE & STATE PERSISTENCE
+// =============================================================================
 
-    if (xpText) xpText.innerText = gameState.xp;
-    if (xpFill) xpFill.style.width = `${(gameState.xp / 500) * 100}%`;
-
-    const titles = ['Apprentice Lead', 'Floor Supervisor', 'Operations Manager', 'Executive Supervisor', 'Operations Maestro'];
-    const lvl = Math.min(Math.floor(gameState.xp / 100) + 1, 5);
-    gameState.level = lvl;
-
-    if (levelPill) levelPill.innerText = `LVL ${lvl}`;
-    if (rankLabel) rankLabel.innerText = `Rank: ${titles[lvl - 1]}`;
-    if (questCount) questCount.innerText = `${gameState.visitedStations.size}/${gameState.stations.length}`;
+function loadOrders() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    try {
+      appState.orders = JSON.parse(saved);
+    } catch (e) {
+      appState.orders = [...INITIAL_ORDERS];
+    }
+  } else {
+    appState.orders = [...INITIAL_ORDERS];
+    saveOrders();
+  }
 }
 
-function checkLevelProgression() {
-    if (gameState.xp >= 500 && !gameState.maxLevelTriggered) {
-        gameState.maxLevelTriggered = true;
-        gameAudio.playUnlock();
-        launchConfetti();
-        showToast('🌟 MAX LEVEL REACHED: Operations Maestro!');
-    }
+function saveOrders() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(appState.orders));
 }
 
-function showToast(msg) {
-    const container = document.getElementById('toast-container');
-    if (!container) return;
-    const toast = document.createElement('div');
-    toast.className = 'game-toast';
-    toast.innerHTML = `<i class="fa-solid fa-star text-gold"></i> <span>${msg}</span>`;
-    container.appendChild(toast);
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(-10px)';
-        toast.style.transition = 'all 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-    }, 2800);
+// =============================================================================
+// 4. UI INITIALIZATION & EVENT LISTENERS
+// =============================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadOrders();
+  setupLiveClock();
+  setupHeaderTabs();
+  setupCustomerTracker();
+  setupKdsView();
+  setupNewOrderModal();
+  setupReceiptModal();
+
+  // Initial render
+  renderCustomerTracker();
+  renderKdsBoard();
+  updateHeaderBadges();
+});
+
+function setupLiveClock() {
+  const clockEl = document.getElementById('liveClock');
+  function update() {
+    const now = new Date();
+    clockEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+  }
+  update();
+  setInterval(update, 1000);
 }
 
-/* 3. 2D CANVAS RESTAURANT RPG WORLD */
-class RestaurantWorld {
-    constructor() {
-        this.canvas = document.getElementById('restaurant-canvas');
-        this.ctx = this.canvas.getContext('2d');
-        this.width = 960;
-        this.height = 600;
+function setupHeaderTabs() {
+  const tabCustomer = document.getElementById('tabCustomerView');
+  const tabKitchen = document.getElementById('tabKitchenView');
+  const customerView = document.getElementById('customerView');
+  const kitchenView = document.getElementById('kitchenView');
 
-        // Player Avatar
-        this.player = {
-            x: 160,
-            y: 300,
-            targetX: 160,
-            targetY: 300,
-            speed: 3.5,
-            width: 28,
-            height: 36,
-            dir: 'down',
-            isMoving: false,
-            animFrame: 0,
-            animTimer: 0,
-            stepSoundTimer: 0
-        };
+  tabCustomer.addEventListener('click', () => {
+    tabCustomer.classList.add('active');
+    tabKitchen.classList.remove('active');
+    customerView.classList.add('active');
+    kitchenView.classList.remove('active');
+    appState.currentView = 'customer';
+    renderCustomerTracker();
+  });
 
-        // Interactive Stations
-        this.stations = [
-            {
-                id: 'host',
-                name: 'Reception Host Stand',
-                x: 150,
-                y: 200,
-                width: 60,
-                height: 50,
-                color: '#D97706',
-                icon: '🛎️',
-                prompt: 'Talk to Hostess Layla'
-            },
-            {
-                id: 'dining',
-                name: 'VIP Dining Table #1',
-                x: 420,
-                y: 190,
-                width: 90,
-                height: 70,
-                color: '#B45309',
-                icon: '🍽️',
-                prompt: 'Talk to VIP Guests (Khamer KPIs)'
-            },
-            {
-                id: 'kitchen',
-                name: 'Executive Kitchen & Stoves',
-                x: 750,
-                y: 160,
-                width: 130,
-                height: 70,
-                color: '#059669',
-                icon: '🍳',
-                prompt: 'Inspect Cooking & Meal-Prep'
-            },
-            {
-                id: 'warehouse',
-                name: 'Supply Warehouse & Dock',
-                x: 750,
-                y: 430,
-                width: 130,
-                height: 80,
-                color: '#0284C7',
-                icon: '📦',
-                prompt: 'Audit Inventory (Miah Store)'
-            },
-            {
-                id: 'terminal',
-                name: 'Smart Ops AI Terminal',
-                x: 420,
-                y: 440,
-                width: 90,
-                height: 60,
-                color: '#7C3AED',
-                icon: '🤖',
-                prompt: 'Access Falak n8n AI Workflows'
-            },
-            {
-                id: 'bar',
-                name: 'Skill Mixology Bar',
-                x: 150,
-                y: 440,
-                width: 70,
-                height: 60,
-                color: '#F59E0B',
-                icon: '🍸',
-                prompt: 'Open Skill Shaker Lounge'
-            },
-            {
-                id: 'cashier',
-                name: 'Checkout & Takeaway POS',
-                x: 150,
-                y: 330,
-                width: 50,
-                height: 40,
-                color: '#10B981',
-                icon: '🧾',
-                prompt: 'Print Official Resume Statement'
-            },
-            {
-                id: 'arcade_bell',
-                name: 'Rush Hour Service Bell',
-                x: 420,
-                y: 310,
-                width: 40,
-                height: 40,
-                color: '#EF4444',
-                icon: '⚡',
-                prompt: 'Ring Bell to Play Shift Rush Game!'
-            }
-        ];
+  tabKitchen.addEventListener('click', () => {
+    tabKitchen.classList.add('active');
+    tabCustomer.classList.remove('active');
+    kitchenView.classList.add('active');
+    customerView.classList.remove('active');
+    appState.currentView = 'kitchen';
+    renderKdsBoard();
+  });
 
-        // Animated particles (steam, sparks)
-        this.particles = [];
-        this.keys = {};
-        this.currentNearStation = null;
+  // Sound Toggle
+  const btnSound = document.getElementById('btnSoundToggle');
+  const soundOn = document.getElementById('soundIconOn');
+  const soundOff = document.getElementById('soundIconOff');
 
-        this.init();
-    }
-
-    init() {
-        this.resize();
-        window.addEventListener('resize', () => this.resize());
-        this.bindInput();
-        this.loop();
-    }
-
-    resize() {
-        const container = document.getElementById('game-viewport');
-        const aspect = this.width / this.height;
-        let w = container.clientWidth;
-        let h = container.clientHeight;
-
-        if (w / h > aspect) {
-            w = h * aspect;
-        } else {
-            h = w / aspect;
-        }
-
-        this.canvas.width = this.width;
-        this.canvas.height = this.height;
-        this.canvas.style.width = `${w}px`;
-        this.canvas.style.height = `${h}px`;
-    }
-
-    bindInput() {
-        window.addEventListener('keydown', (e) => {
-            this.keys[e.key.toLowerCase()] = true;
-            if (e.key === 'e' || e.key === 'E' || e.key === ' ') {
-                if (this.currentNearStation && !isDialogueOpen()) {
-                    triggerStationInteraction(this.currentNearStation.id);
-                }
-            }
-            if (e.key === 'Escape') {
-                closeDialogue();
-                closeRushGame();
-                closeMixologyModal();
-                closeQuestModal();
-                closeRecruiterModal();
-            }
-        });
-
-        window.addEventListener('keyup', (e) => {
-            this.keys[e.key.toLowerCase()] = false;
-        });
-
-        // Mouse click or touch to walk
-        this.canvas.addEventListener('pointerdown', (e) => {
-            const rect = this.canvas.getBoundingClientRect();
-            const scaleX = this.width / rect.width;
-            const scaleY = this.height / rect.height;
-            const clickX = (e.clientX - rect.left) * scaleX;
-            const clickY = (e.clientY - rect.top) * scaleY;
-
-            this.player.targetX = clickX;
-            this.player.targetY = clickY;
-
-            // Check if clicked directly on a station
-            this.stations.forEach(st => {
-                if (
-                    clickX >= st.x - 20 && clickX <= st.x + st.width + 20 &&
-                    clickY >= st.y - 20 && clickY <= st.y + st.height + 20
-                ) {
-                    if (this.getDist(this.player.x, this.player.y, st.x + st.width/2, st.y + st.height/2) < 90) {
-                        triggerStationInteraction(st.id);
-                    }
-                }
-            });
-        });
-
-        // Mobile D-Pad Handlers
-        ['up', 'down', 'left', 'right'].forEach(dir => {
-            const btn = document.getElementById(`btn-${dir}`);
-            if (btn) {
-                const setDir = (active) => {
-                    if (dir === 'up') this.keys['arrowup'] = active;
-                    if (dir === 'down') this.keys['arrowdown'] = active;
-                    if (dir === 'left') this.keys['arrowleft'] = active;
-                    if (dir === 'right') this.keys['arrowright'] = active;
-                };
-                btn.addEventListener('touchstart', (e) => { e.preventDefault(); setDir(true); });
-                btn.addEventListener('touchend', (e) => { e.preventDefault(); setDir(false); });
-                btn.addEventListener('mousedown', () => setDir(true));
-                btn.addEventListener('mouseup', () => setDir(false));
-                btn.addEventListener('mouseleave', () => setDir(false));
-            }
-        });
-    }
-
-    update() {
-        let dx = 0;
-        let dy = 0;
-
-        if (this.keys['w'] || this.keys['arrowup']) dy -= 1;
-        if (this.keys['s'] || this.keys['arrowdown']) dy += 1;
-        if (this.keys['a'] || this.keys['arrowleft']) dx -= 1;
-        if (this.keys['d'] || this.keys['arrowright']) dx += 1;
-
-        if (dx !== 0 || dy !== 0) {
-            // Keyboard movement takes precedence over tap target
-            this.player.targetX = this.player.x;
-            this.player.targetY = this.player.y;
-
-            const len = Math.hypot(dx, dy);
-            this.player.x += (dx / len) * this.player.speed;
-            this.player.y += (dy / len) * this.player.speed;
-            this.player.isMoving = true;
-
-            if (Math.abs(dx) > Math.abs(dy)) {
-                this.player.dir = dx > 0 ? 'right' : 'left';
-            } else {
-                this.player.dir = dy > 0 ? 'down' : 'up';
-            }
-        } else {
-            // Move toward tap target
-            const dist = Math.hypot(this.player.targetX - this.player.x, this.player.targetY - this.player.y);
-            if (dist > 5) {
-                const angle = Math.atan2(this.player.targetY - this.player.y, this.player.targetX - this.player.x);
-                this.player.x += Math.cos(angle) * this.player.speed;
-                this.player.y += Math.sin(angle) * this.player.speed;
-                this.player.isMoving = true;
-
-                if (Math.abs(Math.cos(angle)) > Math.abs(Math.sin(angle))) {
-                    this.player.dir = Math.cos(angle) > 0 ? 'right' : 'left';
-                } else {
-                    this.player.dir = Math.sin(angle) > 0 ? 'down' : 'up';
-                }
-            } else {
-                this.player.isMoving = false;
-            }
-        }
-
-        // Clamp boundaries
-        this.player.x = Math.max(60, Math.min(this.width - 60, this.player.x));
-        this.player.y = Math.max(90, Math.min(this.height - 70, this.player.y));
-
-        // Walking animation & footstep audio
-        if (this.player.isMoving) {
-            this.player.animTimer++;
-            if (this.player.animTimer > 8) {
-                this.player.animFrame = (this.player.animFrame + 1) % 4;
-                this.player.animTimer = 0;
-            }
-            this.player.stepSoundTimer++;
-            if (this.player.stepSoundTimer > 18) {
-                gameAudio.playStep();
-                this.player.stepSoundTimer = 0;
-            }
-        } else {
-            this.player.animFrame = 0;
-        }
-
-        // Proximity detection to stations
-        let nearest = null;
-        let minDist = 75;
-
-        this.stations.forEach(st => {
-            const centerX = st.x + st.width / 2;
-            const centerY = st.y + st.height / 2;
-            const d = this.getDist(this.player.x, this.player.y, centerX, centerY);
-            if (d < minDist) {
-                nearest = st;
-                minDist = d;
-            }
-        });
-
-        this.currentNearStation = nearest;
-        const promptEl = document.getElementById('proximity-indicator');
-        const promptText = document.getElementById('proximity-text');
-
-        if (nearest && !isDialogueOpen()) {
-            promptEl.classList.remove('hidden');
-            promptText.innerText = `${nearest.prompt}`;
-            
-            // Position prompt above station in canvas coords to CSS pixels
-            const rect = this.canvas.getBoundingClientRect();
-            const scaleX = rect.width / this.width;
-            const scaleY = rect.height / this.height;
-            promptEl.style.left = `${nearest.x * scaleX + (nearest.width * scaleX) / 2}px`;
-            promptEl.style.top = `${(nearest.y - 15) * scaleY}px`;
-        } else {
-            promptEl.classList.add('hidden');
-        }
-
-        // Emit Kitchen Steam Particles
-        if (Math.random() < 0.25) {
-            this.particles.push({
-                x: 770 + Math.random() * 80,
-                y: 160 + Math.random() * 20,
-                vx: (Math.random() - 0.5) * 0.4,
-                vy: -(Math.random() * 0.8 + 0.4),
-                radius: Math.random() * 4 + 2,
-                alpha: 0.6,
-                color: 'rgba(255, 255, 255,'
-            });
-        }
-
-        // Update particles
-        for (let i = this.particles.length - 1; i >= 0; i--) {
-            const p = this.particles[i];
-            p.x += p.vx;
-            p.y += p.vy;
-            p.alpha -= 0.015;
-            if (p.alpha <= 0) this.particles.splice(i, 1);
-        }
-    }
-
-    getDist(x1, y1, x2, y2) {
-        return Math.hypot(x2 - x1, y2 - y1);
-    }
-
-    draw() {
-        const ctx = this.ctx;
-        ctx.clearRect(0, 0, this.width, this.height);
-
-        // 1. Draw Floor Zones
-        // Main Parquet Dining Floor
-        ctx.fillStyle = '#1A130F';
-        ctx.fillRect(0, 0, this.width, this.height);
-
-        // Floor Grid Plank lines
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-        ctx.lineWidth = 1;
-        for (let x = 0; x < this.width; x += 40) {
-            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, this.height); ctx.stroke();
-        }
-        for (let y = 0; y < this.height; y += 40) {
-            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(this.width, y); ctx.stroke();
-        }
-
-        // Executive Kitchen Zone (Checkered Floor)
-        ctx.fillStyle = '#102018';
-        ctx.fillRect(660, 60, 260, 230);
-        ctx.strokeStyle = '#059669';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(660, 60, 260, 230);
-
-        // Supply Warehouse Zone (Industrial Metal Floor)
-        ctx.fillStyle = '#0F1A24';
-        ctx.fillRect(660, 330, 260, 220);
-        ctx.strokeStyle = '#0284C7';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(660, 330, 260, 220);
-
-        // VIP Carpet in Dining Area
-        ctx.fillStyle = '#3B1812';
-        ctx.fillRect(320, 130, 280, 180);
-        ctx.strokeStyle = '#F59E0B';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(320, 130, 280, 180);
-
-        // Smart Ops Lab Zone
-        ctx.fillStyle = '#181226';
-        ctx.fillRect(320, 370, 280, 180);
-        ctx.strokeStyle = '#7C3AED';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(320, 370, 280, 180);
-
-        // 2. Draw Station Entities
-        this.stations.forEach(st => {
-            // Shadow
-            ctx.fillStyle = 'rgba(0,0,0,0.5)';
-            ctx.beginPath();
-            ctx.ellipse(st.x + st.width / 2, st.y + st.height, st.width / 2 + 4, 8, 0, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Structure box
-            ctx.fillStyle = st.color;
-            ctx.fillRect(st.x, st.y, st.width, st.height);
-            ctx.strokeStyle = '#FBBF24';
-            ctx.lineWidth = 1.5;
-            ctx.strokeRect(st.x, st.y, st.width, st.height);
-
-            // Icon & Label
-            ctx.font = '22px sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText(st.icon, st.x + st.width / 2, st.y + st.height / 2 + 6);
-
-            ctx.font = 'bold 11px Outfit, sans-serif';
-            ctx.fillStyle = '#FFFDF7';
-            ctx.fillText(st.name, st.x + st.width / 2, st.y - 8);
-        });
-
-        // 3. Draw Steam Particles
-        this.particles.forEach(p => {
-            ctx.fillStyle = `${p.color} ${p.alpha})`;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fill();
-        });
-
-        // 4. Draw Player Character (Amdadul Hoque Avatar)
-        const p = this.player;
-
-        // Shadow under player
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
-        ctx.beginPath();
-        ctx.ellipse(p.x, p.y + 14, 14, 6, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Player Body (Chef Uniform with gold trim)
-        ctx.fillStyle = '#FFFDF7';
-        ctx.fillRect(p.x - 10, p.y - 12, 20, 20); // Apron
-        ctx.strokeStyle = '#D97706';
-        ctx.lineWidth = 1.5;
-        ctx.strokeRect(p.x - 10, p.y - 12, 20, 20);
-
-        // Legs / Walking Frame
-        ctx.fillStyle = '#1E293B';
-        const legOffset = p.isMoving ? Math.sin(p.animFrame * Math.PI / 2) * 4 : 0;
-        ctx.fillRect(p.x - 7, p.y + 8, 5, 8 + legOffset);
-        ctx.fillRect(p.x + 2, p.y + 8, 5, 8 - legOffset);
-
-        // Head
-        ctx.fillStyle = '#F5D0A9';
-        ctx.beginPath();
-        ctx.arc(p.x, p.y - 18, 9, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Chef Toque / Hat
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(p.x - 8, p.y - 32, 16, 9);
-        ctx.beginPath();
-        ctx.arc(p.x, p.y - 32, 8, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Direction Indicator Badge
-        ctx.fillStyle = '#F59E0B';
-        ctx.font = 'bold 9px Space Grotesk, monospace';
-        ctx.textAlign = 'center';
-        ctx.fillText('AMDAUL', p.x, p.y - 38);
-    }
-
-    loop() {
-        this.update();
-        this.draw();
-        requestAnimationFrame(() => this.loop());
-    }
+  btnSound.addEventListener('click', () => {
+    appState.soundEnabled = !appState.soundEnabled;
+    soundOn.classList.toggle('hidden', !appState.soundEnabled);
+    soundOff.classList.toggle('hidden', appState.soundEnabled);
+    showToast(appState.soundEnabled ? 'Sound alerts enabled' : 'Sound alerts muted', 'info');
+  });
 }
 
-/* 4. RPG DIALOGUE SYSTEM & RESUME KNOWLEDGE BASE */
-const dialogues = {
-    host: {
-        speaker: 'Hostess Layla',
-        badge: 'RECEPTION',
-        avatar: 'profile.jpg',
-        location: 'Host Stand • Khamer Lounge',
-        text: "Marhaban! Welcome to Khamer Lounge. I am Layla. You are exploring the interactive operations hub of Amdadul Hoque (মোঃ এমদাদুল হক) — our acclaimed Restaurant Operations Supervisor & Warehouse Specialist in Sabya, Saudi Arabia!",
-        options: [
-            { text: "What is Amdadul's background?", next: 'host_bio' },
-            { text: "What languages does he speak?", next: 'host_languages' },
-            { text: "How can I contact or hire him?", action: () => openRecruiterModal() }
-        ]
-    },
-    host_bio: {
-        speaker: 'Amdadul Hoque',
-        badge: 'SUPERVISOR',
-        avatar: 'profile.jpg',
-        location: 'Executive Overview',
-        text: "I combine 4+ years of cross-functional restaurant and warehouse supervision with modern AI automations. I ensure high-volume dining floors run smoothly, reduce food and inventory waste, and lead multinational teams with bilingual Arabic-English fluency.",
-        options: [
-            { text: "Tell me about your Saudi experience.", next: 'dining' },
-            { text: "Show me the Takeaway Resume Statement.", action: () => openRecruiterModal() }
-        ]
-    },
-    host_languages: {
-        speaker: 'Amdadul Hoque',
-        badge: 'SUPERVISOR',
-        avatar: 'profile.jpg',
-        location: 'Bilingual Mastery',
-        text: "I am fully fluent in spoken Arabic for Saudi guest concierge & local vendor negotiations, professional English for management reporting, and native Bengali.",
-        options: [
-            { text: "Take me to the Dining Floor.", action: () => visitStationCoordinates(420, 240) }
-        ]
-    },
-    dining: {
-        speaker: 'Sheikh Tariq (VIP Guest)',
-        badge: 'DINING GUEST',
-        avatar: 'profile.jpg',
-        location: 'VIP Table #1 • Khamer Restaurant',
-        text: "As-salamu alaykum! Amdadul transformed this restaurant since early 2024. He manages over 15+ waitstaff and kitchen workers, sped up our table turnaround by 25%, and maintains a 4.8-star rating!",
-        options: [
-            { text: "Ask about 25% speed increase", next: 'dining_speed' },
-            { text: "Ask about 15+ staff supervision", next: 'dining_staff' },
-            { text: "Inspect the Kitchen Prep next", action: () => visitStationCoordinates(750, 220) }
-        ]
-    },
-    dining_speed: {
-        speaker: 'Amdadul Hoque',
-        badge: 'SUPERVISOR',
-        avatar: 'profile.jpg',
-        location: 'Khamer Restaurant (2024–Present)',
-        text: "We achieved a 25% faster service turnaround by instituting standardized batch gravy preparation and synchronizing customer orders via automated WhatsApp bots directly to the kitchen display.",
-        options: [
-            { text: "Inspect the Kitchen Stoves", action: () => visitStationCoordinates(750, 220) }
-        ]
-    },
-    dining_staff: {
-        speaker: 'Amdadul Hoque',
-        badge: 'SUPERVISOR',
-        avatar: 'profile.jpg',
-        location: 'Floor Leadership',
-        text: "I roster, train, and oversee 15+ front-of-house waiters, baristas, and back-of-house cooks. Zero shift dropouts and strict HACCP compliance ensure flawless municipal inspection passes.",
-        options: [
-            { text: "Visit the Supply Warehouse Dock", action: () => visitStationCoordinates(750, 480) }
-        ]
-    },
-    kitchen: {
-        speaker: 'Chef Karim',
-        badge: 'HEAD CHEF',
-        avatar: 'profile.jpg',
-        location: 'Executive Kitchen Station',
-        text: "Chef Amdadul revolutionized our batch prep! He standardized all-purpose base gravies, introduced strict digital cold-chain temperature logs, and cut food waste by 18%.",
-        options: [
-            { text: "Review HACCP food safety standards", next: 'kitchen_haccp' },
-            { text: "Play the Rush Hour Cooking Game!", action: () => openRushHourGame() }
-        ]
-    },
-    kitchen_haccp: {
-        speaker: 'Amdadul Hoque',
-        badge: 'SUPERVISOR',
-        avatar: 'profile.jpg',
-        location: 'Food Safety Protocols',
-        text: "We adhere strictly to HACCP principles: daily temperature logging, sanitized work surfaces, FIFO ingredient rotations, and allergen separation across all prep lines.",
-        options: [
-            { text: "Go to Supply Warehouse", action: () => visitStationCoordinates(750, 480) }
-        ]
-    },
-    warehouse: {
-        speaker: 'Bashir (Inventory Lead)',
-        badge: 'WAREHOUSE LEAD',
-        avatar: 'profile.jpg',
-        location: 'Miah Store Supply Dock',
-        text: "During his tenure at Miah Store (2022–2024), Amdadul audited over 1,200+ active SKUs daily using barcode scanners. He reduced stock discrepancies by 30% through strict FIFO rotation!",
-        options: [
-            { text: "Ask about vendor price negotiations", next: 'warehouse_vendor' },
-            { text: "Visit the Smart Ops AI Terminal", action: () => visitStationCoordinates(420, 480) }
-        ]
-    },
-    warehouse_vendor: {
-        speaker: 'Amdadul Hoque',
-        badge: 'SUPERVISOR',
-        avatar: 'profile.jpg',
-        location: 'Supply Logistics',
-        text: "I managed daily supplier delivery dockets, price negotiations, and purchase order reconciliation against POS accounts, ensuring zero invoice leakage.",
-        options: [
-            { text: "Check the AI Terminal", action: () => visitStationCoordinates(420, 480) }
-        ]
-    },
-    terminal: {
-        speaker: 'Falak Automation AI',
-        badge: 'DIGITAL AGENT',
-        avatar: 'profile.jpg',
-        location: 'Smart Ops Terminal (Falak Creation)',
-        text: "BEEP BOOP! Automated pipelines active. Amdadul has engineered multi-step n8n webhook workflows, integrated WhatsApp Cloud API for ordering, configured AWS EC2 Linux servers, and connected Groq/Bedrock LLMs!",
-        options: [
-            { text: "How does n8n help restaurants?", next: 'terminal_n8n' },
-            { text: "Open Mixology Skills Lounge", action: () => openMixologyModal() }
-        ]
-    },
-    terminal_n8n: {
-        speaker: 'Amdadul Hoque',
-        badge: 'AUTOMATION ARCHITECT',
-        avatar: 'profile.jpg',
-        location: 'Workflow Engineering',
-        text: "By linking WhatsApp webhooks with live Google Sheets menu databases, customer pickup orders are validated instantly without tying up staff phone lines.",
-        options: [
-            { text: "Open Mixology Lounge", action: () => openMixologyModal() }
-        ]
-    }
-};
-
-let currentTypewriterTimer = null;
-
-function triggerStationInteraction(stationId) {
-    gameAudio.playInteract();
-
-    // Mark visited station for Quest
-    if (!gameState.visitedStations.has(stationId)) {
-        gameState.visitedStations.add(stationId);
-        addXP(50, `Explored ${stationId.toUpperCase()}`);
-    }
-
-    if (stationId === 'cashier') {
-        openRecruiterModal();
-        return;
-    }
-    if (stationId === 'bar') {
-        openMixologyModal();
-        return;
-    }
-    if (stationId === 'arcade_bell') {
-        openRushHourGame();
-        return;
-    }
-
-    const dialogueData = dialogues[stationId];
-    if (dialogueData) {
-        showDialogue(dialogueData);
-    }
+function updateHeaderBadges() {
+  const activeCount = appState.orders.filter(o => o.status !== 'completed').length;
+  const badge = document.getElementById('activeOrdersBadge');
+  if (badge) badge.textContent = activeCount;
 }
 
-function showDialogue(data) {
-    const diagEl = document.getElementById('rpg-dialogue');
-    const nameEl = document.getElementById('speaker-name');
-    const badgeEl = document.getElementById('speaker-badge');
-    const locEl = document.getElementById('dialogue-location');
-    const textEl = document.getElementById('dialogue-typewriter-text');
-    const optionsEl = document.getElementById('dialogue-options');
+// =============================================================================
+// 5. CUSTOMER ORDER TRACKING VIEW LOGIC
+// =============================================================================
 
-    diagEl.classList.remove('hidden');
-    nameEl.innerText = data.speaker;
-    badgeEl.innerText = data.badge;
-    locEl.innerText = data.location;
+function setupCustomerTracker() {
+  const btnTrack = document.getElementById('btnTrackOrder');
+  const searchInput = document.getElementById('orderSearchInput');
+  const btnAdvanceSim = document.getElementById('btnAdvanceStatusSim');
 
-    // Typewriter effect
-    clearInterval(currentTypewriterTimer);
-    textEl.innerText = '';
-    let idx = 0;
-    const fullText = data.text;
-
-    currentTypewriterTimer = setInterval(() => {
-        textEl.innerText += fullText[idx];
-        if (idx % 2 === 0) gameAudio.playBleep();
-        idx++;
-        if (idx >= fullText.length) {
-            clearInterval(currentTypewriterTimer);
-        }
-    }, 20);
-
-    // Options buttons
-    optionsEl.innerHTML = '';
-    if (data.options) {
-        data.options.forEach(opt => {
-            const btn = document.createElement('button');
-            btn.className = 'dialogue-opt-btn';
-            btn.innerHTML = `<i class="fa-solid fa-caret-right text-gold"></i> <span>${opt.text}</span>`;
-            btn.onclick = () => {
-                gameAudio.playInteract();
-                if (opt.next && dialogues[opt.next]) {
-                    showDialogue(dialogues[opt.next]);
-                } else if (opt.action) {
-                    closeDialogue();
-                    opt.action();
-                }
-            };
-            optionsEl.appendChild(btn);
-        });
-    }
-}
-
-function closeDialogue() {
-    clearInterval(currentTypewriterTimer);
-    const diagEl = document.getElementById('rpg-dialogue');
-    if (diagEl) diagEl.classList.add('hidden');
-}
-
-function isDialogueOpen() {
-    const diagEl = document.getElementById('rpg-dialogue');
-    return diagEl && !diagEl.classList.contains('hidden');
-}
-
-function visitStationCoordinates(x, y) {
-    if (window.worldInstance) {
-        window.worldInstance.player.targetX = x;
-        window.worldInstance.player.targetY = y;
-    }
-}
-
-function triggerCurrentInteraction() {
-    if (window.worldInstance && window.worldInstance.currentNearStation) {
-        triggerStationInteraction(window.worldInstance.currentNearStation.id);
+  btnTrack.addEventListener('click', () => {
+    const q = searchInput.value.trim().toUpperCase();
+    if (!q) return;
+    const match = appState.orders.find(o => o.id.toUpperCase() === q);
+    if (match) {
+      appState.selectedOrderId = match.id;
+      renderCustomerTracker();
+      showToast(`Tracking order ${match.id}`, 'info');
     } else {
-        openRecruiterModal();
+      showToast(`Order ID ${q} not found!`, 'info');
     }
+  });
+
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') btnTrack.click();
+  });
+
+  btnAdvanceSim.addEventListener('click', () => {
+    advanceOrderStatus(appState.selectedOrderId);
+  });
 }
 
-/* 5. RUSH HOUR ORDER DISPATCH MINI-GAME */
-const rushGame = {
-    active: false,
-    score: 0,
-    streak: 0,
-    timeLeft: 30,
-    timerId: null,
-    ticketIdx: 0,
-    tickets: [
-        {
-            prompt: "200kg raw meat batch arrived at dock during dinner rush. Immediate action required!",
-            options: [
-                { text: "Barcode Scan & Cold-Chain FIFO Inspection", correct: true },
-                { text: "Call Social Media Marketing Agency", correct: false },
-                { text: "Leave boxes outside in hallway", correct: false }
-            ]
-        },
-        {
-            prompt: "Evening dinner rush! 15 kitchen and service staff need optimized section allocation!",
-            options: [
-                { text: "Execute Floor Rostering & Line Rebalancing", correct: true },
-                { text: "Lock dining room doors", correct: false },
-                { text: "Cancel all table reservations", correct: false }
-            ]
-        },
-        {
-            prompt: "VIP Saudi guests arrived at Table #1 requesting special traditional dishes in Arabic!",
-            options: [
-                { text: "Deliver Fluent Arabic Hospitality & Concierge", correct: true },
-                { text: "Hand them a printed flyer", correct: false },
-                { text: "Ignore the table request", correct: false }
-            ]
-        },
-        {
-            prompt: "Customer WhatsApp queries are backing up during peak takeout hours!",
-            options: [
-                { text: "Trigger n8n Automated WhatsApp Bot", correct: true },
-                { text: "Disconnect the restaurant Wi-Fi", correct: false },
-                { text: "Delete customer chat history", correct: false }
-            ]
-        },
-        {
-            prompt: "Municipal health inspection scheduled for tomorrow morning!",
-            options: [
-                { text: "Execute HACCP Food Safety Checklist", correct: true },
-                { text: "Hide inventory behind counter", correct: false },
-                { text: "Order fast food instead", correct: false }
-            ]
-        }
-    ]
+function renderCustomerTracker() {
+  const order = appState.orders.find(o => o.id === appState.selectedOrderId) || appState.orders[0];
+  const container = document.getElementById('trackingContainer');
+  const emptyState = document.getElementById('noOrderState');
+  const quickChips = document.getElementById('quickOrderChips');
+
+  // Render quick select chips
+  quickChips.innerHTML = appState.orders.map(o => {
+    let dotClass = 'yellow';
+    if (o.status === 'kitchen') dotClass = 'blue';
+    if (o.status === 'ready') dotClass = 'green';
+    if (o.status === 'completed') dotClass = 'gray';
+
+    const isActive = o.id === (order ? order.id : null) ? 'active' : '';
+    return `<button class="order-chip ${isActive}" onclick="selectOrderToTrack('${o.id}')">
+      <span class="chip-status-dot ${dotClass}"></span>
+      <span>${o.id}</span>
+    </button>`;
+  }).join('');
+
+  if (!order) {
+    container.classList.add('hidden');
+    emptyState.classList.remove('hidden');
+    return;
+  }
+
+  container.classList.remove('hidden');
+  emptyState.classList.add('hidden');
+
+  // Populate Meta
+  document.getElementById('trackOrderId').textContent = order.id;
+  document.getElementById('trackOrderType').textContent = `${order.orderType} • ${order.tableOrAddress}`;
+  document.getElementById('trackOrderTime').textContent = `Placed at ${order.placedTime}`;
+
+  // Stepper State Logic
+  const statusSteps = {
+    placed: { stepNum: 1, pct: '12%', eta: '25 min', title: 'Order Placed & Confirmed', desc: 'The kitchen has received your order ticket and is queueing ingredients.' },
+    kitchen: { stepNum: 2, pct: '50%', eta: '10 min', title: 'Cooking in Progress', desc: 'Our chef is preparing your meal with authentic fresh spices on the grill.' },
+    ready: { stepNum: 3, pct: '85%', eta: 'Ready Now!', title: 'Order Ready for Service', desc: 'Your meal is freshly plated and packed. Ready for pickup or immediate table serving.' },
+    completed: { stepNum: 4, pct: '100%', eta: 'Enjoy!', title: 'Order Completed & Served', desc: 'Thank you for choosing RestoTrack! We hope you love every bite.' }
+  };
+
+  const currentStatusInfo = statusSteps[order.status] || statusSteps.placed;
+  document.getElementById('trackEtaCounter').textContent = currentStatusInfo.eta;
+  document.getElementById('stepperProgressFill').style.width = currentStatusInfo.pct;
+  document.getElementById('statusBannerTitle').textContent = currentStatusInfo.title;
+  document.getElementById('statusBannerDesc').textContent = currentStatusInfo.desc;
+
+  // Stepper items classes
+  const stepsList = document.getElementById('stepperStepsList');
+  const stepItems = stepsList.querySelectorAll('.step-item');
+  stepItems.forEach((el) => {
+    const s = parseInt(el.getAttribute('data-step'));
+    el.className = 'step-item';
+    if (s < currentStatusInfo.stepNum) {
+      el.classList.add('step-completed');
+      el.querySelector('.step-circle').innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+    } else if (s === currentStatusInfo.stepNum) {
+      el.classList.add('step-active');
+      el.querySelector('.step-circle').innerHTML = `<div class="pulse-ring"></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`;
+    } else {
+      el.classList.add('step-pending');
+      el.querySelector('.step-circle').innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg>`;
+    }
+  });
+
+  // Render Order Items Summary
+  const itemsListEl = document.getElementById('trackOrderItemsList');
+  let subtotal = 0;
+  itemsListEl.innerHTML = order.items.map(item => {
+    const itemTotal = item.price * item.qty;
+    subtotal += itemTotal;
+    return `
+      <div class="order-item-row">
+        <div class="item-left">
+          <span class="item-qty-badge">${item.qty}x</span>
+          <div>
+            <div class="item-name">${item.name}</div>
+            <span class="item-notes">$${item.price.toFixed(2)} each</span>
+          </div>
+        </div>
+        <div class="item-price">$${itemTotal.toFixed(2)}</div>
+      </div>
+    `;
+  }).join('');
+
+  const tax = subtotal * 0.15;
+  const service = order.orderType === 'Delivery' ? 3.00 : 0.00;
+  const grandTotal = subtotal + tax + service;
+
+  document.getElementById('billSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+  document.getElementById('billTax').textContent = `$${tax.toFixed(2)}`;
+  document.getElementById('billService').textContent = `$${service.toFixed(2)}`;
+  document.getElementById('billTotal').textContent = `$${grandTotal.toFixed(2)}`;
+
+  document.getElementById('trackOrderNotes').querySelector('span').textContent = order.notes || 'None';
+  document.getElementById('trackCustomerName').textContent = order.customerName;
+  document.getElementById('trackCustomerPhone').textContent = order.customerPhone || 'N/A';
+  document.getElementById('trackCustomerDestination').textContent = `${order.orderType} • ${order.tableOrAddress}`;
+}
+
+window.selectOrderToTrack = function(id) {
+  appState.selectedOrderId = id;
+  renderCustomerTracker();
+  showToast(`Viewing Order #${id}`, 'info');
 };
 
-function openRushHourGame() {
-    gameAudio.playBell();
-    document.getElementById('rush-game-modal').classList.remove('hidden');
-    document.getElementById('rush-start-screen').classList.add('active');
-    document.getElementById('rush-play-screen').classList.remove('active');
-    document.getElementById('rush-end-screen').classList.remove('active');
+function advanceOrderStatus(orderId) {
+  const order = appState.orders.find(o => o.id === orderId);
+  if (!order) return;
+
+  const sequence = ['placed', 'kitchen', 'ready', 'completed'];
+  const currentIndex = sequence.indexOf(order.status);
+
+  if (currentIndex < sequence.length - 1) {
+    order.status = sequence[currentIndex + 1];
+    saveOrders();
+    playNotificationSound('advance');
+    renderCustomerTracker();
+    renderKdsBoard();
+    updateHeaderBadges();
+    showToast(`Order ${order.id} updated to: ${order.status.toUpperCase()}`, 'success');
+  } else {
+    showToast(`Order ${order.id} is already completed!`, 'info');
+  }
 }
 
-function closeRushGame() {
-    clearInterval(rushGame.timerId);
-    rushGame.active = false;
-    document.getElementById('rush-game-modal').classList.add('hidden');
-}
+// =============================================================================
+// 6. KITCHEN DISPLAY SYSTEM (KDS) & KANBAN LOGIC
+// =============================================================================
 
-function startRushMiniGame() {
-    gameAudio.playTone(600, 'square', 0.1);
-    rushGame.active = true;
-    rushGame.score = 0;
-    rushGame.streak = 0;
-    rushGame.timeLeft = 30;
-    rushGame.ticketIdx = 0;
+function setupKdsView() {
+  const filterInput = document.getElementById('kdsFilterInput');
+  const filterChips = document.querySelectorAll('.kds-filter-chips .chip');
+  const btnAutoSim = document.getElementById('btnAutoSimulate');
 
-    document.getElementById('rush-start-screen').classList.remove('active');
-    document.getElementById('rush-end-screen').classList.remove('active');
-    document.getElementById('rush-play-screen').classList.add('active');
+  filterInput.addEventListener('input', (e) => {
+    appState.kdsSearchQuery = e.target.value.toLowerCase().trim();
+    renderKdsBoard();
+  });
 
-    document.getElementById('rush-score').innerText = '0';
-    document.getElementById('rush-timer').innerText = '30s';
-
-    loadRushTicket();
-
-    clearInterval(rushGame.timerId);
-    rushGame.timerId = setInterval(() => {
-        rushGame.timeLeft--;
-        document.getElementById('rush-timer').innerText = `${rushGame.timeLeft}s`;
-        if (rushGame.timeLeft <= 0) {
-            endRushMiniGame();
-        }
-    }, 1000);
-}
-
-function loadRushTicket() {
-    const ticket = rushGame.tickets[rushGame.ticketIdx % rushGame.tickets.length];
-    document.getElementById('rush-ticket-id').innerText = `ORDER #${101 + rushGame.ticketIdx} • TABLE ${1 + (rushGame.ticketIdx % 6)}`;
-    document.getElementById('rush-ticket-text').innerText = `"${ticket.prompt}"`;
-
-    const container = document.getElementById('rush-options-container');
-    container.innerHTML = '';
-
-    ticket.options.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'rush-opt-btn';
-        btn.innerHTML = `<i class="fa-solid fa-chevron-right text-gold"></i> <span>${opt.text}</span>`;
-        btn.onclick = () => handleRushAnswer(opt.correct);
-        container.appendChild(btn);
+  filterChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      filterChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      appState.kdsFilter = chip.getAttribute('data-filter');
+      renderKdsBoard();
     });
+  });
 
-    document.getElementById('rush-combo').innerText = `Combo Streak: ${rushGame.streak}x 🔥`;
+  btnAutoSim.addEventListener('click', toggleAutoSimulator);
 }
 
-function handleRushAnswer(isCorrect) {
-    if (!rushGame.active) return;
-    if (isCorrect) {
-        gameAudio.playUnlock();
-        rushGame.streak++;
-        const points = 100 + rushGame.streak * 25;
-        rushGame.score += points;
-    } else {
-        gameAudio.playTone(200, 'sawtooth', 0.15);
-        rushGame.streak = 0;
-        rushGame.score = Math.max(0, rushGame.score - 50);
-    }
-    document.getElementById('rush-score').innerText = rushGame.score;
-    rushGame.ticketIdx++;
-    loadRushTicket();
+function renderKdsBoard() {
+  const query = appState.kdsSearchQuery;
+  const filter = appState.kdsFilter;
+
+  // Filter orders
+  let filtered = appState.orders.filter(o => {
+    const matchesFilter = filter === 'all' || o.orderType === filter;
+    const matchesSearch = !query || 
+      o.id.toLowerCase().includes(query) ||
+      o.customerName.toLowerCase().includes(query) ||
+      o.tableOrAddress.toLowerCase().includes(query);
+    return matchesFilter && matchesSearch;
+  });
+
+  // Calculate Metrics
+  const totalActive = appState.orders.filter(o => o.status !== 'completed').length;
+  const inKitchen = appState.orders.filter(o => o.status === 'kitchen').length;
+  const readyCount = appState.orders.filter(o => o.status === 'ready').length;
+
+  let totalSales = 0;
+  appState.orders.forEach(o => {
+    const sub = o.items.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    totalSales += sub * 1.15;
+  });
+
+  document.getElementById('metricTotalActive').textContent = totalActive;
+  document.getElementById('metricInKitchen').textContent = inKitchen;
+  document.getElementById('metricReady').textContent = readyCount;
+  document.getElementById('metricTodaySales').textContent = `$${totalSales.toFixed(2)}`;
+
+  // Column Lists
+  const placedList = document.getElementById('colListPlaced');
+  const kitchenList = document.getElementById('colListKitchen');
+  const readyList = document.getElementById('colListReady');
+  const completedList = document.getElementById('colListCompleted');
+
+  const placedOrders = filtered.filter(o => o.status === 'placed');
+  const kitchenOrders = filtered.filter(o => o.status === 'kitchen');
+  const readyOrders = filtered.filter(o => o.status === 'ready');
+  const completedOrders = filtered.filter(o => o.status === 'completed');
+
+  document.getElementById('countPlaced').textContent = placedOrders.length;
+  document.getElementById('countKitchen').textContent = kitchenOrders.length;
+  document.getElementById('countReady').textContent = readyOrders.length;
+  document.getElementById('countCompleted').textContent = completedOrders.length;
+
+  placedList.innerHTML = placedOrders.map(o => createKdsCardHtml(o, 'Start Cooking', 'kitchen')).join('') || '<div class="empty-cart-text">No pending orders</div>';
+  kitchenList.innerHTML = kitchenOrders.map(o => createKdsCardHtml(o, 'Mark Ready', 'ready')).join('') || '<div class="empty-cart-text">Kitchen idle</div>';
+  readyList.innerHTML = readyOrders.map(o => createKdsCardHtml(o, 'Complete Order', 'completed')).join('') || '<div class="empty-cart-text">None ready</div>';
+  completedList.innerHTML = completedOrders.map(o => createKdsCardHtml(o, null, null)).join('') || '<div class="empty-cart-text">No past orders</div>';
 }
 
-function endRushMiniGame() {
-    clearInterval(rushGame.timerId);
-    rushGame.active = false;
+function createKdsCardHtml(order, nextLabel, nextStatus) {
+  const itemsHtml = order.items.map(i => `
+    <div class="kds-item-line">
+      <span><strong>${i.qty}x</strong> ${i.name}</span>
+      <span>$${(i.price * i.qty).toFixed(2)}</span>
+    </div>
+  `).join('');
 
-    document.getElementById('rush-play-screen').classList.remove('active');
-    document.getElementById('rush-end-screen').classList.add('active');
-    document.getElementById('rush-final-score').innerText = rushGame.score;
-
-    if (rushGame.score >= 300) {
-        addXP(150, 'Mastered Rush Hour Challenge');
-        launchConfetti();
-    }
+  return `
+    <div class="kds-card">
+      <div class="kds-card-head">
+        <span class="kds-card-id">${order.id}</span>
+        <span class="kds-card-timer">⏱ ${order.placedTime}</span>
+      </div>
+      <div class="kds-card-meta">
+        <strong>${order.customerName}</strong>
+        <span>${order.orderType} • ${order.tableOrAddress}</span>
+      </div>
+      <div class="kds-card-items">
+        ${itemsHtml}
+      </div>
+      ${order.notes ? `<div style="font-size:0.75rem; color:#f59e0b;">📝 ${order.notes}</div>` : ''}
+      <div class="kds-card-actions">
+        <button class="btn btn-ghost btn-sm" onclick="selectOrderToTrack('${order.id}'); document.getElementById('tabCustomerView').click();" title="View Customer Tracker">
+          🔍 Track
+        </button>
+        ${nextLabel ? `
+          <button class="btn btn-primary btn-sm kds-action-btn" onclick="updateOrderStatusDirect('${order.id}', '${nextStatus}')">
+            ${nextLabel} →
+          </button>
+        ` : `<span style="font-size:0.75rem; color:#10b981; font-weight:700; display:flex; align-items:center; justify-content:center; width:100%;">✓ Completed</span>`}
+      </div>
+    </div>
+  `;
 }
 
-/* 6. SKILL MIXOLOGY BAR */
-function openMixologyModal() {
-    gameAudio.playInteract();
-    document.getElementById('mixology-modal').classList.remove('hidden');
+window.updateOrderStatusDirect = function(orderId, targetStatus) {
+  const order = appState.orders.find(o => o.id === orderId);
+  if (!order) return;
+  order.status = targetStatus;
+  saveOrders();
+  playNotificationSound('advance');
+  renderKdsBoard();
+  renderCustomerTracker();
+  updateHeaderBadges();
+  showToast(`Order ${order.id} moved to ${targetStatus.toUpperCase()}`, 'success');
+};
+
+function toggleAutoSimulator() {
+  appState.autoSimulating = !appState.autoSimulating;
+  const btn = document.getElementById('btnAutoSimulate');
+  const text = document.getElementById('autoSimText');
+
+  if (appState.autoSimulating) {
+    btn.classList.add('btn-primary');
+    btn.classList.remove('btn-secondary');
+    text.textContent = 'Auto-Sim Active (Running)';
+    showToast('Simulation started: Orders will advance automatically', 'info');
+
+    appState.simIntervalId = setInterval(() => {
+      // Find an incomplete order and advance it
+      const activeList = appState.orders.filter(o => o.status !== 'completed');
+      if (activeList.length > 0) {
+        const randomOrder = activeList[Math.floor(Math.random() * activeList.length)];
+        advanceOrderStatus(randomOrder.id);
+      }
+    }, 4500);
+  } else {
+    btn.classList.remove('btn-primary');
+    btn.classList.add('btn-secondary');
+    text.textContent = 'Start Auto-Simulator';
+    clearInterval(appState.simIntervalId);
+    showToast('Simulation stopped', 'info');
+  }
 }
 
-function closeMixologyModal() {
-    document.getElementById('mixology-modal').classList.add('hidden');
-}
+// =============================================================================
+// 7. NEW ORDER CREATION MODAL & CART SYSTEM
+// =============================================================================
 
-function toggleMixIngredient(btn, skillName) {
-    gameAudio.playTone(480, 'sine', 0.05);
-    btn.classList.toggle('selected');
+function setupNewOrderModal() {
+  const modal = document.getElementById('newOrderModal');
+  const btnOpen = document.getElementById('btnNewOrder');
+  const btnClose = document.getElementById('btnCloseNewOrder');
+  const btnSubmit = document.getElementById('btnSubmitOrder');
+  const selectOrderType = document.getElementById('selectOrderType');
+  const inputTableAddress = document.getElementById('inputTableAddress');
 
-    if (btn.classList.contains('selected')) {
-        if (!gameState.selectedMixSkills.includes(skillName)) {
-            gameState.selectedMixSkills.push(skillName);
-        }
-    } else {
-        gameState.selectedMixSkills = gameState.selectedMixSkills.filter(s => s !== skillName);
-    }
+  btnOpen.addEventListener('click', () => {
+    appState.activeCart = {};
+    renderModalMenu('all');
+    renderModalCart();
+    modal.classList.remove('hidden');
+  });
 
-    const shakeBtn = document.getElementById('bar-shake-btn');
-    if (shakeBtn) {
-        shakeBtn.disabled = gameState.selectedMixSkills.length < 2;
-    }
-}
+  btnClose.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
 
-function shakeSynergyCocktail() {
-    if (gameState.selectedMixSkills.length < 2) return;
-    gameAudio.playShaker();
+  selectOrderType.addEventListener('change', () => {
+    const val = selectOrderType.value;
+    if (val === 'Dine-in') inputTableAddress.value = 'Table ' + (Math.floor(Math.random() * 8) + 1);
+    else if (val === 'Pickup') inputTableAddress.value = 'Takeaway Counter';
+    else inputTableAddress.value = 'Sabya District, Street 14';
+  });
 
-    const shakerIcon = document.getElementById('bar-shaker-icon');
-    shakerIcon.classList.add('shaking');
-
-    setTimeout(() => {
-        shakerIcon.classList.remove('shaking');
-        gameAudio.playUnlock();
-        launchConfetti();
-
-        const titleEl = document.getElementById('cocktail-name');
-        const descEl = document.getElementById('cocktail-desc');
-        const graphicEl = document.getElementById('cocktail-graphic');
-
-        const blends = [
-            { name: "The Sabya Executive Elixir", emoji: "🍹", desc: `Synergy of ${gameState.selectedMixSkills.join(' + ')}. Combining rigorous inventory auditing with warm Arabic hospitality drives zero stock loss and unmatched guest loyalty.` },
-            { name: "The AI Operations Mojito", emoji: "🍸", desc: `Synergy of ${gameState.selectedMixSkills.join(' + ')}. Blending n8n automated ordering bots with floor team supervision cuts service wait times by 25%.` },
-            { name: "The Enterprise Hospitality Shield", emoji: "🍷", desc: `Synergy of ${gameState.selectedMixSkills.join(' + ')}. Fusing HACCP food safety standards with POS ledger accuracy creates a rock-solid restaurant ecosystem.` }
-        ];
-
-        const pick = blends[Math.floor(Math.random() * blends.length)];
-        titleEl.innerText = `"${pick.name}"`;
-        descEl.innerText = pick.desc;
-        graphicEl.innerText = pick.emoji;
-
-        addXP(50, 'Crafted Skill Synergy Cocktail');
-    }, 700);
-}
-
-/* 7. QUEST & RECRUITER MODALS */
-function openQuestModal() {
-    gameAudio.playInteract();
-    const modal = document.getElementById('quest-modal');
-    const container = document.getElementById('quest-items-list');
-    if (!container) return;
-
-    container.innerHTML = '';
-    gameState.stations.forEach(st => {
-        const isDone = gameState.visitedStations.has(st.id);
-        const card = document.createElement('div');
-        card.className = `quest-item-card ${isDone ? 'completed' : ''}`;
-        card.innerHTML = `
-            <div class="quest-title-text">
-                <h5>${st.icon} ${st.name} ${isDone ? '✅' : '🔒'}</h5>
-                <p>${st.desc}</p>
-            </div>
-            <span class="quest-status-badge ${isDone ? 'text-emerald' : 'text-gold'}">${isDone ? '+50 XP CLAIMED' : 'PENDING'}</span>
-        `;
-        container.appendChild(card);
+  // Categories Tabs
+  const catTabs = document.querySelectorAll('#menuCatTabs .cat-tab');
+  catTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      catTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      renderModalMenu(tab.getAttribute('data-cat'));
     });
+  });
+
+  btnSubmit.addEventListener('click', submitNewOrder);
+}
+
+function renderModalMenu(cat = 'all') {
+  const grid = document.getElementById('menuItemsGrid');
+  const items = cat === 'all' ? MENU_ITEMS : MENU_ITEMS.filter(m => m.category === cat);
+
+  grid.innerHTML = items.map(item => `
+    <div class="menu-item-card">
+      <div class="menu-item-info">
+        <h5>${item.name}</h5>
+        <p>${item.desc}</p>
+      </div>
+      <div class="menu-item-action">
+        <span class="menu-price">$${item.price.toFixed(2)}</span>
+        <button class="btn-add-item" onclick="addToCart('${item.id}')">+ Add</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+window.addToCart = function(itemId) {
+  appState.activeCart[itemId] = (appState.activeCart[itemId] || 0) + 1;
+  renderModalCart();
+  playNotificationSound('chime');
+};
+
+window.modifyCartQty = function(itemId, delta) {
+  if (!appState.activeCart[itemId]) return;
+  appState.activeCart[itemId] += delta;
+  if (appState.activeCart[itemId] <= 0) {
+    delete appState.activeCart[itemId];
+  }
+  renderModalCart();
+};
+
+function renderModalCart() {
+  const cartList = document.getElementById('selectedCartList');
+  const cartTotalEl = document.getElementById('modalCartTotal');
+  const btnSubmit = document.getElementById('btnSubmitOrder');
+
+  const keys = Object.keys(appState.activeCart);
+  if (keys.length === 0) {
+    cartList.innerHTML = '<div class="empty-cart-text">No items added yet. Click on menu dishes to add.</div>';
+    cartTotalEl.textContent = '$0.00';
+    btnSubmit.disabled = true;
+    return;
+  }
+
+  let total = 0;
+  cartList.innerHTML = keys.map(id => {
+    const item = MENU_ITEMS.find(m => m.id === id);
+    const qty = appState.activeCart[id];
+    const lineTotal = item.price * qty;
+    total += lineTotal;
+    return `
+      <div class="cart-item-row">
+        <span>${item.name}</span>
+        <div class="cart-qty-ctrl">
+          <button class="btn-qty" onclick="modifyCartQty('${id}', -1)">-</button>
+          <span>${qty}</span>
+          <button class="btn-qty" onclick="modifyCartQty('${id}', 1)">+</button>
+          <strong style="margin-left:8px;">$${lineTotal.toFixed(2)}</strong>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const tax = total * 0.15;
+  const grand = total + tax;
+  cartTotalEl.textContent = `$${grand.toFixed(2)}`;
+  btnSubmit.disabled = false;
+}
+
+function submitNewOrder() {
+  const name = document.getElementById('inputCustName').value.trim() || 'Guest Customer';
+  const phone = document.getElementById('inputCustPhone').value.trim();
+  const type = document.getElementById('selectOrderType').value;
+  const table = document.getElementById('inputTableAddress').value.trim() || 'Counter';
+  const notes = document.getElementById('inputOrderNotes').value.trim();
+
+  const cartKeys = Object.keys(appState.activeCart);
+  if (cartKeys.length === 0) return;
+
+  const items = cartKeys.map(id => {
+    const item = MENU_ITEMS.find(m => m.id === id);
+    return {
+      id: item.id,
+      name: item.name,
+      qty: appState.activeCart[id],
+      price: item.price
+    };
+  });
+
+  const nextNum = 1080 + appState.orders.length + 1;
+  const now = new Date();
+  const placedTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+
+  const newOrder = {
+    id: `ORD-${nextNum}`,
+    customerName: name,
+    customerPhone: phone,
+    orderType: type,
+    tableOrAddress: table,
+    placedTime: placedTime,
+    placedTimestamp: Date.now(),
+    status: 'placed',
+    items: items,
+    notes: notes,
+    estMinutes: 20
+  };
+
+  appState.orders.unshift(newOrder);
+  saveOrders();
+  appState.selectedOrderId = newOrder.id;
+
+  // Close modal
+  document.getElementById('newOrderModal').classList.add('hidden');
+  playNotificationSound('success');
+  showToast(`Order ${newOrder.id} successfully created!`, 'success');
+
+  // Render & switch to customer tracker view
+  document.getElementById('tabCustomerView').click();
+  renderCustomerTracker();
+  renderKdsBoard();
+  updateHeaderBadges();
+}
+
+// =============================================================================
+// 8. RECEIPT / INVOICE MODAL
+// =============================================================================
+
+function setupReceiptModal() {
+  const btnPrint = document.getElementById('btnPrintInvoice');
+  const modal = document.getElementById('receiptModal');
+  const btnClose = document.getElementById('btnCloseReceipt');
+
+  btnPrint.addEventListener('click', () => {
+    const order = appState.orders.find(o => o.id === appState.selectedOrderId);
+    if (!order) return;
+
+    document.getElementById('recOrderId').textContent = order.id;
+    document.getElementById('recDate').textContent = new Date().toISOString().split('T')[0];
+    document.getElementById('recType').textContent = `${order.orderType} (${order.tableOrAddress})`;
+    document.getElementById('recCustomer').textContent = order.customerName;
+
+    let subtotal = 0;
+    document.getElementById('receiptTableBody').innerHTML = order.items.map(item => {
+      const line = item.price * item.qty;
+      subtotal += line;
+      return `
+        <tr>
+          <td>${item.name}</td>
+          <td align="center">${item.qty}</td>
+          <td align="right">$${line.toFixed(2)}</td>
+        </tr>
+      `;
+    }).join('');
+
+    const tax = subtotal * 0.15;
+    const service = order.orderType === 'Delivery' ? 3.00 : 0.00;
+    const grand = subtotal + tax + service;
+
+    document.getElementById('recSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById('recTax').textContent = `$${tax.toFixed(2)}`;
+    document.getElementById('recService').textContent = `$${service.toFixed(2)}`;
+    document.getElementById('recTotal').textContent = `$${grand.toFixed(2)}`;
 
     modal.classList.remove('hidden');
+  });
+
+  btnClose.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
 }
 
-function closeQuestModal() {
-    document.getElementById('quest-modal').classList.add('hidden');
+// =============================================================================
+// 9. TOAST NOTIFICATIONS HELPER
+// =============================================================================
+
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+      ${type === 'success' 
+        ? '<polyline points="20 6 9 17 4 12"></polyline>' 
+        : '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line>'}
+    </svg>
+    <span>${message}</span>
+  `;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(100%)';
+    toast.style.transition = 'all 0.25s ease';
+    setTimeout(() => toast.remove(), 250);
+  }, 3500);
 }
-
-function openRecruiterModal() {
-    gameAudio.playUnlock();
-    document.getElementById('recruiter-modal').classList.remove('hidden');
-    addXP(50, 'Inspected Takeaway Resume');
-}
-
-function closeRecruiterModal() {
-    document.getElementById('recruiter-modal').classList.add('hidden');
-}
-
-/* 8. CONFETTI CELEBRATION ENGINE */
-function launchConfetti() {
-    const canvas = document.getElementById('confetti-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particles = [];
-    const colors = ['#F59E0B', '#10B981', '#FBBF24', '#EF4444', '#06B6D4'];
-
-    for (let i = 0; i < 60; i++) {
-        particles.push({
-            x: canvas.width / 2,
-            y: canvas.height / 2,
-            vx: (Math.random() - 0.5) * 12,
-            vy: (Math.random() - 0.7) * 12,
-            size: Math.random() * 6 + 3,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            alpha: 1,
-            decay: Math.random() * 0.02 + 0.015
-        });
-    }
-
-    function render() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        let active = 0;
-        particles.forEach(p => {
-            p.x += p.vx;
-            p.y += p.vy;
-            p.alpha -= 0.015;
-            if (p.alpha > 0) {
-                active++;
-                ctx.fillStyle = p.color;
-                ctx.globalAlpha = p.alpha;
-                ctx.fillRect(p.x, p.y, p.size, p.size);
-            }
-        });
-
-        if (active > 0) requestAnimationFrame(render);
-        else ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-    render();
-}
-
-/* 9. INITIALIZE RPG WORLD ON DOM READY */
-document.addEventListener('DOMContentLoaded', () => {
-    window.worldInstance = new RestaurantWorld();
-    updateHUD();
-});
