@@ -1,5 +1,5 @@
 /* =========================================================
-   EMDADUL - INTERACTIVE & ANIMATED RESUME SCRIPT
+   AMDADUL HOQUE - INTERACTIVE & ANIMATED RESUME SCRIPT
    ========================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initHeaderScroll();
     initScrollSpy();
     initScrollReveal();
-    initStatCounters();
     initCardTilt();
 });
 
@@ -23,7 +22,7 @@ function initCanvasBackground() {
 
     let width, height;
     let particles = [];
-    const particleCount = Math.min(window.innerWidth < 768 ? 40 : 80, 100);
+    const particleCount = Math.min(window.innerWidth < 768 ? 35 : 70, 80);
     const maxDistance = 140;
 
     let mouse = {
@@ -54,8 +53,8 @@ function initCanvasBackground() {
         constructor() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.8;
-            this.vy = (Math.random() - 0.5) * 0.8;
+            this.vx = (Math.random() - 0.5) * 0.7;
+            this.vy = (Math.random() - 0.5) * 0.7;
             this.radius = Math.random() * 2 + 1;
             this.color = Math.random() > 0.5 ? 'rgba(6, 182, 212, ' : 'rgba(139, 92, 246, ';
         }
@@ -67,7 +66,7 @@ function initCanvasBackground() {
             if (this.x < 0 || this.x > width) this.vx *= -1;
             if (this.y < 0 || this.y > height) this.vy *= -1;
 
-            // Mouse interaction
+            // Mouse collision / gentle deflection
             if (mouse.x !== null && mouse.y !== null) {
                 const dx = mouse.x - this.x;
                 const dy = mouse.y - this.y;
@@ -85,7 +84,7 @@ function initCanvasBackground() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             ctx.fillStyle = this.color + '0.7)';
-            ctx.shadowBlur = 8;
+            ctx.shadowBlur = 6;
             ctx.shadowColor = this.color + '0.8)';
             ctx.fill();
         }
@@ -135,10 +134,11 @@ function initTypewriter() {
     if (!textElement) return;
 
     const words = [
-        'AI & Workflow Engineer',
-        'n8n Automation Specialist',
-        'Full Stack Web Developer',
-        'Cloud Solutions Architect'
+        'Restaurant Supervisor',
+        'Automation Specialist',
+        'Warehouse Management Expert',
+        'AI Tool Specialist',
+        'Multilingual Communicator'
     ];
 
     let wordIndex = 0;
@@ -152,11 +152,11 @@ function initTypewriter() {
         if (isDeleting) {
             textElement.textContent = currentWord.substring(0, charIndex - 1);
             charIndex--;
-            typeSpeed = 50;
+            typeSpeed = 45;
         } else {
             textElement.textContent = currentWord.substring(0, charIndex + 1);
             charIndex++;
-            typeSpeed = 100;
+            typeSpeed = 90;
         }
 
         if (!isDeleting && charIndex === currentWord.length) {
@@ -165,7 +165,7 @@ function initTypewriter() {
         } else if (isDeleting && charIndex === 0) {
             isDeleting = false;
             wordIndex = (wordIndex + 1) % words.length;
-            typeSpeed = 400; // Pause before new word
+            typeSpeed = 400; // Pause before next word
         }
 
         setTimeout(type, typeSpeed);
@@ -259,55 +259,19 @@ function initScrollReveal() {
         });
     }, {
         threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
+        rootMargin: '0px 0px -40px 0px'
     });
 
     reveals.forEach(el => revealObserver.observe(el));
 }
 
 /* ---------------------------------------------------------
-   7. STAT COUNTERS ANIMATION
-   --------------------------------------------------------- */
-function initStatCounters() {
-    const statsSection = document.querySelector('.stats');
-    const counters = document.querySelectorAll('.stat__number');
-    if (!statsSection || counters.length === 0) return;
-
-    let hasStarted = false;
-
-    const statsObserver = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !hasStarted) {
-            hasStarted = true;
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const suffix = counter.innerText.includes('%') ? '%' : '+';
-                let current = 0;
-                const increment = Math.max(1, Math.floor(target / 40));
-                const duration = 1500;
-                const stepTime = Math.abs(Math.floor(duration / (target / increment)));
-
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    counter.innerText = current + suffix;
-                }, stepTime);
-            });
-        }
-    }, { threshold: 0.3 });
-
-    statsObserver.observe(statsSection);
-}
-
-/* ---------------------------------------------------------
-   8. CARD 3D TILT EFFECT ON HOVER
+   7. CARD 3D TILT EFFECT ON HOVER
    --------------------------------------------------------- */
 function initCardTilt() {
-    const cards = document.querySelectorAll('.project__card, .stat__card, .skill__card');
+    const cards = document.querySelectorAll('.skill__card, .education__card, .stat__card, .project-highlight');
     
-    if (window.innerWidth < 768) return; // Skip on mobile devices
+    if (window.innerWidth < 768) return; // Disable on touch devices
 
     cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -321,7 +285,7 @@ function initCardTilt() {
             const deltaX = (x - centerX) / centerX;
             const deltaY = (y - centerY) / centerY;
             
-            card.style.transform = `perspective(1000px) rotateX(${-deltaY * 5}deg) rotateY(${deltaX * 5}deg) translateY(-4px)`;
+            card.style.transform = `perspective(1000px) rotateX(${-deltaY * 4}deg) rotateY(${deltaX * 4}deg) translateY(-4px)`;
         });
 
         card.addEventListener('mouseleave', () => {
@@ -331,22 +295,21 @@ function initCardTilt() {
 }
 
 /* ---------------------------------------------------------
-   9. CONTACT FORM HANDLER
+   8. CONTACT FORM HANDLER
    --------------------------------------------------------- */
 function handleFormSubmit() {
     const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
     const feedback = document.getElementById('form-feedback');
     const submitBtn = document.getElementById('submit-btn');
 
-    if (!nameInput || !emailInput || !feedback) return;
+    if (!nameInput || !feedback) return;
 
     submitBtn.innerHTML = `<span>Sending...</span> <i class="fa-solid fa-spinner fa-spin"></i>`;
     submitBtn.disabled = true;
 
     setTimeout(() => {
         feedback.className = 'form-feedback success';
-        feedback.innerHTML = `Thank you <strong>${nameInput.value}</strong>! Your message has been received. I will reach out to you shortly.`;
+        feedback.innerHTML = `Thank you <strong>${nameInput.value}</strong>! Your message has been received. I will get back to you shortly.`;
         
         document.getElementById('contact-form').reset();
         submitBtn.innerHTML = `<span>Send Message</span> <i class="fa-regular fa-paper-plane"></i>`;
@@ -355,5 +318,5 @@ function handleFormSubmit() {
         setTimeout(() => {
             feedback.style.display = 'none';
         }, 5000);
-    }, 1000);
+    }, 800);
 }

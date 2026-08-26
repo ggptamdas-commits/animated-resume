@@ -1,37 +1,29 @@
-# 🚀 Interactive & Animated Developer Resume / Portfolio
+# 💼 Amdadul Hoque — Interactive & Animated Resume
 
-A modern, responsive, and animated personal resume/portfolio website designed to showcase developer expertise, AI workflow automations, and cloud projects. Built with pure HTML5, CSS3, and JavaScript, ready for direct hosting on **GitHub Pages**.
-
----
-
-## ✨ Features
-
-- **Dynamic Interactive Particle Network**: Fluid Canvas particle background that reacts to cursor interactions.
-- **Typewriter Effect**: Multi-role animated subtitle rotator for high-impact branding.
-- **Modern Glassmorphic UI**: Sleek dark aesthetic with neon cyan & purple gradients and glowing accents.
-- **Interactive Timeline**: Visual career journey and experience roadmap with scroll-triggered marker lighting.
-- **Animated Skill Progress**: Skills categorized by AI Automation, Web Development, Cloud & DevOps, and Design.
-- **Featured Projects Showcase**: Project cards with tech stack badges, live links, and 3D tilt hover physics.
-- **Responsive Navigation & Mobile Drawer**: Smooth scrolling with scroll spy and active section highlights.
-- **Print / Save as PDF**: Clean print stylesheet for creating instant resume PDFs directly from the browser.
+Interactive, modern, and responsive online resume and portfolio website for **Amdadul Hoque** (Restaurant Supervisor & Automation Specialist). Designed for high visual impact and hosted directly on **GitHub Pages**.
 
 ---
 
-## 🌐 How to Host on GitHub Pages (Easy Setup)
+## 📋 Resume Summary
 
-1. Open this repository on GitHub: [ggptamdas-commits/animated-resume](https://github.com/ggptamdas-commits/animated-resume)
-2. Click on the **Settings** tab at the top.
-3. In the left sidebar, click on **Pages**.
-4. Under **Branch**, select `main` from the dropdown, leave the folder as `/ (root)`, and click **Save**.
-5. After 1–2 minutes, refresh the page. You will see your live URL:
+- **Name:** Amdadul Hoque
+- **Role:** Restaurant Supervisor & Automation Specialist
+- **Contact:** +966 54 457 5530 | ahameddruboo@gmail.com | Jizan, Saudi Arabia
+- **Languages (5):** Arabic, English, Hindi, Urdu, Bengali
+- **Experience:** Khamer Restaurant, Saudi Arabia (Dec 2023 - Present)
+- **Custom Application:** [khamer.vercel.app](https://khamer.vercel.app)
+- **Education:**
+  - HSC in Accounting — Fazlur Rahman Memorial College of Technology
+  - SSC — Bharasar High School
+
+---
+
+## 🌐 How to Host on GitHub Pages
+
+1. Open the repository: [ggptamdas-commits/animated-resume](https://github.com/ggptamdas-commits/animated-resume)
+2. Go to **Settings** > **Pages**.
+3. Under **Branch**, select `main` and root `/`, then click **Save**.
+4. Access your live website at:
    ```
    https://ggptamdas-commits.github.io/animated-resume/
    ```
-
----
-
-## 🛠️ Customization
-
-- **Edit Personal Details**: Update your name, titles, bio, and social links in `index.html`.
-- **Add / Modify Projects**: Update the project cards inside the `<section id="projects">` block in `index.html`.
-- **Change Colors & Theme**: Adjust CSS variables in `:root` inside `style.css`.
