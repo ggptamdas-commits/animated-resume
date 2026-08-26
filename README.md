@@ -1,28 +1,31 @@
-# 🍽️ Khamer Virtual Restaurant & Interactive Resume Lounge
-### Supervisor: **Amdadul Hoque** (Restaurant Supervisor & Automation Specialist)
+# 🍽️ Amdadul Hoque | Interactive Virtual Restaurant Resume & Game
 
-An interactive, immersive **Virtual Restaurant & Dining Lounge** theme showcasing the professional credentials, warehouse automation achievements, skills, and multilingual capabilities of **Amdadul Hoque**.
+> An engaging, gamified interactive portfolio and developer/supervisor resume website crafted as a virtual dining lounge and operational restaurant experience.
 
----
-
-## ✨ Highlights of the Virtual Restaurant Experience
-
-- **🛎️ Interactive Reception Bell**: Visitors can ring the front-desk bell with real-time audio synthesis and animated welcome greeting.
-- **📜 Chef's Specialty Resume Menu**: Interactive tabbed menu that guides recruiters and guests through:
-  1. *Appetizers (About Me)*
-  2. *Entrées (Experience at Khamer Restaurant)*
-  3. *Academy (HSC & SSC Education)*
-  4. *Ingredients (Core Skills & 5 Languages)*
-  5. *Digital Kiosk (Live App: khamer.vercel.app)*
-- **🕯️ Ambient Candlelight & Embers**: Subtle canvas particle system creating a warm, luxurious dining ambiance.
-- **📱 Table Reservation / Direct Contact**: Dedicated direct hotline, WhatsApp concierge, and inquiry form.
-- **📋 Takeaway Bill / Print Mode**: High-contrast, clean printable resume layout for PDF downloads.
+Hosted on **GitHub Pages**: [https://ggptamdas-commits.github.io/animated-resume/](https://ggptamdas-commits.github.io/animated-resume/)
 
 ---
 
-## 🌐 Live Website
+## 🎮 Key Features & Gameplay
 
-- Hosted directly on **GitHub Pages**:
-  ```
-  https://ggptamdas-commits.github.io/animated-resume/
-  ```
+- 👨‍🍳 **Game HUD & XP System**: Earn Gourmet XP and unlock 5 progression levels from *Apprentice Diner* to *Master Food Executive*.
+- 🗺️ **Interactive Restaurant Floor Map**: Jump between Host Stand, Executive Kitchen, AI & Smart Ops Lab, Mixology Bar, and Checkout Desk.
+- 🍲 **5-Course Career Tasting Quest**: Plate and taste 5 distinct courses to explore Amdadul's verified career milestones, metrics, and leadership achievements.
+- ⚡ **Supervisor Rush Arcade (Mini-Game)**: 30-second rapid-fire operational challenge testing hospitality, FIFO inventory audit, and team shift management.
+- 🍸 **Skill Mixology Bar**: Select and shake combinations of Amdadul's core skills to brew custom operational synergy cocktails.
+- 🧾 **Thermal Resume Receipt**: Real-time itemized career summary and takeaway CV ready for 1-click printing or PDF export.
+- 🎵 **Web Audio API Synthesizer**: Zero-asset audio engine generating realistic service bell dings, cooking chimes, shaker sounds, and fanfare.
+- 🌓 **Recruiter Quick Mode**: Seamlessly switch between the full game experience and traditional CV layout.
+
+---
+
+## 👨‍💼 Professional Summary
+
+- **Name**: Amdadul Hoque (মোঃ এমদাদুল হক)
+- **Role**: Restaurant Operations Supervisor | Warehouse & Inventory Specialist | AI Automation Architect
+- **Current Position**: Restaurant Supervisor @ **Khamer Restaurant (خَامِر)**, Sabya, Jazan Province, Saudi Arabia (Jan 2024 – Present)
+- **Previous Position**: Inventory & Warehouse Supervisor @ **Miah Store**, Bangladesh (Jan 2022 – Dec 2024)
+- **Education**: HSC & SSC in Business Studies (GPA 4.50 & 4.10 / 5.00)
+- **Languages**: Arabic (Fluent), English (Professional), Bengali (Native)
+- **Hotline & WhatsApp**: +966 54 457 5530
+- **Email**: ahameddruboo@gmail.com
