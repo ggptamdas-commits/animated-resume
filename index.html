@@ -1,397 +1,526 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amdadul Hoque | The Virtual Restaurant & Career Game</title>
-    <!-- Google Fonts -->
+    <title>Amdadul Hoque | Restaurant Operations Supervisor &amp; AI Automation Lead</title>
+    <meta name="description" content="Interactive Virtual Restaurant Game &amp; Executive Resume of Amdadul Hoque (মোঃ এমদাদুল হক) - Restaurant Operations Supervisor, Warehouse Inventory Lead, and n8n AI Automation Architect based in Sabya, Saudi Arabia.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Space+Grotesk:wght@500;600;700&family=VT323&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="theme-luxury">
-    <!-- Canvas for Ambient Warm Light & Floating Steam -->
-    <canvas id="ambient-canvas"></canvas>
+<body class="bg-base text-primary antialiased selection:bg-amber-500 selection:text-black">
+    <!-- Ambient Canvas for subtle dynamic lighting -->
+    <canvas id="ambient-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
 
-    <!-- Interactive Game HUD (Fixed Top Bar) -->
-    <aside class="game-hud" id="game-hud" aria-label="Game Status Bar">
-        <div class="hud-container">
-            <div class="hud-stat-group">
-                <div class="hud-profile-badge">
-                    <span class="hud-rank-icon">👨‍🍳</span>
-                    <div class="hud-rank-info">
-                        <span class="hud-title">Player Title</span>
-                        <strong id="player-title" class="gold-text">VIP Food Critic</strong>
+    <!-- 1. TOP GAME STATUS HUD (WCAG AA Compliant, 44px+ hit targets) -->
+    <header class="game-hud fixed top-0 left-0 w-full z-50 border-b border-border-subtle bg-surface-90 backdrop-blur-md" role="region" aria-label="Game Experience Bar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
+            <!-- Player Status & XP Progress -->
+            <div class="flex items-center gap-4 sm:gap-6 min-w-0">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                        <i class="fa-solid fa-utensils text-sm"></i>
+                    </div>
+                    <div class="hidden sm:flex flex-col">
+                        <span class="text-[11px] uppercase tracking-wider text-muted font-mono font-semibold">Player Status</span>
+                        <span id="player-title" class="text-xs font-bold text-amber-300 font-sans truncate">Apprentice Critic</span>
                     </div>
                 </div>
-                <div class="hud-xp-box">
-                    <div class="hud-xp-labels">
-                        <span>Gourmet XP: <strong id="xp-counter">50</strong>/500</span>
-                        <span id="level-badge" class="badge-tag">Level 1</span>
+
+                <div class="flex flex-col w-32 sm:w-48">
+                    <div class="flex justify-between text-[11px] font-mono text-secondary mb-1">
+                        <span>XP: <strong id="xp-counter" class="text-amber-400">50</strong>/500</span>
+                        <span id="level-badge" class="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">Lv.1</span>
                     </div>
-                    <div class="hud-progress-track">
-                        <div class="hud-progress-fill" id="xp-progress-bar" style="width: 10%;"></div>
+                    <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="500">
+                        <div id="xp-progress-bar" class="h-full bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-400 rounded-full transition-all duration-500" style="width: 10%;"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="hud-actions-group">
-                <button class="hud-btn" id="sound-toggle-btn" title="Toggle Sound Effects" onclick="gameAudio.toggleMute()">
-                    <i class="fa-solid fa-volume-high" id="sound-icon"></i>
-                    <span class="hud-btn-label">Sound: <span id="sound-status">ON</span></span>
+            <!-- HUD Quick Controls -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button id="sound-btn" onclick="gameAudio.toggleMute()" class="hud-control-btn" aria-label="Toggle Sound Effects">
+                    <i class="fa-solid fa-volume-high text-amber-400" id="sound-icon"></i>
+                    <span class="hidden md:inline text-xs font-medium">Audio: <span id="sound-status">ON</span></span>
                 </button>
-                <button class="hud-btn" id="badge-modal-btn" title="View Achievements" onclick="openAchievementsModal()">
-                    <i class="fa-solid fa-trophy text-amber"></i>
-                    <span class="hud-btn-label">Badges (<span id="unlocked-badge-count">1</span>/6)</span>
+
+                <button onclick="openAchievementsModal()" class="hud-control-btn" aria-label="Open Achievements &amp; Badges">
+                    <i class="fa-solid fa-award text-amber-400"></i>
+                    <span class="hidden md:inline text-xs font-medium">Badges (<span id="unlocked-badge-count">1</span>/6)</span>
                 </button>
-                <button class="hud-btn hud-btn-recruiter" id="view-mode-toggle" title="Switch between Game Quest and Recruiter CV Mode" onclick="toggleRecruiterMode()">
-                    <i class="fa-solid fa-file-lines"></i>
-                    <span id="view-mode-text">Recruiter CV Mode</span>
+
+                <a href="#bill-checkout" class="hud-action-btn" aria-label="Jump to Recruiter Resume View">
+                    <i class="fa-solid fa-file-invoice text-emerald-400"></i>
+                    <span class="text-xs font-bold text-emerald-300">Recruiter CV</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. MAIN NAVIGATION -->
+    <nav class="main-nav fixed top-14 left-0 w-full z-40 border-b border-border-subtle bg-base-90 backdrop-blur-lg" role="navigation" aria-label="Main Navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <a href="#entrance" class="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-lg p-1">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-slate-950 font-cinzel font-bold text-lg shadow-glow-sm group-hover:scale-105 transition-transform">
+                    AH
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-cinzel font-bold text-base tracking-wide text-primary group-hover:text-amber-300 transition-colors">Amdadul Hoque</span>
+                    <span class="text-[11px] text-muted font-sans font-medium">Khamer Operations Hub</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden lg:flex items-center gap-1">
+                <a href="#entrance" class="nav-link active"><i class="fa-solid fa-door-open"></i> Entrance</a>
+                <a href="#bento-floor" class="nav-link"><i class="fa-solid fa-cubes-stacked"></i> Floor Map</a>
+                <a href="#tasting-quest" class="nav-link"><i class="fa-solid fa-utensils"></i> 5-Course Career</a>
+                <a href="#shift-commander" class="nav-link special-arcade-link"><i class="fa-solid fa-gamepad"></i> Shift Game</a>
+                <a href="#skill-matrix" class="nav-link"><i class="fa-solid fa-flask-vial"></i> Skill Shaker</a>
+                <a href="#bill-checkout" class="nav-link"><i class="fa-solid fa-receipt"></i> Takeaway CV</a>
+                <a href="#reservation" class="nav-link"><i class="fa-solid fa-calendar-check"></i> VIP Booking</a>
+            </div>
+
+            <!-- Primary CTAs -->
+            <div class="flex items-center gap-2.5">
+                <button onclick="ringReceptionBell()" class="btn-icon-bell" title="Ring Service Bell for VIP Service" aria-label="Ring Reception Bell">
+                    <i class="fa-solid fa-bell text-amber-400"></i>
+                    <span class="hidden sm:inline text-xs font-semibold text-amber-300">Ring Bell</span>
+                </button>
+
+                <a href="#reservation" class="btn-primary-glow hidden sm:inline-flex">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Contact Host</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-toggle" class="lg:hidden w-11 h-11 rounded-lg border border-border-subtle bg-surface-card flex items-center justify-center text-primary hover:text-amber-400 transition-colors" aria-label="Toggle Mobile Menu">
+                    <i class="fa-solid fa-bars text-lg" id="menu-icon"></i>
                 </button>
             </div>
         </div>
-    </aside>
 
-    <!-- Main Navigation Header -->
-    <header class="restaurant-header" id="header">
-        <nav class="nav container">
-            <a href="#entrance" class="nav__logo">
-                <span class="logo__icon"><i class="fa-solid fa-utensils"></i></span>
-                <span class="logo__text">Khamer <span class="accent-gold">Lounge &amp; Game</span></span>
-            </a>
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden border-b border-border-subtle bg-surface-card px-4 py-4 space-y-1">
+            <a href="#entrance" class="mobile-nav-link"><i class="fa-solid fa-door-open w-6 text-amber-400"></i> Entrance &amp; Bio</a>
+            <a href="#bento-floor" class="mobile-nav-link"><i class="fa-solid fa-cubes-stacked w-6 text-amber-400"></i> Floor Map Bento</a>
+            <a href="#tasting-quest" class="mobile-nav-link"><i class="fa-solid fa-utensils w-6 text-amber-400"></i> 5-Course Career Experience</a>
+            <a href="#shift-commander" class="mobile-nav-link text-amber-300 font-bold"><i class="fa-solid fa-gamepad w-6 text-amber-400"></i> Shift Commander Game (+150 XP)</a>
+            <a href="#skill-matrix" class="mobile-nav-link"><i class="fa-solid fa-flask-vial w-6 text-amber-400"></i> Skill Synergy Shaker</a>
+            <a href="#bill-checkout" class="mobile-nav-link"><i class="fa-solid fa-receipt w-6 text-emerald-400"></i> Thermal Takeaway CV</a>
+            <a href="#reservation" class="mobile-nav-link"><i class="fa-solid fa-calendar-check w-6 text-amber-400"></i> VIP Table Reservation</a>
+        </div>
+    </nav>
 
-            <div class="nav__menu" id="nav-menu">
-                <ul class="nav__list">
-                    <li class="nav__item"><a href="#entrance" class="nav__link active-link"><i class="fa-solid fa-door-open"></i> Entrance</a></li>
-                    <li class="nav__item"><a href="#restaurant-map" class="nav__link"><i class="fa-solid fa-map-location-dot"></i> Floor Map</a></li>
-                    <li class="nav__item"><a href="#tasting-quest" class="nav__link"><i class="fa-solid fa-bowl-food"></i> Tasting Quest</a></li>
-                    <li class="nav__item"><a href="#kitchen-rush" class="nav__link highlight-game-link"><i class="fa-solid fa-gamepad"></i> Mini-Game</a></li>
-                    <li class="nav__item"><a href="#mixology-bar" class="nav__link"><i class="fa-solid fa-martini-glass-citrus"></i> Skill Bar</a></li>
-                    <li class="nav__item"><a href="#bill-checkout" class="nav__link"><i class="fa-solid fa-receipt"></i> Resume Receipt</a></li>
-                    <li class="nav__item"><a href="#reservation" class="nav__link"><i class="fa-solid fa-calendar-check"></i> Contact</a></li>
-                </ul>
-                <div class="nav__close" id="nav-close">
-                    <i class="fa-solid fa-xmark"></i>
-                </div>
-            </div>
-
-            <div class="nav__actions">
-                <button class="btn btn-bell" id="bell-btn" title="Ring Reception Service Bell" onclick="ringReceptionBell()">
-                    <i class="fa-solid fa-bell"></i>
-                    <span class="bell-text">Ring Bell</span>
-                </button>
-                <a href="#bill-checkout" class="btn btn-gold btn-sm">
-                    <i class="fa-solid fa-download"></i>
-                    <span>Takeaway CV</span>
-                </a>
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class="fa-solid fa-bars-staggered"></i>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <main class="main">
-        <!-- 1. ENTRANCE & WELCOME HOST STAND -->
-        <section class="hero section" id="entrance">
-            <div class="hero__container container">
-                <div class="hero__content">
-                    <div class="bistro-badge reveal">
-                        <span class="candle-flame"></span>
-                        <span>Table #1 VIP Reserved • Supervised by Amdadul Hoque</span>
-                    </div>
-                    <h1 class="hero__title reveal">
-                        The Interactive <span class="gold-gradient-text">Restaurant Resume Game</span>
-                    </h1>
-                    <div class="hero__subtitle-wrapper reveal">
-                        <span class="hero__prefix">Welcome Diner! Meet your Host:</span>
-                        <span class="typing-text" id="typing-text"></span>
-                        <span class="cursor">&nbsp;</span>
-                    </div>
-                    <p class="hero__description reveal">
-                        Step inside the operational dining hub of <strong>Amdadul Hoque (মোঃ এমদাদুল হক)</strong>. Play the career tasting quest, test your decision-making in the Supervisor Rush mini-game, mix skills at the bar, and explore a full resume served course by course.
-                    </p>
-                    <div class="hero__buttons reveal">
-                        <a href="#tasting-quest" class="btn btn-primary-gold" onclick="gameAudio.playClick()">
-                            <i class="fa-solid fa-play"></i>
-                            <span>Start Tasting Quest (+50 XP)</span>
-                        </a>
-                        <a href="#kitchen-rush" class="btn btn-arcade" onclick="gameAudio.playClick()">
-                            <i class="fa-solid fa-gamepad"></i>
-                            <span>Play Supervisor Rush</span>
-                        </a>
-                    </div>
-                    <div class="hero__socials reveal">
-                        <a href="tel:+966544575530" class="bistro-social" title="Phone Hotline"><i class="fa-solid fa-phone"></i></a>
-                        <a href="https://wa.me/966544575530" target="_blank" rel="noopener noreferrer" class="bistro-social" title="WhatsApp Concierge"><i class="fa-brands fa-whatsapp"></i></a>
-                        <a href="mailto:ahameddruboo@gmail.com" class="bistro-social" title="Email Host"><i class="fa-regular fa-envelope"></i></a>
-                        <a href="https://github.com/ggptamdas-commits" target="_blank" rel="noopener noreferrer" class="bistro-social" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                    </div>
-                </div>
-
-                <div class="hero__visual reveal">
-                    <div class="bistro-frame glass-card">
-                        <div class="bistro-avatar-box">
-                            <div class="lantern-glow"></div>
-                            <div class="avatar-ring">
-                                <img src="profile.jpg" alt="Amdadul Hoque" class="supervisor-photo" onerror="this.onerror=null; this.src='https://avatars.githubusercontent.com/u/282988582?v=4';">
-                            </div>
-                            <span class="badge-role-tag">🌟 Executive Supervisor</span>
-                        </div>
-                        <div class="bistro-card-details">
-                            <h3>Amdadul Hoque</h3>
-                            <p class="role-caption">Operations Leader • Inventory Specialist • AI Automations</p>
-                            <div class="meta-pills">
-                                <span><i class="fa-solid fa-location-dot"></i> Sabya, Jazan, KSA</span>
-                                <span><i class="fa-solid fa-language"></i> Arabic, English, Bengali</span>
-                                <span><i class="fa-solid fa-certificate"></i> HACCP Certified</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. VIRTUAL RESTAURANT 2D FLOOR MAP -->
-        <section class="section map-section" id="restaurant-map">
-            <div class="container">
-                <div class="section__header text-center reveal">
-                    <span class="section__subtitle"><i class="fa-solid fa-compass"></i> Interactive Floor Plan</span>
-                    <h2 class="section__title">Navigate The <span class="gold-gradient-text">Restaurant Stations</span></h2>
-                    <p class="section__desc">Click on any station on the restaurant floor map to jump directly into that career domain and earn exploration XP.</p>
-                </div>
-
-                <div class="floor-map-wrapper glass-card reveal">
-                    <div class="floor-grid">
-                        <div class="station-card" onclick="visitStation('host-stand')">
-                            <div class="station-icon">🛎️</div>
-                            <div class="station-info">
-                                <h4>1. Host Stand &amp; Bio</h4>
-                                <p>Leadership ethos, profile summary &amp; credentials</p>
-                            </div>
-                            <span class="station-badge">Explored ✅</span>
+    <main class="relative z-10 pt-32">
+        <!-- 3. HERO / ENTRANCE SECTION -->
+        <section id="entrance" class="min-h-[85vh] flex items-center py-12 lg:py-20 border-b border-border-subtle">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Hero Content -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span>On Duty &amp; Available for Hire • Sabya, KSA</span>
                         </div>
 
-                        <div class="station-card" onclick="visitStation('main-kitchen')">
-                            <div class="station-icon">🍳</div>
-                            <div class="station-info">
-                                <h4>2. Executive Kitchen</h4>
-                                <p>Khamer Restaurant (2024-Now) &amp; Miah Store (2022-2024)</p>
-                            </div>
-                            <span class="station-badge badge-active">Experience</span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-cinzel font-bold text-primary leading-tight">
+                            The Interactive <br>
+                            <span class="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent">Restaurant Game</span> Resume
+                        </h1>
+
+                        <div class="flex items-center gap-2 font-mono text-base sm:text-lg text-secondary min-h-[32px]">
+                            <span class="text-amber-400"><i class="fa-solid fa-chevron-right text-xs"></i></span>
+                            <span id="typing-text" class="text-amber-300 font-semibold"></span>
+                            <span class="cursor-blink text-amber-400">|</span>
                         </div>
 
-                        <div class="station-card" onclick="visitStation('tech-lab')">
-                            <div class="station-icon">🤖</div>
-                            <div class="station-info">
-                                <h4>3. AI &amp; Smart Ops Lab</h4>
-                                <p>n8n Workflows, WhatsApp Bots, AWS Cloud &amp; POS Systems</p>
-                            </div>
-                            <span class="station-badge badge-tech">Automation</span>
-                        </div>
-
-                        <div class="station-card" onclick="visitStation('mixology-bar')">
-                            <div class="station-icon">🍸</div>
-                            <div class="station-info">
-                                <h4>4. Mixology Skills Bar</h4>
-                                <p>Interactive Skill Cocktail Brewer &amp; Mastery Gauges</p>
-                            </div>
-                            <span class="station-badge badge-game">Mini-Game</span>
-                        </div>
-
-                        <div class="station-card" onclick="visitStation('study-cellar')">
-                            <div class="station-icon">📚</div>
-                            <div class="station-info">
-                                <h4>5. Academy &amp; Secret Recipes</h4>
-                                <p>HSC &amp; SSC in Business Studies (GPA 4.50 &amp; 4.10)</p>
-                            </div>
-                            <span class="station-badge">Education</span>
-                        </div>
-
-                        <div class="station-card" onclick="visitStation('checkout-desk')">
-                            <div class="station-icon">🧾</div>
-                            <div class="station-info">
-                                <h4>6. Checkout &amp; Takeaway Bill</h4>
-                                <p>Generate custom Dining Bill &amp; Print Official Resume</p>
-                            </div>
-                            <span class="station-badge badge-receipt">Receipt</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. CAREER TASTING QUEST (COURSE-BY-COURSE RESUME GAME) -->
-        <section class="section tasting-section" id="tasting-quest">
-            <div class="container">
-                <div class="section__header text-center reveal">
-                    <span class="section__subtitle"><i class="fa-solid fa-utensils"></i> 5-Course Career Experience</span>
-                    <h2 class="section__title">The Chef's <span class="gold-gradient-text">Tasting Menu Quest</span></h2>
-                    <p class="section__desc">Click "Plate &amp; Taste Dish" for each course to unlock detailed career achievements, metrics, and unlock gourmet XP.</p>
-                </div>
-
-                <div class="tasting-quest-container">
-                    <!-- Course 1 -->
-                    <div class="course-card glass-card reveal" id="course-1" data-course="1">
-                        <div class="course-header">
-                            <div class="course-badge">Course 1 • Amuse-Bouche</div>
-                            <span class="course-xp-tag">+50 XP</span>
-                        </div>
-                        <div class="course-dish-preview">
-                            <div class="dish-emoji-circle">🥖</div>
-                            <div class="dish-title-group">
-                                <h3>The Supervisor's Core Foundation</h3>
-                                <p class="dish-category">Executive Summary &amp; Operations Ethos</p>
-                            </div>
-                        </div>
-                        <p class="dish-flavor-text">
-                            "A delicate balance of strict inventory precision, proactive floor leadership, and customer-first Arabic hospitality."
+                        <p class="text-secondary text-base sm:text-lg leading-relaxed max-w-2xl font-sans">
+                            Welcome to the executive operations hub of <strong>Amdadul Hoque (মোঃ এমদাদুল হক)</strong>. Play the 5-course tasting career quest, solve live rush-hour dilemmas in the Shift Simulator, blend skills at the mixology bar, and export a verified, print-ready resume receipt.
                         </p>
-                        <button class="btn btn-serve-dish" onclick="unlockCourse(1)">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            <span class="btn-dish-text">Plate &amp; Taste Dish</span>
-                        </button>
-                        <div class="course-expanded-content" id="course-content-1">
-                            <div class="resume-detail-box">
-                                <h4>👨‍💼 Executive Career Profile</h4>
-                                <p>Dynamic, results-driven <strong>Restaurant Operations Supervisor &amp; Warehouse Inventory Specialist</strong> currently based in Sabya, Jazan Province, Saudi Arabia. Recognized for combining disciplined floor management with modern AI automation tools (n8n, POS databases, WhatsApp CRM) to cut operational bottlenecks and boost revenue.</p>
-                                <ul class="achievement-bullets">
-                                    <li><i class="fa-solid fa-circle-check text-gold"></i> Over 4+ years of cross-functional supervisor experience across Saudi Arabia and Bangladesh.</li>
-                                    <li><i class="fa-solid fa-circle-check text-gold"></i> Bilingual communicator: Fluent Arabic for Saudi guest concierge &amp; English for professional management.</li>
-                                    <li><i class="fa-solid fa-circle-check text-gold"></i> Strong expertise in food safety HACCP compliance, cold-chain preservation, and batch gravy meal prep.</li>
-                                </ul>
+
+                        <!-- Hero Action Buttons -->
+                        <div class="flex flex-wrap gap-3.5 pt-2">
+                            <a href="#tasting-quest" class="btn-primary-glow" onclick="gameAudio.playClick()">
+                                <i class="fa-solid fa-play"></i>
+                                <span>Start Career Quest (+50 XP)</span>
+                            </a>
+
+                            <a href="#shift-commander" class="btn-secondary-glow" onclick="gameAudio.playClick()">
+                                <i class="fa-solid fa-gamepad text-amber-400"></i>
+                                <span>Play 30s Rush Game</span>
+                            </a>
+
+                            <a href="#bill-checkout" class="btn-outline" onclick="gameAudio.playClick()">
+                                <i class="fa-solid fa-file-arrow-down text-emerald-400"></i>
+                                <span>Print / Takeaway CV</span>
+                            </a>
+                        </div>
+
+                        <!-- Direct Social & Concierge Links -->
+                        <div class="flex items-center gap-3 pt-4 border-t border-border-subtle">
+                            <span class="text-xs font-mono uppercase tracking-wider text-muted">Direct Connect:</span>
+                            <a href="tel:+966544575530" class="social-icon-btn" title="Phone Hotline" aria-label="Call Phone"><i class="fa-solid fa-phone"></i></a>
+                            <a href="https://wa.me/966544575530" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="WhatsApp Concierge" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            <a href="mailto:ahameddruboo@gmail.com" class="social-icon-btn" title="Email Host" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                            <a href="https://github.com/ggptamdas-commits" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="GitHub Profile" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Right Profile Bento Card -->
+                    <div class="lg:col-span-5">
+                        <div class="executive-card p-6 sm:p-8 space-y-6 relative overflow-hidden group">
+                            <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl group-hover:bg-amber-500/20 transition-all"></div>
+                            
+                            <div class="flex items-center gap-5">
+                                <div class="relative flex-shrink-0">
+                                    <div class="w-24 h-24 rounded-2xl p-1 bg-gradient-to-br from-amber-400 via-amber-600 to-emerald-500 shadow-glow-sm">
+                                        <img src="profile.jpg" alt="Amdadul Hoque" class="w-full h-full object-cover rounded-xl bg-surface-card" onerror="this.onerror=null; this.src='https://avatars.githubusercontent.com/u/282988582?v=4';">
+                                    </div>
+                                    <div class="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-surface-card border-2 border-amber-500 flex items-center justify-center text-amber-400 text-xs shadow">
+                                        <i class="fa-solid fa-shield-halved"></i>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-1">
+                                    <h3 class="text-xl font-cinzel font-bold text-primary">Amdadul Hoque</h3>
+                                    <p class="text-xs text-amber-400 font-mono font-semibold">Executive Restaurant Supervisor</p>
+                                    <p class="text-xs text-muted flex items-center gap-1.5">
+                                        <i class="fa-solid fa-location-dot text-amber-500"></i> Sabya, Jazan Province, KSA
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Highlights Grid -->
+                            <div class="grid grid-cols-2 gap-3 pt-2">
+                                <div class="stat-box">
+                                    <span class="stat-number">4+ Years</span>
+                                    <span class="stat-label">Supervisor Experience</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-number">15+ Staff</span>
+                                    <span class="stat-label">Shift Team Leadership</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-number">99.4%</span>
+                                    <span class="stat-label">HACCP Compliance</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-number">Bilingual</span>
+                                    <span class="stat-label">Arabic &amp; English</span>
+                                </div>
+                            </div>
+
+                            <!-- Core Competency Tags -->
+                            <div class="flex flex-wrap gap-1.5 pt-2">
+                                <span class="badge-chip"><i class="fa-solid fa-boxes-stacked text-amber-400"></i> FIFO Inventory</span>
+                                <span class="badge-chip"><i class="fa-solid fa-robot text-cyan-400"></i> n8n Automation</span>
+                                <span class="badge-chip"><i class="fa-solid fa-server text-orange-400"></i> AWS Cloud</span>
+                                <span class="badge-chip"><i class="fa-solid fa-temperature-arrow-down text-emerald-400"></i> Cold Chain</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. RESTAURANT BENTO FLOOR MAP -->
+        <section id="bento-floor" class="py-16 sm:py-24 border-b border-border-subtle bg-surface-base">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+                    <span class="section-tag"><i class="fa-solid fa-map-location-dot"></i> Interactive Floor Plan</span>
+                    <h2 class="text-3xl sm:text-4xl font-cinzel font-bold text-primary">Explore The <span class="text-amber-400">Operations Stations</span></h2>
+                    <p class="text-secondary text-sm sm:text-base font-sans">Navigate through each department of Amdadul's professional ecosystem. Click any card to enter that domain.</p>
+                </div>
+
+                <!-- Bento Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Station 1 -->
+                    <div class="bento-card group cursor-pointer" onclick="visitStation('entrance')">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="station-icon-badge bg-amber-500/10 text-amber-400 border-amber-500/30">
+                                <i class="fa-solid fa-bell-concierge"></i>
+                            </div>
+                            <span class="status-pill status-pill-active">Station 01</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-primary group-hover:text-amber-300 transition-colors">Reception &amp; Host Stand</h3>
+                        <p class="text-secondary text-sm mt-1.5 line-clamp-2">Executive summary, bilingual guest management, and operational leadership ethos.</p>
+                        <div class="mt-4 pt-4 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-amber-400">
+                            <span>Explore Bio</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Station 2 -->
+                    <div class="bento-card group cursor-pointer" onclick="visitStation('tasting-quest')">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="station-icon-badge bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
+                                <i class="fa-solid fa-fire-burner"></i>
+                            </div>
+                            <span class="status-pill status-pill-emerald">Station 02</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-primary group-hover:text-amber-300 transition-colors">Executive Kitchen (Khamer)</h3>
+                        <p class="text-secondary text-sm mt-1.5 line-clamp-2">2024–Present: 15+ staff orchestration, batch gravy prep, and cutting table wait time by 25%.</p>
+                        <div class="mt-4 pt-4 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-emerald-400">
+                            <span>View Kitchen KPIs</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Station 3 -->
+                    <div class="bento-card group cursor-pointer" onclick="visitStation('tasting-quest')">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="station-icon-badge bg-cyan-500/10 text-cyan-400 border-cyan-500/30">
+                                <i class="fa-solid fa-warehouse"></i>
+                            </div>
+                            <span class="status-pill status-pill-cyan">Station 03</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-primary group-hover:text-amber-300 transition-colors">Supply Dock &amp; Inventory</h3>
+                        <p class="text-secondary text-sm mt-1.5 line-clamp-2">Miah Store (2022–2024): 1,200+ SKU control, FIFO cold chain, and cutting stock discrepancy by 30%.</p>
+                        <div class="mt-4 pt-4 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-cyan-400">
+                            <span>Audit Protocols</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Station 4 -->
+                    <div class="bento-card group cursor-pointer" onclick="visitStation('shift-commander')">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="station-icon-badge bg-purple-500/10 text-purple-400 border-purple-500/30">
+                                <i class="fa-solid fa-gamepad"></i>
+                            </div>
+                            <span class="status-pill status-pill-purple">Station 04</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-primary group-hover:text-amber-300 transition-colors">Shift Commander Arcade</h3>
+                        <p class="text-secondary text-sm mt-1.5 line-clamp-2">Real-time 30-second operational crisis simulator. Test decision-making speed &amp; earn +150 XP.</p>
+                        <div class="mt-4 pt-4 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-purple-400">
+                            <span>Play Mini-Game</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Station 5 -->
+                    <div class="bento-card group cursor-pointer" onclick="visitStation('skill-matrix')">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="station-icon-badge bg-amber-500/10 text-amber-400 border-amber-500/30">
+                                <i class="fa-solid fa-flask-vial"></i>
+                            </div>
+                            <span class="status-pill status-pill-active">Station 05</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-primary group-hover:text-amber-300 transition-colors">Skill Mixology Lounge</h3>
+                        <p class="text-secondary text-sm mt-1.5 line-clamp-2">Combine core competencies in our interactive shaker to discover high-yield operational synergies.</p>
+                        <div class="mt-4 pt-4 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-amber-400">
+                            <span>Shake Synergy</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Station 6 -->
+                    <div class="bento-card group cursor-pointer" onclick="visitStation('bill-checkout')">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="station-icon-badge bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
+                                <i class="fa-solid fa-receipt"></i>
+                            </div>
+                            <span class="status-pill status-pill-emerald">Station 06</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-primary group-hover:text-amber-300 transition-colors">Checkout &amp; Takeaway CV</h3>
+                        <p class="text-secondary text-sm mt-1.5 line-clamp-2">Official itemized resume receipt formatted for recruiters, 1-click printing, and PDF export.</p>
+                        <div class="mt-4 pt-4 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-emerald-400">
+                            <span>Print Resume</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. 5-COURSE CAREER TASTING QUEST (ACCORDION &amp; XP ENGINE) -->
+        <section id="tasting-quest" class="py-16 sm:py-24 border-b border-border-subtle">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6">
+                <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+                    <span class="section-tag"><i class="fa-solid fa-utensils"></i> Course-by-Course Experience</span>
+                    <h2 class="text-3xl sm:text-4xl font-cinzel font-bold text-primary">The Chef's <span class="text-amber-400">Tasting Menu Quest</span></h2>
+                    <p class="text-secondary text-sm sm:text-base font-sans">Click "Unlock &amp; Taste Dish" for each course to unveil verified achievements, operational KPIs, and earn Gourmet XP.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Course 1 -->
+                    <div class="course-card-box" id="course-card-1">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 cursor-pointer" onclick="toggleCourse(1)">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-wheat-awn"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-mono font-semibold uppercase text-amber-400">Course 01 • Amuse-Bouche</span>
+                                        <span class="xp-badge">+50 XP</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-primary">Executive Summary &amp; Leadership Foundation</h3>
+                                    <p class="text-xs text-muted">Core operational philosophy, Saudi Arabia residency &amp; multilingual leadership</p>
+                                </div>
+                            </div>
+                            <button class="course-action-btn" aria-label="Toggle Course 1 Details">
+                                <span class="btn-label">Unlock &amp; Taste Dish</span>
+                                <i class="fa-solid fa-chevron-down toggle-icon transition-transform duration-300"></i>
+                            </button>
+                        </div>
+                        <div class="course-content-drawer hidden px-6 pb-6 pt-2 border-t border-border-subtle">
+                            <div class="space-y-4 text-sm text-secondary">
+                                <p class="leading-relaxed">
+                                    Results-oriented <strong>Restaurant Operations Supervisor</strong> with a verified track record of managing high-volume dining floors, optimizing food service speed, and preventing inventory loss. Expert in bridging front-of-house hospitality with modern cloud automation tools.
+                                </p>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                                    <div class="p-3.5 rounded-lg bg-surface-card border border-border-subtle">
+                                        <div class="text-amber-400 font-bold mb-1 flex items-center gap-1.5"><i class="fa-solid fa-language"></i> Arabic &amp; English</div>
+                                        <p class="text-xs text-muted">Direct Saudi guest relations and multinational team coordination.</p>
+                                    </div>
+                                    <div class="p-3.5 rounded-lg bg-surface-card border border-border-subtle">
+                                        <div class="text-emerald-400 font-bold mb-1 flex items-center gap-1.5"><i class="fa-solid fa-shield-virus"></i> HACCP Food Safety</div>
+                                        <p class="text-xs text-muted">Strict municipal hygiene audits and temperature logging.</p>
+                                    </div>
+                                    <div class="p-3.5 rounded-lg bg-surface-card border border-border-subtle">
+                                        <div class="text-cyan-400 font-bold mb-1 flex items-center gap-1.5"><i class="fa-solid fa-clock-rotate-left"></i> Shift Management</div>
+                                        <p class="text-xs text-muted">Rostering 15+ staff across prep, cooking, and service shifts.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Course 2 -->
-                    <div class="course-card glass-card reveal" id="course-2" data-course="2">
-                        <div class="course-header">
-                            <div class="course-badge">Course 2 • Signature Main</div>
-                            <span class="course-xp-tag">+100 XP</span>
-                        </div>
-                        <div class="course-dish-preview">
-                            <div class="dish-emoji-circle">🍖</div>
-                            <div class="dish-title-group">
-                                <h3>Khamer Restaurant Platter (2024–Present)</h3>
-                                <p class="dish-category">Restaurant Operations Supervisor • Sabya, Saudi Arabia</p>
+                    <div class="course-card-box" id="course-card-2">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 cursor-pointer" onclick="toggleCourse(2)">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-utensils"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-mono font-semibold uppercase text-amber-400">Course 02 • Signature Main</span>
+                                        <span class="xp-badge">+100 XP</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-primary">Khamer Restaurant (خَامِر) • Operations Supervisor</h3>
+                                    <p class="text-xs text-muted">Jan 2024 – Present | Sabya, Jazan Province, Saudi Arabia</p>
+                                </div>
                             </div>
+                            <button class="course-action-btn" aria-label="Toggle Course 2 Details">
+                                <span class="btn-label">Unlock &amp; Taste Dish</span>
+                                <i class="fa-solid fa-chevron-down toggle-icon transition-transform duration-300"></i>
+                            </button>
                         </div>
-                        <p class="dish-flavor-text">
-                            "A sizzling platter of 15+ staff team orchestration, 25% speed enhancement, and flawless inventory control."
-                        </p>
-                        <button class="btn btn-serve-dish" onclick="unlockCourse(2)">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            <span class="btn-dish-text">Plate &amp; Taste Dish</span>
-                        </button>
-                        <div class="course-expanded-content" id="course-content-2">
-                            <div class="resume-detail-box">
-                                <div class="role-tag-header">
-                                    <h4>🍽️ Restaurant Supervisor @ Khamer Restaurant (خَامِر)</h4>
-                                    <span class="date-badge">Jan 2024 – Present | Sabya, Jazan, KSA</span>
+                        <div class="course-content-drawer hidden px-6 pb-6 pt-2 border-t border-border-subtle">
+                            <div class="space-y-4 text-sm text-secondary">
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                    <div class="stat-box"><span class="stat-number text-amber-400">+25%</span><span class="stat-label">Service Turnaround</span></div>
+                                    <div class="stat-box"><span class="stat-number text-emerald-400">-18%</span><span class="stat-label">Food Waste</span></div>
+                                    <div class="stat-box"><span class="stat-number text-cyan-400">15+</span><span class="stat-label">Staff Supervised</span></div>
+                                    <div class="stat-box"><span class="stat-number text-purple-400">4.8 ★</span><span class="stat-label">Guest Rating</span></div>
                                 </div>
-                                <div class="metric-ribbon">
-                                    <div class="metric-item"><strong>+25%</strong><span>Service Speed</span></div>
-                                    <div class="metric-item"><strong>15+</strong><span>Staff Supervised</span></div>
-                                    <div class="metric-item"><strong>-18%</strong><span>Food Waste</span></div>
-                                    <div class="metric-item"><strong>99.4%</strong><span>HACCP Compliance</span></div>
-                                </div>
-                                <ul class="achievement-bullets">
-                                    <li><i class="fa-solid fa-check text-gold"></i> Direct supervisor of 15+ front-of-house waiters, dining staff, and back-of-house culinary personnel.</li>
-                                    <li><i class="fa-solid fa-check text-gold"></i> Instituted batch preparation schedules and cold-storage tracking for base gravies, slashing preparation rush delays.</li>
-                                    <li><i class="fa-solid fa-check text-gold"></i> Deployed automated WhatsApp ordering concierge and Google Sheets menu connectivity for real-time order status.</li>
-                                    <li><i class="fa-solid fa-check text-gold"></i> Resolved high-priority customer feedback on the spot in fluent Arabic, sustaining a 4.8-star guest satisfaction rating.</li>
+                                <ul class="space-y-2.5 pt-2">
+                                    <li class="flex items-start gap-2.5">
+                                        <i class="fa-solid fa-circle-check text-amber-400 text-sm mt-0.5"></i>
+                                        <span>Directly supervise front-of-house waitstaff and back-of-house culinary teams, maintaining high morale and zero service bottlenecks during peak dining hours.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <i class="fa-solid fa-circle-check text-amber-400 text-sm mt-0.5"></i>
+                                        <span>Established efficient all-purpose base gravy batch preparation and refrigeration standards, saving 40+ minutes of prep rush per shift.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <i class="fa-solid fa-circle-check text-amber-400 text-sm mt-0.5"></i>
+                                        <span>Engineered automated WhatsApp customer service workflows connecting live Google Sheets menus for seamless pickup and dine-in coordination.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <i class="fa-solid fa-circle-check text-amber-400 text-sm mt-0.5"></i>
+                                        <span>Conduct daily cash drawer reconciliation, inventory audit, and supplier quality inspection with zero shrinkage.</span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
                     <!-- Course 3 -->
-                    <div class="course-card glass-card reveal" id="course-3" data-course="3">
-                        <div class="course-header">
-                            <div class="course-badge">Course 3 • Hearty Entrée</div>
-                            <span class="course-xp-tag">+100 XP</span>
-                        </div>
-                        <div class="course-dish-preview">
-                            <div class="dish-emoji-circle">📦</div>
-                            <div class="dish-title-group">
-                                <h3>Miah Store Warehouse Feast (2022–2024)</h3>
-                                <p class="dish-category">Warehouse &amp; Inventory Supervisor • Bangladesh</p>
+                    <div class="course-card-box" id="course-card-3">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 cursor-pointer" onclick="toggleCourse(3)">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-boxes-packing"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-mono font-semibold uppercase text-cyan-400">Course 03 • Hearty Entrée</span>
+                                        <span class="xp-badge">+100 XP</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-primary">Miah Store • Warehouse &amp; Inventory Supervisor</h3>
+                                    <p class="text-xs text-muted">Jan 2022 – Dec 2024 | Bangladesh</p>
+                                </div>
                             </div>
+                            <button class="course-action-btn" aria-label="Toggle Course 3 Details">
+                                <span class="btn-label">Unlock &amp; Taste Dish</span>
+                                <i class="fa-solid fa-chevron-down toggle-icon transition-transform duration-300"></i>
+                            </button>
                         </div>
-                        <p class="dish-flavor-text">
-                            "A robust feast of precision barcode audits, vendor negotiations, and cutting stock discrepancy by 30%."
-                        </p>
-                        <button class="btn btn-serve-dish" onclick="unlockCourse(3)">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            <span class="btn-dish-text">Plate &amp; Taste Dish</span>
-                        </button>
-                        <div class="course-expanded-content" id="course-content-3">
-                            <div class="resume-detail-box">
-                                <div class="role-tag-header">
-                                    <h4>🏪 Warehouse &amp; Inventory Supervisor @ Miah Store</h4>
-                                    <span class="date-badge">Jan 2022 – Dec 2024 | Bangladesh</span>
+                        <div class="course-content-drawer hidden px-6 pb-6 pt-2 border-t border-border-subtle">
+                            <div class="space-y-4 text-sm text-secondary">
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                    <div class="stat-box"><span class="stat-number text-cyan-400">-30%</span><span class="stat-label">Discrepancies</span></div>
+                                    <div class="stat-box"><span class="stat-number text-emerald-400">1,200+</span><span class="stat-label">Active SKUs</span></div>
+                                    <div class="stat-box"><span class="stat-number text-amber-400">100%</span><span class="stat-label">FIFO Tracking</span></div>
                                 </div>
-                                <div class="metric-ribbon">
-                                    <div class="metric-item"><strong>-30%</strong><span>Stock Discrepancies</span></div>
-                                    <div class="metric-item"><strong>100%</strong><span>Barcode Tracking</span></div>
-                                    <div class="metric-item"><strong>1,200+</strong><span>SKU Management</span></div>
-                                </div>
-                                <ul class="achievement-bullets">
-                                    <li><i class="fa-solid fa-check text-gold"></i> Audited high-volume daily shipments and maintained strict FIFO (First-In, First-Out) stock rotation.</li>
-                                    <li><i class="fa-solid fa-check text-gold"></i> Directed procurement orders, supplier price negotiations, and invoice reconciliation.</li>
-                                    <li><i class="fa-solid fa-check text-gold"></i> Trained junior staff on POS register software and digital inventory scanning protocols.</li>
+                                <ul class="space-y-2.5 pt-2">
+                                    <li class="flex items-start gap-2.5">
+                                        <i class="fa-solid fa-circle-check text-cyan-400 text-sm mt-0.5"></i>
+                                        <span>Audited high-volume daily shipments, receiving dockets, and purchase invoices against strict digital purchase orders.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <i class="fa-solid fa-circle-check text-cyan-400 text-sm mt-0.5"></i>
+                                        <span>Enforced barcode inventory logging, decreasing misplaced stock and eliminating shelf expiration losses.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <i class="fa-solid fa-circle-check text-cyan-400 text-sm mt-0.5"></i>
+                                        <span>Trained 8 warehouse handlers on workplace safety, pallet storage protocols, and POS register reconciliation.</span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
                     <!-- Course 4 -->
-                    <div class="course-card glass-card reveal" id="course-4" data-course="4">
-                        <div class="course-header">
-                            <div class="course-badge">Course 4 • Molecular Gastronomy</div>
-                            <span class="course-xp-tag">+100 XP</span>
-                        </div>
-                        <div class="course-dish-preview">
-                            <div class="dish-emoji-circle">🤖</div>
-                            <div class="dish-title-group">
-                                <h3>Smart Operations &amp; AI Lab Soufflé</h3>
-                                <p class="dish-category">Automation Specialist • Falak Creation &amp; Cloud Workflows</p>
+                    <div class="course-card-box" id="course-card-4">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 cursor-pointer" onclick="toggleCourse(4)">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-microchip"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-mono font-semibold uppercase text-purple-400">Course 04 • Molecular AI Tech</span>
+                                        <span class="xp-badge">+100 XP</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-primary">Automation &amp; Cloud Workflows (Falak Creation)</h3>
+                                    <p class="text-xs text-muted">2024 – Present | n8n, WhatsApp Bots, AWS EC2 &amp; Cloudflare</p>
+                                </div>
                             </div>
+                            <button class="course-action-btn" aria-label="Toggle Course 4 Details">
+                                <span class="btn-label">Unlock &amp; Taste Dish</span>
+                                <i class="fa-solid fa-chevron-down toggle-icon transition-transform duration-300"></i>
+                            </button>
                         </div>
-                        <p class="dish-flavor-text">
-                            "A futuristic infusion of n8n automation, WhatsApp Cloud Webhooks, AWS EC2 self-hosting, and AI customer agents."
-                        </p>
-                        <button class="btn btn-serve-dish" onclick="unlockCourse(4)">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            <span class="btn-dish-text">Plate &amp; Taste Dish</span>
-                        </button>
-                        <div class="course-expanded-content" id="course-content-4">
-                            <div class="resume-detail-box">
-                                <h4>⚡ Falak Creation &amp; Digital Engineering Highlights</h4>
-                                <div class="tech-pills-grid">
-                                    <div class="tech-pill-box">
-                                        <i class="fa-solid fa-diagram-project text-amber"></i>
-                                        <strong>n8n Workflows</strong>
-                                        <p>Engineered automated multi-step pipelines linking Webhooks, Google Sheets, and REST APIs.</p>
+                        <div class="course-content-drawer hidden px-6 pb-6 pt-2 border-t border-border-subtle">
+                            <div class="space-y-4 text-sm text-secondary">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div class="p-3.5 rounded-lg bg-surface-card border border-border-subtle">
+                                        <div class="text-purple-400 font-bold mb-1 flex items-center gap-1.5"><i class="fa-solid fa-diagram-project"></i> n8n Webhook Pipelines</div>
+                                        <p class="text-xs text-muted">Designed multi-branch automation flows connecting POS webhooks to Google Sheets and instant mobile alerts.</p>
                                     </div>
-                                    <div class="tech-pill-box">
-                                        <i class="fa-brands fa-whatsapp text-emerald"></i>
-                                        <strong>WhatsApp Cloud Bots</strong>
-                                        <p>Created automated multilingual order verification bots for restaurant dining inquiries.</p>
-                                    </div>
-                                    <div class="tech-pill-box">
-                                        <i class="fa-brands fa-aws text-orange"></i>
-                                        <strong>AWS EC2 &amp; Cloudflare</strong>
-                                        <p>Configured Linux servers, security group firewalls, reverse proxies, and self-hosted instances.</p>
-                                    </div>
-                                    <div class="tech-pill-box">
-                                        <i class="fa-solid fa-robot text-cyan"></i>
-                                        <strong>Groq &amp; Bedrock LLMs</strong>
-                                        <p>Integrated low-latency LLMs for contextual customer assistance and intelligent menu search.</p>
+                                    <div class="p-3.5 rounded-lg bg-surface-card border border-border-subtle">
+                                        <div class="text-orange-400 font-bold mb-1 flex items-center gap-1.5"><i class="fa-brands fa-aws"></i> AWS EC2 &amp; Linux Server</div>
+                                        <p class="text-xs text-muted">Configured self-hosted instances, security groups, reverse proxies, and domain DNS via Cloudflare.</p>
                                     </div>
                                 </div>
                             </div>
@@ -399,348 +528,409 @@
                     </div>
 
                     <!-- Course 5 -->
-                    <div class="course-card glass-card reveal" id="course-5" data-course="5">
-                        <div class="course-header">
-                            <div class="course-badge">Course 5 • Gourmet Dessert</div>
-                            <span class="course-xp-tag">+50 XP</span>
+                    <div class="course-card-box" id="course-card-5">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 cursor-pointer" onclick="toggleCourse(5)">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-mono font-semibold uppercase text-amber-400">Course 05 • Academic Dessert</span>
+                                        <span class="xp-badge">+100 XP</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-primary">Education &amp; Professional Certifications</h3>
+                                    <p class="text-xs text-muted">HSC &amp; SSC in Business Studies (GPA 4.50 &amp; 4.10) • Food Safety</p>
+                                </div>
+                            </div>
+                            <button class="course-action-btn" aria-label="Toggle Course 5 Details">
+                                <span class="btn-label">Unlock &amp; Taste Dish</span>
+                                <i class="fa-solid fa-chevron-down toggle-icon transition-transform duration-300"></i>
+                            </button>
                         </div>
-                        <div class="course-dish-preview">
-                            <div class="dish-emoji-circle">🍰</div>
-                            <div class="dish-title-group">
-                                <h3>Academic &amp; Certified Macarons</h3>
-                                <p class="dish-category">Business Studies Degrees &amp; Professional Certifications</p>
+                        <div class="course-content-drawer hidden px-6 pb-6 pt-2 border-t border-border-subtle">
+                            <div class="space-y-4 text-sm text-secondary">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="p-4 rounded-xl bg-surface-card border border-border-subtle space-y-1.5">
+                                        <div class="flex justify-between items-center">
+                                            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">GPA 4.50 / 5.00</span>
+                                            <span class="text-xs text-muted font-mono">2021 – 2023</span>
+                                        </div>
+                                        <h4 class="text-base font-bold text-primary">Higher Secondary Certificate (HSC)</h4>
+                                        <p class="text-xs text-muted">Business Studies Group • Dinajpur Board</p>
+                                    </div>
+                                    <div class="p-4 rounded-xl bg-surface-card border border-border-subtle space-y-1.5">
+                                        <div class="flex justify-between items-center">
+                                            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">GPA 4.10 / 5.00</span>
+                                            <span class="text-xs text-muted font-mono">2019 – 2021</span>
+                                        </div>
+                                        <h4 class="text-base font-bold text-primary">Secondary School Certificate (SSC)</h4>
+                                        <p class="text-xs text-muted">Business Studies Group • Dinajpur Board</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <p class="dish-flavor-text">
-                            "Sweet culmination of top academic scores in Business Studies, HACCP hygiene certificates, and leadership training."
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. MINI-GAME: SHIFT COMMANDER ARCADE (30s INTERACTIVE SIMULATOR) -->
+        <section id="shift-commander" class="py-16 sm:py-24 border-b border-border-subtle bg-surface-base">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6">
+                <div class="arcade-cabinet p-6 sm:p-10 rounded-2xl relative overflow-hidden">
+                    <!-- Cabinet Top Banner -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border-subtle">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-lg">
+                                <i class="fa-solid fa-gamepad"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-cinzel font-bold text-primary">Shift Commander Simulator</h3>
+                                <p class="text-xs text-muted font-mono">30-Second Operational Challenge</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 font-mono">
+                            <div class="px-3 py-1.5 rounded-lg bg-base border border-border-subtle text-xs">
+                                SCORE: <strong id="game-score" class="text-amber-400 text-base">0</strong>
+                            </div>
+                            <div class="px-3 py-1.5 rounded-lg bg-base border border-border-subtle text-xs">
+                                TIME: <strong id="game-timer" class="text-ruby-400 text-base">30s</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Screen 1: Start -->
+                    <div id="game-screen-start" class="game-view py-10 text-center space-y-5">
+                        <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-3xl mx-auto shadow-glow-sm">
+                            <i class="fa-solid fa-bell-concierge"></i>
+                        </div>
+                        <h4 class="text-2xl font-cinzel font-bold text-primary">Can You Handle Rush Hour in Sabya?</h4>
+                        <p class="text-secondary text-sm max-w-xl mx-auto font-sans leading-relaxed">
+                            Operational emergency tickets are coming in fast! Match each crisis with the exact leadership decision executed by Supervisor Amdadul Hoque before time runs out.
                         </p>
-                        <button class="btn btn-serve-dish" onclick="unlockCourse(5)">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            <span class="btn-dish-text">Plate &amp; Taste Dish</span>
-                        </button>
-                        <div class="course-expanded-content" id="course-content-5">
-                            <div class="resume-detail-box">
-                                <h4>🎓 Education &amp; Training Records</h4>
-                                <div class="edu-grid">
-                                    <div class="edu-item-box">
-                                        <span class="edu-grade">GPA 4.50 / 5.00</span>
-                                        <h5>Higher Secondary Certificate (HSC)</h5>
-                                        <p>Business Studies • 2021 – 2023</p>
-                                    </div>
-                                    <div class="edu-item-box">
-                                        <span class="edu-grade">GPA 4.10 / 5.00</span>
-                                        <h5>Secondary School Certificate (SSC)</h5>
-                                        <p>Business Studies • 2019 – 2021</p>
-                                    </div>
-                                </div>
-                                <div class="cert-chips mt-3">
-                                    <span class="cert-chip"><i class="fa-solid fa-shield-halved"></i> HACCP Food Safety</span>
-                                    <span class="cert-chip"><i class="fa-solid fa-cash-register"></i> POS &amp; ERP Systems</span>
-                                    <span class="cert-chip"><i class="fa-solid fa-users-gear"></i> Hospitality Team Management</span>
-                                </div>
+                        <div>
+                            <button onclick="startShiftGame()" class="btn-primary-glow text-base px-8 py-3.5">
+                                <i class="fa-solid fa-play"></i> Start 30s Challenge (+150 XP)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Screen 2: Play -->
+                    <div id="game-screen-play" class="game-view hidden py-8 space-y-6">
+                        <div class="ticket-box p-5 rounded-xl bg-base border border-amber-500/30 shadow-inner">
+                            <div class="flex justify-between items-center text-xs font-mono text-muted mb-2">
+                                <span id="ticket-id" class="text-amber-400 font-bold">TICKET #101</span>
+                                <span class="text-ruby-400 font-bold animate-pulse"><i class="fa-solid fa-bolt"></i> HIGH PRIORITY</span>
                             </div>
+                            <p id="ticket-prompt" class="text-base sm:text-lg font-bold text-primary font-sans leading-snug">
+                                "200kg raw meat batch arrived at receiving dock. Immediate action required!"
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-3" id="game-options-container">
+                            <!-- Injected dynamically -->
+                        </div>
+
+                        <div class="flex justify-between items-center text-xs font-mono text-muted pt-2">
+                            <span id="streak-indicator" class="text-amber-300 font-bold">Combo: 0x 🔥</span>
+                            <span>Points per correct answer: 100+</span>
+                        </div>
+                    </div>
+
+                    <!-- Screen 3: End / Victory -->
+                    <div id="game-screen-end" class="game-view hidden py-10 text-center space-y-5">
+                        <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-3xl mx-auto shadow-glow-sm">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <h4 class="text-2xl font-cinzel font-bold text-primary">Rush Hour Completed!</h4>
+                        <p class="text-secondary text-sm font-sans">You experienced the fast-paced floor leadership that Amdadul delivers daily.</p>
+                        <div class="inline-block px-6 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-lg font-bold">
+                            Final Score: <span id="final-score-value">0</span> PTS
+                        </div>
+                        <div class="flex justify-center gap-3 pt-2">
+                            <button onclick="startShiftGame()" class="btn-secondary-glow">
+                                <i class="fa-solid fa-rotate-right"></i> Play Again
+                            </button>
+                            <a href="#bill-checkout" class="btn-primary-glow">
+                                <i class="fa-solid fa-receipt"></i> View Official CV
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 4. MINI-GAME: SUPERVISOR RUSH ARCADE (30-SEC REAL-TIME CHALLENGE) -->
-        <section class="section arcade-section" id="kitchen-rush">
-            <div class="container">
-                <div class="arcade-cabinet glass-card reveal">
-                    <div class="arcade-header">
-                        <div class="arcade-title">
-                            <i class="fa-solid fa-gamepad text-amber"></i>
-                            <span>SUPERVISOR RUSH ARCADE</span>
-                            <span class="arcade-sub">Test Your Hospitality &amp; Operations Reflexes!</span>
-                        </div>
-                        <div class="arcade-scoreboard">
-                            <div class="score-display">SCORE: <span id="game-score" class="digital-font">0</span></div>
-                            <div class="timer-display">TIME: <span id="game-timer" class="digital-font">30s</span></div>
-                        </div>
-                    </div>
+        <!-- 7. SKILL MIXOLOGY &amp; SYNERGY MATRIX -->
+        <section id="skill-matrix" class="py-16 sm:py-24 border-b border-border-subtle">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+                    <span class="section-tag"><i class="fa-solid fa-flask-vial"></i> Interactive Mixology Lounge</span>
+                    <h2 class="text-3xl sm:text-4xl font-cinzel font-bold text-primary">Craft An <span class="text-amber-400">Operations Synergy</span></h2>
+                    <p class="text-secondary text-sm sm:text-base font-sans">Pick 2 or 3 core competencies below, then press "Shake &amp; Brew" to discover how Amdadul combines them to solve complex restaurant challenges.</p>
+                </div>
 
-                    <!-- Game Start Screen -->
-                    <div id="game-start-screen" class="game-screen active">
-                        <div class="start-banner">
-                            <div class="chef-mascot">👨‍🍳🔥</div>
-                            <h3>Can You Handle the Khamer Rush Hour?</h3>
-                            <p>Customers &amp; kitchen emergencies are flooding in! Match each operational ticket with the correct skill card handled by Supervisor Amdadul Hoque before the timer runs out!</p>
-                            <button class="btn btn-arcade-start" onclick="startRushGame()">
-                                <i class="fa-solid fa-play"></i> START 30s CHALLENGE (+150 XP)
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center executive-card p-6 sm:p-10">
+                    <!-- Ingredients Selector -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <h3 class="text-xs uppercase font-mono tracking-wider text-muted font-bold">Select 2 to 3 Competencies:</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5" id="ingredients-container">
+                            <button class="ing-select-btn" data-skill="FIFO Inventory Control" onclick="toggleMixIngredient(this, 'FIFO Inventory Control')">
+                                <i class="fa-solid fa-boxes-stacked text-amber-400"></i>
+                                <span>FIFO Inventory Control</span>
+                            </button>
+                            <button class="ing-select-btn" data-skill="15+ Staff Floor Leadership" onclick="toggleMixIngredient(this, '15+ Staff Floor Leadership')">
+                                <i class="fa-solid fa-users-gear text-emerald-400"></i>
+                                <span>15+ Staff Floor Leadership</span>
+                            </button>
+                            <button class="ing-select-btn" data-skill="Bilingual Arabic Hospitality" onclick="toggleMixIngredient(this, 'Bilingual Arabic Hospitality')">
+                                <i class="fa-solid fa-language text-cyan-400"></i>
+                                <span>Bilingual Arabic Hospitality</span>
+                            </button>
+                            <button class="ing-select-btn" data-skill="n8n AI &amp; Webhook Automations" onclick="toggleMixIngredient(this, 'n8n AI &amp; Webhook Automations')">
+                                <i class="fa-solid fa-robot text-purple-400"></i>
+                                <span>n8n AI Automations</span>
+                            </button>
+                            <button class="ing-select-btn" data-skill="HACCP Food Safety Standards" onclick="toggleMixIngredient(this, 'HACCP Food Safety Standards')">
+                                <i class="fa-solid fa-shield-virus text-emerald-400"></i>
+                                <span>HACCP Food Safety</span>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Game Play Screen -->
-                    <div id="game-play-screen" class="game-screen">
-                        <div class="ticket-display-box" id="ticket-display">
-                            <div class="ticket-header">
-                                <span class="ticket-id" id="ticket-id">ORDER #104</span>
-                                <span class="ticket-urgency">⚡ URGENT</span>
-                            </div>
-                            <div class="ticket-body">
-                                <p id="ticket-prompt">"200kg raw meat batch arrived at dock. Need instant FIFO inspection and discrepancy audit!"</p>
-                            </div>
+                    <!-- Shaker Center Action -->
+                    <div class="lg:col-span-2 text-center py-4 space-y-4">
+                        <div id="shaker-icon-wrap" class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-3xl mx-auto shadow-glow-sm transition-transform">
+                            <i class="fa-solid fa-martini-glass-citrus"></i>
                         </div>
-
-                        <div class="game-options-grid" id="game-options">
-                            <!-- Injected by JS -->
-                        </div>
-                        <div class="streak-indicator" id="streak-indicator">Combo Streak: 0x 🔥</div>
+                        <button id="shake-action-btn" onclick="triggerSynergyBrew()" disabled class="btn-primary-glow text-xs w-full py-3 disabled:opacity-40 disabled:cursor-not-allowed">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Shake Synergy
+                        </button>
                     </div>
 
-                    <!-- Game End Screen -->
-                    <div id="game-end-screen" class="game-screen">
-                        <div class="game-over-box">
-                            <div class="trophy-anim">🏆</div>
-                            <h3 id="game-result-title">Rush Hour Mastered!</h3>
-                            <p id="game-result-desc">You scored 500 points and proved Amdadul's operational mastery!</p>
-                            <div class="final-score-badge">Final Score: <span id="final-score-val">0</span></div>
-                            <div class="game-end-buttons">
-                                <button class="btn btn-arcade-start" onclick="startRushGame()">
-                                    <i class="fa-solid fa-rotate-right"></i> Play Again
+                    <!-- Synergy Result Output -->
+                    <div class="lg:col-span-5 p-6 rounded-xl bg-base border border-border-subtle space-y-4">
+                        <div class="flex items-center justify-between border-b border-border-subtle pb-3">
+                            <span class="text-xs font-mono text-amber-400 font-bold uppercase">Synergy Output</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">Tested &amp; Verified</span>
+                        </div>
+                        <h4 id="synergy-title" class="text-lg font-cinzel font-bold text-primary">"The Sabya Executive Blend"</h4>
+                        <p id="synergy-desc" class="text-xs sm:text-sm text-secondary font-sans leading-relaxed">
+                            Select 2 or 3 ingredients on the left and click "Shake Synergy" to see how Amdadul applies these techniques simultaneously on the dining floor.
+                        </p>
+                        <div class="grid grid-cols-3 gap-2 pt-2 text-center text-xs font-mono">
+                            <div class="p-2 rounded bg-surface-card border border-border-subtle"><strong class="text-amber-400 block text-sm">98%</strong> Efficiency</div>
+                            <div class="p-2 rounded bg-surface-card border border-border-subtle"><strong class="text-emerald-400 block text-sm">0%</strong> Leakage</div>
+                            <div class="p-2 rounded bg-surface-card border border-border-subtle"><strong class="text-cyan-400 block text-sm">5.0 ★</strong> Reliability</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. THERMAL RESUME RECEIPT &amp; PRINTABLE CV (RECRUITER VIEW) -->
+        <section id="bill-checkout" class="py-16 sm:py-24 border-b border-border-subtle bg-surface-base">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6">
+                <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+                    <span class="section-tag"><i class="fa-solid fa-receipt"></i> Verified Takeaway Statement</span>
+                    <h2 class="text-3xl sm:text-4xl font-cinzel font-bold text-primary">Itemized <span class="text-amber-400">Resume Receipt</span></h2>
+                    <p class="text-secondary text-sm sm:text-base font-sans">A clear, standardized executive summary of Amdadul Hoque's credentials, structured for HR recruiters and instant printing.</p>
+                </div>
+
+                <!-- Receipt Paper Card -->
+                <div class="receipt-container max-w-lg mx-auto bg-[#FDFBF7] text-[#1E1B18] p-6 sm:p-8 rounded-lg shadow-2xl font-mono text-xs space-y-4 border border-stone-300 relative">
+                    
+                    <!-- Header -->
+                    <div class="text-center space-y-1 border-b border-dashed border-stone-400 pb-4">
+                        <div class="text-amber-600 font-bold text-sm tracking-widest">★ ★ ★ ★ ★</div>
+                        <h3 class="text-base font-bold tracking-tight text-stone-900">KHAMER OPERATIONS HUB</h3>
+                        <p class="text-[11px] text-stone-600">Sabya, Jazan Province, Kingdom of Saudi Arabia</p>
+                        <p class="text-[11px] text-stone-600">TEL: +966 54 457 5530 | AMDAUL HOQUE</p>
+                        <div class="pt-2 text-[10px] flex justify-between text-stone-500">
+                            <span>RECRUITER / VIP GUEST</span>
+                            <span>DATE: 2026-08-27</span>
+                        </div>
+                    </div>
+
+                    <!-- Line Items -->
+                    <div class="space-y-3 py-2 border-b border-dashed border-stone-400">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <strong class="text-stone-900 block">01. RESTAURANT OPERATIONS SUPERVISOR</strong>
+                                <span class="text-[10px] text-stone-600">Khamer Restaurant (2024–Present) • 15+ Staff, +25% Speed</span>
+                            </div>
+                            <span class="text-emerald-700 font-bold text-[11px]">VERIFIED</span>
+                        </div>
+
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <strong class="text-stone-900 block">02. WAREHOUSE &amp; INVENTORY LEAD</strong>
+                                <span class="text-[10px] text-stone-600">Miah Store (2022–2024) • 1,200+ SKUs, -30% Loss</span>
+                            </div>
+                            <span class="text-emerald-700 font-bold text-[11px]">VERIFIED</span>
+                        </div>
+
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <strong class="text-stone-900 block">03. AI WORKFLOWS &amp; CLOUD ARCHITECT</strong>
+                                <span class="text-[10px] text-stone-600">n8n, WhatsApp Bots, AWS EC2, Cloudflare</span>
+                            </div>
+                            <span class="text-emerald-700 font-bold text-[11px]">VERIFIED</span>
+                        </div>
+
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <strong class="text-stone-900 block">04. HIGHER SECONDARY CERTIFICATE (HSC)</strong>
+                                <span class="text-[10px] text-stone-600">Business Studies • GPA 4.50 / 5.00</span>
+                            </div>
+                            <span class="text-stone-800 font-bold text-[11px]">HONORS</span>
+                        </div>
+
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <strong class="text-stone-900 block">05. BILINGUAL HOSPITALITY CONCIERGE</strong>
+                                <span class="text-[10px] text-stone-600">Fluent Arabic &amp; Professional English</span>
+                            </div>
+                            <span class="text-emerald-700 font-bold text-[11px]">100%</span>
+                        </div>
+                    </div>
+
+                    <!-- Summary Totals -->
+                    <div class="space-y-1.5 pt-1">
+                        <div class="flex justify-between font-bold text-stone-900 text-sm">
+                            <span>OVERALL CANDIDATE SCORE</span>
+                            <span class="text-emerald-800">5.0 / 5.0 ★</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-stone-700">
+                            <span>AVAILABILITY</span>
+                            <span class="font-bold text-stone-900">IMMEDIATE (KSA / Remote)</span>
+                        </div>
+                    </div>
+
+                    <!-- Barcode Area -->
+                    <div class="pt-4 border-t border-dashed border-stone-400 text-center space-y-1">
+                        <div class="barcode-graphic h-8 bg-repeat-x mx-auto w-4/5 opacity-80"></div>
+                        <p class="text-[9px] tracking-widest text-stone-500">*AMDADUL-HOQUE-OPERATIONS-2026*</p>
+                        <p class="text-[10px] text-stone-600 pt-1">Thank you for evaluating our Virtual Restaurant CV!<br>Direct Inquiries: ahameddruboo@gmail.com</p>
+                    </div>
+                </div>
+
+                <!-- Print &amp; Hire Actions -->
+                <div class="flex justify-center gap-3 mt-8">
+                    <button onclick="window.print()" class="btn-primary-glow">
+                        <i class="fa-solid fa-print"></i> Print Official Receipt CV
+                    </button>
+                    <a href="https://wa.me/966544575530?text=Hello%20Amdadul,%20I%20reviewed%20your%20interactive%20resume%20and%20would%20like%20to%20discuss%20an%20opportunity." target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Hire via WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. VIP TABLE RESERVATION / CONTACT SECTION -->
+        <section id="reservation" class="py-16 sm:py-24">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6">
+                <div class="executive-card p-6 sm:p-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                        <!-- Left Info -->
+                        <div class="lg:col-span-5 space-y-6">
+                            <span class="section-tag"><i class="fa-solid fa-calendar-check"></i> Direct Dispatch</span>
+                            <h2 class="text-3xl font-cinzel font-bold text-primary">Book A Discussion <span class="text-amber-400">Table</span></h2>
+                            <p class="text-secondary text-sm leading-relaxed font-sans">
+                                Have an open supervisor role, restaurant workflow automation project, or consulting inquiry? Send a direct dispatch message to Supervisor Amdadul Hoque.
+                            </p>
+                            <div class="space-y-3 pt-2 text-sm text-secondary">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center text-xs">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </div>
+                                    <span>+966 54 457 5530</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center text-xs">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </div>
+                                    <span>ahameddruboo@gmail.com</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center text-xs">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <span>Sabya, Jazan Province, Saudi Arabia</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Form -->
+                        <div class="lg:col-span-7">
+                            <form id="reservation-form" onsubmit="event.preventDefault(); handleReservationSubmit();" class="space-y-4">
+                                <div>
+                                    <label for="res-name" class="block text-xs font-semibold text-secondary mb-1.5">Your Name / Organization</label>
+                                    <input type="text" id="res-name" required placeholder="e.g. Al-Rashid Hospitality Group" class="form-input">
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="res-contact" class="block text-xs font-semibold text-secondary mb-1.5">Email / WhatsApp</label>
+                                        <input type="text" id="res-contact" required placeholder="e.g. hr@company.com" class="form-input">
+                                    </div>
+                                    <div>
+                                        <label for="res-purpose" class="block text-xs font-semibold text-secondary mb-1.5">Inquiry Purpose</label>
+                                        <select id="res-purpose" class="form-input">
+                                            <option value="supervisor">Restaurant Supervisor Position</option>
+                                            <option value="inventory">Warehouse &amp; Inventory Lead</option>
+                                            <option value="automation">n8n &amp; AI Restaurant Workflows</option>
+                                            <option value="consulting">Operational Consultation</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="res-message" class="block text-xs font-semibold text-secondary mb-1.5">Message / Requirements</label>
+                                    <textarea id="res-message" rows="3" placeholder="Describe your venue, project or role specifications..." class="form-input"></textarea>
+                                </div>
+                                <button type="submit" id="res-submit-btn" class="btn-primary-glow w-full justify-center py-3.5 text-sm">
+                                    <i class="fa-solid fa-paper-plane"></i> Send Reservation Dispatch
                                 </button>
-                                <a href="#bill-checkout" class="btn btn-primary-gold">
-                                    <i class="fa-solid fa-receipt"></i> Claim Official Resume Receipt
-                                </a>
-                            </div>
+                                <div id="res-feedback" class="hidden p-4 rounded-xl text-xs font-sans"></div>
+                            </form>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. MIXOLOGY & SKILLS BAR (INTERACTIVE DRINK SHAKER) -->
-        <section class="section bar-section" id="mixology-bar">
-            <div class="container">
-                <div class="section__header text-center reveal">
-                    <span class="section__subtitle"><i class="fa-solid fa-martini-glass-citrus"></i> Skill Mixology Lounge</span>
-                    <h2 class="section__title">Brew A Custom <span class="gold-gradient-text">Career Cocktail</span></h2>
-                    <p class="section__desc">Select 2 or 3 of Amdadul's core skills below and click "Shake Cocktail" to craft a custom operational synergy drink!</p>
-                </div>
-
-                <div class="mixology-workspace glass-card reveal">
-                    <div class="mixology-ingredients">
-                        <h3>1. Choose 2-3 Ingredients (Skills):</h3>
-                        <div class="ingredients-grid" id="ingredients-selector">
-                            <button class="ing-btn" data-skill="inventory" onclick="toggleIngredient(this, 'Inventory & Warehouse Control')">
-                                <i class="fa-solid fa-boxes-stacked"></i> Inventory Audit (FIFO)
-                            </button>
-                            <button class="ing-btn" data-skill="leadership" onclick="toggleIngredient(this, '15+ Team Leadership')">
-                                <i class="fa-solid fa-users"></i> Staff Shift Leadership
-                            </button>
-                            <button class="ing-btn" data-skill="arabic" onclick="toggleIngredient(this, 'Fluent Arabic Concierge')">
-                                <i class="fa-solid fa-language"></i> Arabic Hospitality
-                            </button>
-                            <button class="ing-btn" data-skill="n8n" onclick="toggleIngredient(this, 'n8n & AI Automation')">
-                                <i class="fa-solid fa-diagram-project"></i> n8n AI Automation
-                            </button>
-                            <button class="ing-btn" data-skill="haccp" onclick="toggleIngredient(this, 'HACCP Food Safety Compliance')">
-                                <i class="fa-solid fa-shield-virus"></i> HACCP Hygiene
-                            </button>
-                            <button class="ing-btn" data-skill="pos" onclick="toggleIngredient(this, 'POS & Cloud ERP')">
-                                <i class="fa-solid fa-cash-register"></i> POS &amp; Cloud ERP
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="mixology-shaker-center">
-                        <div class="cocktail-shaker-box" id="shaker-box">
-                            <div class="shaker-icon" id="shaker-icon">🍸</div>
-                            <button class="btn btn-shake" id="shake-btn" onclick="shakeCocktail()" disabled>
-                                <i class="fa-solid fa-champagne-glasses"></i> Shake &amp; Brew (+50 XP)
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="mixology-result-card" id="cocktail-result">
-                        <div class="cocktail-glass-graphic" id="cocktail-emoji">🍹</div>
-                        <h4 id="cocktail-title">"The Operations Masterpiece"</h4>
-                        <p id="cocktail-recipe" class="cocktail-recipe-text">Select your ingredients and press Shake to view how Amdadul applies this exact skill blend!</p>
-                        <div class="cocktail-stats" id="cocktail-stats">
-                            <div class="cocktail-stat-pill">Efficiency: <strong>98%</strong></div>
-                            <div class="cocktail-stat-pill">Reliability: <strong>100%</strong></div>
-                            <div class="cocktail-stat-pill">Flavor: <strong>5 Stars</strong></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. CHECKOUT COUNTER & OFFICIAL TAKEAWAY RESUME RECEIPT -->
-        <section class="section checkout-section" id="bill-checkout">
-            <div class="container">
-                <div class="section__header text-center reveal">
-                    <span class="section__subtitle"><i class="fa-solid fa-receipt"></i> Official Dining Statement</span>
-                    <h2 class="section__title">Takeaway <span class="gold-gradient-text">Resume Receipt</span></h2>
-                    <p class="section__desc">Itemized summary of Amdadul Hoque's qualifications, ready for instant printing or direct recruitment download.</p>
-                </div>
-
-                <div class="receipt-wrapper reveal">
-                    <div class="thermal-receipt" id="printable-receipt">
-                        <div class="receipt-header">
-                            <div class="receipt-star">★ ★ ★ ★ ★</div>
-                            <h2 class="receipt-restaurant-name">KHAMER OPERATIONS LOUNGE</h2>
-                            <p class="receipt-address">Sabya, Jazan Province, Kingdom of Saudi Arabia</p>
-                            <p class="receipt-meta">TEL: +966 54 457 5530 | AMDAUL HOQUE</p>
-                            <div class="receipt-divider">================================</div>
-                            <div class="receipt-info-row">
-                                <span>GUEST: RECRUITER / VIP</span>
-                                <span>DATE: <span id="receipt-date">2026-08-26</span></span>
-                            </div>
-                            <div class="receipt-info-row">
-                                <span>TABLE: #1 (EXECUTIVE)</span>
-                                <span>TIME: <span id="receipt-time">23:59</span></span>
-                            </div>
-                            <div class="receipt-divider">--------------------------------</div>
-                        </div>
-
-                        <div class="receipt-items">
-                            <div class="receipt-item-row">
-                                <div class="item-desc">
-                                    <strong>RESTAURANT SUPERVISOR (Khamer)</strong>
-                                    <small>Jan 2024 - Present • 15+ Staff, +25% Speed</small>
-                                </div>
-                                <span class="item-val">VERIFIED</span>
-                            </div>
-
-                            <div class="receipt-item-row">
-                                <div class="item-desc">
-                                    <strong>WAREHOUSE &amp; INVENTORY LEAD (Miah Store)</strong>
-                                    <small>Jan 2022 - Dec 2024 • -30% Discrepancies, FIFO</small>
-                                </div>
-                                <span class="item-val">VERIFIED</span>
-                            </div>
-
-                            <div class="receipt-item-row">
-                                <div class="item-desc">
-                                    <strong>AI WORKFLOWS &amp; CLOUD ARCHITECT</strong>
-                                    <small>n8n, WhatsApp Bots, AWS EC2, Cloudflare</small>
-                                </div>
-                                <span class="item-val">VERIFIED</span>
-                            </div>
-
-                            <div class="receipt-item-row">
-                                <div class="item-desc">
-                                    <strong>HSC &amp; SSC IN BUSINESS STUDIES</strong>
-                                    <small>GPA 4.50 / 5.00 &amp; GPA 4.10 / 5.00</small>
-                                </div>
-                                <span class="item-val">HONORS</span>
-                            </div>
-
-                            <div class="receipt-item-row">
-                                <div class="item-desc">
-                                    <strong>BILINGUAL HOSPITALITY (AR/EN/BN)</strong>
-                                    <small>Fluent Arabic &amp; Professional English</small>
-                                </div>
-                                <span class="item-val">100%</span>
-                            </div>
-                        </div>
-
-                        <div class="receipt-footer">
-                            <div class="receipt-divider">================================</div>
-                            <div class="receipt-total-row">
-                                <span>TOTAL SKILL RATING</span>
-                                <span class="total-score">5.0 / 5.0 ★</span>
-                            </div>
-                            <div class="receipt-total-row">
-                                <span>HIRING READINESS</span>
-                                <span class="total-score">IMMEDIATE</span>
-                            </div>
-                            <div class="receipt-divider">--------------------------------</div>
-                            <div class="receipt-barcode">
-                                <div class="barcode-lines"></div>
-                                <p class="barcode-number">*AMDAUL-HOQUE-RESUME-2026*</p>
-                            </div>
-                            <p class="receipt-thankyou">Thank you for dining at our Virtual Restaurant!<br>Direct Inquiries: ahameddruboo@gmail.com</p>
-                        </div>
-                    </div>
-
-                    <div class="receipt-actions">
-                        <button class="btn btn-primary-gold" onclick="window.print()">
-                            <i class="fa-solid fa-print"></i> Print Official Receipt CV
-                        </button>
-                        <a href="https://wa.me/966544575530?text=Hello%20Amdadul,%20I%20explored%20your%20Virtual%20Restaurant%20Resume%20Game%20and%20would%20like%20to%20discuss%20an%20opportunity." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
-                            <i class="fa-brands fa-whatsapp"></i> Hire Via WhatsApp
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 7. VIP RESERVATION & CONTACT TABLE -->
-        <section class="section reservation-section" id="reservation">
-            <div class="container">
-                <div class="reservation-card glass-card reveal">
-                    <div class="reservation-content">
-                        <span class="section__subtitle"><i class="fa-solid fa-bell-concierge"></i> VIP Table Booking</span>
-                        <h2 class="section__title">Book An Interview / <span class="gold-gradient-text">Consultation Table</span></h2>
-                        <p>Have an open supervisor position or restaurant automation project? Send a direct dispatch message to Supervisor Amdadul Hoque.</p>
-                        <div class="contact-methods">
-                            <div class="contact-pill"><i class="fa-solid fa-phone text-gold"></i> +966 54 457 5530</div>
-                            <div class="contact-pill"><i class="fa-solid fa-envelope text-gold"></i> ahameddruboo@gmail.com</div>
-                            <div class="contact-pill"><i class="fa-solid fa-location-dot text-gold"></i> Sabya, Jazan, Saudi Arabia</div>
-                        </div>
-                    </div>
-
-                    <form class="reservation-form" id="reservation-form" onsubmit="event.preventDefault(); handleReservationSubmit();">
-                        <div class="form-group">
-                            <label for="res-name">Your Name / Organization</label>
-                            <input type="text" id="res-name" class="form-input" placeholder="e.g. Al-Farooq Hospitality Group" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="res-contact">Email / WhatsApp Number</label>
-                            <input type="text" id="res-contact" class="form-input" placeholder="e.g. hr@company.com or +966..." required>
-                        </div>
-                        <div class="form-group">
-                            <label for="res-purpose">Table Purpose / Discussion Topic</label>
-                            <select id="res-purpose" class="form-input">
-                                <option value="job">Restaurant Supervisor Role</option>
-                                <option value="inventory">Warehouse &amp; Inventory Management</option>
-                                <option value="automation">n8n &amp; AI Restaurant Workflows</option>
-                                <option value="consultation">General Consultation</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="res-message">Special Message / Note</label>
-                            <textarea id="res-message" class="form-input" rows="3" placeholder="Tell me about your venue or operational requirements..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary-gold btn-block" id="res-submit-btn">
-                            <i class="fa-solid fa-paper-plane"></i> Send Reservation Dispatch
-                        </button>
-                        <div id="res-feedback" class="res-feedback"></div>
-                    </form>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Achievements & Badges Modal Popup -->
-    <div class="game-modal" id="achievements-modal" onclick="if(event.target === this) closeAchievementsModal()">
-        <div class="modal-content glass-card">
-            <div class="modal-header">
-                <div class="modal-title-group">
-                    <i class="fa-solid fa-trophy text-amber"></i>
-                    <h3>Player Achievements &amp; Badges</h3>
+    <!-- ACHIEVEMENTS &amp; BADGES MODAL -->
+    <div id="achievements-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4" onclick="if(event.target === this) closeAchievementsModal()">
+        <div class="executive-card max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
+            <div class="flex items-center justify-between border-b border-border-subtle pb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-cinzel font-bold text-primary">Player Achievements</h3>
+                        <p class="text-xs text-muted">Unlock all 6 badges by exploring the resume!</p>
+                    </div>
                 </div>
-                <button class="modal-close-btn" onclick="closeAchievementsModal()">&times;</button>
+                <button onclick="closeAchievementsModal()" class="w-9 h-9 rounded-lg bg-surface-card text-muted hover:text-primary flex items-center justify-center text-lg transition-colors" aria-label="Close Modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
-            <div class="badges-grid" id="badges-container">
+
+            <div id="badges-grid-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <!-- Injected via JS -->
             </div>
         </div>
     </div>
 
-    <!-- Celebration Confetti Container -->
-    <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+    <!-- Celebration Confetti Canvas -->
+    <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-[60]"></canvas>
 
-    <!-- Footer -->
-    <footer class="restaurant-footer">
-        <div class="container footer-content">
-            <p>&copy; 2026 <strong>Amdadul Hoque (মোঃ এমদাদুল হক)</strong>. All Rights Reserved.</p>
-            <p class="footer-sub">Executive Restaurant Supervisor • Warehouse Specialist • AI Architect | Sabya, Jazan, Saudi Arabia</p>
+    <!-- FOOTER -->
+    <footer class="border-t border-border-subtle py-10 bg-surface-base text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-2">
+            <p class="text-xs text-secondary font-sans">&copy; 2026 <strong>Amdadul Hoque (মোঃ এমদাদুল হক)</strong>. All Rights Reserved.</p>
+            <p class="text-[11px] text-muted font-sans">Restaurant Operations Supervisor • Warehouse Inventory Specialist • AI Automations | Sabya, Jazan, KSA</p>
         </div>
     </footer>
 
