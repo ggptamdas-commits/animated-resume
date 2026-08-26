@@ -1,87 +1,62 @@
-# 🍽️ مطعم خَامِر (KHAMIR) — Smart Restaurant POS, Order Flow & Kitchen Display System (KDS)
+# 🍽️ مطعم خامر (KHAMER RESTAURANT) — Order Tracking Dashboard & Kitchen KDS
 
-রেস্তোراঁর সম্পূর্ণ ক্যাশিয়ার, কিচেন এবং ডেলিভারি অপারেশন পরিচালনা করার জন্য একটি সম্পূর্ণ প্রিমিয়াম ওয়েব অ্যাপ্লিকেশন (**Single Page Application**)।
-
----
-
-## 🎨 UI & Design Architecture
-
-- **Theme & Style:** Modern Glassmorphism + Dark Navy & Soft Cream Dashboard with Warm Amber / Orange Accents (`#f59e0b`, `#ea580c`).
-- **Typography:** `Cairo` (العربية) + `Poppins` (English) + `JetBrains Mono` (Receipts/Timers).
-- **Languages:** **Arabic (Default RTL)** + **English (LTR)** instant toggle with full bilingual localization.
-- **Theme Modes:** Dark Theme (Default) + Light Theme toggle.
-- **Sound Alerts:** Web Audio API সিন্থেসাইজারের মাধ্যমে নতুন অর্ডার এবং স্ট্যাটাস পরিবর্তনের রিয়েল-টাইম অডিও বেল সাউন্ড।
+আপনার প্রোভাইড করা রেফারেন্স ইমেজ ডিজাইন ও লেআউট অনুযায়ী তৈরি **Restaurant POS & Order Tracking System**।
 
 ---
 
-## 📊 Main Dashboard & Order Stages
+## 🎨 Design Features (হুবহু ডিজাইনের উপাদানসমূহ)
 
-রেস্তোراঁর **Cashier ➔ Kitchen ➔ Delivery/Completed** পুরো অর্ডার ফ্লো এক নজরে দেখার জন্য ৬টি নির্দিষ্ট স্ট্যাটাস:
+1. **Left Dark Sidebar:**
+   - লোগো ও ব্র্যান্ডিং: `مطعم خامر` / `KHAMER RESTAURANT`
+   - মেনু অপশনস: Dashboard, Orders, Kitchen, Tracking, Menu, Customers, Reports, Staff, Settings, Logout
+   - বটম ইউজার প্রোফাইল: `Admin / Manager (🟢 Online)`
 
-1. 🍽️ **New Orders (طلبات جديدة)** — নতুন অর্ডার ও বুকিং
-2. 🔥 **Preparing (قيد التحضير)** — কিচেনে রান্না চলছে
-3. 👨‍🍳 **Ready (جاهز للتقديم)** — খাবার প্রস্তুত
-4. 🚚 **Out for Delivery (قيد التوصيل)** — ডেলিভারি ড্রাইভারের কাছে
-5. ✅ **Completed (مكتمل)** — সফলভাবে সম্পন্ন ও পরিশোধিত
-6. ❌ **Cancelled (ملغي)** — বাতিলকৃত অর্ডার
+2. **Top Header & Search Bar:**
+   - টাইটেল: `Order Tracking Dashboard`
+   - সাবটাইটেল: `Real-time overview of all restaurant orders`
+   - গ্লোবাল সার্চ বার: `Search order, table, customer...`
+   - নোটিফিকেশন বেল ব্যাজ (12) এবং অ্যাডমিন প্রোফাইল ড্রপডাউন (`Admin ⌄ / مدير`)
 
-### 🗂️ Order Card Format:
-```text
-#ORD-1025
-Table 08
-3 Items · SAR 86.00
+3. **6 Status Metric Cards:**
+   - 🛍️ **New Orders**: `12` (+3 new)
+   - 🍲 **Preparing**: `08` (In Progress)
+   - 🛎️ **Ready**: `05` (Ready to Serve)
+   - 🛵 **Out for Delivery**: `03` (On the way)
+   - 🟣 **Completed**: `25` (Today)
+   - 🔴 **Cancelled**: `02` (Today)
 
-🍔 Chicken Burger × 2
-🍟 French Fries × 1
-🥤 Pepsi × 2
+4. **Live Order Cards (৪টি কার্ড):**
+   - **#ORD-1025** | Table 08 | 3 Items · SAR 86.00 | `NEW` (2 min ago) | Chicken Burger x2, French Fries x1, Pepsi x2 | `Cash` | `[View Order]`
+   - **#ORD-1024** | Table 03 | 4 Items · SAR 120.00 | `PREPARING` (8 min ago) | Shawarma x2, Arabic Rice x1, Salad x1, Water x1 | `Card` | `[View Order]`
+   - **#ORD-1023** | Table 12 | 2 Items · SAR 55.00 | `READY` (15 min ago) | Beef Steak x1, Mashed Potato x1 | `Cash` | `[View Order]`
+   - **#ORD-1022** | Delivery | 3 Items · SAR 75.00 | `OUT FOR DELIVERY` (20 min ago) | Zinger Burger x2, Coke x1 | `Online` | `[View Order]`
 
-Preparing · 08:42 PM (05:24)
-[View Order] [Update Status]
-```
+5. **Right Order Details Drawer & Timeline:**
+   - `PREPARING #ORD-1025`
+   - `Table 08 • Dine In`
+   - `26 May 2024 • 08:42 PM`
+   - `👤 Ahmad Al Omar (+966 50 123 4567)`
+   - আইটেমাইজড ব্রেকডাউন (SAR 86.00)
+   - পেমেন্ট মেথড: `Cash`, স্ট্যাটাস: `Preparing`, ক্যাশিয়ার: `Riham`, নোট: `Please no onion`
+   - **Order Timeline (৬টি ধাপ):**
+     - ✔️ Order Received (`08:34 PM`)
+     - ✔️ Accepted (`08:35 PM`)
+     - 🟠 Preparing (`08:38 PM`) [Active Pulse]
+     - ⚪ Ready (`08:45 PM`)
+     - ⚪ Out for Delivery (`08:47 PM`)
+     - ⚪ Completed (`--:--`)
+   - অ্যাকশন বাটন: `[Cancel Order]` ও `[Update Status]`
 
----
+6. **Today's Summary Widget (Dark Card + Chart):**
+   - `Total Orders: 55` | `Total Sales: SAR 3,650.00`
+   - `Completed: 25` | `Average Order: SAR 66.36`
+   - hourly trend স্পার্কলাইন গ্রাফ (`5 AM` থেকে `12 AM`)
 
-## 🖥️ Kitchen Display System (KDS Screen)
-
-কিচেন স্টাফ এবং শেফদের জন্য বড় স্ক্রিনের উপযোগী ডেডিকেটেড ডিসপ্লে:
-- **NEW / PREPARING / READY** কলাম ভিউ।
-- **Live Elapsed Timers:** প্রতিটি অর্ডারে কতক্ষণ সময় অতিবাহিত হয়েছে তা লাইভ কাউন্টডাউন (সবুজ `< 10m`, হলুদ `10-20m`, লাল `> 20m`)।
-- **Chef Checklists:** রান্না করার সময় আইটেম ধরে ধরে টিক মার্ক দেওয়ার ব্যবস্থা।
-- **Kitchen Priority:** Normal ও Urgent (عاجل) ফায়ার ব্যাজ।
-
----
-
-## 📱 Mobile UI
-
-- **Bottom Floating Navigation:**
-  - 🏠 Dashboard (الرئيسية)
-  - 🧾 Orders (الطلبات)
-  - 🍳 Kitchen (المطبخ)
-  - 📦 Tracking (التتبع)
-  - ⚙️ Analytics (المزيد)
-- **Top Bar:** Restaurant Name (`مطعم خَامِر`), Live Notification Bell, Sound Alert Toggle, Admin Profile (`Md. Emdadul`).
-
----
-
-## 🔎 Order Tracking & 5-Step Timeline
-
-গ্রাহক ও কর্মীদের জন্য লাইভ টাইমলাইন ট্র্যাকার:
-1. **Order Received (استلام الطلب)** — `08:35 PM`
-2. **Accepted (قبول الطلب في الكاشير)** — `08:37 PM`
-3. **Preparing (قيد التحضير في المطبخ)** — `08:42 PM`
-4. **Ready (جاهز للتسليم والتقديم)** — `08:55 PM`
-5. **Delivered / Completed (تم التوصيل / التسليم)** — `09:10 PM`
+7. **📱 Mobile 5-Screen Simulator:**
+   - Dashboard, Orders, Kitchen KDS, Tracking, More (Setting) স্ক্রিনসমূহ ইন্টারেক্টিভভাবে টগল করে দেখার সুবিধা।
 
 ---
 
-## 🧾 POS Features & Thermal Receipt
+## 🚀 Live Preview
 
-- **POS Ticket Generator:** ক্যাশিয়ার নতুন অর্ডার তৈরি করতে পারে (মেন্যু থেকে খাবার সিলেক্ট, টেবিল নাম্বার, পেমেন্ট মেথড: Cash, Mada/Card, Apple Pay)।
-- **Thermal Print Invoice:** 80mm থার্মাল পেপার রিসিপ্ট জেনারেটর (১৫% ভ্যাট হিসাব, ট্যাক্স রেজিস্ট্রেশন নম্বর, QR কোড ও সরাসরি প্রিন্ট অপশন)।
-- **Daily Analytics:** দৈনিক মোট আয় (SAR), অর্ডার কাউন্ট, পেমেন্ট মেথড ব্রেকডাউন এবং JSON ডাটা এক্সপোর্ট।
-
----
-
-## 🚀 Live Run
-
-ব্রাউজারে সরাসরি `index.html` ফাইলটি ওপেন করলেই সম্পূর্ণ সিস্টেমটি অফলাইন/অনলাইনে তাৎক্ষণিক সচল হবে।
+যেকোনো ব্রাউজারে `index.html` ফাইলটি ওপেন করলেই তাৎক্ষণিক চালু হবে।
