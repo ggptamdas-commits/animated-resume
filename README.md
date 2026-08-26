@@ -1,31 +1,34 @@
-# 🍽️ Amdadul Hoque | Interactive Virtual Restaurant Resume & Game
+# 🍽️ Amdadul Hoque | 2D Virtual Restaurant RPG Game Resume
 
-> An engaging, gamified interactive portfolio and developer/supervisor resume website crafted as a virtual dining lounge and operational restaurant experience.
-
-Hosted on **GitHub Pages**: [https://ggptamdas-commits.github.io/animated-resume/](https://ggptamdas-commits.github.io/animated-resume/)
+An interactive, playable 2D HTML5 Canvas Top-Down Restaurant RPG Game that turns the executive resume of **Amdadul Hoque (মোঃ এমদাদুল হক)** into an engaging gourmet exploration experience.
 
 ---
 
-## 🎮 Key Features & Gameplay
+## 🎮 Game Features & Mechanics
 
-- 👨‍🍳 **Game HUD & XP System**: Earn Gourmet XP and unlock 5 progression levels from *Apprentice Diner* to *Master Food Executive*.
-- 🗺️ **Interactive Restaurant Floor Map**: Jump between Host Stand, Executive Kitchen, AI & Smart Ops Lab, Mixology Bar, and Checkout Desk.
-- 🍲 **5-Course Career Tasting Quest**: Plate and taste 5 distinct courses to explore Amdadul's verified career milestones, metrics, and leadership achievements.
-- ⚡ **Supervisor Rush Arcade (Mini-Game)**: 30-second rapid-fire operational challenge testing hospitality, FIFO inventory audit, and team shift management.
-- 🍸 **Skill Mixology Bar**: Select and shake combinations of Amdadul's core skills to brew custom operational synergy cocktails.
-- 🧾 **Thermal Resume Receipt**: Real-time itemized career summary and takeaway CV ready for 1-click printing or PDF export.
-- 🎵 **Web Audio API Synthesizer**: Zero-asset audio engine generating realistic service bell dings, cooking chimes, shaker sounds, and fanfare.
-- 🌓 **Recruiter Quick Mode**: Seamlessly switch between the full game experience and traditional CV layout.
+1. **Walkable 2D Canvas Restaurant World**:
+   - Playable Chef/Manager character (Amdadul) controllable via **WASD**, **Arrow Keys**, **Click/Tap-to-Walk**, or on-screen **Mobile D-Pad**.
+   - Distinct interactive zones: Reception Host Stand, VIP Dining Tables, Executive Kitchen, Supply Warehouse, AI Smart Ops Lab, Mixology Bar, and POS Checkout Desk.
+   - Dynamic steam particles, collision handling, and ambient audio synthesizer.
+
+2. **Retro RPG Dialogue Engine**:
+   - Proximity prompt bubble (`[E]` / `[TAP]`).
+   - Speaker portrait, typewriter sound chirps, and interactive choice branches revealing verified career KPIs, supervision records (15+ staff), and batch prep standards.
+
+3. **Shift Commander Mini-Game**:
+   - 30-second time-attack challenge to handle rush-hour kitchen orders and operational dilemmas.
+
+4. **Skill Mixology Shaker**:
+   - Interactive cocktail shaker combining core competencies into high-yield restaurant synergies.
+
+5. **Recruiter Takeaway Mode (1-Click Print CV)**:
+   - Dedicated Thermal Receipt layout with `@media print` optimization for instant physical printing, PDF export, or direct WhatsApp hire dispatch.
 
 ---
 
-## 👨‍💼 Professional Summary
-
-- **Name**: Amdadul Hoque (মোঃ এমদাদুল হক)
-- **Role**: Restaurant Operations Supervisor | Warehouse & Inventory Specialist | AI Automation Architect
-- **Current Position**: Restaurant Supervisor @ **Khamer Restaurant (خَامِر)**, Sabya, Jazan Province, Saudi Arabia (Jan 2024 – Present)
-- **Previous Position**: Inventory & Warehouse Supervisor @ **Miah Store**, Bangladesh (Jan 2022 – Dec 2024)
-- **Education**: HSC & SSC in Business Studies (GPA 4.50 & 4.10 / 5.00)
-- **Languages**: Arabic (Fluent), English (Professional), Bengali (Native)
-- **Hotline & WhatsApp**: +966 54 457 5530
-- **Email**: ahameddruboo@gmail.com
+## 🚀 Technologies Used
+- HTML5 Canvas & 2D Context API
+- Web Audio API (Synthesized SFX)
+- Modern Vanilla JavaScript (No heavy frameworks, fast load)
+- Responsive CSS & Accessible UI Overlays
+- Font Awesome & Google Fonts (Cinzel, Outfit, Press Start 2P, VT323)
