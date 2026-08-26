@@ -1,5 +1,5 @@
 /**
- * KHAMER RESTAURANT - Exact UI Mockup Interactive Logic
+ * KHAMER RESTAURANT - Responsive Interactive Application Logic
  */
 
 // =============================================================================
@@ -20,7 +20,7 @@ const EXACT_MENU = [
   { id: 'item_coke', name: 'Coke', price: 5.00, icon: '🥤' }
 ];
 
-const EXACT_ORDERS = [
+const INITIAL_ORDERS = [
   {
     id: 'ORD-1025',
     table: 'Table 08',
@@ -138,13 +138,12 @@ const EXACT_ORDERS = [
   }
 ];
 
-// App State
+// App Global State
 let state = {
-  orders: [...EXACT_ORDERS],
+  orders: [...INITIAL_ORDERS],
   selectedOrderId: 'ORD-1025',
-  deviceMode: 'desktop', // 'desktop' | 'mobile'
+  currentTab: 'dashboard',
   theme: 'light',
-  sound: true,
   lang: 'en',
   cart: {}
 };
@@ -158,27 +157,27 @@ document.addEventListener('DOMContentLoaded', () => {
   renderOrderDetailsDrawer();
   setupPosDishPicker();
 
-  // Search filter
   const search = document.getElementById('globalSearchInput');
   if (search) {
     search.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase().trim();
-      renderLiveOrderCards(q);
+      renderLiveOrderCards();
     });
   }
 });
 
 // =============================================================================
-// 3. RENDER LIVE ORDER CARDS (EXACT TO MOCKUP)
+// 3. RENDER LIVE ORDER CARDS
 // =============================================================================
 
-function renderLiveOrderCards(query = '') {
+function renderLiveOrderCards() {
   const container = document.getElementById('liveOrderCardsGrid');
   if (!container) return;
 
-  const statusFilter = document.getElementById('selOrderFilterStatus')?.value || 'all';
+  const statusFilter = document.getElementById('selFilterStatus')?.value || 'all';
+  const sortOrder = document.getElementById('selSortOrder')?.value || 'newest';
+  const query = document.getElementById('globalSearchInput')?.value.toLowerCase().trim() || '';
 
-  const filtered = state.orders.filter(o => {
+  let list = state.orders.filter(o => {
     const matchStatus = statusFilter === 'all' || o.status === statusFilter;
     const matchSearch = !query || 
       o.id.toLowerCase().includes(query) ||
@@ -187,22 +186,27 @@ function renderLiveOrderCards(query = '') {
     return matchStatus && matchSearch;
   });
 
-  container.innerHTML = filtered.map(order => {
+  if (sortOrder === 'oldest') {
+    list.sort((a, b) => a.timestamp - b.timestamp);
+  } else if (sortOrder === 'highest') {
+    list.sort((a, b) => b.totalPrice - a.totalPrice);
+  } else {
+    list.sort((a, b) => b.timestamp - a.timestamp);
+  }
+
+  container.innerHTML = list.map(order => {
     const totalItems = order.items.reduce((sum, i) => sum + i.qty, 0);
     const isSelected = order.id === state.selectedOrderId ? 'selected' : '';
 
-    // Badge styling
     let badgeClass = 'badge-new';
     if (order.status === 'PREPARING') badgeClass = 'badge-prep';
     else if (order.status === 'READY') badgeClass = 'badge-ready';
     else if (order.status === 'OUT FOR DELIVERY') badgeClass = 'badge-deliv';
 
-    // Payment Pill
     let payClass = 'pay-pill-cash';
     if (order.paymentMethod === 'Card') payClass = 'pay-pill-card';
     else if (order.paymentMethod === 'Online') payClass = 'pay-pill-online';
 
-    // Items list HTML
     const itemsHtml = order.items.map(item => `
       <div class="loc-item-line">
         <div class="item-left-side">
@@ -215,29 +219,24 @@ function renderLiveOrderCards(query = '') {
 
     return `
       <div class="live-order-card ${isSelected}" data-order-id="${order.id}">
-        <!-- Top: Badge & Time ago -->
         <div class="loc-top-row">
           <span class="order-badge-pill ${badgeClass}">${order.status}</span>
           <span class="loc-time-ago">${order.timeAgo}</span>
         </div>
 
-        <!-- ID & Table -->
         <div class="loc-id-row">
           <h3 class="loc-order-id">#${order.id}</h3>
           <span class="loc-table-tag">${order.table}</span>
         </div>
 
-        <!-- Meta: 3 Items • SAR 86.00 -->
         <div class="loc-meta-summary">
           ${totalItems} Items • SAR ${order.totalPrice.toFixed(2)}
         </div>
 
-        <!-- Items list -->
         <div class="loc-items-list">
           ${itemsHtml}
         </div>
 
-        <!-- Bottom: Payment Pill + View Order Button -->
         <div class="loc-bottom-actions">
           <span class="loc-pay-pill ${payClass}">${order.paymentMethod}</span>
           <button class="btn-view-order-orange" onclick="selectOrder('${order.id}')">View Order</button>
@@ -245,28 +244,43 @@ function renderLiveOrderCards(query = '') {
       </div>
     `;
   }).join('');
+
+  updateMetricCounters();
 }
 
-function filterLiveCards() {
-  renderLiveOrderCards(document.getElementById('globalSearchInput')?.value || '');
+function updateMetricCounters() {
+  const o = state.orders;
+  document.getElementById('cntNew').textContent = o.filter(x => x.status === 'NEW').length;
+  document.getElementById('cntPrep').textContent = o.filter(x => x.status === 'PREPARING').length;
+  document.getElementById('cntReady').textContent = o.filter(x => x.status === 'READY').length;
+  document.getElementById('cntDeliv').textContent = o.filter(x => x.status === 'OUT FOR DELIVERY').length;
+  document.getElementById('cntComp').textContent = o.filter(x => x.status === 'COMPLETED').length;
+  document.getElementById('cntCanc').textContent = o.filter(x => x.status === 'CANCELLED').length;
+}
+
+function filterByStatus(st) {
+  const sel = document.getElementById('selFilterStatus');
+  if (sel) {
+    sel.value = st;
+    renderLiveOrderCards();
+  }
 }
 
 // =============================================================================
-// 4. RENDER ORDER DETAILS DRAWER (RIGHT PANEL)
+// 4. ORDER DETAILS DRAWER LOGIC
 // =============================================================================
 
 function selectOrder(orderId) {
   state.selectedOrderId = orderId;
   renderLiveOrderCards();
   renderOrderDetailsDrawer();
-  playChime();
+  toggleOrderDrawer(true);
 }
 
 function renderOrderDetailsDrawer() {
   const order = state.orders.find(o => o.id === state.selectedOrderId) || state.orders[0];
   if (!order) return;
 
-  // Header and Meta
   document.getElementById('dtlOrderId').textContent = `#${order.id}`;
   document.getElementById('dtlStatusChip').textContent = order.status;
   document.getElementById('dtlTableType').textContent = `${order.table} • ${order.type}`;
@@ -281,9 +295,8 @@ function renderOrderDetailsDrawer() {
   document.getElementById('dtlCashier').textContent = order.cashier;
   document.getElementById('dtlNotes').textContent = order.note || 'None';
 
-  // Items Table
-  const table = document.getElementById('dtlItemsTable');
-  table.innerHTML = order.items.map(item => `
+  const itemsList = document.getElementById('dtlItemsList');
+  itemsList.innerHTML = order.items.map(item => `
     <div class="dtl-item-row">
       <div>
         <span>${item.name}</span>
@@ -293,7 +306,6 @@ function renderOrderDetailsDrawer() {
     </div>
   `).join('');
 
-  // Stepper timeline
   const tl = order.timeline || {};
   document.getElementById('tlTime1').textContent = tl.received || '08:34 PM';
   document.getElementById('tlTime2').textContent = tl.accepted || '08:35 PM';
@@ -302,25 +314,30 @@ function renderOrderDetailsDrawer() {
   document.getElementById('tlTime5').textContent = tl.deliv || (order.status === 'OUT FOR DELIVERY' ? '08:47 PM' : '--:--');
   document.getElementById('tlTime6').textContent = tl.comp || (order.status === 'COMPLETED' ? '09:00 PM' : '--:--');
 
-  // Timeline node styles
   const statusRanks = { 'NEW': 1, 'PREPARING': 3, 'READY': 4, 'OUT FOR DELIVERY': 5, 'COMPLETED': 6 };
   const currentRank = statusRanks[order.status] || 1;
 
   for (let i = 1; i <= 6; i++) {
     const node = document.getElementById(`tlNode${i}`);
     if (!node) continue;
-    node.className = 'timeline-row';
+    node.className = 'tl-step-item';
     if (i < currentRank) {
-      node.classList.add('row-done');
-      node.querySelector('.tl-bullet').textContent = '✔';
+      node.classList.add('done');
+      node.querySelector('.tl-dot').textContent = '✔';
     } else if (i === currentRank) {
-      node.classList.add('row-active');
-      node.querySelector('.tl-bullet').innerHTML = '<span class="pulse-core"></span>';
+      node.classList.add('active');
+      node.querySelector('.tl-dot').innerHTML = '<span class="tl-pulse"></span>';
     } else {
-      node.classList.add('row-pending');
-      node.querySelector('.tl-bullet').textContent = '';
+      node.querySelector('.tl-dot').textContent = '○';
     }
   }
+}
+
+function toggleOrderDrawer(show) {
+  const drawer = document.getElementById('orderDrawerPanel');
+  if (!drawer) return;
+  if (show) drawer.classList.add('open');
+  else drawer.classList.remove('open');
 }
 
 function advanceSelectedOrder() {
@@ -335,7 +352,6 @@ function advanceSelectedOrder() {
     order.timeAgo = 'Just now';
     renderLiveOrderCards();
     renderOrderDetailsDrawer();
-    playChime();
     showToast(`Order #${order.id} status updated to: ${order.status}`, 'success');
   } else {
     showToast(`Order #${order.id} is already completed!`, 'info');
@@ -351,63 +367,73 @@ function cancelSelectedOrder() {
   showToast(`Order #${order.id} has been cancelled`, 'warning');
 }
 
-function closeOrderDrawer() {
-  document.getElementById('rightDetailsPanel')?.classList.add('hidden');
+// =============================================================================
+// 5. NAVIGATION & RESPONSIVE TOGGLES
+// =============================================================================
+
+function switchNavTab(tabId) {
+  state.currentTab = tabId;
+
+  // Sidebar link highlight
+  document.querySelectorAll('.sidebar-link').forEach(l => {
+    l.classList.toggle('active', l.getAttribute('data-tab') === tabId);
+  });
+
+  // Mobile bottom bar highlight
+  document.querySelectorAll('.m-nav-tab').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-tab') === tabId);
+  });
+
+  // Update Page Title
+  const titles = {
+    dashboard: 'Order Tracking Dashboard',
+    orders: 'Orders Management',
+    kitchen: 'Kitchen Display System',
+    tracking: 'Live Order Tracking',
+    menu: 'Menu Items',
+    customers: 'Customers',
+    reports: 'Sales Reports',
+    staff: 'Staff Management',
+    settings: 'System Settings',
+    more: 'More Options'
+  };
+  const titleEl = document.getElementById('pageMainHeading');
+  if (titleEl && titles[tabId]) titleEl.textContent = titles[tabId];
+
+  // Tab views toggle
+  document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
+  const targetView = document.getElementById(`view${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`);
+  if (targetView) targetView.classList.add('active');
+  else document.getElementById('viewDashboard').classList.add('active');
+
+  toggleMobileSidebar(false);
 }
 
-// =============================================================================
-// 5. VIEW & DEVICE SWITCHER
-// =============================================================================
-
-function setDeviceMode(mode) {
-  state.deviceMode = mode;
-  const desktop = document.getElementById('desktopAppContainer');
-  const mobile = document.getElementById('mobileAppContainer');
-  const btnD = document.getElementById('btnViewDesktop');
-  const btnM = document.getElementById('btnViewMobile');
-
-  if (mode === 'desktop') {
-    desktop.classList.remove('hidden');
-    mobile.classList.add('hidden');
-    btnD.classList.add('active');
-    btnM.classList.remove('active');
+function toggleMobileSidebar(show) {
+  const sidebar = document.getElementById('appSidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (show) {
+    sidebar.classList.add('open');
+    overlay.classList.remove('hidden');
   } else {
-    desktop.classList.add('hidden');
-    mobile.classList.remove('hidden');
-    btnM.classList.add('active');
-    btnD.classList.remove('active');
+    sidebar.classList.remove('open');
+    overlay.classList.add('hidden');
   }
-}
-
-function selectOrderMobile(orderId) {
-  selectOrder(orderId);
-  showToast(`Viewing ${orderId} in details`, 'info');
-}
-
-function setSidebarActive(btn, nav) {
-  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-  btn.classList.add('active');
-  showToast(`Navigated to ${nav.toUpperCase()}`, 'info');
 }
 
 function toggleTheme() {
   state.theme = state.theme === 'light' ? 'dark' : 'light';
   document.documentElement.setAttribute('data-theme', state.theme);
   document.getElementById('themeIcon').textContent = state.theme === 'light' ? '🌙' : '☀️';
-}
-
-function toggleSound() {
-  state.sound = !state.sound;
-  document.getElementById('soundIcon').textContent = state.sound ? '🔔' : '🔕';
-  showToast(state.sound ? 'Sound enabled' : 'Sound muted', 'info');
+  showToast(state.theme === 'light' ? 'Light mode enabled' : 'Dark mode enabled', 'info');
 }
 
 function toggleLanguage() {
   state.lang = state.lang === 'en' ? 'ar' : 'en';
   document.documentElement.lang = state.lang;
   document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
-  document.getElementById('langText').textContent = state.lang === 'en' ? 'العربية' : 'English';
-  showToast(state.lang === 'ar' ? 'تم تحويل الواجهة إلى العربية' : 'Language switched to English', 'info');
+  document.getElementById('langTextBadge').textContent = state.lang === 'en' ? 'العربية' : 'English';
+  showToast(state.lang === 'ar' ? 'تم تحويل الواجهة إلى العربية' : 'Switched to English', 'info');
 }
 
 // =============================================================================
@@ -444,7 +470,6 @@ function setupPosDishPicker() {
 window.addToPosCart = function(id) {
   state.cart[id] = (state.cart[id] || 0) + 1;
   renderPosCart();
-  playChime();
 };
 
 function renderPosCart() {
@@ -453,7 +478,7 @@ function renderPosCart() {
   const keys = Object.keys(state.cart);
 
   if (keys.length === 0) {
-    box.innerHTML = '<div style="text-align:center; color:#94a3b8;">No items in cart</div>';
+    box.innerHTML = '<div style="text-align:center; color:#94a3b8;">No items added</div>';
     totalEl.textContent = 'SAR 0.00';
     return;
   }
@@ -535,36 +560,12 @@ function submitPosOrder() {
   closeNewOrderModal();
   renderLiveOrderCards();
   renderOrderDetailsDrawer();
-  playChime();
   showToast(`Order #${nextId} created successfully!`, 'success');
 }
 
 // =============================================================================
-// 7. UTILITIES: SOUND & TOAST
+// 7. TOAST NOTIFICATIONS
 // =============================================================================
-
-function playChime() {
-  if (!state.sound) return;
-  try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (!AudioCtx) return;
-    const ctx = new AudioCtx();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15);
-
-    gain.gain.setValueAtTime(0.15, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
-
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.3);
-  } catch (e) {}
-}
 
 function showToast(msg, type = 'info') {
   const container = document.getElementById('toastContainer');

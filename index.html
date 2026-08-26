@@ -2,10 +2,10 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>مطعم خامر | KHAMER RESTAURANT - Order Tracking Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>مطعم خامر | KHAMER RESTAURANT - Order Tracking</title>
   
-  <!-- Google Fonts: Poppins & Cairo & JetBrains Mono -->
+  <!-- Google Fonts: Poppins (English) & Cairo (Arabic) & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -15,48 +15,19 @@
 <body>
 
   <!-- ========================================================================= -->
-  <!-- TOP GLOBAL VIEW SWITCHER / PREVIEW BAR (For Desktop & Mobile Previews)    -->
+  <!-- MOBILE SIDEBAR OVERLAY / BACKDROP                                         -->
   <!-- ========================================================================= -->
-  <div class="preview-mode-bar no-print">
-    <div class="preview-bar-left">
-      <span class="preview-badge">KHAMER POS & KDS</span>
-      <span class="preview-sub">Exact High-Fidelity Dashboard & Mobile UI</span>
-    </div>
-    <div class="preview-bar-center">
-      <button class="view-toggle-btn active" id="btnViewDesktop" onclick="setDeviceMode('desktop')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-        <span>Desktop Dashboard</span>
-      </button>
-      <button class="view-toggle-btn" id="btnViewMobile" onclick="setDeviceMode('mobile')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-        <span>Mobile App (5 Screens)</span>
-      </button>
-    </div>
-    <div class="preview-bar-right">
-      <button class="action-pill-btn" onclick="openNewOrderModal()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-        <span>+ New Order</span>
-      </button>
-      <button class="action-pill-btn secondary" id="btnToggleTheme" onclick="toggleTheme()">
-        <span id="themeIcon">🌙</span>
-      </button>
-      <button class="action-pill-btn secondary" id="btnToggleSound" onclick="toggleSound()">
-        <span id="soundIcon">🔔</span>
-      </button>
-      <button class="action-pill-btn secondary" id="btnToggleLang" onclick="toggleLanguage()">
-        <span id="langText">العربية</span>
-      </button>
-    </div>
-  </div>
+  <div id="sidebarOverlay" class="sidebar-backdrop hidden" onclick="toggleMobileSidebar(false)"></div>
 
   <!-- ========================================================================= -->
-  <!-- MAIN DESKTOP APPLICATION WRAPPER                                         -->
+  <!-- MAIN APP WRAPPER                                                          -->
   <!-- ========================================================================= -->
-  <div id="desktopAppContainer" class="desktop-layout">
+  <div class="app-layout">
     
-    <!-- LEFT DARK SIDEBAR -->
-    <aside class="sidebar-dark">
-      <!-- Logo Branding -->
+    <!-- LEFT SIDEBAR (Dark Navy) -->
+    <aside class="app-sidebar" id="appSidebar">
+      
+      <!-- Top Brand -->
       <div class="sidebar-brand">
         <div class="brand-logo-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -71,82 +42,63 @@
           <h2 class="brand-ar">مطعم خامر</h2>
           <span class="brand-en">KHAMER RESTAURANT</span>
         </div>
+        <button class="sidebar-close-btn mobile-only" onclick="toggleMobileSidebar(false)">✕</button>
       </div>
 
-      <!-- Navigation Menu Items -->
+      <!-- Navigation Links -->
       <nav class="sidebar-nav">
-        <button class="sidebar-link active" data-nav="dashboard" onclick="setSidebarActive(this, 'dashboard')">
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-          </span>
+        <button class="sidebar-link active" data-tab="dashboard" onclick="switchNavTab('dashboard')">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></span>
           <span class="nav-label">Dashboard</span>
         </button>
 
-        <button class="sidebar-link" data-nav="orders" onclick="setSidebarActive(this, 'orders')">
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          </span>
+        <button class="sidebar-link" data-tab="orders" onclick="switchNavTab('orders')">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg></span>
           <span class="nav-label">Orders</span>
         </button>
 
-        <button class="sidebar-link" data-nav="kitchen" onclick="setSidebarActive(this, 'kitchen')">
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-          </span>
+        <button class="sidebar-link" data-tab="kitchen" onclick="switchNavTab('kitchen')">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
           <span class="nav-label">Kitchen</span>
         </button>
 
-        <button class="sidebar-link" data-nav="tracking" onclick="setSidebarActive(this, 'tracking')">
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          </span>
+        <button class="sidebar-link" data-tab="tracking" onclick="switchNavTab('tracking')">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
           <span class="nav-label">Tracking</span>
         </button>
 
-        <button class="sidebar-link" data-nav="menu" onclick="setSidebarActive(this, 'menu')">
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-          </span>
+        <button class="sidebar-link" data-tab="menu" onclick="switchNavTab('menu')">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></span>
           <span class="nav-label">Menu</span>
         </button>
 
-        <button class="sidebar-link" data-nav="customers" onclick="setSidebarActive(this, 'customers')">
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-          </span>
+        <button class="sidebar-link" data-tab="customers" onclick="switchNavTab('customers')">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
           <span class="nav-label">Customers</span>
         </button>
 
-        <button class="sidebar-link" data-nav="reports" onclick="setSidebarActive(this, 'reports')">
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-          </span>
+        <button class="sidebar-link" data-tab="reports" onclick="switchNavTab('reports')">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></span>
           <span class="nav-label">Reports</span>
         </button>
 
-        <button class="sidebar-link" data-nav="staff" onclick="setSidebarActive(this, 'staff')">
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-          </span>
+        <button class="sidebar-link" data-tab="staff" onclick="switchNavTab('staff')">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
           <span class="nav-label">Staff</span>
         </button>
 
-        <button class="sidebar-link" data-nav="settings" onclick="setSidebarActive(this, 'settings')">
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-          </span>
+        <button class="sidebar-link" data-tab="settings" onclick="switchNavTab('settings')">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
           <span class="nav-label">Settings</span>
         </button>
 
-        <button class="sidebar-link logout-link" onclick="alert('Logging out...')">
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-          </span>
+        <button class="sidebar-link logout-link" onclick="showToast('Logged out successfully', 'info')">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></span>
           <span class="nav-label">Logout</span>
         </button>
       </nav>
 
-      <!-- Sidebar User Profile -->
+      <!-- User Card -->
       <div class="sidebar-user-card">
         <div class="user-avatar-wrap">
           <div class="user-avatar-img">👨‍🍳</div>
@@ -159,346 +111,359 @@
       </div>
     </aside>
 
-    <!-- CENTER MAIN CONTENT AREA -->
-    <main class="main-dashboard-body">
+    <!-- CENTER MAIN BODY -->
+    <main class="app-main-content">
       
-      <!-- Top Header Bar -->
-      <header class="dashboard-header-bar">
-        <div class="header-left-col">
-          <button class="btn-hamburger" title="Toggle Menu">
+      <!-- Top Responsive Header Bar -->
+      <header class="app-top-header">
+        
+        <div class="header-left">
+          <button class="btn-hamburger" onclick="toggleMobileSidebar(true)" aria-label="Open Navigation">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
           </button>
           <div>
-            <h1 class="header-title">Order Tracking Dashboard</h1>
-            <p class="header-subtitle">Real-time overview of all restaurant orders</p>
+            <h1 class="header-main-title" id="pageMainHeading">Order Tracking Dashboard</h1>
+            <p class="header-sub-title">Real-time overview of all restaurant orders</p>
           </div>
         </div>
 
-        <div class="header-center-search">
-          <div class="search-input-wrapper">
-            <input type="text" id="globalSearchInput" placeholder="Search order, table, customer..." autocomplete="off">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          </div>
+        <!-- Search Input -->
+        <div class="header-search-wrap">
+          <input type="text" id="globalSearchInput" placeholder="Search order, table, customer..." autocomplete="off">
+          <svg class="search-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
 
-        <div class="header-right-actions">
-          <!-- Notification Bell with Badge -->
-          <div class="notif-bell-wrap" onclick="showToast('You have 12 active notifications', 'info')">
+        <!-- Right Quick Controls -->
+        <div class="header-right-controls">
+          <button class="btn-new-order-top" onclick="openNewOrderModal()">
+            <span>+ New Order</span>
+          </button>
+
+          <button class="icon-btn-circle" onclick="toggleLanguage()" title="Switch Language">
+            <span id="langTextBadge">العربية</span>
+          </button>
+
+          <button class="icon-btn-circle" onclick="toggleTheme()" title="Toggle Theme">
+            <span id="themeIcon">🌙</span>
+          </button>
+
+          <div class="icon-btn-circle notif-bell" onclick="showToast('You have 12 active notifications', 'info')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-            <span class="bell-count-badge">12</span>
+            <span class="bell-badge">12</span>
           </div>
 
-          <!-- Admin Profile Pill -->
-          <div class="admin-profile-pill">
-            <div class="admin-avatar">👤</div>
-            <div class="admin-meta">
-              <span class="admin-title">Admin <span class="arrow-down">⌄</span></span>
-              <span class="admin-sub-ar">مدير</span>
+          <div class="admin-pill-wrap desktop-only">
+            <div class="admin-av">👤</div>
+            <div class="admin-text">
+              <strong>Admin ⌄</strong>
+              <span>مدير</span>
             </div>
           </div>
         </div>
+
       </header>
 
-      <!-- 6 Status Metric Cards Grid -->
-      <section class="metrics-row-grid">
+      <!-- View Container for Dashboard -->
+      <div id="viewDashboard" class="tab-page active">
         
-        <!-- Card 1: New Orders -->
-        <div class="stat-pill-card">
-          <div class="stat-icon-box icon-bag">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <!-- 6 Status Metric Cards Grid -->
+        <section class="metrics-grid">
+          
+          <div class="metric-card" onclick="filterByStatus('NEW')">
+            <div class="m-icon icon-bag">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            </div>
+            <div class="m-info">
+              <span class="m-label">New Orders</span>
+              <h3 class="m-val" id="cntNew">12</h3>
+              <span class="m-sub text-orange">+3 new</span>
+            </div>
           </div>
-          <div class="stat-card-body">
-            <span class="stat-label">New Orders</span>
-            <h3 class="stat-number" id="dashCountNew">12</h3>
-            <span class="stat-footer-text text-orange">+3 new</span>
-          </div>
-        </div>
 
-        <!-- Card 2: Preparing -->
-        <div class="stat-pill-card">
-          <div class="stat-icon-box icon-pot">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          <div class="metric-card" onclick="filterByStatus('PREPARING')">
+            <div class="m-icon icon-pot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            </div>
+            <div class="m-info">
+              <span class="m-label">Preparing</span>
+              <h3 class="m-val" id="cntPrep">08</h3>
+              <span class="m-sub text-muted">In Progress</span>
+            </div>
           </div>
-          <div class="stat-card-body">
-            <span class="stat-label">Preparing</span>
-            <h3 class="stat-number" id="dashCountPrep">08</h3>
-            <span class="stat-footer-text text-muted">In Progress</span>
-          </div>
-        </div>
 
-        <!-- Card 3: Ready -->
-        <div class="stat-pill-card">
-          <div class="stat-icon-box icon-cloche">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path></svg>
+          <div class="metric-card" onclick="filterByStatus('READY')">
+            <div class="m-icon icon-cloche">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path></svg>
+            </div>
+            <div class="m-info">
+              <span class="m-label">Ready</span>
+              <h3 class="m-val" id="cntReady">05</h3>
+              <span class="m-sub text-green">Ready to Serve</span>
+            </div>
           </div>
-          <div class="stat-card-body">
-            <span class="stat-label">Ready</span>
-            <h3 class="stat-number" id="dashCountReady">05</h3>
-            <span class="stat-footer-text text-green">Ready to Serve</span>
-          </div>
-        </div>
 
-        <!-- Card 4: Out for Delivery -->
-        <div class="stat-pill-card">
-          <div class="stat-icon-box icon-scooter">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+          <div class="metric-card" onclick="filterByStatus('OUT FOR DELIVERY')">
+            <div class="m-icon icon-scooter">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            </div>
+            <div class="m-info">
+              <span class="m-label">Out for Delivery</span>
+              <h3 class="m-val" id="cntDeliv">03</h3>
+              <span class="m-sub text-blue">On the way</span>
+            </div>
           </div>
-          <div class="stat-card-body">
-            <span class="stat-label">Out for Delivery</span>
-            <h3 class="stat-number" id="dashCountDeliv">03</h3>
-            <span class="stat-footer-text text-blue">On the way</span>
-          </div>
-        </div>
 
-        <!-- Card 5: Completed -->
-        <div class="stat-pill-card">
-          <div class="stat-icon-box icon-check">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <div class="metric-card" onclick="filterByStatus('COMPLETED')">
+            <div class="m-icon icon-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <div class="m-info">
+              <span class="m-label">Completed</span>
+              <h3 class="m-val" id="cntComp">25</h3>
+              <span class="m-sub text-purple">Today</span>
+            </div>
           </div>
-          <div class="stat-card-body">
-            <span class="stat-label">Completed</span>
-            <h3 class="stat-number" id="dashCountComp">25</h3>
-            <span class="stat-footer-text text-purple">Today</span>
+
+          <div class="metric-card" onclick="filterByStatus('CANCELLED')">
+            <div class="m-icon icon-cross">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            </div>
+            <div class="m-info">
+              <span class="m-label">Cancelled</span>
+              <h3 class="m-val" id="cntCanc">02</h3>
+              <span class="m-sub text-red">Today</span>
+            </div>
           </div>
-        </div>
 
-        <!-- Card 6: Cancelled -->
-        <div class="stat-pill-card">
-          <div class="stat-icon-box icon-cross">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+        </section>
+
+        <!-- Live Orders Section Header -->
+        <div class="live-orders-bar">
+          <div class="lo-title-group">
+            <span class="live-dot-indicator"></span>
+            <h2>Live Orders</h2>
           </div>
-          <div class="stat-card-body">
-            <span class="stat-label">Cancelled</span>
-            <h3 class="stat-number" id="dashCountCanc">02</h3>
-            <span class="stat-footer-text text-red">Today</span>
-          </div>
-        </div>
 
-      </section>
-
-      <!-- Live Orders Section Header with Filters -->
-      <div class="live-orders-header-row">
-        <div class="live-orders-title-group">
-          <span class="orange-live-dot"></span>
-          <h2 class="live-orders-heading">Live Orders</h2>
-        </div>
-
-        <div class="live-orders-filter-controls">
-          <div class="select-wrapper">
-            <select id="selOrderFilterStatus" class="minimal-select" onchange="filterLiveCards()">
+          <div class="lo-controls-group">
+            <select id="selFilterStatus" class="rounded-select" onchange="renderLiveOrderCards()">
               <option value="all">All Orders</option>
               <option value="NEW">New</option>
               <option value="PREPARING">Preparing</option>
               <option value="READY">Ready</option>
               <option value="OUT FOR DELIVERY">Out for Delivery</option>
             </select>
-            <span class="sel-arrow">⌄</span>
-          </div>
 
-          <div class="select-wrapper">
-            <select id="selOrderSort" class="minimal-select" onchange="filterLiveCards()">
+            <select id="selSortOrder" class="rounded-select" onchange="renderLiveOrderCards()">
               <option value="newest">Newest First</option>
               <option value="oldest">Oldest First</option>
-              <option value="highest">Highest Amount</option>
+              <option value="highest">Highest Price</option>
             </select>
-            <span class="sel-arrow">⌄</span>
           </div>
+        </div>
 
-          <div class="view-switch-btns">
-            <button class="btn-grid-toggle active" title="Grid View">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-            </button>
-            <button class="btn-grid-toggle" title="List View">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-            </button>
-          </div>
+        <!-- Live Order Cards Grid -->
+        <div class="order-cards-grid" id="liveOrderCardsGrid">
+          <!-- Rendered by JavaScript -->
+        </div>
+
+      </div>
+
+      <!-- Other Tabs (Orders, Kitchen, Tracking, More) -->
+      <div id="viewKitchen" class="tab-page">
+        <div class="tab-inner-card">
+          <h2>🍳 Kitchen Display System (KDS)</h2>
+          <p>Full kitchen preparation cards and real-time timers.</p>
+          <div class="kds-columns-row" id="kdsCardsContainer"></div>
         </div>
       </div>
 
-      <!-- Live Order Cards Grid (Populated with 4 exact mockup cards) -->
-      <div class="live-cards-container" id="liveOrderCardsGrid">
-        <!-- Rendered by JavaScript -->
+      <div id="viewTracking" class="tab-page">
+        <div class="tab-inner-card">
+          <h2>📍 Live Order Tracking</h2>
+          <p>Customer-facing timeline tracking step-by-step.</p>
+          <div class="tracking-embed-box" id="trackingEmbedBox"></div>
+        </div>
+      </div>
+
+      <div id="viewMore" class="tab-page">
+        <div class="tab-inner-card">
+          <h2>⚙️ More & Settings</h2>
+          <div class="more-nav-list">
+            <div class="m-link-row"><span>🍽️ Menu Management</span><span>›</span></div>
+            <div class="m-link-row"><span>👥 Customers Directory</span><span>›</span></div>
+            <div class="m-link-row"><span>📊 Sales Reports</span><span>›</span></div>
+            <div class="m-link-row"><span>👨‍🍳 Staff Roles</span><span>›</span></div>
+            <div class="m-link-row"><span>⚙️ POS System Settings</span><span>›</span></div>
+          </div>
+        </div>
       </div>
 
     </main>
 
-    <!-- RIGHT SIDEBAR: ORDER DETAILS & TODAY'S SUMMARY -->
-    <aside class="right-details-sidebar" id="rightDetailsPanel">
+    <!-- RIGHT SIDEBAR / DRAWER: ORDER DETAILS & SUMMARY -->
+    <aside class="app-right-drawer" id="orderDrawerPanel">
       
-      <!-- Order Details Card Container -->
-      <div class="order-details-card" id="activeOrderDetailsCard">
+      <!-- Order Details Card -->
+      <div class="drawer-card">
         
-        <!-- Header -->
-        <div class="drawer-header">
-          <h3 class="drawer-title">Order Details</h3>
-          <button class="btn-drawer-close" title="Close" onclick="closeOrderDrawer()">✕</button>
+        <div class="drawer-card-header">
+          <h3>Order Details</h3>
+          <button class="btn-close-drawer" onclick="toggleOrderDrawer(false)">✕</button>
         </div>
 
-        <div class="drawer-content-scroll">
+        <div class="drawer-card-body">
           
-          <!-- Status Banner & Order ID -->
-          <div class="details-status-row">
-            <span class="status-chip chip-preparing" id="dtlStatusChip">PREPARING</span>
-            <span class="dtl-order-code" id="dtlOrderId">#ORD-1025</span>
+          <div class="dtl-header-badge-row">
+            <span class="status-badge-chip chip-prep" id="dtlStatusChip">PREPARING</span>
+            <span class="dtl-code" id="dtlOrderId">#ORD-1025</span>
           </div>
 
-          <!-- Table & Time info -->
-          <div class="dtl-meta-line">
+          <div class="dtl-destination-line">
             <strong id="dtlTableType">Table 08 • Dine In</strong>
           </div>
-          <div class="dtl-meta-sub">
+          <div class="dtl-timestamp-line">
             <span>📅 <span id="dtlDate">26 May 2024</span> • <span id="dtlTime">08:42 PM</span></span>
           </div>
-          <div class="dtl-customer-line">
+          <div class="dtl-customer-row">
             <span>👤 <strong id="dtlCustomerName">Ahmad Al Omar</strong></span>
-            <span class="dtl-phone" id="dtlPhone">+966 50 123 4567</span>
+            <span class="dtl-phone-text" id="dtlPhone">+966 50 123 4567</span>
           </div>
 
           <!-- Section: Order Items -->
-          <div class="dtl-section-heading">Order Items</div>
-          <div class="dtl-items-table" id="dtlItemsTable">
+          <div class="dtl-divider-title">Order Items</div>
+          <div class="dtl-items-list" id="dtlItemsList">
             <!-- Items rendered via JS -->
           </div>
 
           <!-- Total Row -->
-          <div class="dtl-total-row">
+          <div class="dtl-total-bar">
             <span>Total</span>
-            <span class="dtl-total-price" id="dtlTotalPrice">SAR 86.00</span>
+            <span class="dtl-total-amount" id="dtlTotalPrice">SAR 86.00</span>
           </div>
 
-          <!-- Additional Metadata Grid -->
-          <div class="dtl-meta-grid">
-            <div class="meta-item">
-              <span class="meta-label">Payment Method</span>
-              <strong class="meta-val" id="dtlPayment">Cash</strong>
+          <!-- Meta Grid -->
+          <div class="dtl-meta-2x2">
+            <div class="m-box">
+              <span class="m-lbl">Payment Method</span>
+              <strong class="m-v" id="dtlPayment">Cash</strong>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Status</span>
-              <strong class="meta-val" id="dtlStatus">Preparing</strong>
+            <div class="m-box">
+              <span class="m-lbl">Status</span>
+              <strong class="m-v" id="dtlStatus">Preparing</strong>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Cashier</span>
-              <strong class="meta-val" id="dtlCashier">Riham</strong>
+            <div class="m-box">
+              <span class="m-lbl">Cashier</span>
+              <strong class="m-v" id="dtlCashier">Riham</strong>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Note</span>
-              <strong class="meta-val text-note" id="dtlNotes">Please no onion</strong>
+            <div class="m-box">
+              <span class="m-lbl">Note</span>
+              <strong class="m-v text-orange-note" id="dtlNotes">Please no onion</strong>
             </div>
           </div>
 
-          <!-- Section: Order Timeline -->
-          <div class="dtl-section-heading">Order Timeline</div>
-          <div class="dtl-timeline-vertical">
+          <!-- Timeline -->
+          <div class="dtl-divider-title">Order Timeline</div>
+          <div class="dtl-timeline-box">
             
-            <div class="timeline-row row-done" id="tlNode1">
-              <div class="tl-bullet">✔</div>
-              <div class="tl-info">
-                <span class="tl-title">Order Received</span>
-                <span class="tl-time" id="tlTime1">08:34 PM</span>
+            <div class="tl-step-item done" id="tlNode1">
+              <span class="tl-dot">✔</span>
+              <div class="tl-text">
+                <strong>Order Received</strong>
+                <span class="time" id="tlTime1">08:34 PM</span>
               </div>
             </div>
 
-            <div class="timeline-row row-done" id="tlNode2">
-              <div class="tl-bullet">✔</div>
-              <div class="tl-info">
-                <span class="tl-title">Accepted</span>
-                <span class="tl-time" id="tlTime2">08:35 PM</span>
+            <div class="tl-step-item done" id="tlNode2">
+              <span class="tl-dot">✔</span>
+              <div class="tl-text">
+                <strong>Accepted</strong>
+                <span class="time" id="tlTime2">08:35 PM</span>
               </div>
             </div>
 
-            <div class="timeline-row row-active" id="tlNode3">
-              <div class="tl-bullet"><span class="pulse-core"></span></div>
-              <div class="tl-info">
-                <span class="tl-title">Preparing</span>
-                <span class="tl-time" id="tlTime3">08:38 PM</span>
+            <div class="tl-step-item active" id="tlNode3">
+              <span class="tl-dot"><span class="tl-pulse"></span></span>
+              <div class="tl-text">
+                <strong>Preparing</strong>
+                <span class="time" id="tlTime3">08:38 PM</span>
               </div>
             </div>
 
-            <div class="timeline-row row-pending" id="tlNode4">
-              <div class="tl-bullet"></div>
-              <div class="tl-info">
-                <span class="tl-title">Ready</span>
-                <span class="tl-time" id="tlTime4">08:45 PM</span>
+            <div class="tl-step-item" id="tlNode4">
+              <span class="tl-dot">○</span>
+              <div class="tl-text">
+                <strong>Ready</strong>
+                <span class="time" id="tlTime4">08:45 PM</span>
               </div>
             </div>
 
-            <div class="timeline-row row-pending" id="tlNode5">
-              <div class="tl-bullet"></div>
-              <div class="tl-info">
-                <span class="tl-title">Out for Delivery</span>
-                <span class="tl-time" id="tlTime5">08:47 PM</span>
+            <div class="tl-step-item" id="tlNode5">
+              <span class="tl-dot">○</span>
+              <div class="tl-text">
+                <strong>Out for Delivery</strong>
+                <span class="time" id="tlTime5">08:47 PM</span>
               </div>
             </div>
 
-            <div class="timeline-row row-pending" id="tlNode6">
-              <div class="tl-bullet"></div>
-              <div class="tl-info">
-                <span class="tl-title">Completed</span>
-                <span class="tl-time" id="tlTime6">--:--</span>
+            <div class="tl-step-item" id="tlNode6">
+              <span class="tl-dot">○</span>
+              <div class="tl-text">
+                <strong>Completed</strong>
+                <span class="time" id="tlTime6">--:--</span>
               </div>
             </div>
 
           </div>
 
           <!-- Bottom Action Buttons -->
-          <div class="dtl-actions-footer">
-            <button class="btn-action-cancel" onclick="cancelSelectedOrder()">Cancel Order</button>
-            <button class="btn-action-update" onclick="advanceSelectedOrder()">Update Status</button>
+          <div class="dtl-footer-actions">
+            <button class="btn-cancel-red" onclick="cancelSelectedOrder()">Cancel Order</button>
+            <button class="btn-update-orange" onclick="advanceSelectedOrder()">Update Status</button>
           </div>
 
         </div>
-
       </div>
 
-      <!-- Bottom Right: Today's Summary Card (Dark Theme with Chart) -->
-      <div class="todays-summary-dark-card">
-        <div class="summary-head">
+      <!-- Today's Summary Card (Dark Theme) -->
+      <div class="summary-dark-card desktop-only">
+        <div class="sd-header">
           <h4>Today's Summary</h4>
-          <span class="summary-date">26 May 2024</span>
+          <span class="sd-date">26 May 2024</span>
         </div>
 
-        <div class="summary-stats-2x2">
-          <div class="summary-stat-box">
-            <span class="s-label">Total Orders</span>
-            <h3 class="s-val">55</h3>
+        <div class="sd-stats-grid">
+          <div class="sd-stat">
+            <span class="sd-lbl">Total Orders</span>
+            <h3 class="sd-num">55</h3>
           </div>
-          <div class="summary-stat-box">
-            <span class="s-label">Total Sales</span>
-            <h3 class="s-val">SAR 3,650.00</h3>
+          <div class="sd-stat">
+            <span class="sd-lbl">Total Sales</span>
+            <h3 class="sd-num">SAR 3,650.00</h3>
           </div>
-          <div class="summary-stat-box">
-            <span class="s-label">Completed</span>
-            <h3 class="s-val">25</h3>
+          <div class="sd-stat">
+            <span class="sd-lbl">Completed</span>
+            <h3 class="sd-num">25</h3>
           </div>
-          <div class="summary-stat-box">
-            <span class="s-label">Average Order</span>
-            <h3 class="s-val">SAR 66.36</h3>
+          <div class="sd-stat">
+            <span class="sd-lbl">Average Order</span>
+            <h3 class="sd-num">SAR 66.36</h3>
           </div>
         </div>
 
-        <!-- Hourly Trend Chart Sparkline -->
-        <div class="summary-chart-container">
-          <svg class="sparkline-svg" viewBox="0 0 300 80">
+        <!-- Sparkline Chart -->
+        <div class="sd-chart-box">
+          <svg class="sd-sparkline" viewBox="0 0 300 70">
             <defs>
               <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="#f97316" stop-opacity="0.4"/>
                 <stop offset="100%" stop-color="#f97316" stop-opacity="0.0"/>
               </linearGradient>
             </defs>
-            <path d="M 10 70 L 45 60 L 80 40 L 120 50 L 160 30 L 200 45 L 235 15 L 265 50 L 290 65 L 290 80 L 10 80 Z" fill="url(#chartGrad)" />
-            <path d="M 10 70 L 45 60 L 80 40 L 120 50 L 160 30 L 200 45 L 235 15 L 265 50 L 290 65" fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-            <!-- Circles for points -->
-            <circle cx="10" cy="70" r="3" fill="#f97316"/>
-            <circle cx="45" cy="60" r="3" fill="#f97316"/>
-            <circle cx="80" cy="40" r="3" fill="#f97316"/>
-            <circle cx="120" cy="50" r="3" fill="#f97316"/>
-            <circle cx="160" cy="30" r="3" fill="#f97316"/>
-            <circle cx="200" cy="45" r="3" fill="#f97316"/>
-            <circle cx="235" cy="15" r="4.5" fill="#ffffff" stroke="#f97316" stroke-width="2"/>
-            <circle cx="265" cy="50" r="3" fill="#f97316"/>
-            <circle cx="290" cy="65" r="3" fill="#f97316"/>
+            <path d="M 10 60 L 45 50 L 80 35 L 120 45 L 160 25 L 200 40 L 235 12 L 265 42 L 290 55 L 290 70 L 10 70 Z" fill="url(#chartGrad)" />
+            <path d="M 10 60 L 45 50 L 80 35 L 120 45 L 160 25 L 200 40 L 235 12 L 265 42 L 290 55" fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="235" cy="12" r="4.5" fill="#ffffff" stroke="#f97316" stroke-width="2"/>
           </svg>
-          <div class="chart-x-labels">
+          <div class="sd-chart-labels">
             <span>5 AM</span>
             <span>9 AM</span>
             <span>1 PM</span>
@@ -515,379 +480,51 @@
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MOBILE VIEW SIMULATOR (Shows the 5 screens exactly like mockup)            -->
+  <!-- MOBILE FLOATING BOTTOM NAVIGATION BAR                                     -->
   <!-- ========================================================================= -->
-  <div id="mobileAppContainer" class="mobile-showcase-wrapper hidden">
-    <div class="mobile-showcase-inner">
-      
-      <!-- MOBILE SCREEN 1: DASHBOARD -->
-      <div class="mobile-frame">
-        <div class="mobile-status-bar">
-          <span>9:41</span>
-          <div class="notch"></div>
-          <span class="status-icons">📶 🔋</span>
-        </div>
-        <div class="mobile-screen-body">
-          <div class="m-header-row">
-            <div>
-              <h3>Dashboard</h3>
-              <span class="m-ar-sub">لوحة التحكم</span>
-            </div>
-            <div class="m-bell">🔔</div>
-          </div>
-
-          <div class="m-stats-list">
-            <div class="m-stat-card card-orange">
-              <span>New Orders</span>
-              <strong>12</strong>
-            </div>
-            <div class="m-stat-card card-amber">
-              <span>Preparing</span>
-              <strong>08</strong>
-            </div>
-            <div class="m-stat-card card-green">
-              <span>Ready</span>
-              <strong>05</strong>
-            </div>
-            <div class="m-stat-card card-blue">
-              <span>Out for Delivery</span>
-              <strong>03</strong>
-            </div>
-            <div class="m-stat-card card-purple">
-              <span>Completed</span>
-              <strong>25</strong>
-            </div>
-            <div class="m-stat-card card-red">
-              <span>Cancelled</span>
-              <strong>02</strong>
-            </div>
-          </div>
-        </div>
-        <!-- Bottom Tab Bar -->
-        <div class="m-bottom-nav">
-          <div class="m-tab active"><span>🏠</span><label>Home</label></div>
-          <div class="m-tab"><span>🧾</span><label>Orders</label></div>
-          <div class="m-tab"><span>🍳</span><label>Kitchen</label></div>
-          <div class="m-tab"><span>📍</span><label>Tracking</label></div>
-          <div class="m-tab"><span>⚙️</span><label>More</label></div>
-        </div>
-      </div>
-
-      <!-- MOBILE SCREEN 2: ORDERS -->
-      <div class="mobile-frame">
-        <div class="mobile-status-bar">
-          <span>9:41</span>
-          <div class="notch"></div>
-          <span class="status-icons">📶 🔋</span>
-        </div>
-        <div class="mobile-screen-body">
-          <div class="m-header-row">
-            <div>
-              <h3>Orders</h3>
-            </div>
-            <div class="m-bell">🔔</div>
-          </div>
-
-          <div class="m-search-bar">
-            <span>🔍</span>
-            <input type="text" placeholder="Search order...">
-            <span class="filter-icon">⚙️</span>
-          </div>
-
-          <div class="m-filter-pills">
-            <button class="m-pill active">All</button>
-            <button class="m-pill">New</button>
-            <button class="m-pill">Preparing</button>
-            <button class="m-pill">Ready</button>
-          </div>
-
-          <div class="m-orders-list">
-            <div class="m-order-item" onclick="selectOrderMobile('ORD-1025')">
-              <div class="m-order-top">
-                <strong>#ORD-1025</strong>
-                <span class="m-chip m-chip-new">NEW</span>
-              </div>
-              <div class="m-order-sub">Table 08 • 2 min ago</div>
-              <div class="m-order-meta">3 Items • SAR 86.00</div>
-            </div>
-
-            <div class="m-order-item" onclick="selectOrderMobile('ORD-1024')">
-              <div class="m-order-top">
-                <strong>#ORD-1024</strong>
-                <span class="m-chip m-chip-prep">PREPARING</span>
-              </div>
-              <div class="m-order-sub">Table 03 • 8 min ago</div>
-              <div class="m-order-meta">4 Items • SAR 120.00</div>
-            </div>
-
-            <div class="m-order-item" onclick="selectOrderMobile('ORD-1023')">
-              <div class="m-order-top">
-                <strong>#ORD-1023</strong>
-                <span class="m-chip m-chip-ready">READY</span>
-              </div>
-              <div class="m-order-sub">Table 12 • 15 min ago</div>
-              <div class="m-order-meta">2 Items • SAR 55.00</div>
-            </div>
-
-            <div class="m-order-item" onclick="selectOrderMobile('ORD-1022')">
-              <div class="m-order-top">
-                <strong>#ORD-1022</strong>
-                <span class="m-chip m-chip-deliv">OUT FOR DELIVERY</span>
-              </div>
-              <div class="m-order-sub">Delivery • 20 min ago</div>
-              <div class="m-order-meta">3 Items • SAR 75.00</div>
-            </div>
-          </div>
-        </div>
-        <div class="m-bottom-nav">
-          <div class="m-tab"><span>🏠</span><label>Home</label></div>
-          <div class="m-tab active"><span>🧾</span><label>Orders</label></div>
-          <div class="m-tab"><span>🍳</span><label>Kitchen</label></div>
-          <div class="m-tab"><span>📍</span><label>Tracking</label></div>
-          <div class="m-tab"><span>⚙️</span><label>More</label></div>
-        </div>
-      </div>
-
-      <!-- MOBILE SCREEN 3: KITCHEN -->
-      <div class="mobile-frame">
-        <div class="mobile-status-bar">
-          <span>9:41</span>
-          <div class="notch"></div>
-          <span class="status-icons">📶 🔋</span>
-        </div>
-        <div class="mobile-screen-body">
-          <div class="m-header-row">
-            <div>
-              <h3>Kitchen</h3>
-              <span class="m-ar-sub">المطبخ</span>
-            </div>
-            <div class="m-bell">🔔</div>
-          </div>
-
-          <div class="m-kds-tabs">
-            <button class="kds-tab active">New (12)</button>
-            <button class="kds-tab">Preparing (8)</button>
-            <button class="kds-tab">Ready (5)</button>
-          </div>
-
-          <div class="m-kds-cards-list">
-            <div class="m-kds-card">
-              <div class="m-kds-head">
-                <strong>#ORD-1025</strong>
-                <span class="timer-red">⏱ 2 min</span>
-              </div>
-              <div class="m-kds-meta">Table 08 • 3 Items</div>
-            </div>
-
-            <div class="m-kds-card">
-              <div class="m-kds-head">
-                <strong>#ORD-1026</strong>
-                <span class="timer-red">⏱ 4 min</span>
-              </div>
-              <div class="m-kds-meta">Table 05 • 2 Items</div>
-            </div>
-
-            <div class="m-kds-section-title">PREPARING</div>
-
-            <div class="m-kds-card">
-              <div class="m-kds-head">
-                <strong>#ORD-1024</strong>
-                <span class="timer-orange">⏱ 8 min</span>
-              </div>
-              <div class="m-kds-meta">Table 03 • 4 Items</div>
-            </div>
-
-            <div class="m-kds-card">
-              <div class="m-kds-head">
-                <strong>#ORD-1023</strong>
-                <span class="timer-orange">⏱ 15 min</span>
-              </div>
-              <div class="m-kds-meta">Table 12 • 2 Items</div>
-            </div>
-
-            <div class="m-kds-section-title">READY</div>
-
-            <div class="m-kds-card">
-              <div class="m-kds-head">
-                <strong>#ORD-1021</strong>
-                <span class="timer-green">⏱ 18 min</span>
-              </div>
-              <div class="m-kds-meta">Table 07 • 3 Items</div>
-            </div>
-          </div>
-        </div>
-        <div class="m-bottom-nav">
-          <div class="m-tab"><span>🏠</span><label>Home</label></div>
-          <div class="m-tab"><span>🧾</span><label>Orders</label></div>
-          <div class="m-tab active"><span>🍳</span><label>Kitchen</label></div>
-          <div class="m-tab"><span>📍</span><label>Tracking</label></div>
-          <div class="m-tab"><span>⚙️</span><label>More</label></div>
-        </div>
-      </div>
-
-      <!-- MOBILE SCREEN 4: TRACKING -->
-      <div class="mobile-frame">
-        <div class="mobile-status-bar">
-          <span>9:41</span>
-          <div class="notch"></div>
-          <span class="status-icons">📶 🔋</span>
-        </div>
-        <div class="mobile-screen-body">
-          <div class="m-header-row">
-            <div>
-              <h3>Tracking</h3>
-              <span class="m-ar-sub">تتبع الطلب</span>
-            </div>
-          </div>
-
-          <div class="m-search-bar">
-            <input type="text" placeholder="Enter Order ID..." value="ORD-1025">
-            <span>🔍</span>
-          </div>
-
-          <div class="m-scooter-center">
-            <div class="m-scooter-icon">🛵</div>
-            <h4>#ORD-1025</h4>
-            <p>Table 08</p>
-          </div>
-
-          <div class="m-vertical-stepper">
-            <div class="m-step done">
-              <span class="dot">✔</span>
-              <div class="text">
-                <strong>Order Received</strong>
-                <span class="time">08:34 PM</span>
-              </div>
-            </div>
-
-            <div class="m-step done">
-              <span class="dot">✔</span>
-              <div class="text">
-                <strong>Accepted</strong>
-                <span class="time">08:35 PM</span>
-              </div>
-            </div>
-
-            <div class="m-step active">
-              <span class="dot">●</span>
-              <div class="text">
-                <strong>Preparing</strong>
-                <span class="time">08:38 PM</span>
-              </div>
-            </div>
-
-            <div class="m-step">
-              <span class="dot">○</span>
-              <div class="text">
-                <strong>Ready</strong>
-                <span class="time">08:45 PM</span>
-              </div>
-            </div>
-
-            <div class="m-step">
-              <span class="dot">○</span>
-              <div class="text">
-                <strong>Out for Delivery</strong>
-                <span class="time">08:47 PM</span>
-              </div>
-            </div>
-
-            <div class="m-step">
-              <span class="dot">○</span>
-              <div class="text">
-                <strong>Completed</strong>
-                <span class="time">--:--</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="m-bottom-nav">
-          <div class="m-tab"><span>🏠</span><label>Home</label></div>
-          <div class="m-tab"><span>🧾</span><label>Orders</label></div>
-          <div class="m-tab"><span>🍳</span><label>Kitchen</label></div>
-          <div class="m-tab active"><span>📍</span><label>Tracking</label></div>
-          <div class="m-tab"><span>⚙️</span><label>More</label></div>
-        </div>
-      </div>
-
-      <!-- MOBILE SCREEN 5: MORE / SETTINGS -->
-      <div class="mobile-frame">
-        <div class="mobile-status-bar">
-          <span>9:41</span>
-          <div class="notch"></div>
-          <span class="status-icons">📶 🔋</span>
-        </div>
-        <div class="mobile-screen-body">
-          <div class="m-header-row">
-            <div>
-              <h3>More</h3>
-              <span class="m-ar-sub">المزيد</span>
-            </div>
-          </div>
-
-          <div class="m-more-menu-list">
-            <div class="m-menu-row">
-              <div class="row-left"><span>🍽️</span> <span>Menu</span></div>
-              <span>›</span>
-            </div>
-            <div class="m-menu-row">
-              <div class="row-left"><span>👥</span> <span>Customers</span></div>
-              <span>›</span>
-            </div>
-            <div class="m-menu-row">
-              <div class="row-left"><span>📊</span> <span>Reports</span></div>
-              <span>›</span>
-            </div>
-            <div class="m-menu-row">
-              <div class="row-left"><span>👨‍🍳</span> <span>Staff</span></div>
-              <span>›</span>
-            </div>
-            <div class="m-menu-row">
-              <div class="row-left"><span>⚙️</span> <span>Settings</span></div>
-              <span>›</span>
-            </div>
-            <div class="m-menu-row">
-              <div class="row-left"><span>❓</span> <span>Help & Support</span></div>
-              <span>›</span>
-            </div>
-            <div class="m-menu-row">
-              <div class="row-left"><span>ℹ️</span> <span>About Us</span></div>
-              <span>›</span>
-            </div>
-          </div>
-        </div>
-        <div class="m-bottom-nav">
-          <div class="m-tab"><span>🏠</span><label>Home</label></div>
-          <div class="m-tab"><span>🧾</span><label>Orders</label></div>
-          <div class="m-tab"><span>🍳</span><label>Kitchen</label></div>
-          <div class="m-tab"><span>📍</span><label>Tracking</label></div>
-          <div class="m-tab active"><span>⚙️</span><label>More</label></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+  <nav class="mobile-bottom-nav">
+    <button class="m-nav-tab active" data-tab="dashboard" onclick="switchNavTab('dashboard')">
+      <span class="m-icon">🏠</span>
+      <span class="m-txt">Home</span>
+    </button>
+    <button class="m-nav-tab" data-tab="orders" onclick="switchNavTab('orders')">
+      <span class="m-icon">🧾</span>
+      <span class="m-txt">Orders</span>
+    </button>
+    <button class="m-nav-tab" data-tab="kitchen" onclick="switchNavTab('kitchen')">
+      <span class="m-icon">🍳</span>
+      <span class="m-txt">Kitchen</span>
+    </button>
+    <button class="m-nav-tab" data-tab="tracking" onclick="switchNavTab('tracking')">
+      <span class="m-icon">📍</span>
+      <span class="m-txt">Tracking</span>
+    </button>
+    <button class="m-nav-tab" data-tab="more" onclick="switchNavTab('more')">
+      <span class="m-icon">⚙️</span>
+      <span class="m-txt">More</span>
+    </button>
+  </nav>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: NEW ORDER POS FORM                                                 -->
+  <!-- POS NEW ORDER MODAL                                                       -->
   <!-- ========================================================================= -->
-  <div id="modalNewOrder" class="modal-overlay hidden no-print">
+  <div id="modalNewOrder" class="modal-overlay hidden">
     <div class="modal-card-pos">
-      <div class="modal-top">
+      <div class="modal-header">
         <h3>Create New Order</h3>
-        <button class="btn-close" onclick="closeNewOrderModal()">✕</button>
+        <button class="modal-close-btn" onclick="closeNewOrderModal()">✕</button>
       </div>
 
-      <div class="pos-modal-body">
-        <div class="pos-menu-selector">
-          <h4>Select Menu Dishes</h4>
-          <div class="pos-dishes-grid" id="posDishesGrid">
-            <!-- Rendered by JS -->
-          </div>
+      <div class="pos-modal-layout">
+        <!-- Dishes -->
+        <div class="pos-dishes-col">
+          <h4>Menu Items</h4>
+          <div class="pos-dishes-grid" id="posDishesGrid"></div>
         </div>
 
-        <div class="pos-cart-form">
-          <h4>Order & Customer Details</h4>
+        <!-- Form & Cart -->
+        <div class="pos-form-col">
+          <h4>Customer & Order Details</h4>
           <div class="form-group">
             <label>Customer Name</label>
             <input type="text" id="posCustName" value="Ahmad Al Omar">
@@ -908,7 +545,7 @@
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label>Table / Destination</label>
+              <label>Table No / Address</label>
               <input type="text" id="posTableNo" value="Table 08">
             </div>
             <div class="form-group">
@@ -925,24 +562,22 @@
             <input type="text" id="posNotes" value="Please no onion">
           </div>
 
-          <h4>Cart Items</h4>
-          <div class="cart-items-box" id="posCartBox">
-            <!-- Items rendered -->
-          </div>
+          <h4>Cart</h4>
+          <div class="pos-cart-box" id="posCartBox"></div>
 
-          <div class="pos-cart-total-row">
-            <span>Total Amount:</span>
+          <div class="pos-cart-total-bar">
+            <span>Total Payable:</span>
             <strong id="posCartTotal">SAR 0.00</strong>
           </div>
 
-          <button class="btn-submit-pos" onclick="submitPosOrder()">Confirm & Send to Kitchen ➔</button>
+          <button class="btn-confirm-pos" onclick="submitPosOrder()">Confirm & Send to Kitchen ➔</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Toast Notification Hub -->
-  <div id="toastContainer" class="toast-hub no-print"></div>
+  <div id="toastContainer" class="toast-hub"></div>
 
   <script src="script.js"></script>
 </body>
