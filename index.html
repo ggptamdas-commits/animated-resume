@@ -1,21 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RestoTrack - Restaurant Order Tracking & Management System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>خَامِر | RestoTrack POS & Order Flow</title>
+  
+  <!-- Fonts: Cairo (Arabic) & Poppins (English) & JetBrains Mono (Numbers/Receipts) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Header / Navigation Bar -->
+
+  <!-- ========================================================================= -->
+  <!-- TOP APP HEADER / NAVIGATION                                              -->
+  <!-- ========================================================================= -->
   <header class="app-header">
-    <div class="header-container">
-      <div class="brand-section">
-        <div class="brand-logo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <div class="header-inner">
+      
+      <!-- Brand & Restaurant Title -->
+      <div class="brand-group">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
             <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
             <line x1="6" y1="1" x2="6" y2="4"></line>
@@ -23,563 +32,784 @@
             <line x1="14" y1="1" x2="14" y2="4"></line>
           </svg>
         </div>
-        <div>
-          <h1 class="brand-title">RestoTrack <span class="badge-live">LIVE</span></h1>
-          <p class="brand-subtitle">Smart Restaurant Order Tracking & Kitchen Dashboard</p>
+        <div class="brand-info">
+          <div class="brand-name-row">
+            <h1 class="brand-title" data-i18n="restaurant_name">مطعم خَامِر</h1>
+            <span class="live-pill"><span class="live-dot"></span><span data-i18n="pos_live">POS مباشر</span></span>
+          </div>
+          <p class="brand-tagline" data-i18n="system_subtitle">نظام إدارة وتتبع الطلبات والمطبخ الذكي</p>
         </div>
       </div>
 
-      <!-- View Switcher Tabs -->
-      <nav class="view-nav">
-        <button id="tabCustomerView" class="nav-tab active" data-view="customer">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <path d="M9 12l2 2 4-4"/>
-          </svg>
-          <span>Customer Live Tracker</span>
+      <!-- Desktop Navigation Tabs -->
+      <nav class="desktop-nav">
+        <button class="nav-item active" data-tab="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span data-i18n="nav_dashboard">لوحة التحكم</span>
         </button>
-        <button id="tabKitchenView" class="nav-tab" data-view="kitchen">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-            <line x1="8" y1="21" x2="16" y2="21"></line>
-            <line x1="12" y1="17" x2="12" y2="21"></line>
-          </svg>
-          <span>Kitchen / KDS Board</span>
-          <span id="activeOrdersBadge" class="nav-badge">0</span>
+        <button class="nav-item" data-tab="orders">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span data-i18n="nav_orders">الطلبات</span>
+          <span id="badgeActiveOrders" class="badge-count">0</span>
+        </button>
+        <button class="nav-item" data-tab="kitchen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          <span data-i18n="nav_kitchen">شاشة المطبخ KDS</span>
+          <span id="badgeKitchenOrders" class="badge-count badge-warning">0</span>
+        </button>
+        <button class="nav-item" data-tab="tracking">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span data-i18n="nav_tracking">تتبع مباشر</span>
+        </button>
+        <button class="nav-item" data-tab="analytics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span data-i18n="nav_analytics">المبيعات</span>
         </button>
       </nav>
 
-      <!-- Action Controls -->
+      <!-- Utility Actions (New Order, Sound, Language, Theme, Admin Profile) -->
       <div class="header-actions">
-        <button id="btnNewOrder" class="btn btn-primary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          <span>New Order</span>
+        <!-- New Order Button -->
+        <button id="btnOpenNewOrder" class="btn btn-primary btn-glow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span data-i18n="btn_new_order">طلب جديد +</span>
         </button>
-        <button id="btnSoundToggle" class="btn btn-icon" title="Toggle Sound Notifications" aria-label="Toggle Sound">
-          <svg id="soundIconOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-          </svg>
-          <svg id="soundIconOff" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <line x1="23" y1="9" x2="17" y2="15"></line>
-            <line x1="17" y1="9" x2="23" y2="15"></line>
-          </svg>
+
+        <!-- Language Switcher -->
+        <button id="btnLangToggle" class="btn btn-icon" title="تبديل اللغة / Switch Language">
+          <span id="langLabel" class="lang-text">EN</span>
         </button>
-        <div class="time-display" id="liveClock">00:00:00</div>
+
+        <!-- Theme Toggle (Dark / Light) -->
+        <button id="btnThemeToggle" class="btn btn-icon" title="تبديل المظهر / Toggle Theme">
+          <svg id="iconSun" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="12" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+
+        <!-- Sound Alert Toggle -->
+        <button id="btnSoundToggle" class="btn btn-icon" title="التنبيهات الصوتية">
+          <svg id="iconSoundOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+          <svg id="iconSoundOff" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+        </button>
+
+        <!-- Cashier / Admin Profile Badge -->
+        <div class="user-profile-badge">
+          <div class="avatar-circle">
+            <span>إم</span>
+          </div>
+          <div class="user-details">
+            <span class="user-name">إمدادول (Emdadul)</span>
+            <span class="user-role" data-i18n="role_cashier">الكاشير الرئيسي</span>
+          </div>
+        </div>
       </div>
+
     </div>
   </header>
 
-  <!-- Main Application Container -->
-  <main class="main-container">
-    
-    <!-- ============================================== -->
-    <!-- VIEW 1: CUSTOMER ORDER TRACKER VIEW           -->
-    <!-- ============================================== -->
-    <section id="customerView" class="view-section active">
-      <!-- Search / Lookup Bar -->
-      <div class="lookup-card">
-        <div class="lookup-header">
-          <h2>Track Your Meal in Real-Time</h2>
-          <p>Enter your 6-digit Order ID or select from active orders below</p>
-        </div>
-        <div class="lookup-form">
-          <div class="input-with-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="text" id="orderSearchInput" placeholder="e.g. ORD-1082" autocomplete="off" spellcheck="false">
-          </div>
-          <button id="btnTrackOrder" class="btn btn-primary btn-lg">Track Order</button>
-        </div>
+  <!-- ========================================================================= -->
+  <!-- MAIN APP CONTAINER                                                        -->
+  <!-- ========================================================================= -->
+  <main class="main-content">
 
-        <!-- Quick Select Active Orders -->
-        <div class="quick-orders-wrapper">
-          <span class="quick-label">Active Orders:</span>
-          <div id="quickOrderChips" class="quick-chips">
-            <!-- Dynamically populated chips -->
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- SECTION 1: DASHBOARD OVERVIEW                                           -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section id="tab-dashboard" class="tab-view active">
+      
+      <!-- Top Metrics KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap icon-amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
           </div>
-        </div>
-      </div>
-
-      <!-- Live Tracking Status Container -->
-      <div id="trackingContainer" class="tracking-display">
-        <!-- Live Status Card -->
-        <div class="card live-status-card">
-          <div class="status-card-header">
-            <div class="order-meta">
-              <span class="order-id-tag" id="trackOrderId">ORD-1082</span>
-              <span class="order-type-badge" id="trackOrderType">Dine-in (Table #4)</span>
-              <span class="order-time-tag" id="trackOrderTime">Placed at 12:30 PM</span>
-            </div>
-            <div class="eta-container">
-              <div class="eta-label">Estimated Ready In</div>
-              <div class="eta-time" id="trackEtaCounter">12 min</div>
-            </div>
-          </div>
-
-          <!-- Progress Stepper -->
-          <div class="stepper-wrapper">
-            <div class="stepper-progress-bar">
-              <div class="progress-fill" id="stepperProgressFill" style="width: 50%;"></div>
-            </div>
-            <div class="stepper-steps" id="stepperStepsList">
-              <div class="step-item step-completed" data-step="1">
-                <div class="step-circle">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <div class="step-label">Order Placed</div>
-                <div class="step-sub">Confirmed & Sent</div>
-              </div>
-              <div class="step-item step-active" data-step="2">
-                <div class="step-circle">
-                  <div class="pulse-ring"></div>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                </div>
-                <div class="step-label">In Kitchen</div>
-                <div class="step-sub">Chef is preparing</div>
-              </div>
-              <div class="step-item step-pending" data-step="3">
-                <div class="step-circle">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                </div>
-                <div class="step-label">Ready for Pickup</div>
-                <div class="step-sub">Packing / Plating</div>
-              </div>
-              <div class="step-item step-pending" data-step="4">
-                <div class="step-circle">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                </div>
-                <div class="step-label">Served / Delivered</div>
-                <div class="step-sub">Enjoy your food!</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Dynamic Status Banner -->
-          <div class="status-banner" id="statusMessageBanner">
-            <div class="status-banner-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2a10 10 0 1 0 10 10H12V2z"></path>
-                <path d="M12 2a10 10 0 0 1 10 10"></path>
-              </svg>
-            </div>
-            <div class="status-banner-text">
-              <strong id="statusBannerTitle">Cooking in Progress</strong>
-              <p id="statusBannerDesc">Our chef is grilling your order with fresh ingredients. Estimated wait is roughly 12 minutes.</p>
-            </div>
-            <div class="simulation-toggle-wrapper">
-              <button id="btnAdvanceStatusSim" class="btn btn-secondary btn-sm" title="Advance status simulation for demo">
-                <span>Fast-forward Step</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
-              </button>
-            </div>
+          <div class="kpi-meta">
+            <span class="kpi-title" data-i18n="kpi_new_orders">طلبات جديدة</span>
+            <h3 class="kpi-value" id="kpiNewCount">0</h3>
+            <span class="kpi-sub" data-i18n="kpi_sub_pending">بانتظار التأكيد</span>
           </div>
         </div>
 
-        <!-- Two Column Layout: Order Details & Restaurant Location Info -->
-        <div class="tracking-grid">
-          <!-- Order Details Card -->
-          <div class="card order-summary-card">
-            <div class="card-header">
-              <div class="card-title-group">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                  <line x1="3" y1="6" x2="21" y2="6"></line>
-                  <path d="M16 10a4 4 0 0 1-8 0"></path>
-                </svg>
-                <h3>Order Items & Summary</h3>
-              </div>
-              <button id="btnPrintInvoice" class="btn btn-ghost btn-sm">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-                <span>View Receipt</span>
-              </button>
-            </div>
-
-            <div class="order-items-list" id="trackOrderItemsList">
-              <!-- Dynamically populated order items -->
-            </div>
-
-            <div class="order-billing-summary">
-              <div class="bill-row">
-                <span>Subtotal</span>
-                <span id="billSubtotal">$0.00</span>
-              </div>
-              <div class="bill-row">
-                <span>Tax / VAT (15%)</span>
-                <span id="billTax">$0.00</span>
-              </div>
-              <div class="bill-row">
-                <span>Delivery / Service Fee</span>
-                <span id="billService">$0.00</span>
-              </div>
-              <div class="bill-row total-row">
-                <span>Total Amount</span>
-                <span id="billTotal" class="highlight-price">$0.00</span>
-              </div>
-            </div>
-
-            <div class="special-notes-box" id="trackOrderNotes">
-              <strong>Special Instructions:</strong> <span>Extra spicy sauce on the side, no mayonnaise.</span>
-            </div>
-          </div>
-
-          <!-- Customer & Kitchen Contact Card -->
-          <div class="card restaurant-info-card">
-            <div class="card-header">
-              <div class="card-title-group">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                  <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-                <h3>Restaurant & Delivery Info</h3>
-              </div>
-            </div>
-
-            <div class="info-details-list">
-              <div class="info-row">
-                <span class="info-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                </span>
-                <div>
-                  <div class="info-sub">Customer Name</div>
-                  <div class="info-main" id="trackCustomerName">Md. Emdadul</div>
-                </div>
-              </div>
-
-              <div class="info-row">
-                <span class="info-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                </span>
-                <div>
-                  <div class="info-sub">Contact Number</div>
-                  <div class="info-main" id="trackCustomerPhone">+966 50 123 4567</div>
-                </div>
-              </div>
-
-              <div class="info-row">
-                <span class="info-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                </span>
-                <div>
-                  <div class="info-sub">Destination / Table</div>
-                  <div class="info-main" id="trackCustomerDestination">Dine-in • Main Hall Table 4</div>
-                </div>
-              </div>
-
-              <div class="info-row">
-                <span class="info-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                </span>
-                <div>
-                  <div class="info-sub">Need Assistance?</div>
-                  <div class="info-main">Direct Kitchen Line: <a href="tel:+966555000111" class="text-link">+966 55 500 0111</a></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-action-footer">
-              <button class="btn btn-outline full-width" onclick="alert('Calling staff to your table/order!')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                <span>Call Waiter / Support</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- No Order Selected State -->
-      <div id="noOrderState" class="empty-state hidden">
-        <div class="empty-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="12"></line>
-            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-          </svg>
-        </div>
-        <h3>No Order Found</h3>
-        <p>Please enter a valid Order ID (e.g. ORD-1081, ORD-1082) or create a new order.</p>
-        <button class="btn btn-primary" onclick="document.getElementById('btnNewOrder').click()">Place a New Order</button>
-      </div>
-    </section>
-
-    <!-- ============================================== -->
-    <!-- VIEW 2: KITCHEN DISPLAY / STAFF KANBAN VIEW    -->
-    <!-- ============================================== -->
-    <section id="kitchenView" class="view-section">
-      <!-- Analytics Bar -->
-      <div class="kds-metrics-bar">
-        <div class="metric-card">
-          <div class="metric-icon icon-blue">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          </div>
-          <div>
-            <div class="metric-val" id="metricTotalActive">0</div>
-            <div class="metric-title">Active Orders</div>
-          </div>
-        </div>
-
-        <div class="metric-card">
-          <div class="metric-icon icon-amber">
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap icon-orange">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
           </div>
-          <div>
-            <div class="metric-val" id="metricInKitchen">0</div>
-            <div class="metric-title">In Kitchen Cooking</div>
+          <div class="kpi-meta">
+            <span class="kpi-title" data-i18n="kpi_preparing">قيد التحضير</span>
+            <h3 class="kpi-value" id="kpiPreparingCount">0</h3>
+            <span class="kpi-sub" data-i18n="kpi_sub_kitchen">في المطبخ الآن</span>
           </div>
         </div>
 
-        <div class="metric-card">
-          <div class="metric-icon icon-emerald">
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap icon-emerald">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
           </div>
-          <div>
-            <div class="metric-val" id="metricReady">0</div>
-            <div class="metric-title">Ready for Handover</div>
+          <div class="kpi-meta">
+            <span class="kpi-title" data-i18n="kpi_ready">جاهزة للتقديم</span>
+            <h3 class="kpi-value" id="kpiReadyCount">0</h3>
+            <span class="kpi-sub" data-i18n="kpi_sub_ready">جاهزة للتسليم</span>
           </div>
         </div>
 
-        <div class="metric-card">
-          <div class="metric-icon icon-purple">
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+          </div>
+          <div class="kpi-meta">
+            <span class="kpi-title" data-i18n="kpi_delivery">قيد التوصيل</span>
+            <h3 class="kpi-value" id="kpiDeliveryCount">0</h3>
+            <span class="kpi-sub" data-i18n="kpi_sub_transit">مع السائق</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap icon-purple">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
           </div>
-          <div>
-            <div class="metric-val" id="metricTodaySales">$0.00</div>
-            <div class="metric-title">Today's Revenue</div>
+          <div class="kpi-meta">
+            <span class="kpi-title" data-i18n="kpi_revenue">مبيعات اليوم</span>
+            <h3 class="kpi-value highlight-num" id="kpiRevenueToday">0.00 ر.س</h3>
+            <span class="kpi-sub"><span id="kpiCompletedCount">0</span> <span data-i18n="kpi_sub_completed">طلب مكتمل</span></span>
           </div>
         </div>
       </div>
 
-      <!-- KDS Filter & Search Controls -->
-      <div class="kds-controls">
-        <div class="kds-search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" id="kdsFilterInput" placeholder="Filter by Order ID, Customer, Table #...">
+      <!-- Quick Action & Pipeline Banner -->
+      <div class="dashboard-banner">
+        <div class="banner-left">
+          <h2 data-i18n="flow_title">مخطط تدفق الطلبات المباشر (Cashier ➔ Kitchen ➔ Delivery)</h2>
+          <p data-i18n="flow_desc">متابعة فورية لجميع الطلبات من نقطة البيع وصولاً إلى طاولة العميل أو بوابة التوصيل في صبيا.</p>
         </div>
-        <div class="kds-filter-chips">
-          <button class="chip active" data-filter="all">All Types</button>
-          <button class="chip" data-filter="Dine-in">Dine-in</button>
-          <button class="chip" data-filter="Pickup">Pickup</button>
-          <button class="chip" data-filter="Delivery">Delivery</button>
-        </div>
-        <button id="btnAutoSimulate" class="btn btn-secondary btn-sm" title="Toggle automatic workflow simulation">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          <span id="autoSimText">Start Auto-Simulator</span>
-        </button>
-      </div>
-
-      <!-- Kanban Columns -->
-      <div class="kanban-board">
-        <!-- Column 1: Placed / Pending -->
-        <div class="kanban-col col-placed">
-          <div class="col-header">
-            <div class="col-title">
-              <span class="col-dot dot-yellow"></span>
-              <span>1. Order Placed</span>
-            </div>
-            <span class="col-count" id="countPlaced">0</span>
-          </div>
-          <div class="col-cards-list" id="colListPlaced">
-            <!-- Cards -->
-          </div>
-        </div>
-
-        <!-- Column 2: In Kitchen -->
-        <div class="kanban-col col-kitchen">
-          <div class="col-header">
-            <div class="col-title">
-              <span class="col-dot dot-blue"></span>
-              <span>2. In Kitchen</span>
-            </div>
-            <span class="col-count" id="countKitchen">0</span>
-          </div>
-          <div class="col-cards-list" id="colListKitchen">
-            <!-- Cards -->
-          </div>
-        </div>
-
-        <!-- Column 3: Ready for Pickup/Delivery -->
-        <div class="kanban-col col-ready">
-          <div class="col-header">
-            <div class="col-title">
-              <span class="col-dot dot-green"></span>
-              <span>3. Ready for Service</span>
-            </div>
-            <span class="col-count" id="countReady">0</span>
-          </div>
-          <div class="col-cards-list" id="colListReady">
-            <!-- Cards -->
-          </div>
-        </div>
-
-        <!-- Column 4: Completed / Served -->
-        <div class="kanban-col col-completed">
-          <div class="col-header">
-            <div class="col-title">
-              <span class="col-dot dot-gray"></span>
-              <span>4. Completed</span>
-            </div>
-            <span class="col-count" id="countCompleted">0</span>
-          </div>
-          <div class="col-cards-list" id="colListCompleted">
-            <!-- Cards -->
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- ============================================== -->
-  <!-- MODAL 1: NEW ORDER PLACEMENT MODAL             -->
-  <!-- ============================================== -->
-  <div id="newOrderModal" class="modal-overlay hidden">
-    <div class="modal-card modal-lg">
-      <div class="modal-header">
-        <div class="modal-title-group">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="12" y1="18" x2="12" y2="12"></line>
-            <line x1="9" y1="15" x2="15" y2="15"></line>
-          </svg>
-          <h3>Create New Restaurant Order</h3>
-        </div>
-        <button class="btn-close" id="btnCloseNewOrder">&times;</button>
-      </div>
-
-      <div class="modal-body-split">
-        <!-- Left: Menu Item Picker -->
-        <div class="menu-selection-area">
-          <div class="menu-categories-tabs" id="menuCatTabs">
-            <button class="cat-tab active" data-cat="all">All</button>
-            <button class="cat-tab" data-cat="mains">Main Dishes</button>
-            <button class="cat-tab" data-cat="grills">Grills & BBQ</button>
-            <button class="cat-tab" data-cat="breads">Breads & Sides</button>
-            <button class="cat-tab" data-cat="drinks">Drinks & Sweets</button>
-          </div>
-
-          <div class="menu-items-grid" id="menuItemsGrid">
-            <!-- Items rendered by JS -->
-          </div>
-        </div>
-
-        <!-- Right: Order Details & Cart -->
-        <div class="order-form-area">
-          <h4>Customer Details</h4>
-          <div class="form-group">
-            <label for="inputCustName">Customer Name *</label>
-            <input type="text" id="inputCustName" placeholder="e.g. Md. Emdadul" value="Md. Emdadul">
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="inputCustPhone">Phone Number</label>
-              <input type="tel" id="inputCustPhone" placeholder="+966 50 123 4567" value="+966 50 123 4567">
-            </div>
-            <div class="form-group">
-              <label for="selectOrderType">Order Type *</label>
-              <select id="selectOrderType">
-                <option value="Dine-in">Dine-in (Restaurant Table)</option>
-                <option value="Pickup">Takeaway / Pickup</option>
-                <option value="Delivery">Home Delivery</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group" id="tableAddressGroup">
-            <label for="inputTableAddress">Table No / Delivery Address</label>
-            <input type="text" id="inputTableAddress" placeholder="Table 5 or Street Address" value="Table 5">
-          </div>
-          <div class="form-group">
-            <label for="inputOrderNotes">Chef Notes / Allergies</label>
-            <input type="text" id="inputOrderNotes" placeholder="e.g. Extra garlic sauce, well done">
-          </div>
-
-          <h4>Selected Items</h4>
-          <div class="selected-cart-list" id="selectedCartList">
-            <div class="empty-cart-text">No items added yet. Click on menu dishes to add.</div>
-          </div>
-
-          <div class="cart-total-bar">
-            <span>Total Payable:</span>
-            <span id="modalCartTotal" class="price-val">$0.00</span>
-          </div>
-
-          <button id="btnSubmitOrder" class="btn btn-primary btn-block btn-lg" disabled>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>Confirm & Send to Kitchen</span>
+        <div class="banner-actions">
+          <button class="btn btn-secondary" onclick="simulateNewIncomingOrder()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            <span data-i18n="btn_sim_order">محاكاة طلب جديد</span>
+          </button>
+          <button class="btn btn-primary" onclick="document.getElementById('btnOpenNewOrder').click()">
+            <span data-i18n="btn_create_pos">إنشاء فاتورة POS</span>
           </button>
         </div>
       </div>
+
+      <!-- Pipeline Overview Cards Section -->
+      <div class="section-heading">
+        <h3 data-i18n="live_pipeline_heading">الطلبات النشطة حسب المرحلة</h3>
+        <span class="heading-badge" id="activeOrdersTotalBadge">0 نشط</span>
+      </div>
+
+      <div class="pipeline-columns" id="dashboardPipelineCols">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- SECTION 2: ORDERS KANBAN & MANAGEMENT                                  -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section id="tab-orders" class="tab-view">
+      
+      <!-- Filter and Search Toolbar -->
+      <div class="toolbar-card">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="orderSearchQuery" placeholder="ابحث برقم الطلب #ORD-1025، رقم الطاولة، أو اسم العميل..." data-i18n-placeholder="search_placeholder">
+        </div>
+
+        <!-- Status Filter Tabs -->
+        <div class="status-filter-scroll" id="ordersFilterGroup">
+          <button class="filter-chip active" data-status="all">
+            <span data-i18n="filter_all">الكل</span> (<span id="chipCountAll">0</span>)
+          </button>
+          <button class="filter-chip" data-status="new">
+            <span>🍽️</span> <span data-i18n="status_new">جديد</span> (<span id="chipCountNew">0</span>)
+          </button>
+          <button class="filter-chip" data-status="preparing">
+            <span>🔥</span> <span data-i18n="status_preparing">قيد التحضير</span> (<span id="chipCountPrep">0</span>)
+          </button>
+          <button class="filter-chip" data-status="ready">
+            <span>👨‍🍳</span> <span data-i18n="status_ready">جاهز</span> (<span id="chipCountReady">0</span>)
+          </button>
+          <button class="filter-chip" data-status="delivery">
+            <span>🚚</span> <span data-i18n="status_delivery">توصيل</span> (<span id="chipCountDeliv">0</span>)
+          </button>
+          <button class="filter-chip" data-status="completed">
+            <span>✅</span> <span data-i18n="status_completed">مكتمل</span> (<span id="chipCountComp">0</span>)
+          </button>
+          <button class="filter-chip" data-status="cancelled">
+            <span>❌</span> <span data-i18n="status_cancelled">ملغي</span> (<span id="chipCountCanc">0</span>)
+          </button>
+        </div>
+
+        <!-- Type Filter & Sort -->
+        <div class="toolbar-right">
+          <select id="filterOrderType" class="select-styled">
+            <option value="all" data-i18n="type_all">جميع الأنواع (محلي/سفري/توصيل)</option>
+            <option value="Dine-in" data-i18n="type_dinein">طاولة محلي (Dine-in)</option>
+            <option value="Pickup" data-i18n="type_pickup">استلام سفري (Pickup)</option>
+            <option value="Delivery" data-i18n="type_delivery">توصيل منزلي (Delivery)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Orders Cards Grid -->
+      <div class="orders-cards-grid" id="ordersContainerGrid">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- SECTION 3: KITCHEN VIEW (KDS - KITCHEN DISPLAY SYSTEM)                 -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section id="tab-kitchen" class="tab-view">
+      
+      <!-- Kitchen Header Info -->
+      <div class="kds-header-bar">
+        <div class="kds-title-wrap">
+          <div class="chef-icon">👨‍🍳</div>
+          <div>
+            <h2 data-i18n="kds_screen_title">شاشة المطبخ وإعداد الطلبات (KDS Screen)</h2>
+            <p data-i18n="kds_screen_desc">عرض مباشر وتنبيهات زمنية فورية للطهاة ومحضري الطعام.</p>
+          </div>
+        </div>
+
+        <div class="kds-stat-pills">
+          <div class="stat-pill red-pill">
+            <span class="pill-dot"></span>
+            <span data-i18n="kds_urgent_label">طلبات عاجلة:</span>
+            <strong id="kdsUrgentCount">0</strong>
+          </div>
+          <div class="stat-pill yellow-pill">
+            <span class="pill-dot"></span>
+            <span data-i18n="kds_prep_label">تحت الطهي:</span>
+            <strong id="kdsActivePrepCount">0</strong>
+          </div>
+          <button id="btnAutoSimToggle" class="btn btn-secondary btn-sm" onclick="toggleAutoSimulation()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <span id="autoSimStatusLabel" data-i18n="btn_start_sim">تشغيل المحاكي التلقائي</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- KDS 3-Column Screen (NEW, PREPARING, READY) -->
+      <div class="kds-board-grid">
+        
+        <!-- COLUMN 1: NEW -->
+        <div class="kds-column col-new">
+          <div class="kds-col-head">
+            <div class="col-head-title">
+              <span class="stage-tag tag-new" data-i18n="kds_col_new">NEW • جديد</span>
+            </div>
+            <span class="col-badge" id="kdsCountNew">0</span>
+          </div>
+          <div class="kds-card-list" id="kdsColNewList">
+            <!-- Kitchen Cards -->
+          </div>
+        </div>
+
+        <!-- COLUMN 2: PREPARING -->
+        <div class="kds-column col-prep">
+          <div class="kds-col-head">
+            <div class="col-head-title">
+              <span class="stage-tag tag-prep" data-i18n="kds_col_prep">PREPARING • قيد التحضير</span>
+            </div>
+            <span class="col-badge" id="kdsCountPrep">0</span>
+          </div>
+          <div class="kds-card-list" id="kdsColPrepList">
+            <!-- Kitchen Cards -->
+          </div>
+        </div>
+
+        <!-- COLUMN 3: READY -->
+        <div class="kds-column col-ready">
+          <div class="kds-col-head">
+            <div class="col-head-title">
+              <span class="stage-tag tag-ready" data-i18n="kds_col_ready">READY • جاهز للتقديم</span>
+            </div>
+            <span class="col-badge" id="kdsCountReady">0</span>
+          </div>
+          <div class="kds-card-list" id="kdsColReadyList">
+            <!-- Kitchen Cards -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- SECTION 4: ORDER TRACKING & TIMELINE VIEW                              -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section id="tab-tracking" class="tab-view">
+      
+      <!-- Tracking Search Box -->
+      <div class="tracking-lookup-box">
+        <h2 data-i18n="track_title">تتبع حالة طلبك خطوة بخطوة</h2>
+        <p data-i18n="track_subtitle">أدخل رقم الطلب أو اختر من الطلبات النشطة لعرض الجدول الزمني المباشر</p>
+        
+        <div class="track-search-row">
+          <div class="input-with-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="trackInputCode" placeholder="مثال: ORD-1025" autocomplete="off">
+          </div>
+          <button class="btn btn-primary" id="btnDoTrack" data-i18n="btn_track_now">تتبع الطلب</button>
+        </div>
+
+        <!-- Quick Select Active Orders -->
+        <div class="quick-track-chips">
+          <span class="quick-chip-label" data-i18n="track_quick_label">طلبات نشطة سريعة:</span>
+          <div id="quickTrackChipsList" class="chips-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Tracking Detail Container -->
+      <div id="trackingDetailSection" class="tracking-display-grid">
+        
+        <!-- Left: Status & Timeline Stepper -->
+        <div class="card timeline-card">
+          <div class="timeline-head">
+            <div class="order-headline">
+              <span class="order-code-badge" id="trkOrderId">#ORD-1025</span>
+              <span class="order-type-pill" id="trkOrderType">طاولة 08 (محلي)</span>
+            </div>
+            <div class="eta-box">
+              <span class="eta-title" data-i18n="trk_est_time">الوقت المقدر للاستلام</span>
+              <span class="eta-val" id="trkEtaDisplay">12 دقيقة</span>
+            </div>
+          </div>
+
+          <!-- Vertical Timeline with 5 Stages -->
+          <div class="timeline-stepper">
+            
+            <div class="stepper-step step-done" id="stepNode1">
+              <div class="step-icon-col">
+                <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <div class="step-title-row">
+                  <strong data-i18n="step1_title">1. استلام الطلب (Order Received)</strong>
+                  <span class="step-timestamp" id="trkTime1">08:35 PM</span>
+                </div>
+                <p data-i18n="step1_desc">تم تسجيل الطلب في النظام وتأكيد رقم الفاتورة.</p>
+              </div>
+            </div>
+
+            <div class="stepper-step step-done" id="stepNode2">
+              <div class="step-icon-col">
+                <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <div class="step-title-row">
+                  <strong data-i18n="step2_title">2. قبول الطلب في الكاشير (Accepted)</strong>
+                  <span class="step-timestamp" id="trkTime2">08:37 PM</span>
+                </div>
+                <p data-i18n="step2_desc">تمت مراجعة الأصناف وإرسال التذكرة إلى المطبخ.</p>
+              </div>
+            </div>
+
+            <div class="stepper-step step-active" id="stepNode3">
+              <div class="step-icon-col">
+                <div class="step-circle">
+                  <div class="circle-pulse"></div>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <div class="step-title-row">
+                  <strong data-i18n="step3_title">3. قيد التحضير في المطبخ (Preparing)</strong>
+                  <span class="step-timestamp" id="trkTime3">08:42 PM</span>
+                </div>
+                <p data-i18n="step3_desc">يقوم الشيف بطهي الأصناف والمشويات الطازجة على الفحم.</p>
+              </div>
+            </div>
+
+            <div class="stepper-step step-pending" id="stepNode4">
+              <div class="step-icon-col">
+                <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <div class="step-title-row">
+                  <strong data-i18n="step4_title">4. جاهز للتسليم والتقديم (Ready)</strong>
+                  <span class="step-timestamp" id="trkTime4">--:--</span>
+                </div>
+                <p data-i18n="step4_desc">الأطباق مجهزة وساخنة بانتظار التقديم على الطاولة أو التسليم للعميل.</p>
+              </div>
+            </div>
+
+            <div class="stepper-step step-pending" id="stepNode5">
+              <div class="step-icon-col">
+                <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+              </div>
+              <div class="step-content">
+                <div class="step-title-row">
+                  <strong data-i18n="step5_title">5. تم التوصيل / التسليم (Delivered / Completed)</strong>
+                  <span class="step-timestamp" id="trkTime5">--:--</span>
+                </div>
+                <p data-i18n="step5_desc">بالهناء والعافية! تم استلام الطلب وإغلاق الفاتورة.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Fast-forward advance simulation for demo -->
+          <div class="timeline-advance-bar">
+            <button class="btn btn-secondary btn-sm" id="btnAdvanceTrkStep">
+              <span data-i18n="btn_fast_forward">تقديم المرحلة التالية (محاكاة)</span> ➔
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Order Details & Bill Summary -->
+        <div class="card bill-card">
+          <div class="card-header-clean">
+            <h3 data-i18n="trk_summary_title">تفاصيل الفاتورة والأصناف</h3>
+            <button class="btn btn-ghost btn-sm" id="btnReceiptFromTrk">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              <span data-i18n="btn_print_receipt">طباعة الإيصال</span>
+            </button>
+          </div>
+
+          <div class="trk-items-list" id="trkItemsList">
+            <!-- Items rendered via JS -->
+          </div>
+
+          <div class="trk-totals-box">
+            <div class="total-line">
+              <span data-i18n="lbl_subtotal">المجموع الفرعي:</span>
+              <span id="trkSubtotal">0.00 ر.س</span>
+            </div>
+            <div class="total-line">
+              <span data-i18n="lbl_vat">ضريبة القيمة المضافة (15% VAT):</span>
+              <span id="trkVat">0.00 ر.س</span>
+            </div>
+            <div class="total-line">
+              <span data-i18n="lbl_service">رسوم الخدمة / التوصيل:</span>
+              <span id="trkDeliveryFee">0.00 ر.س</span>
+            </div>
+            <div class="total-line grand-total-line">
+              <strong data-i18n="lbl_grand_total">الإجمالي الكلي:</strong>
+              <strong class="highlight-num" id="trkGrandTotal">0.00 ر.س</strong>
+            </div>
+          </div>
+
+          <div class="customer-info-box">
+            <div class="cust-row">
+              <span data-i18n="lbl_cust_name">اسم العميل:</span>
+              <strong id="trkCustName">محمد إمدادول</strong>
+            </div>
+            <div class="cust-row">
+              <span data-i18n="lbl_cust_phone">رقم الهاتف:</span>
+              <strong id="trkCustPhone">+966 50 123 4567</strong>
+            </div>
+            <div class="cust-row">
+              <span data-i18n="lbl_pay_status">حالة وطريقة الدفع:</span>
+              <span class="pay-tag-badge" id="trkPayMethod">💳 شبكة / مدى (مدفوع)</span>
+            </div>
+            <div class="cust-row" id="trkNotesRow">
+              <span data-i18n="lbl_special_notes">ملاحظات:</span>
+              <span id="trkSpecialNotes">بدون مايونيز، خبز خَامِر مقرمش إضافي</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- SECTION 5: SALES & HISTORY ANALYTICS                                   -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section id="tab-analytics" class="tab-view">
+      
+      <div class="analytics-header">
+        <div>
+          <h2 data-i18n="analytics_title">تقارير ومبيعات اليوم</h2>
+          <p data-i18n="analytics_subtitle">إحصائيات فورية للأداء المالي وتوزيع طرق الدفع وسرعة إنجاز الطلبات في مطعم خَامِر.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="exportOrdersJson()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span data-i18n="btn_export_data">تصدير سجل الطلبات JSON</span>
+        </button>
+      </div>
+
+      <!-- Summary Metrics -->
+      <div class="analytics-metrics-grid">
+        <div class="analytics-metric-box">
+          <span class="label" data-i18n="stat_total_sales">إجمالي المبيعات (SAR)</span>
+          <h3 id="statTotalRevenue">0.00 ر.س</h3>
+          <span class="sub" data-i18n="stat_vat_included">شامل ضريبة 15%</span>
+        </div>
+        <div class="analytics-metric-box">
+          <span class="label" data-i18n="stat_total_orders">إجمالي الطلبات</span>
+          <h3 id="statTotalOrdersCount">0</h3>
+          <span class="sub" data-i18n="stat_completed_pct">معدل الإنجاز 98%</span>
+        </div>
+        <div class="analytics-metric-box">
+          <span class="label" data-i18n="stat_avg_time">متوسط وقت التحضير</span>
+          <h3>14.5 <span data-i18n="lbl_minutes">دقيقة</span></h3>
+          <span class="sub" data-i18n="stat_speed_fast">سرعة ممتازة للمطبخ</span>
+        </div>
+        <div class="analytics-metric-box">
+          <span class="label" data-i18n="stat_dinein_pct">نسبة الطلبات المحلية</span>
+          <h3 id="statDineinCount">0</h3>
+          <span class="sub" data-i18n="stat_dinein_sub">طاولات الصالة الرئيسية</span>
+        </div>
+      </div>
+
+      <!-- Payment Breakdown & Orders History Table -->
+      <div class="analytics-grid-two">
+        
+        <div class="card">
+          <h3 class="card-title" data-i18n="payment_methods_title">طرق الدفع المستخدمة</h3>
+          <div class="pay-methods-list" id="payMethodsBreakdown">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" data-i18n="recent_history_title">سجل آخر الطلبات المكتملة</h3>
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th data-i18n="th_order_id">رقم الطلب</th>
+                  <th data-i18n="th_customer">العميل</th>
+                  <th data-i18n="th_type">النوع</th>
+                  <th data-i18n="th_amount">المبلغ</th>
+                  <th data-i18n="th_payment">الدفع</th>
+                  <th data-i18n="th_status">الحالة</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MOBILE BOTTOM NAVIGATION                                                 -->
+  <!-- ========================================================================= -->
+  <nav class="mobile-bottom-nav">
+    <button class="m-nav-item active" data-tab="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span data-i18n="nav_dashboard">الرئيسية</span>
+    </button>
+    <button class="m-nav-item" data-tab="orders">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+      <span data-i18n="nav_orders">الطلبات</span>
+    </button>
+    <button class="m-nav-item" data-tab="kitchen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+      <span data-i18n="nav_kitchen">المطبخ</span>
+    </button>
+    <button class="m-nav-item" data-tab="tracking">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      <span data-i18n="nav_tracking">التتبع</span>
+    </button>
+    <button class="m-nav-item" data-tab="analytics">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+      <span data-i18n="nav_analytics">المزيد</span>
+    </button>
+  </nav>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL 1: POS NEW ORDER CREATION MODAL                                    -->
+  <!-- ========================================================================= -->
+  <div id="modalNewOrder" class="modal-backdrop hidden">
+    <div class="modal-window modal-wide">
+      
+      <div class="modal-head">
+        <div class="modal-title-group">
+          <div class="modal-icon-badge">🛍️</div>
+          <div>
+            <h3 data-i18n="modal_new_order_title">إنشاء طلب جديد (POS Cashier)</h3>
+            <p data-i18n="modal_new_order_sub">اختر الأصناف، حدد الطاولة أو نوع الاستلام، وأرسل للمطبخ فوراً.</p>
+          </div>
+        </div>
+        <button class="btn-close-modal" id="btnCloseNewOrder">&times;</button>
+      </div>
+
+      <div class="modal-split-body">
+        
+        <!-- Left: Menu Item Picker -->
+        <div class="menu-browser-col">
+          <!-- Categories Tabs -->
+          <div class="menu-cat-bar" id="menuCatTabsBar">
+            <button class="cat-pill active" data-cat="all" data-i18n="cat_all">الكل</button>
+            <button class="cat-pill" data-cat="mains" data-i18n="cat_mains">أطباق رئيسية</button>
+            <button class="cat-pill" data-cat="grills" data-i18n="cat_grills">مشاوي وفحم</button>
+            <button class="cat-pill" data-cat="breads" data-i18n="cat_breads">مخبوزات ومقبلات</button>
+            <button class="cat-pill" data-cat="drinks" data-i18n="cat_drinks">مشروبات وحلويات</button>
+          </div>
+
+          <!-- Food Items Grid -->
+          <div class="menu-cards-grid" id="modalMenuCardsGrid">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- Right: Order Details, Table, Payment & Cart -->
+        <div class="order-checkout-col">
+          
+          <div class="form-section-title" data-i18n="form_cust_info">بيانات العميل والطاولة</div>
+          
+          <div class="form-row-2">
+            <div class="form-field">
+              <label data-i18n="form_lbl_name">اسم العميل</label>
+              <input type="text" id="inpOrderCustomerName" placeholder="الاسم (اختياري)" value="محمد إمدادول">
+            </div>
+            <div class="form-field">
+              <label data-i18n="form_lbl_phone">رقم الجوال</label>
+              <input type="tel" id="inpOrderCustomerPhone" placeholder="+966 50 000 0000" value="+966 50 123 4567">
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-field">
+              <label data-i18n="form_lbl_type">نوع الطلب</label>
+              <select id="selOrderType" class="select-styled">
+                <option value="Dine-in" selected data-i18n="opt_dinein">طاولة محلي (Dine-in)</option>
+                <option value="Pickup" data-i18n="opt_pickup">استلام سفري (Pickup)</option>
+                <option value="Delivery" data-i18n="opt_delivery">توصيل منزلي (Delivery)</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label id="lblTableOrAddr" data-i18n="form_lbl_table">رقم الطاولة</label>
+              <input type="text" id="inpTableOrAddr" value="طاولة 08">
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-field">
+              <label data-i18n="form_lbl_payment">طريقة الدفع</label>
+              <select id="selPaymentMethod" class="select-styled">
+                <option value="Card" selected data-i18n="pay_card">💳 شبكة / مدى (Card)</option>
+                <option value="Cash" data-i18n="pay_cash">💵 نقدي (Cash)</option>
+                <option value="ApplePay" data-i18n="pay_apple">📱 أبل باي / أونلاين (Apple Pay)</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label data-i18n="form_lbl_priority">أولوية المطبخ</label>
+              <select id="selOrderPriority" class="select-styled">
+                <option value="normal" selected data-i18n="prio_normal">عادي (Normal)</option>
+                <option value="urgent" data-i18n="prio_urgent">🔥 عاجل جداً (Urgent)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label data-i18n="form_lbl_notes">ملاحظات خاصة للشيف</label>
+            <input type="text" id="inpOrderSpecialNotes" placeholder="مثال: حار زيادة، بدون بصل...">
+          </div>
+
+          <!-- Cart Selected Items List -->
+          <div class="form-section-title" data-i18n="form_cart_items">الأصناف المختارة</div>
+          <div class="cart-items-box" id="modalCartItemsList">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Bill Calculation -->
+          <div class="cart-bill-breakdown">
+            <div class="c-row"><span data-i18n="lbl_subtotal">المجموع:</span><span id="cartSubtotal">0.00 ر.س</span></div>
+            <div class="c-row"><span data-i18n="lbl_vat_short">ضريبة (15%):</span><span id="cartVat">0.00 ر.س</span></div>
+            <div class="c-row grand"><strong data-i18n="lbl_total_due">المبلغ المطلوب:</strong><strong id="cartGrandTotal" class="highlight-num">0.00 ر.س</strong></div>
+          </div>
+
+          <!-- Submit Order Button -->
+          <button id="btnSubmitNewOrder" class="btn btn-primary btn-block btn-lg" disabled>
+            <span data-i18n="btn_confirm_send_kitchen">تأكيد وإرسال للمطبخ ➔</span>
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
   </div>
 
-  <!-- ============================================== -->
-  <!-- MODAL 2: THERMAL RECEIPT / INVOICE MODAL       -->
-  <!-- ============================================== -->
-  <div id="receiptModal" class="modal-overlay hidden">
-    <div class="modal-card modal-receipt">
-      <div class="receipt-paper" id="printableReceipt">
-        <div class="receipt-header">
-          <div class="receipt-logo">RESTOTRACK</div>
-          <p class="receipt-tagline">Authentic Cuisine & Grill House</p>
-          <p class="receipt-meta">Sabya / Jazan • Tel: +966 55 500 0111</p>
-          <div class="receipt-divider">================================</div>
-          <div class="receipt-info-grid">
-            <div><strong>ORDER:</strong> <span id="recOrderId">ORD-1082</span></div>
-            <div><strong>DATE:</strong> <span id="recDate">2026-08-27</span></div>
-            <div><strong>TYPE:</strong> <span id="recType">Dine-in (Table 4)</span></div>
-            <div><strong>CUST:</strong> <span id="recCustomer">Md. Emdadul</span></div>
+  <!-- ========================================================================= -->
+  <!-- MODAL 2: THERMAL PRINT RECEIPT / INVOICE                                 -->
+  <!-- ========================================================================= -->
+  <div id="modalReceipt" class="modal-backdrop hidden">
+    <div class="modal-window modal-receipt-wrap">
+      
+      <div class="receipt-paper" id="printableReceiptPaper">
+        <div class="rcp-header">
+          <h2 class="rcp-title" data-i18n="restaurant_name">مطعم خَامِر</h2>
+          <p class="rcp-sub" data-i18n="rcp_cuisine_sub">مأكولات شعبية ومشاوي طازجة</p>
+          <p class="rcp-meta">صبيا - منطقة جازان • هاتف: 0555000111</p>
+          <p class="rcp-vat-num">الرقم الضريبي: 300984729100003</p>
+          <div class="rcp-cut-line">================================</div>
+          <div class="rcp-info-grid">
+            <div><strong data-i18n="th_order_id">رقم الطلب:</strong> <span id="rcpOrderId">#ORD-1025</span></div>
+            <div><strong data-i18n="rcp_date">التاريخ:</strong> <span id="rcpDate">2026-08-27</span></div>
+            <div><strong data-i18n="th_type">النوع:</strong> <span id="rcpType">طاولة 08 (محلي)</span></div>
+            <div><strong data-i18n="th_customer">العميل:</strong> <span id="rcpCustomer">محمد إمدادول</span></div>
+            <div><strong data-i18n="th_payment">الدفع:</strong> <span id="rcpPayment">شبكة / مدى</span></div>
+            <div><strong data-i18n="rcp_cashier">الكاشير:</strong> <span>إمدادول (POS-01)</span></div>
           </div>
-          <div class="receipt-divider">--------------------------------</div>
+          <div class="rcp-cut-line">--------------------------------</div>
         </div>
 
-        <table class="receipt-table">
+        <table class="rcp-table">
           <thead>
             <tr>
-              <th align="left">ITEM</th>
-              <th align="center">QTY</th>
-              <th align="right">PRICE</th>
+              <th align="right" data-i18n="rcp_col_item">الصنف</th>
+              <th align="center" data-i18n="rcp_col_qty">العدد</th>
+              <th align="left" data-i18n="rcp_col_price">السعر</th>
             </tr>
           </thead>
-          <tbody id="receiptTableBody">
-            <!-- Populated by JS -->
+          <tbody id="rcpTableBody">
+            <!-- Populated via JS -->
           </tbody>
         </table>
 
-        <div class="receipt-divider">--------------------------------</div>
+        <div class="rcp-cut-line">--------------------------------</div>
 
-        <div class="receipt-totals">
-          <div class="rec-row"><span>Subtotal:</span><span id="recSubtotal">$0.00</span></div>
-          <div class="rec-row"><span>VAT (15%):</span><span id="recTax">$0.00</span></div>
-          <div class="rec-row"><span>Service / Delivery:</span><span id="recService">$0.00</span></div>
-          <div class="receipt-divider">================================</div>
-          <div class="rec-row rec-grand"><span>TOTAL:</span><span id="recTotal">$0.00</span></div>
+        <div class="rcp-totals-box">
+          <div class="rcp-row"><span data-i18n="lbl_subtotal">المجموع الخاضع للضريبة:</span><span id="rcpSubtotal">0.00 ر.س</span></div>
+          <div class="rcp-row"><span data-i18n="lbl_vat">ضريبة القيمة المضافة (15%):</span><span id="rcpVat">0.00 ر.س</span></div>
+          <div class="rcp-row"><span data-i18n="lbl_service">التوصيل / الخدمة:</span><span id="rcpDelivery">0.00 ر.س</span></div>
+          <div class="rcp-cut-line">================================</div>
+          <div class="rcp-row rcp-grand"><strong data-i18n="lbl_grand_total">الإجمالي الصافي:</strong><strong id="rcpGrandTotal">0.00 ر.س</strong></div>
         </div>
 
-        <div class="receipt-footer">
-          <p>Thank you for dining with us!</p>
-          <div class="barcode-sim">||| | |||| | ||| || |||| | ||||</div>
-          <p class="small-sub">Track online: restotrack.live</p>
+        <div class="rcp-footer">
+          <div class="qr-sim">
+            <div class="qr-box">QR-INVOICE</div>
+          </div>
+          <p data-i18n="rcp_thankyou">شكراً لزيارتكم • نسعد بخدمتكم دائماً</p>
+          <p class="rcp-website">www.khamir-resto.sa</p>
         </div>
       </div>
 
-      <div class="receipt-actions">
-        <button class="btn btn-outline" id="btnCloseReceipt">Close</button>
+      <div class="modal-receipt-actions">
+        <button class="btn btn-secondary" id="btnCloseReceipt" data-i18n="btn_close">إغلاق</button>
         <button class="btn btn-primary" onclick="window.print()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-          <span>Print Receipt</span>
+          <span data-i18n="btn_print_receipt">طباعة الفاتورة</span>
         </button>
       </div>
+
     </div>
   </div>
 
-  <!-- Toast Notification System -->
-  <div id="toastContainer" class="toast-container"></div>
+  <!-- Toast Alerts Container -->
+  <div id="toastNotificationHub" class="toast-hub"></div>
 
+  <!-- Main JavaScript App -->
   <script src="script.js"></script>
 </body>
 </html>

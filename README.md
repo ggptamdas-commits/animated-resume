@@ -1,60 +1,87 @@
-# 🍽️ RestoTrack - Real-Time Restaurant Order Tracking & Kitchen Display System (KDS)
+# 🍽️ مطعم خَامِر (KHAMIR) — Smart Restaurant POS, Order Flow & Kitchen Display System (KDS)
 
-রেস্তোরাঁর গ্রাহকদের জন্য লাইভ অর্ডার ট্র্যাকিং এবং কিচেন/স্টাফদের জন্য কিচেন ডিসপ্লে সিস্টেম (KDS) ম্যানেজমেন্ট ড্যাশবোর্ড।
-
----
-
-## 🌟 Key Features / মূল বৈশিষ্ট্যসমূহ
-
-### 1. 📱 Customer Live Order Tracker (গ্রাহক লাইভ ট্র্যাকিং)
-- **4-Stage Visual Progress Stepper:**
-  1. 📝 Order Placed & Confirmed (অর্ডার গৃহীত ও নিশ্চিত)
-  2. 🍳 In Kitchen / Chef Preparing (রান্না চলছে)
-  3. 📦 Ready for Service / Pickup (খাবার প্রস্তুত)
-  4. ✅ Served / Delivered (পরিবেশিত / সম্পন্ন)
-- **Live Countdown & ETA:** রিয়েল-টাইম কাউন্টডাউন এবং আনুমানিক অপেক্ষার সময় প্রদর্শন।
-- **Instant Search & Track:** Order ID দিয়ে তাৎক্ষণিক ট্র্যাকিং এবং সক্রিয় অর্ডারগুলোর কুইক চিপস।
-- **Detailed Invoice & Receipt:** আইটেমাইজড ব্রেকডাউন, ১৫% ভ্যাট ট্যাক্স হিসাব এবং প্রিন্টেবল রসিদ জেনারেটর।
-
-### 2. 👨‍🍳 Kitchen Display System & Staff Kanban (কিচেন ড্যাশবোর্ড)
-- **Live Kanban Board:** ৪টি আলাদা কলামে (Pending, Kitchen, Ready, Completed) অর্ডার সরানো ও স্ট্যাটাস আপডেট করার সুবিধা।
-- **Real-Time Kitchen Metrics:**
-  - মোট সক্রিয় অর্ডার (Active Orders)
-  - রান্নাধীন অর্ডার (In Kitchen)
-  - ডেলিভারির জন্য প্রস্তুত (Ready for Pickup)
-  - আজকের মোট আয় (Today's Revenue)
-- **Filter & Search:** ডাইন-ইন (Dine-in), টেকঅ্যাওয়ে (Pickup), এবং হোম ডেলিভারি (Delivery) অনুযায়ী ফিল্টারিং।
-- **Auto-Simulator Engine:** ডেমো ও টেস্টিংয়ের জন্য লাইভ অর্ডার অটোমেশন সিমুলেটর।
-
-### 3. 🛍️ Interactive Order Placement & Cart (নতুন অর্ডার তৈরি)
-- মেন্যু ক্যাটাগরি ব্রাউজার (Main Dishes, Grills, Breads & Sides, Drinks & Sweets)।
-- কার্টে আইটেম যুক্ত ও পরিমাণ নিয়ন্ত্রণের সুবিধা।
-- কাস্টমার নাম, ফোন নম্বর, টেবিল নাম্বার এবং বিশেষ রান্নার নির্দেশনা (Chef Notes) ইনপুট।
-
-### 4. 🔊 Audio Chimes & LocalStorage Persistence
-- Web Audio API সিন্থেসাইজারের মাধ্যমে অর্ডার তৈরি ও স্ট্যাটাস পরিবর্তনের লাইভ সাউন্ড নোটিফিকেশন।
-- সম্পূর্ণ ডাটা ব্রাউজারের `localStorage`-এ সংরক্ষিত থাকে।
+রেস্তোراঁর সম্পূর্ণ ক্যাশিয়ার, কিচেন এবং ডেলিভারি অপারেশন পরিচালনা করার জন্য একটি সম্পূর্ণ প্রিমিয়াম ওয়েব অ্যাপ্লিকেশন (**Single Page Application**)।
 
 ---
 
-## 🚀 Live Demo & Deployment (GitHub Pages)
+## 🎨 UI & Design Architecture
 
-এই প্রজেক্টটি সরাসরি **GitHub Pages**-এ হোস্ট করা যায়:
-1. GitHub রিপোজিটরির **Settings**-এ যান।
-2. বাম পাশের মেন্যু থেকে **Pages** নির্বাচন করুন।
-3. Branch হিসেবে `main` এবং ফোল্ডার হিসেবে `/ (root)` সিলেক্ট করে **Save** দিন।
-4. কয়েক সেকেন্ডের মধ্যে আপনার লাইভ লিংক প্রস্তুত হয়ে যাবে:
-   `https://<username>.github.io/<repository-name>/`
-
----
-
-## 🛠️ Tech Stack
-
-- **HTML5 & CSS3:** Modern Responsive UI/UX Design System (slate/emerald/amber theme, glassmorphism, responsive grid).
-- **Vanilla JavaScript (ES6+):** Clean state management, dynamic DOM rendering, Web Audio chime synthesizer.
-- **LocalStorage:** Instant offline & persistent data syncing.
+- **Theme & Style:** Modern Glassmorphism + Dark Navy & Soft Cream Dashboard with Warm Amber / Orange Accents (`#f59e0b`, `#ea580c`).
+- **Typography:** `Cairo` (العربية) + `Poppins` (English) + `JetBrains Mono` (Receipts/Timers).
+- **Languages:** **Arabic (Default RTL)** + **English (LTR)** instant toggle with full bilingual localization.
+- **Theme Modes:** Dark Theme (Default) + Light Theme toggle.
+- **Sound Alerts:** Web Audio API সিন্থেসাইজারের মাধ্যমে নতুন অর্ডার এবং স্ট্যাটাস পরিবর্তনের রিয়েল-টাইম অডিও বেল সাউন্ড।
 
 ---
 
-## 📝 License
-MIT License
+## 📊 Main Dashboard & Order Stages
+
+রেস্তোراঁর **Cashier ➔ Kitchen ➔ Delivery/Completed** পুরো অর্ডার ফ্লো এক নজরে দেখার জন্য ৬টি নির্দিষ্ট স্ট্যাটাস:
+
+1. 🍽️ **New Orders (طلبات جديدة)** — নতুন অর্ডার ও বুকিং
+2. 🔥 **Preparing (قيد التحضير)** — কিচেনে রান্না চলছে
+3. 👨‍🍳 **Ready (جاهز للتقديم)** — খাবার প্রস্তুত
+4. 🚚 **Out for Delivery (قيد التوصيل)** — ডেলিভারি ড্রাইভারের কাছে
+5. ✅ **Completed (مكتمل)** — সফলভাবে সম্পন্ন ও পরিশোধিত
+6. ❌ **Cancelled (ملغي)** — বাতিলকৃত অর্ডার
+
+### 🗂️ Order Card Format:
+```text
+#ORD-1025
+Table 08
+3 Items · SAR 86.00
+
+🍔 Chicken Burger × 2
+🍟 French Fries × 1
+🥤 Pepsi × 2
+
+Preparing · 08:42 PM (05:24)
+[View Order] [Update Status]
+```
+
+---
+
+## 🖥️ Kitchen Display System (KDS Screen)
+
+কিচেন স্টাফ এবং শেফদের জন্য বড় স্ক্রিনের উপযোগী ডেডিকেটেড ডিসপ্লে:
+- **NEW / PREPARING / READY** কলাম ভিউ।
+- **Live Elapsed Timers:** প্রতিটি অর্ডারে কতক্ষণ সময় অতিবাহিত হয়েছে তা লাইভ কাউন্টডাউন (সবুজ `< 10m`, হলুদ `10-20m`, লাল `> 20m`)।
+- **Chef Checklists:** রান্না করার সময় আইটেম ধরে ধরে টিক মার্ক দেওয়ার ব্যবস্থা।
+- **Kitchen Priority:** Normal ও Urgent (عاجل) ফায়ার ব্যাজ।
+
+---
+
+## 📱 Mobile UI
+
+- **Bottom Floating Navigation:**
+  - 🏠 Dashboard (الرئيسية)
+  - 🧾 Orders (الطلبات)
+  - 🍳 Kitchen (المطبخ)
+  - 📦 Tracking (التتبع)
+  - ⚙️ Analytics (المزيد)
+- **Top Bar:** Restaurant Name (`مطعم خَامِر`), Live Notification Bell, Sound Alert Toggle, Admin Profile (`Md. Emdadul`).
+
+---
+
+## 🔎 Order Tracking & 5-Step Timeline
+
+গ্রাহক ও কর্মীদের জন্য লাইভ টাইমলাইন ট্র্যাকার:
+1. **Order Received (استلام الطلب)** — `08:35 PM`
+2. **Accepted (قبول الطلب في الكاشير)** — `08:37 PM`
+3. **Preparing (قيد التحضير في المطبخ)** — `08:42 PM`
+4. **Ready (جاهز للتسليم والتقديم)** — `08:55 PM`
+5. **Delivered / Completed (تم التوصيل / التسليم)** — `09:10 PM`
+
+---
+
+## 🧾 POS Features & Thermal Receipt
+
+- **POS Ticket Generator:** ক্যাশিয়ার নতুন অর্ডার তৈরি করতে পারে (মেন্যু থেকে খাবার সিলেক্ট, টেবিল নাম্বার, পেমেন্ট মেথড: Cash, Mada/Card, Apple Pay)।
+- **Thermal Print Invoice:** 80mm থার্মাল পেপার রিসিপ্ট জেনারেটর (১৫% ভ্যাট হিসাব, ট্যাক্স রেজিস্ট্রেশন নম্বর, QR কোড ও সরাসরি প্রিন্ট অপশন)।
+- **Daily Analytics:** দৈনিক মোট আয় (SAR), অর্ডার কাউন্ট, পেমেন্ট মেথড ব্রেকডাউন এবং JSON ডাটা এক্সপোর্ট।
+
+---
+
+## 🚀 Live Run
+
+ব্রাউজারে সরাসরি `index.html` ফাইলটি ওপেন করলেই সম্পূর্ণ সিস্টেমটি অফলাইন/অনলাইনে তাৎক্ষণিক সচল হবে।
