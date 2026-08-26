@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emdadul | Interactive & Animated Resume</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Canvas Particle Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation Bar -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#hero" class="nav__logo">
+                <span class="logo__bracket">&lt;</span>
+                <span class="logo__text">Emdadul</span>
+                <span class="logo__slash">/</span>
+                <span class="logo__bracket">&gt;</span>
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#hero" class="nav__link active-link">Home</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                    <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
+                    <li class="nav__item"><a href="#experience" class="nav__link">Experience</a></li>
+                    <li class="nav__item"><a href="#projects" class="nav__link">Projects</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+                </ul>
+                <div class="nav__close" id="nav-close">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+
+            <div class="nav__actions">
+                <button class="btn btn-outline btn-sm print-btn" onclick="window.print()" title="Print / Save Resume as PDF">
+                    <i class="fa-solid fa-file-arrow-down"></i>
+                    <span>Print CV</span>
+                </button>
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero section" id="hero">
+            <div class="hero__container container">
+                <div class="hero__content">
+                    <div class="hero__badge reveal">
+                        <span class="pulse-dot"></span>
+                        <span>Available for Opportunities & Automation Projects</span>
+                    </div>
+                    <h1 class="hero__title reveal">
+                        Hi, I'm <span class="gradient-text">Emdadul</span>
+                    </h1>
+                    <div class="hero__subtitle-wrapper reveal">
+                        <span class="hero__prefix">I am a</span>
+                        <span class="typing-text" id="typing-text"></span>
+                        <span class="cursor">&nbsp;</span>
+                    </div>
+                    <p class="hero__description reveal">
+                        Passionate Automation Specialist, AI Workflow Developer, and Cloud Solutions Builder. I engineer scalable chatbots, seamless API integrations, automated workflows, and modern web applications that streamline complex operations.
+                    </p>
+                    <div class="hero__buttons reveal">
+                        <a href="#projects" class="btn btn-primary">
+                            <span>View Projects</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <span>Get in Touch</span>
+                            <i class="fa-regular fa-paper-plane"></i>
+                        </a>
+                    </div>
+                    <div class="hero__socials reveal">
+                        <a href="https://github.com/ggptamdas-commits" target="_blank" rel="noopener noreferrer" class="social__link" title="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social__link" title="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="mailto:contact@example.com" class="social__link" title="Email">
+                            <i class="fa-regular fa-envelope"></i>
+                        </a>
+                        <a href="#contact" class="social__link" title="Message">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero__visual reveal">
+                    <div class="visual__card glass-card">
+                        <div class="visual__circle">
+                            <div class="visual__glow"></div>
+                            <div class="visual__icon">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                        </div>
+                        <div class="visual__floating-badge badge-top">
+                            <i class="fa-solid fa-robot"></i>
+                            <div>
+                                <span class="badge__title">AI Automation</span>
+                                <span class="badge__sub">n8n & LLM APIs</span>
+                            </div>
+                        </div>
+                        <div class="visual__floating-badge badge-bottom">
+                            <i class="fa-solid fa-cloud"></i>
+                            <div>
+                                <span class="badge__title">Cloud & Infra</span>
+                                <span class="badge__sub">AWS, Vercel & Workers</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="stats container reveal">
+                <div class="stat__card glass-card">
+                    <div class="stat__icon"><i class="fa-solid fa-gears"></i></div>
+                    <div class="stat__info">
+                        <h3 class="stat__number" data-target="25">0+</h3>
+                        <p class="stat__label">Automations Built</p>
+                    </div>
+                </div>
+                <div class="stat__card glass-card">
+                    <div class="stat__icon"><i class="fa-solid fa-laptop-code"></i></div>
+                    <div class="stat__info">
+                        <h3 class="stat__number" data-target="15">0+</h3>
+                        <p class="stat__label">Projects Completed</p>
+                    </div>
+                </div>
+                <div class="stat__card glass-card">
+                    <div class="stat__icon"><i class="fa-solid fa-plug-circle-bolt"></i></div>
+                    <div class="stat__info">
+                        <h3 class="stat__number" data-target="30">0+</h3>
+                        <p class="stat__label">API Integrations</p>
+                    </div>
+                </div>
+                <div class="stat__card glass-card">
+                    <div class="stat__icon"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="stat__info">
+                        <h3 class="stat__number" data-target="99">0%</h3>
+                        <p class="stat__label">Uptime & Reliability</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about section" id="about">
+            <div class="container">
+                <div class="section__header reveal">
+                    <span class="section__subtitle">Overview</span>
+                    <h2 class="section__title">About <span class="gradient-text">Me</span></h2>
+                    <div class="section__line"></div>
+                </div>
+
+                <div class="about__container">
+                    <div class="about__content glass-card reveal">
+                        <h3 class="about__heading">Building Smart Automations & High-Impact Digital Solutions</h3>
+                        <p class="about__text">
+                            I am a multi-disciplinary technologist specialized in workflow automation, AI integration, and full-stack web applications. I bridge the gap between business operations and modern cloud technologies by crafting automated customer service bots, social media publishing pipelines, and scalable cloud deployments.
+                        </p>
+                        <p class="about__text">
+                            With a strong background in JavaScript/TypeScript ecosystems, cloud hosting (AWS, Cloudflare, Vercel), and automation engines (n8n, Webhooks, RESTful APIs), I enjoy solving real-world business challenges and creating intuitive, reliable digital experiences.
+                        </p>
+
+                        <div class="about__info-grid">
+                            <div class="info__item">
+                                <span class="info__title"><i class="fa-solid fa-user-check"></i> Role:</span>
+                                <span class="info__value">Automation & Full Stack Engineer</span>
+                            </div>
+                            <div class="info__item">
+                                <span class="info__title"><i class="fa-solid fa-location-dot"></i> Location:</span>
+                                <span class="info__value">Remote / Global</span>
+                            </div>
+                            <div class="info__item">
+                                <span class="info__title"><i class="fa-solid fa-briefcase"></i> Experience:</span>
+                                <span class="info__value">3+ Years Building Solutions</span>
+                            </div>
+                            <div class="info__item">
+                                <span class="info__title"><i class="fa-solid fa-circle-check"></i> Status:</span>
+                                <span class="info__value text-success">Open to Opportunities</span>
+                            </div>
+                        </div>
+
+                        <div class="about__badges">
+                            <span class="tech-pill"><i class="fa-solid fa-bolt"></i> Problem Solver</span>
+                            <span class="tech-pill"><i class="fa-solid fa-brain"></i> AI Integrator</span>
+                            <span class="tech-pill"><i class="fa-solid fa-infinity"></i> Workflow Architect</span>
+                            <span class="tech-pill"><i class="fa-solid fa-shield-halved"></i> Fast & Secure</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills section" id="skills">
+            <div class="container">
+                <div class="section__header reveal">
+                    <span class="section__subtitle">Technical Capabilities</span>
+                    <h2 class="section__title">Skills & <span class="gradient-text">Expertise</span></h2>
+                    <div class="section__line"></div>
+                </div>
+
+                <div class="skills__grid">
+                    <!-- Category 1 -->
+                    <div class="skill__card glass-card reveal">
+                        <div class="skill__header">
+                            <div class="skill__icon-box"><i class="fa-solid fa-robot"></i></div>
+                            <div>
+                                <h3 class="skill__category">AI & Workflow Automation</h3>
+                                <p class="skill__sub">Intelligent bot flows & integrations</p>
+                            </div>
+                        </div>
+                        <div class="skill__items">
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>n8n Workflow Automation</span>
+                                    <span>95%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 95%;"></div></div>
+                            </div>
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>LLMs & Groq / OpenAI API</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 90%;"></div></div>
+                            </div>
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>WhatsApp & Evolution API</span>
+                                    <span>92%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 92%;"></div></div>
+                            </div>
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>Meta Graph & Social APIs</span>
+                                    <span>88%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 88%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 2 -->
+                    <div class="skill__card glass-card reveal">
+                        <div class="skill__header">
+                            <div class="skill__icon-box"><i class="fa-solid fa-code"></i></div>
+                            <div>
+                                <h3 class="skill__category">Web Development</h3>
+                                <p class="skill__sub">Frontend & Backend engineering</p>
+                            </div>
+                        </div>
+                        <div class="skill__items">
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>JavaScript (ES6+) & TypeScript</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 90%;"></div></div>
+                            </div>
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>HTML5, CSS3 & Responsive UI</span>
+                                    <span>95%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 95%;"></div></div>
+                            </div>
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>REST APIs & Webhooks</span>
+                                    <span>92%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 92%;"></div></div>
+                            </div>
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>Google Workspace & Sheets API</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 90%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 3 -->
+                    <div class="skill__card glass-card reveal">
+                        <div class="skill__header">
+                            <div class="skill__icon-box"><i class="fa-solid fa-cloud"></i></div>
+                            <div>
+                                <h3 class="skill__category">Cloud & DevOps</h3>
+                                <p class="skill__sub">Hosting, pipelines & server management</p>
+                            </div>
+                        </div>
+                        <div class="skill__items">
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>AWS EC2 & Security Groups</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 85%;"></div></div>
+                            </div>
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>Vercel & Next.js Deployments</span>
+                                    <span>92%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 92%;"></div></div>
+                            </div>
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>Cloudflare Workers & DNS</span>
+                                    <span>88%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 88%;"></div></div>
+                            </div>
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>Git, GitHub Pages & CI/CD</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 90%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 4 -->
+                    <div class="skill__card glass-card reveal">
+                        <div class="skill__header">
+                            <div class="skill__icon-box"><i class="fa-solid fa-palette"></i></div>
+                            <div>
+                                <h3 class="skill__category">Design & Productivity</h3>
+                                <p class="skill__sub">Creative assets & system optimization</p>
+                            </div>
+                        </div>
+                        <div class="skill__items">
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>Graphic Design & Promotional Assets</span>
+                                    <span>88%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 88%;"></div></div>
+                            </div>
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>Cloud Firestore / NoSQL</span>
+                                    <span>82%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 82%;"></div></div>
+                            </div>
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>Linux Server Administration</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 85%;"></div></div>
+                            </div>
+                            <div class="skill__bar-group">
+                                <div class="skill__bar-info">
+                                    <span>Prompt Engineering & AI Tools</span>
+                                    <span>92%</span>
+                                </div>
+                                <div class="skill__bar-bg"><div class="skill__bar-fill" style="width: 92%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Timeline Section -->
+        <section class="experience section" id="experience">
+            <div class="container">
+                <div class="section__header reveal">
+                    <span class="section__subtitle">Career Journey</span>
+                    <h2 class="section__title">Work <span class="gradient-text">Experience</span></h2>
+                    <div class="section__line"></div>
+                </div>
+
+                <div class="timeline">
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline__item reveal">
+                        <div class="timeline__marker"></div>
+                        <div class="timeline__content glass-card">
+                            <div class="timeline__date"><i class="fa-regular fa-calendar"></i> 2024 - Present</div>
+                            <h3 class="timeline__role">Lead AI Automation & Systems Specialist</h3>
+                            <h4 class="timeline__company"><i class="fa-solid fa-building"></i> Freelance / Independent</h4>
+                            <p class="timeline__desc">
+                                Designed and deployed high-performance n8n automation workflows, connected conversational AI agents using Groq API and WhatsApp Evolution API, and created automated social posting systems for Meta and LinkedIn.
+                            </p>
+                            <div class="timeline__tags">
+                                <span class="tag">n8n</span>
+                                <span class="tag">Groq API</span>
+                                <span class="tag">Evolution API</span>
+                                <span class="tag">Webhooks</span>
+                                <span class="tag">Google Sheets API</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline__item reveal">
+                        <div class="timeline__marker"></div>
+                        <div class="timeline__content glass-card">
+                            <div class="timeline__date"><i class="fa-regular fa-calendar"></i> 2023 - Present</div>
+                            <h3 class="timeline__role">Full Stack & Cloud Deployment Developer</h3>
+                            <h4 class="timeline__company"><i class="fa-solid fa-laptop-code"></i> Web & Cloud Projects</h4>
+                            <p class="timeline__desc">
+                                Developed TypeScript/JavaScript applications, web management tools, and deployed scalable solutions on AWS EC2, Vercel, and Cloudflare Workers with automated CI/CD pipelines.
+                            </p>
+                            <div class="timeline__tags">
+                                <span class="tag">TypeScript</span>
+                                <span class="tag">AWS EC2</span>
+                                <span class="tag">Vercel</span>
+                                <span class="tag">Cloudflare</span>
+                                <span class="tag">Firestore</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline__item reveal">
+                        <div class="timeline__marker"></div>
+                        <div class="timeline__content glass-card">
+                            <div class="timeline__date"><i class="fa-regular fa-calendar"></i> 2022 - 2023</div>
+                            <h3 class="timeline__role">Operations & Digital Systems Integrator</h3>
+                            <h4 class="timeline__company"><i class="fa-solid fa-store"></i> Hospitality & Business Automation</h4>
+                            <p class="timeline__desc">
+                                Managed business operational automation, digital menu systems, inventory/staff management platforms, and marketing asset designs for restaurant and retail operations.
+                            </p>
+                            <div class="timeline__tags">
+                                <span class="tag">Process Automation</span>
+                                <span class="tag">Staff Management</span>
+                                <span class="tag">Graphic Design</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects section" id="projects">
+            <div class="container">
+                <div class="section__header reveal">
+                    <span class="section__subtitle">Portfolio Highlights</span>
+                    <h2 class="section__title">Featured <span class="gradient-text">Projects</span></h2>
+                    <div class="section__line"></div>
+                </div>
+
+                <div class="projects__grid">
+                    <!-- Project 1 -->
+                    <div class="project__card glass-card reveal">
+                        <div class="project__top">
+                            <div class="project__icon"><i class="fa-brands fa-whatsapp"></i></div>
+                            <span class="project__badge">Automation</span>
+                        </div>
+                        <h3 class="project__title">AI WhatsApp Customer Chatbot</h3>
+                        <p class="project__desc">
+                            Automated conversational ordering and support bot for restaurant operations using n8n, Groq LLM API, WhatsApp Evolution API, and real-time Google Sheets menu database.
+                        </p>
+                        <div class="project__tech">
+                            <span>n8n</span>
+                            <span>Groq API</span>
+                            <span>Evolution API</span>
+                            <span>Webhooks</span>
+                        </div>
+                        <div class="project__links">
+                            <a href="https://github.com/ggptamdas-commits" target="_blank" rel="noopener noreferrer" class="project__link">
+                                <i class="fa-brands fa-github"></i> Source
+                            </a>
+                            <a href="#contact" class="project__link project__link--accent">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Case Study
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project__card glass-card reveal">
+                        <div class="project__top">
+                            <div class="project__icon"><i class="fa-solid fa-users-gear"></i></div>
+                            <span class="project__badge">Full Stack</span>
+                        </div>
+                        <h3 class="project__title">Restaurant Staff Manager</h3>
+                        <p class="project__desc">
+                            Comprehensive web portal built with TypeScript for managing operational schedules, employee shifts, attendance tracking, and duty assignments.
+                        </p>
+                        <div class="project__tech">
+                            <span>TypeScript</span>
+                            <span>Node.js</span>
+                            <span>Cloud Firestore</span>
+                            <span>Tailwind</span>
+                        </div>
+                        <div class="project__links">
+                            <a href="https://github.com/ggptamdas-commits/restaurant-staff-manager" target="_blank" rel="noopener noreferrer" class="project__link">
+                                <i class="fa-brands fa-github"></i> GitHub
+                            </a>
+                            <a href="#contact" class="project__link project__link--accent">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Details
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="project__card glass-card reveal">
+                        <div class="project__top">
+                            <div class="project__icon"><i class="fa-solid fa-share-nodes"></i></div>
+                            <span class="project__badge">Integration</span>
+                        </div>
+                        <h3 class="project__title">MyFB & Social Auto-Publisher</h3>
+                        <p class="project__desc">
+                            Automated multi-platform content scheduling and publishing engine leveraging Meta Graph API and LinkedIn Developer APIs through custom n8n orchestration.
+                        </p>
+                        <div class="project__tech">
+                            <span>Meta Graph API</span>
+                            <span>LinkedIn API</span>
+                            <span>n8n</span>
+                            <span>AWS EC2</span>
+                        </div>
+                        <div class="project__links">
+                            <a href="https://github.com/ggptamdas-commits" target="_blank" rel="noopener noreferrer" class="project__link">
+                                <i class="fa-brands fa-github"></i> Source
+                            </a>
+                            <a href="#contact" class="project__link project__link--accent">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Details
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="project__card glass-card reveal">
+                        <div class="project__top">
+                            <div class="project__icon"><i class="fa-solid fa-link"></i></div>
+                            <span class="project__badge">Web App</span>
+                        </div>
+                        <h3 class="project__title">LinkChoker Web Utility</h3>
+                        <p class="project__desc">
+                            High-speed web tool for URL protection and redirection analytics deployed on Vercel with modern reactive user interface and edge compute optimizations.
+                        </p>
+                        <div class="project__tech">
+                            <span>JavaScript</span>
+                            <span>Vercel</span>
+                            <span>REST API</span>
+                            <span>CSS3</span>
+                        </div>
+                        <div class="project__links">
+                            <a href="https://linkchoker.vercel.app" target="_blank" rel="noopener noreferrer" class="project__link project__link--accent">
+                                <i class="fa-solid fa-globe"></i> Live Demo
+                            </a>
+                            <a href="https://github.com/ggptamdas-commits/linkchoker" target="_blank" rel="noopener noreferrer" class="project__link">
+                                <i class="fa-brands fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 5 -->
+                    <div class="project__card glass-card reveal">
+                        <div class="project__top">
+                            <div class="project__icon"><i class="fa-solid fa-toolbox"></i></div>
+                            <span class="project__badge">Open Source</span>
+                        </div>
+                        <h3 class="project__title">Toolhub Pro Platform</h3>
+                        <p class="project__desc">
+                            All-in-one developer utilities suite offering formatters, converters, and payload testing tools with clean responsive styling and zero external dependencies.
+                        </p>
+                        <div class="project__tech">
+                            <span>JavaScript</span>
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                            <span>GitHub Pages</span>
+                        </div>
+                        <div class="project__links">
+                            <a href="https://github.com/ggptamdas-commits/Toolhub-pro" target="_blank" rel="noopener noreferrer" class="project__link">
+                                <i class="fa-brands fa-github"></i> GitHub
+                            </a>
+                            <a href="https://github.com/ggptamdas-commits/Toolshubpro" target="_blank" rel="noopener noreferrer" class="project__link project__link--accent">
+                                <i class="fa-solid fa-code-branch"></i> Toolshubpro
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 6 -->
+                    <div class="project__card glass-card reveal">
+                        <div class="project__top">
+                            <div class="project__icon"><i class="fa-solid fa-server"></i></div>
+                            <span class="project__badge">Cloud Infra</span>
+                        </div>
+                        <h3 class="project__title">Self-Hosted Automation Stack</h3>
+                        <p class="project__desc">
+                            Containerized and secure AWS EC2 deployment running self-hosted n8n, Evolution API, and reverse proxy with automated SSL certificate lifecycle management.
+                        </p>
+                        <div class="project__tech">
+                            <span>AWS EC2</span>
+                            <span>Docker</span>
+                            <span>Nginx / SSL</span>
+                            <span>Linux</span>
+                        </div>
+                        <div class="project__links">
+                            <a href="https://github.com/ggptamdas-commits" target="_blank" rel="noopener noreferrer" class="project__link">
+                                <i class="fa-brands fa-github"></i> Stack Info
+                            </a>
+                            <a href="#contact" class="project__link project__link--accent">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Setup
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact section" id="contact">
+            <div class="container">
+                <div class="section__header reveal">
+                    <span class="section__subtitle">Get in Touch</span>
+                    <h2 class="section__title">Contact <span class="gradient-text">Me</span></h2>
+                    <div class="section__line"></div>
+                </div>
+
+                <div class="contact__container">
+                    <div class="contact__info glass-card reveal">
+                        <h3 class="contact__heading">Let's discuss your next project!</h3>
+                        <p class="contact__text">
+                            Whether you need workflow automation, custom AI bots, web applications, or cloud infrastructure configuration, I'm always open to discussing new challenges.
+                        </p>
+
+                        <div class="contact__list">
+                            <div class="contact__card">
+                                <div class="contact__icon"><i class="fa-brands fa-github"></i></div>
+                                <div>
+                                    <span class="contact__label">GitHub</span>
+                                    <a href="https://github.com/ggptamdas-commits" target="_blank" rel="noopener noreferrer" class="contact__value">github.com/ggptamdas-commits</a>
+                                </div>
+                            </div>
+                            <div class="contact__card">
+                                <div class="contact__icon"><i class="fa-regular fa-envelope"></i></div>
+                                <div>
+                                    <span class="contact__label">Email</span>
+                                    <span class="contact__value">emdadul@example.com</span>
+                                </div>
+                            </div>
+                            <div class="contact__card">
+                                <div class="contact__icon"><i class="fa-brands fa-whatsapp"></i></div>
+                                <div>
+                                    <span class="contact__label">WhatsApp</span>
+                                    <span class="contact__value">Direct Message Available</span>
+                                </div>
+                            </div>
+                            <div class="contact__card">
+                                <div class="contact__icon"><i class="fa-solid fa-location-dot"></i></div>
+                                <div>
+                                    <span class="contact__label">Location</span>
+                                    <span class="contact__value">Saudi Arabia / Global Remote</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact__form-card glass-card reveal">
+                        <form id="contact-form" class="contact__form" onsubmit="event.preventDefault(); handleFormSubmit();">
+                            <div class="form__group">
+                                <label for="name" class="form__label">Your Name</label>
+                                <input type="text" id="name" class="form__input" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="form__group">
+                                <label for="email" class="form__label">Your Email</label>
+                                <input type="email" id="email" class="form__input" placeholder="name@example.com" required>
+                            </div>
+                            <div class="form__group">
+                                <label for="subject" class="form__label">Subject</label>
+                                <input type="text" id="subject" class="form__input" placeholder="Project Inquiry / Job Opportunity" required>
+                            </div>
+                            <div class="form__group">
+                                <label for="message" class="form__label">Message</label>
+                                <textarea id="message" rows="4" class="form__input" placeholder="Tell me about your project or requirement..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
+                                <span>Send Message</span>
+                                <i class="fa-regular fa-paper-plane"></i>
+                            </button>
+                            <div id="form-feedback" class="form-feedback"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer__container">
+            <p class="footer__copy">
+                &copy; 2026 <strong>Emdadul</strong>. Built with modern web standards & animations. Hosted on GitHub Pages.
+            </p>
+            <a href="#hero" class="footer__back-to-top" title="Back to Top">
+                <i class="fa-solid fa-arrow-up"></i>
+            </a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
