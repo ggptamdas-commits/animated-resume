@@ -1,30 +1,30 @@
 /* ==========================================================================
    AMDAUL HOQUE — AAA GAME UI RESUME & CAREER QUEST STYLESHEET
-   1:1 PIXEL-PERFECT RECREATION OF HIGH-TECH SCI-FI HUD
+   100% FAITHFUL TO THE HIGH-TECH SCI-FI REFERENCE MOCKUP
    ========================================================================== */
 
 :root {
   /* Core Color Palette */
   --bg-deep: #020713;
   --bg-cockpit: #040d1e;
-  --bg-panel: rgba(6, 17, 36, 0.88);
+  --bg-panel: rgba(6, 17, 36, 0.92);
   --bg-panel-solid: #061124;
   --bg-card-inner: rgba(10, 26, 54, 0.7);
 
   /* Neon Glow Accents */
   --cyan-primary: #00f2fe;
-  --cyan-glow: rgba(0, 242, 254, 0.4);
+  --cyan-glow: rgba(0, 242, 254, 0.45);
   --blue-bright: #0088ff;
   --blue-glow: rgba(0, 136, 255, 0.35);
   --gold-accent: #ffb800;
-  --gold-glow: rgba(255, 184, 0, 0.4);
+  --gold-glow: rgba(255, 184, 0, 0.45);
   --purple-accent: #a855f7;
   --green-accent: #10b981;
 
   /* Borders & Dividers */
-  --border-neon: 1px solid rgba(0, 242, 254, 0.3);
-  --border-subtle: 1px solid rgba(0, 136, 255, 0.2);
-  --border-glow-heavy: 0 0 15px rgba(0, 242, 254, 0.25), inset 0 0 15px rgba(0, 136, 255, 0.15);
+  --border-neon: 1px solid rgba(0, 242, 254, 0.35);
+  --border-subtle: 1px solid rgba(0, 136, 255, 0.25);
+  --border-glow-heavy: 0 0 18px rgba(0, 242, 254, 0.3), inset 0 0 15px rgba(0, 136, 255, 0.15);
 
   /* Typography */
   --font-display: 'Orbitron', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -33,7 +33,7 @@
   --font-mono: 'Share Tech Mono', monospace;
 
   /* Shadows */
-  --shadow-hud: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+  --shadow-hud: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
   --shadow-neon-cyan: 0 0 20px rgba(0, 242, 254, 0.4);
   --shadow-neon-gold: 0 0 25px rgba(255, 184, 0, 0.5);
 }
@@ -57,7 +57,7 @@ html {
 
 body.cyber-body {
   min-height: 100vh;
-  background: radial-gradient(circle at 50% 10%, #081a38 0%, #030a18 55%, #01040a 100%);
+  background: radial-gradient(circle at 50% 12%, #0a2046 0%, #040d1e 50%, #01040a 100%);
   background-attachment: fixed;
   overflow-x: hidden;
   position: relative;
@@ -67,17 +67,17 @@ body.cyber-body {
 .crt-scanlines {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%);
   background-size: 100% 4px;
   pointer-events: none;
   z-index: 999;
-  opacity: 0.35;
+  opacity: 0.3;
 }
 
 .vignette-layer {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle, transparent 60%, rgba(0, 0, 0, 0.8) 100%);
+  background: radial-gradient(circle, transparent 60%, rgba(0, 0, 0, 0.85) 100%);
   pointer-events: none;
   z-index: 998;
 }
@@ -98,7 +98,7 @@ body.cyber-body {
 .cyber-hud-card {
   background: var(--bg-panel);
   border: var(--border-neon);
-  border-radius: 12px;
+  border-radius: 10px;
   box-shadow: var(--shadow-hud), var(--border-glow-heavy);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -113,7 +113,41 @@ body.cyber-body {
   top: 0; left: 0; right: 0;
   height: 2px;
   background: linear-gradient(90deg, transparent 0%, var(--cyan-primary) 50%, transparent 100%);
-  opacity: 0.8;
+  opacity: 0.85;
+}
+
+/* Integrated Mini Sidebar in Each Bottom Panel */
+.dash-panel {
+  display: flex;
+}
+
+.panel-mini-sidebar {
+  width: 42px;
+  background: rgba(3, 10, 24, 0.85);
+  border-right: 1px solid rgba(0, 242, 254, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding-top: 24px;
+  color: #64748b;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.panel-mini-sidebar i {
+  transition: color 0.2s ease;
+}
+
+.panel-mini-sidebar i:first-child {
+  color: var(--cyan-primary);
+}
+
+.panel-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 /* Panel Header */
@@ -121,7 +155,7 @@ body.cyber-body {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 18px 22px 14px 22px;
+  padding: 16px 20px 12px 20px;
   border-bottom: 1px solid rgba(0, 242, 254, 0.15);
   background: linear-gradient(180deg, rgba(0, 242, 254, 0.05) 0%, transparent 100%);
 }
@@ -129,7 +163,7 @@ body.cyber-body {
 .panel-badge-num {
   font-family: var(--font-display);
   font-size: 1.15rem;
-  font-weight: 800;
+  font-weight: 900;
   color: var(--cyan-primary);
   background: rgba(0, 242, 254, 0.12);
   border: 1px solid var(--cyan-primary);
@@ -167,11 +201,11 @@ body.cyber-body {
    ========================================================================== */
 .hero-stage-container {
   width: 100%;
-  min-height: 680px;
-  background: radial-gradient(circle at 50% 45%, #0d274c 0%, #07152b 50%, #030914 100%);
+  min-height: 700px;
+  background: radial-gradient(circle at 50% 45%, #0f2c56 0%, #07162e 50%, #020814 100%);
   border: 1px solid rgba(0, 242, 254, 0.35);
   border-radius: 16px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 136, 255, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 136, 255, 0.25);
   position: relative;
   display: grid;
   grid-template-columns: 60px 380px 1fr 340px;
@@ -232,6 +266,34 @@ body.cyber-body {
   letter-spacing: 1.8px;
 }
 
+/* Top Right Status Bars Icon */
+.top-right-status {
+  position: absolute;
+  top: 24px;
+  right: 30px;
+  z-index: 40;
+}
+
+.hud-menu-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+  cursor: pointer;
+}
+
+.bar-line {
+  width: 22px;
+  height: 2.5px;
+  background: var(--cyan-primary);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--cyan-glow);
+}
+
+.bar-line.short {
+  width: 14px;
+}
+
 /* Left Vertical Sidebar Strip */
 .left-icon-sidebar {
   display: flex;
@@ -276,7 +338,7 @@ body.cyber-body {
 
 .welcome-tag {
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #94a3b8;
   letter-spacing: 2px;
@@ -285,13 +347,13 @@ body.cyber-body {
 
 .player-hero-name {
   font-family: var(--font-display);
-  font-size: 3.4rem;
+  font-size: 3.5rem;
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: 3px;
   color: #ffffff;
   margin-bottom: 18px;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
 }
 
 .player-hero-name .surname {
@@ -308,7 +370,7 @@ body.cyber-body {
 
 .spec-line {
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   font-weight: 700;
   color: #f1f5f9;
   letter-spacing: 1px;
@@ -325,7 +387,7 @@ body.cyber-body {
 
 .hero-location {
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 1.02rem;
   font-weight: 600;
   color: #94a3b8;
   display: flex;
@@ -340,7 +402,7 @@ body.cyber-body {
 
 .hero-quote {
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   font-weight: 600;
   color: #cbd5e1;
   line-height: 1.5;
@@ -399,28 +461,78 @@ body.cyber-body {
 
 .character-wrapper {
   position: absolute;
-  bottom: 10px;
-  width: 360px;
-  height: 600px;
+  bottom: 0;
+  width: 380px;
+  height: 640px;
   z-index: 20;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   pointer-events: none;
 }
 
-.character-figure-art {
-  width: 100%;
-  height: 100%;
+/* Glowing Holographic Pedestal */
+.character-pedestal-glow {
+  position: absolute;
+  bottom: 12px;
+  width: 320px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
-  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
 }
 
-.char-svg {
-  width: 100%;
-  height: 100%;
+.pedestal-disc-inner {
+  position: absolute;
+  width: 260px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 242, 254, 0.4) 0%, rgba(0, 136, 255, 0.15) 70%, transparent 100%);
+  box-shadow: 0 0 30px var(--cyan-glow), inset 0 0 20px var(--cyan-primary);
+  border: 2px solid var(--cyan-primary);
+}
+
+.pedestal-disc-outer {
+  position: absolute;
+  width: 310px;
+  height: 75px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(0, 242, 254, 0.6);
+  animation: rotatePedestal 20s linear infinite;
+}
+
+.pedestal-spotlight {
+  position: absolute;
+  bottom: 0;
+  width: 160px;
+  height: 25px;
+  border-radius: 50%;
+  background: var(--cyan-primary);
+  filter: blur(15px);
+  opacity: 0.7;
+}
+
+@keyframes rotatePedestal {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Exact Character Image Cutout */
+.exact-character-img {
+  position: relative;
+  z-index: 5;
+  height: 570px;
+  max-width: 340px;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 15px rgba(0, 242, 254, 0.35));
+  margin-bottom: 25px;
+  animation: floatCharacter 4.5s ease-in-out infinite;
+}
+
+@keyframes floatCharacter {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 /* 6 Floating Holographic Station Nodes */
@@ -432,7 +544,7 @@ body.cyber-body {
   gap: 12px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  background: rgba(3, 12, 28, 0.7);
+  background: rgba(3, 12, 28, 0.75);
   border: 1px solid rgba(0, 242, 254, 0.35);
   border-radius: 30px 10px 10px 30px;
   padding: 6px 14px 6px 6px;
@@ -444,7 +556,7 @@ body.cyber-body {
   transform: scale(1.1);
   border-color: var(--cyan-primary);
   box-shadow: 0 0 25px var(--cyan-primary);
-  background: rgba(0, 242, 254, 0.15);
+  background: rgba(0, 242, 254, 0.18);
 }
 
 .holo-icon-ring {
@@ -516,23 +628,19 @@ body.cyber-body {
 
 .player-avatar-circle {
   position: relative;
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   border: 2px solid var(--cyan-primary);
   box-shadow: 0 0 15px var(--cyan-glow);
-}
-
-.avatar-inner-art {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
   overflow: hidden;
 }
 
-.avatar-svg {
+.avatar-photo-crop {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: 50% 12%;
 }
 
 .avatar-status-dot {
@@ -680,7 +788,7 @@ body.cyber-body {
 .experience-content-split {
   padding: 16px 18px;
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 240px 1fr;
   gap: 16px;
 }
 
@@ -696,7 +804,7 @@ body.cyber-body {
 
 .exp-role {
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 800;
   color: #ffffff;
   line-height: 1.3;
@@ -945,7 +1053,7 @@ body.cyber-body {
 .garage-content-wrap {
   padding: 18px 20px;
   display: grid;
-  grid-template-columns: 1fr 220px;
+  grid-template-columns: 1fr 200px;
   gap: 16px;
   align-items: center;
 }
@@ -1004,15 +1112,15 @@ body.cyber-body {
 
 /* Cyber Tactical Laptop Visual */
 .cyber-laptop-mockup {
-  width: 210px;
+  width: 190px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .laptop-screen-bezel {
-  width: 200px;
-  height: 125px;
+  width: 180px;
+  height: 115px;
   background: #0b1322;
   border: 2px solid #1e293b;
   border-radius: 8px 8px 0 0;
@@ -1045,20 +1153,20 @@ body.cyber-body {
 
 .screen-title {
   font-family: var(--font-mono);
-  font-size: 0.55rem;
+  font-size: 0.52rem;
   color: var(--cyan-primary);
   margin-left: 4px;
 }
 
 .screen-code-body {
   font-family: var(--font-mono);
-  font-size: 0.58rem;
+  font-size: 0.55rem;
   color: #38bdf8;
   line-height: 1.4;
 }
 
 .laptop-base-chassis {
-  width: 210px;
+  width: 190px;
   height: 14px;
   background: #1e293b;
   border-radius: 0 0 6px 6px;
@@ -1279,7 +1387,7 @@ body.cyber-body {
 .contact-split-layout {
   padding: 18px 20px;
   display: grid;
-  grid-template-columns: 1fr 190px;
+  grid-template-columns: 1fr 180px;
   gap: 18px;
 }
 
@@ -1291,8 +1399,8 @@ body.cyber-body {
 }
 
 .contact-avatar-box {
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   border: 2px solid var(--cyan-primary);
   box-shadow: 0 0 15px var(--cyan-glow);
@@ -1300,9 +1408,11 @@ body.cyber-body {
   flex-shrink: 0;
 }
 
-.contact-avatar-svg {
+.contact-avatar-img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: 50% 12%;
 }
 
 .contact-fields-list {
