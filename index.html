@@ -84,48 +84,74 @@
         </blockquote>
       </div>
 
-      <!-- Center 3D Stage / Character Visual & Hologram Nodes -->
+      <!-- Center 3D Stage / Character Visual & Spatial Hologram Station Cards -->
       <div class="hero-center-stage">
         <!-- 3D Canvas Background -->
         <div id="three-canvas-wrap"></div>
 
-        <!-- Left Side Hologram Stations (01, 02, 03) -->
-        <div class="stage-side-group left-stations">
+        <!-- Ceiling Hologram Light Ring -->
+        <div class="ceiling-portal-ring">
+          <div class="ceiling-ring-inner"></div>
+          <div class="ceiling-ring-outer"></div>
+          <div class="ceiling-light-beam"></div>
+        </div>
+
+        <!-- Left Side Floating Spatial Station Cards (01, 02, 03) -->
+        <div class="spatial-stations-left">
+          
           <!-- Station 01: Experience HQ -->
-          <div class="holo-station-card holo-cyan" onclick="scrollToPanel('panel-experience')">
-            <div class="station-header">
-              <span class="st-num">01</span>
-              <div class="st-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="spatial-station-unit unit-01 cyan-theme" onclick="scrollToPanel('panel-experience')">
+            <div class="station-floating-card">
+              <div class="card-left-col">
+                <div class="st-num-badge">01</div>
+                <div class="st-main-icon"><i class="fa-solid fa-user-tie"></i></div>
+              </div>
+              <div class="card-right-col">
+                <strong class="st-line-1">EXPERIENCE</strong>
+                <span class="st-line-2">HQ</span>
+              </div>
             </div>
-            <div class="st-text">
-              <strong class="st-title">EXPERIENCE</strong>
-              <span class="st-sub">HQ MISSIONS</span>
+            <div class="station-pedestal-platform">
+              <div class="ped-disc"></div>
+              <div class="ped-glow-core"></div>
             </div>
           </div>
 
           <!-- Station 02: Skill Lab -->
-          <div class="holo-station-card holo-purple" onclick="scrollToPanel('panel-skills')">
-            <div class="station-header">
-              <span class="st-num">02</span>
-              <div class="st-icon-box"><i class="fa-solid fa-brain"></i></div>
+          <div class="spatial-station-unit unit-02 purple-theme" onclick="scrollToPanel('panel-skills')">
+            <div class="station-floating-card">
+              <div class="card-left-col">
+                <div class="st-num-badge">02</div>
+                <div class="st-main-icon"><i class="fa-solid fa-brain"></i></div>
+              </div>
+              <div class="card-right-col">
+                <strong class="st-line-1">SKILL LAB</strong>
+              </div>
             </div>
-            <div class="st-text">
-              <strong class="st-title">SKILL LAB</strong>
-              <span class="st-sub">ABILITIES</span>
+            <div class="station-pedestal-platform">
+              <div class="ped-disc"></div>
+              <div class="ped-glow-core"></div>
             </div>
           </div>
 
           <!-- Station 03: Automation Garage -->
-          <div class="holo-station-card holo-teal" onclick="scrollToPanel('panel-automation')">
-            <div class="station-header">
-              <span class="st-num">03</span>
-              <div class="st-icon-box"><i class="fa-solid fa-robot"></i></div>
+          <div class="spatial-station-unit unit-03 teal-theme" onclick="scrollToPanel('panel-automation')">
+            <div class="station-floating-card">
+              <div class="card-left-col">
+                <div class="st-num-badge">03</div>
+                <div class="st-main-icon"><i class="fa-solid fa-gear"></i></div>
+              </div>
+              <div class="card-right-col">
+                <strong class="st-line-1">AUTOMATION</strong>
+                <span class="st-line-2">GARAGE</span>
+              </div>
             </div>
-            <div class="st-text">
-              <strong class="st-title">AUTOMATION</strong>
-              <span class="st-sub">GARAGE</span>
+            <div class="station-pedestal-platform">
+              <div class="ped-disc"></div>
+              <div class="ped-glow-core"></div>
             </div>
           </div>
+
         </div>
 
         <!-- Central Character Visual on Holographic Pedestal -->
@@ -140,51 +166,70 @@
           <img src="https://i.postimg.cc/Y9nzFJPT/Segment-20260827-155624995.png" alt="Amdaul Hoque" class="exact-character-img">
         </div>
 
-        <!-- Right Side Hologram Stations (04, 05, 06) -->
-        <div class="stage-side-group right-stations">
+        <!-- Right Side Floating Spatial Station Cards (04, 05, 06) -->
+        <div class="spatial-stations-right">
+          
           <!-- Station 04: Language Station -->
-          <div class="holo-station-card holo-green" onclick="scrollToPanel('panel-languages')">
-            <div class="station-header">
-              <span class="st-num">04</span>
-              <div class="st-icon-box"><i class="fa-solid fa-globe"></i></div>
+          <div class="spatial-station-unit unit-04 green-theme" onclick="scrollToPanel('panel-languages')">
+            <div class="station-floating-card">
+              <div class="card-left-col">
+                <div class="st-num-badge">04</div>
+                <div class="st-main-icon"><i class="fa-solid fa-globe"></i></div>
+              </div>
+              <div class="card-right-col">
+                <strong class="st-line-1">LANGUAGE</strong>
+                <span class="st-line-2">STATION</span>
+              </div>
             </div>
-            <div class="st-text">
-              <strong class="st-title">LANGUAGE</strong>
-              <span class="st-sub">STATION</span>
+            <div class="station-pedestal-platform">
+              <div class="ped-disc"></div>
+              <div class="ped-glow-core"></div>
             </div>
           </div>
 
           <!-- Station 05: Education Archive -->
-          <div class="holo-station-card holo-gold" onclick="scrollToPanel('panel-education')">
-            <div class="station-header">
-              <span class="st-num">05</span>
-              <div class="st-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="spatial-station-unit unit-05 gold-theme" onclick="scrollToPanel('panel-education')">
+            <div class="station-floating-card">
+              <div class="card-left-col">
+                <div class="st-num-badge">05</div>
+                <div class="st-main-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+              </div>
+              <div class="card-right-col">
+                <strong class="st-line-1">EDUCATION</strong>
+                <span class="st-line-2">ARCHIVE</span>
+              </div>
             </div>
-            <div class="st-text">
-              <strong class="st-title">EDUCATION</strong>
-              <span class="st-sub">ARCHIVE</span>
+            <div class="station-pedestal-platform">
+              <div class="ped-disc"></div>
+              <div class="ped-glow-core"></div>
             </div>
           </div>
 
           <!-- Station 06: Contact Terminal -->
-          <div class="holo-station-card holo-purple" onclick="scrollToPanel('panel-contact')">
-            <div class="station-header">
-              <span class="st-num">06</span>
-              <div class="st-icon-box"><i class="fa-solid fa-envelope"></i></div>
+          <div class="spatial-station-unit unit-06 violet-theme" onclick="scrollToPanel('panel-contact')">
+            <div class="station-floating-card">
+              <div class="card-left-col">
+                <div class="st-num-badge">06</div>
+                <div class="st-main-icon"><i class="fa-solid fa-envelope"></i></div>
+              </div>
+              <div class="card-right-col">
+                <strong class="st-line-1">CONTACT</strong>
+                <span class="st-line-2">TERMINAL</span>
+              </div>
             </div>
-            <div class="st-text">
-              <strong class="st-title">CONTACT</strong>
-              <span class="st-sub">TERMINAL</span>
+            <div class="station-pedestal-platform">
+              <div class="ped-disc"></div>
+              <div class="ped-glow-core"></div>
             </div>
           </div>
+
         </div>
 
         <!-- Bottom Centered Enter Career Button (Matches Image 2) -->
         <div class="stage-bottom-cta">
-          <button class="hero-enter-btn" id="enter-btn" onclick="scrollToDashboard()">
-            <div class="enter-btn-glitch"></div>
+          <button class="hero-enter-btn cyber-chamfer-btn" id="enter-btn" onclick="scrollToDashboard()">
             <span class="enter-btn-title">ENTER MY CAREER</span>
-            <span class="enter-btn-sub">PRESS ANY KEY OR TAP TO START</span>
+            <span class="enter-btn-sub">PRESS ANY KEY TO START</span>
           </button>
         </div>
       </div>
