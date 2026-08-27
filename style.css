@@ -167,18 +167,21 @@ body.cyber-body {
   background: linear-gradient(180deg, rgba(0, 242, 254, 0.05) 0%, transparent 100%);
 }
 
-.panel-badge-num {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 900;
-  color: var(--cyan-primary);
-  background: rgba(0, 242, 254, 0.12);
-  border: 1px solid var(--cyan-primary);
-  border-radius: 6px;
-  padding: 2px 10px;
-  letter-spacing: 1px;
-  text-shadow: 0 0 10px var(--cyan-glow);
+.panel-badge-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
 }
+.panel-badge-icon.cyan { background: rgba(0, 242, 254, 0.15); color: var(--cyan-primary); border: 1.5px solid var(--cyan-primary); box-shadow: 0 0 12px var(--cyan-glow); }
+.panel-badge-icon.purple { background: rgba(168, 85, 247, 0.15); color: var(--purple-accent); border: 1.5px solid var(--purple-accent); box-shadow: 0 0 12px var(--purple-glow); }
+.panel-badge-icon.teal { background: rgba(20, 184, 166, 0.15); color: var(--teal-accent); border: 1.5px solid var(--teal-accent); box-shadow: 0 0 12px var(--teal-glow); }
+.panel-badge-icon.green { background: rgba(16, 185, 129, 0.15); color: var(--green-accent); border: 1.5px solid var(--green-accent); box-shadow: 0 0 12px var(--green-glow); }
+.panel-badge-icon.gold { background: rgba(255, 184, 0, 0.15); color: var(--gold-accent); border: 1.5px solid var(--gold-accent); box-shadow: 0 0 12px var(--gold-glow); }
 
 .panel-titles {
   display: flex;
@@ -558,7 +561,7 @@ body.cyber-body {
   -webkit-backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
-  min-width: 175px;
+  min-width: 165px;
 }
 
 .holo-icon-orb {
@@ -579,7 +582,7 @@ body.cyber-body {
 
 .holo-code {
   font-family: var(--font-display);
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   font-weight: 800;
   color: #ffffff;
   letter-spacing: 1px;
@@ -625,7 +628,7 @@ body.cyber-body {
 
 .green-glow {
   border: 1.5px solid var(--green-accent);
-  box-shadow: 0 0 20px var(--green-glow), inset 0 0 12px rgba(168, 85, 247, 0.2);
+  box-shadow: 0 0 20px var(--green-glow), inset 0 0 12px rgba(16, 185, 129, 0.2);
 }
 .green-glow .holo-icon-orb { background: rgba(16, 185, 129, 0.2); color: var(--green-accent); }
 .green-glow .holo-sub-text { color: var(--green-accent); }
@@ -634,42 +637,42 @@ body.cyber-body {
    TIGHT BALANCED POSITIONS & 3D FLOATING / HOVERING OSCILLATIONS
    ========================================================================== */
 
-/* Top Left: 01 EXPERIENCE (Framing Head & Shoulder) */
+/* Top Left: EXPERIENCE (Framing Head & Shoulder) */
 .card-top-left {
   top: 24%;
   left: 4%;
   animation: floatLeft_1 4.2s ease-in-out infinite;
 }
 
-/* Mid Left: 02 SKILL LAB (Framing Chest & Waist) */
+/* Mid Left: SKILL LAB (Framing Chest & Waist) */
 .card-mid-left {
   top: 48%;
   left: 0%;
   animation: floatLeft_2 5.0s ease-in-out infinite 0.6s;
 }
 
-/* Bottom Left: 05 EDUCATION ARCHIVE (Framing Thighs & Knees) */
+/* Bottom Left: EDUCATION ARCHIVE (Framing Thighs & Knees) */
 .card-bot-left {
   top: 72%;
   left: 5%;
   animation: floatLeft_3 4.6s ease-in-out infinite 1.2s;
 }
 
-/* Top Right: 03 AUTOMATION GARAGE (Framing Head & Shoulder) */
+/* Top Right: AUTOMATION GARAGE (Framing Head & Shoulder) */
 .card-top-right {
   top: 24%;
   right: 4%;
   animation: floatRight_1 4.4s ease-in-out infinite 0.3s;
 }
 
-/* Mid Right: 04 LANGUAGE STATION (Framing Chest & Waist) */
+/* Mid Right: LANGUAGE STATION (Framing Chest & Waist) */
 .card-mid-right {
   top: 48%;
   right: 0%;
   animation: floatRight_2 5.2s ease-in-out infinite 0.9s;
 }
 
-/* Bottom Right: 06 CONTACT TERMINAL (Framing Thighs & Knees) */
+/* Bottom Right: CONTACT TERMINAL (Framing Thighs & Knees) */
 .card-bot-right {
   top: 72%;
   right: 5%;
@@ -894,7 +897,7 @@ body.cyber-body {
 }
 
 /* --------------------------------------------------------------------------
-   PANEL 01: EXPERIENCE HQ
+   PANEL: EXPERIENCE HQ
    -------------------------------------------------------------------------- */
 .experience-content-split {
   padding: 16px 18px;
@@ -1082,7 +1085,7 @@ body.cyber-body {
 
 
 /* --------------------------------------------------------------------------
-   PANEL 02: SKILL LAB (100% RESPONSIVE & NO OVERFLOW)
+   PANEL: SKILL LAB (100% RESPONSIVE & NO OVERFLOW)
    -------------------------------------------------------------------------- */
 .skills-2x3-grid {
   padding: 16px 18px;
@@ -1172,7 +1175,7 @@ body.cyber-body {
 
 
 /* --------------------------------------------------------------------------
-   PANEL 03: AUTOMATION GARAGE
+   PANEL: AUTOMATION GARAGE
    -------------------------------------------------------------------------- */
 .garage-content-wrap {
   padding: 18px 20px;
@@ -1327,7 +1330,7 @@ body.cyber-body {
 
 
 /* --------------------------------------------------------------------------
-   PANEL 04: LANGUAGE STATION
+   PANEL: LANGUAGE STATION
    -------------------------------------------------------------------------- */
 .languages-five-grid {
   padding: 20px 18px 14px 18px;
@@ -1410,7 +1413,7 @@ body.cyber-body {
 
 
 /* --------------------------------------------------------------------------
-   PANEL 05: EDUCATION ARCHIVE
+   PANEL: EDUCATION ARCHIVE
    -------------------------------------------------------------------------- */
 .edu-two-cards-grid {
   padding: 20px 18px;
@@ -1508,7 +1511,7 @@ body.cyber-body {
 
 
 /* --------------------------------------------------------------------------
-   PANEL 06: CONTACT TERMINAL
+   PANEL: CONTACT TERMINAL
    -------------------------------------------------------------------------- */
 .contact-split-layout {
   padding: 18px 20px;
@@ -1657,7 +1660,7 @@ body.cyber-body {
     display: none;
   }
   
-  /* CRITICAL: PRIORITY 1 FOR 3D CHARACTER ON TOP */
+  /* PRIORITY 1 FOR 3D CHARACTER ON TOP IN MOBILE */
   .hero-center-stage {
     order: 1;
     min-height: 560px;
@@ -1753,7 +1756,7 @@ body.cyber-body {
     font-size: 0.78rem;
   }
   .holo-code {
-    font-size: 0.62rem;
+    font-size: 0.64rem;
   }
   .holo-sub-text {
     font-size: 0.54rem;
