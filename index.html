@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AMDAUL HOQUE // CAREER QUEST & RESUME</title>
-  <meta name="description" content="Official Interactive AAA Game UI Resume of Amdaul Hoque - Restaurant Supervisor & Automation Specialist in Jizan, Saudi Arabia.">
+  <title>AMDAUL HOQUE // 3D GAME UI RESUME & CAREER QUEST</title>
+  <meta name="description" content="Official 3D Interactive Cyberpunk Game UI Resume for Amdaul Hoque - Restaurant Supervisor & Automation Specialist in Jizan, Saudi Arabia.">
   <meta name="keywords" content="Amdaul Hoque, Resume, 3D Game UI, Restaurant Supervisor, Automation Specialist, Jizan Saudi Arabia">
   <meta name="author" content="Amdaul Hoque">
 
   <!-- Open Graph Meta -->
-  <meta property="og:title" content="Amdaul Hoque — Career Quest & Interactive Resume">
-  <meta property="og:description" content="Level up your future: Explore Amdaul Hoque's operations, automation systems, skills, and career missions.">
+  <meta property="og:title" content="Amdaul Hoque — 3D Career Quest & Interactive Resume">
+  <meta property="og:description" content="Explore an interactive 3D career world: Restaurant Operations, Automation Systems, Skills, and Missions.">
   <meta property="og:type" content="website">
 
   <!-- Google Fonts: Orbitron, Rajdhani, Inter, Share Tech Mono -->
@@ -56,7 +56,7 @@
         </div>
       </div>
 
-      <!-- Left Vertical Sidebar Strip (Desktop) -->
+      <!-- Left Vertical Sidebar Strip -->
       <aside class="left-icon-sidebar">
         <a href="#hero-stage" class="sidebar-icon-btn active" title="Hub Home" data-target="hero-stage"><i class="fa-solid fa-house"></i></a>
         <a href="#panel-experience" class="sidebar-icon-btn" title="01 Experience HQ" data-target="panel-experience"><i class="fa-solid fa-user"></i></a>
@@ -82,155 +82,100 @@
         <blockquote class="hero-quote">
           “ Managing Operations. Leading Teams.<br>Building Smart Solutions. ”
         </blockquote>
+
+        <button class="hero-enter-btn" id="enter-btn" onclick="scrollToDashboard()">
+          <span class="play-triangle">▶</span> ENTER MY CAREER
+        </button>
       </div>
 
-      <!-- Center 3D Stage / Character Visual & Spatial Hologram Station Cards -->
+      <!-- Center 3D Stage / Character Visual & 3D Angled Hologram Nodes -->
       <div class="hero-center-stage">
         <!-- 3D Canvas Background -->
         <div id="three-canvas-wrap"></div>
 
-        <!-- Ceiling Hologram Light Ring -->
-        <div class="ceiling-portal-ring">
-          <div class="ceiling-ring-inner"></div>
-          <div class="ceiling-ring-outer"></div>
-          <div class="ceiling-light-beam"></div>
-        </div>
-
-        <!-- Left Side Floating Spatial Station Cards (01, 02, 03) -->
-        <div class="spatial-stations-left">
+        <!-- 3D Spatial Orbit Container for Holograms & Character -->
+        <div class="stage-3d-scene">
           
-          <!-- Station 01: Experience HQ -->
-          <div class="spatial-station-unit unit-01 cyan-theme" onclick="scrollToPanel('panel-experience')">
-            <div class="station-floating-card">
-              <div class="card-left-col">
-                <div class="st-num-badge">01</div>
-                <div class="st-main-icon"><i class="fa-solid fa-user-tie"></i></div>
-              </div>
-              <div class="card-right-col">
-                <strong class="st-line-1">EXPERIENCE</strong>
-                <span class="st-line-2">HQ</span>
-              </div>
+          <!-- Central Character Visual on Holographic Pedestal -->
+          <div class="character-wrapper">
+            <div class="character-pedestal-glow">
+              <div class="pedestal-disc-inner"></div>
+              <div class="pedestal-disc-outer"></div>
+              <div class="pedestal-spotlight"></div>
             </div>
-            <div class="station-pedestal-platform">
-              <div class="ped-disc"></div>
-              <div class="ped-glow-core"></div>
-            </div>
+            
+            <!-- Exact Segmented Character Image from User -->
+            <img src="https://i.postimg.cc/Y9nzFJPT/Segment-20260827-155624995.png" alt="Amdaul Hoque" class="exact-character-img">
           </div>
 
-          <!-- Station 02: Skill Lab -->
-          <div class="spatial-station-unit unit-02 purple-theme" onclick="scrollToPanel('panel-skills')">
-            <div class="station-floating-card">
-              <div class="card-left-col">
-                <div class="st-num-badge">02</div>
-                <div class="st-main-icon"><i class="fa-solid fa-brain"></i></div>
-              </div>
-              <div class="card-right-col">
-                <strong class="st-line-1">SKILL LAB</strong>
-              </div>
-            </div>
-            <div class="station-pedestal-platform">
-              <div class="ped-disc"></div>
-              <div class="ped-glow-core"></div>
-            </div>
-          </div>
-
-          <!-- Station 03: Automation Garage -->
-          <div class="spatial-station-unit unit-03 teal-theme" onclick="scrollToPanel('panel-automation')">
-            <div class="station-floating-card">
-              <div class="card-left-col">
-                <div class="st-num-badge">03</div>
-                <div class="st-main-icon"><i class="fa-solid fa-gear"></i></div>
-              </div>
-              <div class="card-right-col">
-                <strong class="st-line-1">AUTOMATION</strong>
-                <span class="st-line-2">GARAGE</span>
-              </div>
-            </div>
-            <div class="station-pedestal-platform">
-              <div class="ped-disc"></div>
-              <div class="ped-glow-core"></div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Central Character Visual on Holographic Pedestal -->
-        <div class="character-wrapper">
-          <div class="character-pedestal-glow">
-            <div class="pedestal-disc-inner"></div>
-            <div class="pedestal-disc-outer"></div>
-            <div class="pedestal-spotlight"></div>
-          </div>
+          <!-- 6 FLOATING 3D ANGLED HOLOGRAPHIC STATION CARDS AROUND CHARACTER -->
           
-          <!-- Exact Segmented Character Image -->
-          <img src="https://i.postimg.cc/Y9nzFJPT/Segment-20260827-155624995.png" alt="Amdaul Hoque" class="exact-character-img">
-        </div>
-
-        <!-- Right Side Floating Spatial Station Cards (04, 05, 06) -->
-        <div class="spatial-stations-right">
-          
-          <!-- Station 04: Language Station -->
-          <div class="spatial-station-unit unit-04 green-theme" onclick="scrollToPanel('panel-languages')">
-            <div class="station-floating-card">
-              <div class="card-left-col">
-                <div class="st-num-badge">04</div>
-                <div class="st-main-icon"><i class="fa-solid fa-globe"></i></div>
+          <!-- 01 EXPERIENCE HQ (Top Left, Tilted Inward 3D) -->
+          <div class="holo-3d-card card-top-left" onclick="scrollToPanel('panel-experience')">
+            <div class="holo-card-inner cyan-glow">
+              <div class="holo-icon-orb"><i class="fa-solid fa-shield-halved"></i></div>
+              <div class="holo-card-text">
+                <span class="holo-code">01 EXPERIENCE</span>
+                <span class="holo-sub-text">HQ MISSIONS</span>
               </div>
-              <div class="card-right-col">
-                <strong class="st-line-1">LANGUAGE</strong>
-                <span class="st-line-2">STATION</span>
-              </div>
-            </div>
-            <div class="station-pedestal-platform">
-              <div class="ped-disc"></div>
-              <div class="ped-glow-core"></div>
             </div>
           </div>
 
-          <!-- Station 05: Education Archive -->
-          <div class="spatial-station-unit unit-05 gold-theme" onclick="scrollToPanel('panel-education')">
-            <div class="station-floating-card">
-              <div class="card-left-col">
-                <div class="st-num-badge">05</div>
-                <div class="st-main-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <!-- 02 SKILL LAB (Mid Left, Tilted Inward 3D) -->
+          <div class="holo-3d-card card-mid-left" onclick="scrollToPanel('panel-skills')">
+            <div class="holo-card-inner purple-glow">
+              <div class="holo-icon-orb"><i class="fa-solid fa-brain"></i></div>
+              <div class="holo-card-text">
+                <span class="holo-code">02 SKILL LAB</span>
+                <span class="holo-sub-text">ABILITIES</span>
               </div>
-              <div class="card-right-col">
-                <strong class="st-line-1">EDUCATION</strong>
-                <span class="st-line-2">ARCHIVE</span>
-              </div>
-            </div>
-            <div class="station-pedestal-platform">
-              <div class="ped-disc"></div>
-              <div class="ped-glow-core"></div>
             </div>
           </div>
 
-          <!-- Station 06: Contact Terminal -->
-          <div class="spatial-station-unit unit-06 violet-theme" onclick="scrollToPanel('panel-contact')">
-            <div class="station-floating-card">
-              <div class="card-left-col">
-                <div class="st-num-badge">06</div>
-                <div class="st-main-icon"><i class="fa-solid fa-envelope"></i></div>
+          <!-- 05 EDUCATION ARCHIVE (Bottom Left, Tilted Inward 3D) -->
+          <div class="holo-3d-card card-bot-left" onclick="scrollToPanel('panel-education')">
+            <div class="holo-card-inner gold-glow">
+              <div class="holo-icon-orb"><i class="fa-solid fa-graduation-cap"></i></div>
+              <div class="holo-card-text">
+                <span class="holo-code">05 EDUCATION</span>
+                <span class="holo-sub-text">ARCHIVE</span>
               </div>
-              <div class="card-right-col">
-                <strong class="st-line-1">CONTACT</strong>
-                <span class="st-line-2">TERMINAL</span>
-              </div>
-            </div>
-            <div class="station-pedestal-platform">
-              <div class="ped-disc"></div>
-              <div class="ped-glow-core"></div>
             </div>
           </div>
 
-        </div>
+          <!-- 03 AUTOMATION GARAGE (Top Right, Tilted Inward 3D) -->
+          <div class="holo-3d-card card-top-right" onclick="scrollToPanel('panel-automation')">
+            <div class="holo-card-inner teal-glow">
+              <div class="holo-icon-orb"><i class="fa-solid fa-robot"></i></div>
+              <div class="holo-card-text">
+                <span class="holo-code">03 AUTOMATION</span>
+                <span class="holo-sub-text">GARAGE</span>
+              </div>
+            </div>
+          </div>
 
-        <!-- Bottom Centered Enter Career Button (Matches Image 2) -->
-        <div class="stage-bottom-cta">
-          <button class="hero-enter-btn cyber-chamfer-btn" id="enter-btn" onclick="scrollToDashboard()">
-            <span class="enter-btn-title">ENTER MY CAREER</span>
-            <span class="enter-btn-sub">PRESS ANY KEY TO START</span>
-          </button>
+          <!-- 04 LANGUAGE STATION (Mid Right, Tilted Inward 3D) -->
+          <div class="holo-3d-card card-mid-right" onclick="scrollToPanel('panel-languages')">
+            <div class="holo-card-inner green-glow">
+              <div class="holo-icon-orb"><i class="fa-solid fa-globe"></i></div>
+              <div class="holo-card-text">
+                <span class="holo-code">04 LANGUAGE</span>
+                <span class="holo-sub-text">STATION</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 06 CONTACT TERMINAL (Bottom Right, Tilted Inward 3D) -->
+          <div class="holo-3d-card card-bot-right" onclick="scrollToPanel('panel-contact')">
+            <div class="holo-card-inner purple-glow">
+              <div class="holo-icon-orb"><i class="fa-solid fa-envelope"></i></div>
+              <div class="holo-card-text">
+                <span class="holo-code">06 CONTACT</span>
+                <span class="holo-sub-text">TERMINAL</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
