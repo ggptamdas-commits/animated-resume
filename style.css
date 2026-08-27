@@ -711,11 +711,23 @@ body.cyber-body {
   50% { transform: perspective(900px) rotateY(-19deg) rotateX(-2deg) translateY(-7px) translateZ(20px); }
 }
 
-/* Interactive Hover Effect on 3D Floating Cards */
-.holo-3d-card:hover {
-  animation-play-state: paused;
-  transform: perspective(900px) rotateY(0deg) rotateX(0deg) scale(1.14) translateZ(70px) !important;
-  z-index: 60;
+/* Controlled Desktop Hover Effects */
+@media (hover: hover) and (pointer: fine) {
+  .holo-3d-card:hover {
+    animation-play-state: paused;
+    z-index: 60;
+  }
+  .card-top-left:hover, .card-mid-left:hover, .card-bot-left:hover {
+    transform: perspective(900px) rotateY(14deg) scale(1.06) translateZ(20px) !important;
+  }
+  .card-top-right:hover, .card-mid-right:hover, .card-bot-right:hover {
+    transform: perspective(900px) rotateY(-14deg) scale(1.06) translateZ(20px) !important;
+  }
+}
+
+.holo-3d-card:active {
+  transform: scale(0.95) !important;
+  transition: transform 0.12s ease !important;
 }
 
 .holo-3d-card:hover .holo-card-inner {
@@ -1740,7 +1752,7 @@ body.cyber-body {
     margin-bottom: 16px;
   }
   
-  /* Mobile 3D Angled Hologram Cards - Compact & Zero Overflow */
+  /* Mobile 3D Angled Hologram Cards - Safe bounded width */
   .holo-3d-card {
     min-width: 110px;
     max-width: 130px;
@@ -1762,36 +1774,36 @@ body.cyber-body {
     font-size: 0.54rem;
   }
 
-  /* Tightly framed vertical coordinates on Mobile */
+  /* Safe bounded coordinates on Mobile (100% inside screen, no overflow) */
   .card-top-left {
-    top: 18%;
-    left: -6px;
+    top: 20%;
+    left: 8px;
     animation: floatLeftMobile_1 4.2s ease-in-out infinite;
   }
   .card-mid-left {
-    top: 44%;
-    left: -10px;
+    top: 46%;
+    left: 6px;
     animation: floatLeftMobile_2 5.0s ease-in-out infinite 0.6s;
   }
   .card-bot-left {
-    top: 70%;
-    left: -6px;
+    top: 72%;
+    left: 8px;
     animation: floatLeftMobile_3 4.6s ease-in-out infinite 1.2s;
   }
 
   .card-top-right {
-    top: 18%;
-    right: -6px;
+    top: 20%;
+    right: 8px;
     animation: floatRightMobile_1 4.4s ease-in-out infinite 0.3s;
   }
   .card-mid-right {
-    top: 44%;
-    right: -10px;
+    top: 46%;
+    right: 6px;
     animation: floatRightMobile_2 5.2s ease-in-out infinite 0.9s;
   }
   .card-bot-right {
-    top: 70%;
-    right: -6px;
+    top: 72%;
+    right: 8px;
     animation: floatRightMobile_3 4.8s ease-in-out infinite 1.5s;
   }
 
