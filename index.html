@@ -3,880 +3,810 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AMDAUL HOQUE // 3D Interactive Career Quest & Resume</title>
-  <meta name="description" content="Playable 3D Career Quest and AAA Game UI Resume for Amdaul Hoque - Restaurant Supervisor & Automation Specialist in Jizan, Saudi Arabia.">
-  <meta name="keywords" content="Amdaul Hoque, Resume, 3D Portfolio, Restaurant Supervisor, Automation Specialist, Jizan Saudi Arabia, Khamer Restaurant">
+  <title>AMDAUL HOQUE // CAREER QUEST & RESUME</title>
+  <meta name="description" content="Official Interactive AAA Game UI Resume of Amdaul Hoque - Restaurant Supervisor & Automation Specialist in Jizan, Saudi Arabia.">
+  <meta name="keywords" content="Amdaul Hoque, Resume, 3D Game UI, Restaurant Supervisor, Automation Specialist, Jizan Saudi Arabia">
   <meta name="author" content="Amdaul Hoque">
 
-  <!-- Open Graph / Social Meta -->
-  <meta property="og:title" content="Amdaul Hoque — 3D Game UI Resume">
-  <meta property="og:description" content="Explore an interactive 3D career world: Restaurant Operations, Automation, and Web Development.">
+  <!-- Open Graph Meta -->
+  <meta property="og:title" content="Amdaul Hoque — Career Quest & Interactive Resume">
+  <meta property="og:description" content="Level up your future: Explore Amdaul Hoque's operations, automation systems, skills, and career missions.">
   <meta property="og:type" content="website">
 
-  <!-- Google Fonts: Orbitron, Rajdhani, Inter -->
+  <!-- Google Fonts: Orbitron, Rajdhani, Inter, Share Tech Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-  <!-- FontAwesome Icons for High-Tech HUD -->
+  <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- Three.js from CDN -->
+  <!-- Three.js 3D WebGL Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body class="cyber-theme">
+<body class="cyber-body">
 
   <!-- SCANLINE & VIGNETTE OVERLAY -->
-  <div class="crt-overlay"></div>
-  <div class="vignette-overlay"></div>
+  <div class="crt-scanlines"></div>
+  <div class="vignette-layer"></div>
 
-  <!-- INTRO BOOT SCREEN -->
-  <div id="boot-screen" class="boot-screen">
-    <div class="boot-container">
-      <div class="boot-logo">
-        <i class="fa-solid fa-gamepad fa-beat-fade"></i>
-      </div>
-      <div class="boot-title">CAREER QUEST // SYSTEM BOOT</div>
-      <div class="boot-terminal">
-        <div id="boot-log" class="boot-log-text">> INITIALIZING CAREER OS v3.4.0...</div>
-      </div>
-      <div class="boot-progress-wrap">
-        <div id="boot-progress-bar" class="boot-progress-bar"></div>
-      </div>
-      <div class="boot-status" id="boot-status-text">CONNECTING TO BIOMETRIC LINK... [0%]</div>
-      <button id="start-btn" class="start-btn hidden">
-        <span class="btn-glitch"></span>
-        <i class="fa-solid fa-play"></i> PRESS ENTER OR CLICK TO START
-      </button>
-    </div>
-  </div>
+  <!-- MAIN WRAPPER CONTAINER -->
+  <div class="game-dashboard-wrap">
 
-  <!-- MAIN HUD TOP BAR -->
-  <header class="game-top-bar">
-    <div class="brand-badge">
-      <div class="brand-icon"><i class="fa-solid fa-shield-halved"></i></div>
-      <div class="brand-text">
-        <span class="brand-name">CAREER QUEST</span>
-        <span class="brand-sub">LEVEL UP YOUR FUTURE</span>
-      </div>
-    </div>
-
-    <!-- QUICK NAV PILLS -->
-    <nav class="hud-nav-pills">
-      <button class="nav-pill active" data-target="hero-stage"><i class="fa-solid fa-house"></i> <span>HUB</span></button>
-      <button class="nav-pill" data-target="zone-experience"><i class="fa-solid fa-briefcase"></i> <span>01 EXP HQ</span></button>
-      <button class="nav-pill" data-target="zone-skills"><i class="fa-solid fa-microchip"></i> <span>02 SKILLS</span></button>
-      <button class="nav-pill" data-target="zone-automation"><i class="fa-solid fa-robot"></i> <span>03 GARAGE</span></button>
-      <button class="nav-pill" data-target="zone-languages"><i class="fa-solid fa-globe"></i> <span>04 LANG</span></button>
-      <button class="nav-pill" data-target="zone-education"><i class="fa-solid fa-graduation-cap"></i> <span>05 EDU</span></button>
-      <button class="nav-pill" data-target="zone-contact"><i class="fa-solid fa-satellite-dish"></i> <span>06 CONTACT</span></button>
-    </nav>
-
-    <!-- HUD CONTROLS -->
-    <div class="top-controls">
-      <button id="audio-toggle" class="icon-btn" title="Toggle Sci-Fi SFX">
-        <i class="fa-solid fa-volume-high"></i>
-      </button>
-      <button id="stats-toggle" class="icon-btn" title="RPG Stats">
-        <i class="fa-solid fa-chart-pie"></i>
-      </button>
-      <button id="camera-reset" class="icon-btn" title="Reset 3D View">
-        <i class="fa-solid fa-crosshairs"></i>
-      </button>
-    </div>
-  </header>
-
-  <!-- 3D WORLD CANVAS -->
-  <div id="canvas-container"></div>
-
-  <!-- FLOATING HUD OVERLAYS (DESKTOP / LAPTOP) -->
-  <div class="hero-hud-left">
-    <div class="hero-id-panel cyber-card">
-      <div class="card-glow-edge"></div>
-      <div class="hud-chip">SYSTEM ONLINE</div>
-      <div class="welcome-text">WELCOME,</div>
-      <h1 class="player-big-name">AMDAUL<br><span class="name-highlight">HOQUE</span></h1>
+    <!-- ==================================================== -->
+    <!-- TOP SECTION: HERO COCKPIT / 3D CHARACTER STAGE -->
+    <!-- ==================================================== -->
+    <header class="hero-stage-container" id="hero-stage">
       
-      <div class="role-badges">
-        <div class="role-item"><i class="fa-solid fa-utensils"></i> RESTAURANT SUPERVISOR</div>
-        <div class="role-item"><i class="fa-solid fa-gears"></i> AUTOMATION SPECIALIST</div>
+      <!-- Top Left Brand Badge -->
+      <div class="brand-header">
+        <div class="brand-icon-box">
+          <svg class="brand-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+        <div class="brand-titles">
+          <h2 class="brand-main">CAREER QUEST</h2>
+          <span class="brand-sub">LEVEL UP YOUR FUTURE</span>
+        </div>
       </div>
 
-      <div class="location-tag">
-        <i class="fa-solid fa-location-dot"></i> Jizan, Saudi Arabia
-      </div>
+      <!-- Left Vertical Sidebar Strip -->
+      <aside class="left-icon-sidebar">
+        <a href="#hero-stage" class="sidebar-icon-btn active" title="Hub Home" data-target="hero-stage"><i class="fa-solid fa-house"></i></a>
+        <a href="#panel-experience" class="sidebar-icon-btn" title="01 Experience HQ" data-target="panel-experience"><i class="fa-solid fa-user-shield"></i></a>
+        <a href="#panel-skills" class="sidebar-icon-btn" title="02 Skill Lab" data-target="panel-skills"><i class="fa-solid fa-briefcase"></i></a>
+        <a href="#panel-automation" class="sidebar-icon-btn" title="03 Automation Garage" data-target="panel-automation"><i class="fa-solid fa-gauge-high"></i></a>
+        <a href="#panel-contact" class="sidebar-icon-btn" title="06 Contact Terminal" data-target="panel-contact"><i class="fa-solid fa-screwdriver-wrench"></i></a>
+      </aside>
 
-      <blockquote class="motto-quote">
-        “Managing Operations. Leading Teams. Building Smart Solutions.”
-      </blockquote>
+      <!-- Left Profile Intro Text Block -->
+      <div class="hero-left-intro">
+        <span class="welcome-tag">WELCOME,</span>
+        <h1 class="player-hero-name">AMDAUL<br><span class="surname">HOQUE</span></h1>
+        
+        <div class="hero-specialties">
+          <div class="spec-line"><span class="diamond-bullet">◆</span> RESTAURANT SUPERVISOR</div>
+          <div class="spec-line"><span class="diamond-bullet">◆</span> AUTOMATION SPECIALIST</div>
+        </div>
 
-      <div class="hero-actions">
-        <button id="enter-career-btn" class="cyber-btn primary-glow">
-          <i class="fa-solid fa-play"></i> ENTER MY CAREER
+        <div class="hero-location">
+          <i class="fa-solid fa-location-dot"></i> Jizan, Saudi Arabia
+        </div>
+
+        <blockquote class="hero-quote">
+          “ Managing Operations. Leading Teams.<br>Building Smart Solutions. ”
+        </blockquote>
+
+        <button class="hero-enter-btn" id="enter-btn" onclick="scrollToDashboard()">
+          <span class="play-triangle">▶</span> ENTER MY CAREER
         </button>
-        <button id="quick-stats-btn" class="cyber-btn secondary-glass">
-          <i class="fa-solid fa-chart-simple"></i> RPG STATS
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="hero-hud-right">
-    <div class="player-stat-panel cyber-card">
-      <div class="card-glow-edge"></div>
-      <div class="player-header">
-        <div class="avatar-frame">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Amdaul Hoque Avatar" id="avatar-img" class="avatar-photo">
-          <div class="avatar-pulse"></div>
-        </div>
-        <div class="player-meta">
-          <div class="hud-label">PLAYER</div>
-          <div class="player-name">AMDAUL HOQUE</div>
-        </div>
       </div>
 
-      <div class="stat-divider"></div>
+      <!-- Center 3D Stage / Character Visual & Hologram Nodes -->
+      <div class="hero-center-stage">
+        <!-- 3D Canvas Background -->
+        <div id="three-canvas-wrap"></div>
 
-      <div class="level-box">
-        <div class="level-icon"><i class="fa-solid fa-award"></i></div>
-        <div class="level-info">
-          <div class="hud-label">CURRENT RANK</div>
-          <div class="level-title">RESTAURANT SUPERVISOR</div>
-        </div>
-      </div>
+        <!-- 2D High-Fidelity Character Render Overlay -->
+        <div class="character-wrapper">
+          <div class="character-pedestal-glow"></div>
+          <div class="character-figure-art">
+            <svg class="char-svg" viewBox="0 0 400 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="skinGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#e0a370" />
+                  <stop offset="100%" stop-color="#b87b4b" />
+                </linearGradient>
+                <linearGradient id="hairGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#1c1917" />
+                  <stop offset="100%" stop-color="#09090b" />
+                </linearGradient>
+                <linearGradient id="shirtGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#242834" />
+                  <stop offset="60%" stop-color="#12151c" />
+                  <stop offset="100%" stop-color="#090b10" />
+                </linearGradient>
+                <linearGradient id="pantGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#181b22" />
+                  <stop offset="100%" stop-color="#0a0c10" />
+                </linearGradient>
+                <linearGradient id="shoeGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="85%" stop-color="#e2e8f0" />
+                  <stop offset="100%" stop-color="#94a3b8" />
+                </linearGradient>
+                <filter id="neonGlowPedestal" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="8" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
 
-      <div class="xp-section">
-        <div class="xp-header">
-          <span class="hud-label">EXPERIENCE (XP)</span>
-          <span class="xp-numbers"><strong id="xp-val">8750</strong> / 10000 XP</span>
-        </div>
-        <div class="xp-bar-outer">
-          <div class="xp-bar-fill" style="width: 87.5%;"></div>
-          <div class="xp-glow-point"></div>
-        </div>
-      </div>
+              <!-- PEDESTAL BASE RINGS -->
+              <ellipse cx="200" cy="740" rx="170" ry="32" fill="#00f2fe" fill-opacity="0.15" filter="url(#neonGlowPedestal)" />
+              <ellipse cx="200" cy="740" rx="140" ry="24" stroke="#00f2fe" stroke-width="3" fill="none" opacity="0.9" />
+              <ellipse cx="200" cy="740" rx="100" ry="18" stroke="#0088ff" stroke-width="2" stroke-dasharray="8 6" fill="none" opacity="0.8" />
+              <ellipse cx="200" cy="740" rx="60" ry="12" fill="#00f2fe" fill-opacity="0.3" />
 
-      <div class="quick-facts-grid">
-        <div class="fact-item">
-          <i class="fa-solid fa-location-crosshairs"></i>
-          <div>
-            <div class="hud-label">LOCATION</div>
-            <div class="fact-val">Jizan, Saudi Arabia</div>
+              <!-- SHOES (Crisp White Low-Tops with Cyan/Dark Accents) -->
+              <!-- Left Shoe -->
+              <path d="M142 715 C132 715 125 725 125 733 C125 741 142 745 168 745 C180 745 185 738 185 731 C185 723 178 718 168 716 Z" fill="url(#shoeGrad)" />
+              <path d="M130 735 Q150 740 180 735" stroke="#00f2fe" stroke-width="2" fill="none" />
+              <path d="M125 736 C125 742 142 746 168 746 C182 746 185 741 185 736 Z" fill="#0f172a" />
+              <!-- Right Shoe -->
+              <path d="M232 716 C222 718 215 723 215 731 C215 738 220 745 232 745 C258 745 275 741 275 733 C275 725 268 715 258 715 Z" fill="url(#shoeGrad)" />
+              <path d="M220 735 Q250 740 270 735" stroke="#00f2fe" stroke-width="2" fill="none" />
+              <path d="M215 736 C215 741 218 746 232 746 C258 746 275 742 275 736 Z" fill="#0f172a" />
+
+              <!-- TROUSERS / LEGS (Tailored Black Chinos) -->
+              <path d="M152 410 L138 718 L175 718 L194 455 L206 455 L225 718 L262 718 L248 410 Z" fill="url(#pantGrad)" />
+              <line x1="200" y1="440" x2="200" y2="475" stroke="#090b10" stroke-width="2" />
+              <!-- Crease details -->
+              <path d="M154 440 L146 690" stroke="#252a36" stroke-width="1.5" opacity="0.6" />
+              <path d="M246 440 L254 690" stroke="#252a36" stroke-width="1.5" opacity="0.6" />
+
+              <!-- BELT & WAISTBAND -->
+              <rect x="150" y="402" width="100" height="14" rx="2" fill="#0b0e14" />
+              <rect x="190" y="401" width="20" height="16" rx="2" fill="#d4af37" stroke="#453810" stroke-width="1" />
+              <rect x="194" y="405" width="12" height="8" rx="1" fill="#1e2430" />
+
+              <!-- TORSO / BLACK DRESS SHIRT (Long Sleeves Rolled Up to Elbows, Open Top Collar) -->
+              <path d="M142 215 C132 235 125 285 128 355 L148 355 L150 410 L250 410 L252 355 L272 355 C275 285 268 235 258 215 C242 205 220 200 200 200 C180 200 158 205 142 215 Z" fill="url(#shirtGrad)" />
+              
+              <!-- Shirt Placket & Buttons -->
+              <path d="M196 232 L196 410 L204 410 L204 232 Z" fill="#181c26" />
+              <circle cx="200" cy="275" r="2.5" fill="#475569" />
+              <circle cx="200" cy="315" r="2.5" fill="#475569" />
+              <circle cx="200" cy="355" r="2.5" fill="#475569" />
+              <circle cx="200" cy="390" r="2.5" fill="#475569" />
+
+              <!-- V-Neck / Open Collar & Neckline (Skin Reveal) -->
+              <path d="M188 200 L200 242 L212 200 Z" fill="url(#skinGrad)" />
+              <!-- Collar Wings -->
+              <path d="M178 198 L196 235 L190 238 L168 204 Z" fill="#2d3342" stroke="#12151c" stroke-width="1" />
+              <path d="M222 198 L204 235 L210 238 L232 204 Z" fill="#2d3342" stroke="#12151c" stroke-width="1" />
+
+              <!-- ARMS (Upper sleeves in black shirt, Forearms in skin tone, Hands resting naturally) -->
+              <!-- Left Arm -->
+              <path d="M142 215 C130 240 120 280 122 340 L144 342 C146 295 150 255 158 230 Z" fill="url(#shirtGrad)" />
+              <!-- Left Rolled Sleeve Cuff -->
+              <rect x="120" y="338" width="26" height="12" rx="3" fill="#2d3342" stroke="#090b10" stroke-width="1" />
+              <!-- Left Forearm (Skin) -->
+              <path d="M124 350 L118 430 C118 445 125 455 130 455 L140 455 C144 445 142 410 142 350 Z" fill="url(#skinGrad)" />
+              <!-- Left Hand -->
+              <path d="M118 435 C116 450 120 468 126 470 C132 472 136 460 138 445 Z" fill="url(#skinGrad)" />
+
+              <!-- Right Arm -->
+              <path d="M258 215 C270 240 280 280 278 340 L256 342 C254 295 250 255 242 230 Z" fill="url(#shirtGrad)" />
+              <!-- Right Rolled Sleeve Cuff -->
+              <rect x="254" y="338" width="26" height="12" rx="3" fill="#2d3342" stroke="#090b10" stroke-width="1" />
+              <!-- Right Forearm (Skin) -->
+              <path d="M276 350 L282 430 C282 445 275 455 270 455 L260 455 C256 445 258 410 258 350 Z" fill="url(#skinGrad)" />
+              <!-- Right Hand -->
+              <path d="M282 435 C284 450 280 468 274 470 C268 472 264 460 262 445 Z" fill="url(#skinGrad)" />
+
+              <!-- NECK -->
+              <path d="M188 170 L188 205 L212 205 L212 170 Z" fill="url(#skinGrad)" />
+
+              <!-- HEAD & FACE -->
+              <!-- Face Shape -->
+              <path d="M178 125 C178 100 222 100 222 125 C222 155 214 175 200 178 C186 175 178 155 178 125 Z" fill="url(#skinGrad)" />
+
+              <!-- Beard & Mustache (Well-Groomed Trimmed Dark Beard) -->
+              <path d="M180 138 C182 165 190 176 200 177 C210 176 218 165 220 138 C216 150 210 162 200 163 C190 162 184 150 180 138 Z" fill="url(#hairGrad)" />
+              <path d="M190 148 Q200 144 210 148 Q200 152 190 148 Z" fill="url(#hairGrad)" />
+              <path d="M196 154 Q200 152 204 154 Q200 158 196 154 Z" fill="url(#hairGrad)" />
+
+              <!-- Eyes & Eyebrows -->
+              <path d="M184 125 Q190 121 195 124" stroke="#09090b" stroke-width="3" stroke-linecap="round" fill="none" />
+              <path d="M205 124 Q210 121 216 125" stroke="#09090b" stroke-width="3" stroke-linecap="round" fill="none" />
+              <circle cx="190" cy="130" r="2.2" fill="#18181b" />
+              <circle cx="210" cy="130" r="2.2" fill="#18181b" />
+              <!-- Nose -->
+              <path d="M199 128 L197 140 L203 140" stroke="#a16237" stroke-width="1.8" stroke-linecap="round" fill="none" />
+
+              <!-- HAIR (Modern Fade & Pompadour Cut) -->
+              <path d="M174 122 C172 90 188 78 200 78 C212 78 228 90 226 122 C222 110 215 105 200 105 C185 105 178 110 174 122 Z" fill="url(#hairGrad)" />
+              <path d="M180 88 C185 75 210 72 220 84 C210 78 195 80 180 88 Z" fill="#27272a" />
+            </svg>
           </div>
         </div>
-        <div class="fact-item">
-          <i class="fa-solid fa-comments"></i>
-          <div>
-            <div class="hud-label">LANGUAGES</div>
-            <div class="fact-val">5 Multilingual</div>
+
+        <!-- 6 FLOATING HOLOGRAPHIC STATION NODES AROUND CHARACTER -->
+        <!-- Node 01: Experience HQ -->
+        <div class="hologram-node node-01" onclick="scrollToPanel('panel-experience')">
+          <div class="holo-icon-ring">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div class="holo-text">
+            <span class="holo-num">01</span>
+            <span class="holo-title">EXPERIENCE</span>
+            <span class="holo-sub">HQ MISSIONS</span>
+          </div>
+        </div>
+
+        <!-- Node 02: Skill Lab -->
+        <div class="hologram-node node-02" onclick="scrollToPanel('panel-skills')">
+          <div class="holo-icon-ring">
+            <i class="fa-solid fa-brain"></i>
+          </div>
+          <div class="holo-text">
+            <span class="holo-num">02</span>
+            <span class="holo-title">SKILL LAB</span>
+          </div>
+        </div>
+
+        <!-- Node 03: Automation Garage -->
+        <div class="hologram-node node-03" onclick="scrollToPanel('panel-automation')">
+          <div class="holo-icon-ring">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="holo-text">
+            <span class="holo-num">03</span>
+            <span class="holo-title">AUTOMATION</span>
+            <span class="holo-sub">GARAGE</span>
+          </div>
+        </div>
+
+        <!-- Node 04: Language Station -->
+        <div class="hologram-node node-04" onclick="scrollToPanel('panel-languages')">
+          <div class="holo-icon-ring">
+            <i class="fa-solid fa-globe"></i>
+          </div>
+          <div class="holo-text">
+            <span class="holo-num">04</span>
+            <span class="holo-title">LANGUAGE</span>
+            <span class="holo-sub">STATION</span>
+          </div>
+        </div>
+
+        <!-- Node 05: Education Archive -->
+        <div class="hologram-node node-05" onclick="scrollToPanel('panel-education')">
+          <div class="holo-icon-ring">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <div class="holo-text">
+            <span class="holo-num">05</span>
+            <span class="holo-title">EDUCATION</span>
+            <span class="holo-sub">ARCHIVE</span>
+          </div>
+        </div>
+
+        <!-- Node 06: Contact Terminal -->
+        <div class="hologram-node node-06" onclick="scrollToPanel('panel-contact')">
+          <div class="holo-icon-ring">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <div class="holo-text">
+            <span class="holo-num">06</span>
+            <span class="holo-title">CONTACT</span>
+            <span class="holo-sub">TERMINAL</span>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- FLOATING 3D PORTAL LABELS OVER CANVAS -->
-  <div id="portal-markers" class="portal-markers-layer">
-    <div class="portal-badge" style="top: 22%; left: 38%;" data-zone="zone-experience">
-      <span class="p-num">01</span>
-      <span class="p-title">EXPERIENCE HQ</span>
-      <span class="p-hint">MISSIONS</span>
-    </div>
-    <div class="portal-badge" style="top: 36%; left: 24%;" data-zone="zone-skills">
-      <span class="p-num">02</span>
-      <span class="p-title">SKILL LAB</span>
-      <span class="p-hint">ABILITIES</span>
-    </div>
-    <div class="portal-badge" style="top: 24%; left: 63%;" data-zone="zone-automation">
-      <span class="p-num">03</span>
-      <span class="p-title">AUTOMATION GARAGE</span>
-      <span class="p-hint">PROJECTS</span>
-    </div>
-    <div class="portal-badge" style="top: 37%; left: 74%;" data-zone="zone-languages">
-      <span class="p-num">04</span>
-      <span class="p-title">LANGUAGE STATION</span>
-      <span class="p-hint">5 TONGUES</span>
-    </div>
-    <div class="portal-badge" style="top: 60%; left: 34%;" data-zone="zone-education">
-      <span class="p-num">05</span>
-      <span class="p-title">EDUCATION ARCHIVE</span>
-      <span class="p-hint">CREDENTIALS</span>
-    </div>
-    <div class="portal-badge" style="top: 60%; left: 64%;" data-zone="zone-contact">
-      <span class="p-num">06</span>
-      <span class="p-title">CONTACT TERMINAL</span>
-      <span class="p-hint">COMMS</span>
-    </div>
-  </div>
-
-  <!-- MAIN SCROLLABLE / TABBED CAREER SECTIONS CONTAINER -->
-  <main id="career-content" class="career-zones-container">
-
-    <!-- 01 EXPERIENCE HQ -->
-    <section id="zone-experience" class="zone-section cyber-card" data-zone-id="1">
-      <div class="zone-header">
-        <div class="zone-badge">01</div>
-        <div class="zone-title-group">
-          <h2>EXPERIENCE HQ</h2>
-          <span class="zone-sub">CAREER MISSIONS & OPERATIONS</span>
+      <!-- Right Top Player Card HUD -->
+      <aside class="hero-right-card cyber-hud-card">
+        <div class="hud-top-player">
+          <div class="player-avatar-circle">
+            <div class="avatar-inner-art">
+              <svg viewBox="0 0 100 100" class="avatar-svg">
+                <circle cx="50" cy="50" r="48" fill="#111827" stroke="#00f2fe" stroke-width="2.5" />
+                <!-- Avatar Face -->
+                <ellipse cx="50" cy="46" rx="20" ry="24" fill="#d99b6c" />
+                <!-- Hair -->
+                <path d="M28 40 C28 20 40 14 50 14 C60 14 72 20 72 40 C68 28 60 25 50 25 C40 25 32 28 28 40 Z" fill="#18181b" />
+                <!-- Beard -->
+                <path d="M34 46 C36 64 42 70 50 70 C58 70 64 64 66 46 C62 56 56 62 50 62 C44 62 38 56 34 46 Z" fill="#18181b" />
+                <path d="M42 54 Q50 50 58 54" stroke="#18181b" stroke-width="2" fill="none" />
+                <!-- Eyes -->
+                <circle cx="42" cy="42" r="2" fill="#18181b" />
+                <circle cx="58" cy="42" r="2" fill="#18181b" />
+                <!-- Black Collar -->
+                <path d="M26 84 L38 68 L50 76 L62 68 L74 84 Z" fill="#090b10" stroke="#00f2fe" stroke-width="1" />
+              </svg>
+            </div>
+            <div class="avatar-status-dot"></div>
+          </div>
+          <div class="player-name-col">
+            <span class="hud-micro-label">PLAYER</span>
+            <strong class="player-full-title">AMDAUL HOQUE</strong>
+          </div>
         </div>
-        <div class="zone-status-tag"><i class="fa-solid fa-circle-dot"></i> ACTIVE MISSION</div>
-      </div>
 
-      <div class="experience-layout">
-        <!-- COMPANY CARD -->
-        <div class="company-overview-box">
-          <div class="company-visual">
-            <div class="restaurant-hologram">
-              <i class="fa-solid fa-utensils"></i>
+        <!-- Level Rank -->
+        <div class="hud-level-row">
+          <div class="rank-shield-icon"><i class="fa-solid fa-shield-cat"></i></div>
+          <div class="rank-info-col">
+            <span class="hud-micro-label">LEVEL</span>
+            <strong class="rank-title">RESTAURANT SUPERVISOR</strong>
+          </div>
+        </div>
+
+        <!-- Experience Bar -->
+        <div class="hud-xp-section">
+          <div class="xp-labels">
+            <span class="hud-micro-label">EXPERIENCE (XP)</span>
+            <span class="xp-ratio">8750 / 10000 XP</span>
+          </div>
+          <div class="xp-progress-track">
+            <div class="xp-progress-bar" style="width: 87.5%;"></div>
+          </div>
+        </div>
+
+        <!-- Key Stats -->
+        <div class="hud-stats-list">
+          <div class="hud-stat-item">
+            <i class="fa-solid fa-location-dot stat-ic"></i>
+            <div>
+              <span class="hud-micro-label">LOCATION</span>
+              <strong class="stat-main">Jizan, Saudi Arabia</strong>
             </div>
           </div>
-          <div class="company-details">
-            <h3 class="role-title">Restaurant Supervisor & Automation Specialist</h3>
-            <div class="company-name"><i class="fa-solid fa-store"></i> Khamer Restaurant, Saudi Arabia</div>
-            <div class="timeline-badge"><i class="fa-regular fa-calendar-check"></i> Dec 2023 – Present</div>
-            <p class="company-summary">
-              Directing front-of-house & back-of-house operations, orchestrating multidisciplinary staff, and engineering custom AI automation systems to elevate service throughput and inventory accuracy.
+          <div class="hud-stat-item">
+            <i class="fa-solid fa-comment-dots stat-ic"></i>
+            <div>
+              <span class="hud-micro-label">LANGUAGES</span>
+              <strong class="stat-main">5</strong>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </header>
+
+
+    <!-- ==================================================== -->
+    <!-- BOTTOM SECTION: 6-PANEL DASHBOARD GRID (3x2) -->
+    <!-- ==================================================== -->
+    <main class="dashboard-grid-container" id="dashboard-grid">
+
+      <!-- ========================================== -->
+      <!-- PANEL 01: EXPERIENCE HQ -->
+      <!-- ========================================== -->
+      <section class="dash-panel panel-01 cyber-hud-card" id="panel-experience">
+        <div class="panel-header">
+          <div class="panel-badge-num">01</div>
+          <div class="panel-titles">
+            <h3 class="panel-main-title">EXPERIENCE HQ</h3>
+            <span class="panel-sub-title">CAREER MISSIONS</span>
+          </div>
+        </div>
+
+        <div class="experience-content-split">
+          <!-- Company & Role Sub-Card -->
+          <div class="exp-company-card">
+            <div class="exp-company-header">
+              <h4 class="exp-role">Restaurant Supervisor &<br>Automation Specialist</h4>
+              <div class="exp-restaurant"><i class="fa-solid fa-store"></i> Khamer Restaurant, Saudi Arabia</div>
+              <div class="exp-dates"><i class="fa-regular fa-calendar"></i> Dec 2023 – Present</div>
+            </div>
+            
+            <!-- Restaurant Background Ambience Visual -->
+            <div class="restaurant-visual-box">
+              <div class="restaurant-photo-overlay"></div>
+              <div class="xp-trophy-banner">
+                <div class="trophy-gold-icon"><i class="fa-solid fa-trophy"></i></div>
+                <div class="trophy-xp-data">
+                  <span class="trophy-tag">TOTAL XP EARNED</span>
+                  <strong class="trophy-num">2450 XP</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Missions List -->
+          <div class="exp-missions-list">
+            
+            <!-- Mission 1 -->
+            <div class="mission-item">
+              <div class="m-icon-box cyan"><i class="fa-solid fa-utensils"></i></div>
+              <div class="m-details">
+                <div class="m-heading">
+                  <span class="m-num-tag">MISSION 01</span>
+                  <h5>Restaurant Operations</h5>
+                </div>
+                <p>Manage daily restaurant operations and lead the service team.</p>
+              </div>
+              <div class="m-xp-badge">+250 XP</div>
+            </div>
+
+            <!-- Mission 2 -->
+            <div class="mission-item">
+              <div class="m-icon-box green"><i class="fa-solid fa-users-gear"></i></div>
+              <div class="m-details">
+                <div class="m-heading">
+                  <span class="m-num-tag">MISSION 02</span>
+                  <h5>Team Leadership</h5>
+                </div>
+                <p>Lead the service team and step into Cashier, Warehouse Manager or Server responsibilities.</p>
+              </div>
+              <div class="m-xp-badge">+400 XP</div>
+            </div>
+
+            <!-- Mission 3 -->
+            <div class="mission-item highlight">
+              <div class="m-icon-box gold"><i class="fa-solid fa-boxes-stacked"></i></div>
+              <div class="m-details">
+                <div class="m-heading">
+                  <span class="m-num-tag">MISSION 03</span>
+                  <h5>Warehouse System</h5>
+                </div>
+                <p>Developed and deployed a specialized warehouse management application.</p>
+              </div>
+              <div class="m-xp-badge">+500 XP</div>
+            </div>
+
+            <!-- Mission 4 -->
+            <div class="mission-item">
+              <div class="m-icon-box purple"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+              <div class="m-details">
+                <div class="m-heading">
+                  <span class="m-num-tag">MISSION 04</span>
+                  <h5>Operational Automation</h5>
+                </div>
+                <p>Designed AI-assisted tools for kitchen stock tracking and digital menus.</p>
+              </div>
+              <div class="m-xp-badge">+450 XP</div>
+            </div>
+
+            <!-- Mission 5 -->
+            <div class="mission-item">
+              <div class="m-icon-box blue"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+              <div class="m-details">
+                <div class="m-heading">
+                  <span class="m-num-tag">MISSION 05</span>
+                  <h5>Technical Support</h5>
+                </div>
+                <p>Handle on-site electrical maintenance and basic technical troubleshooting.</p>
+              </div>
+              <div class="m-xp-badge">+350 XP</div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ========================================== -->
+      <!-- PANEL 02: SKILL LAB -->
+      <!-- ========================================== -->
+      <section class="dash-panel panel-02 cyber-hud-card" id="panel-skills">
+        <div class="panel-header">
+          <div class="panel-badge-num">02</div>
+          <div class="panel-titles">
+            <h3 class="panel-main-title">SKILL LAB</h3>
+            <span class="panel-sub-title">UNLOCK YOUR ABILITIES</span>
+          </div>
+        </div>
+
+        <div class="skills-2x3-grid">
+          
+          <!-- Skill 1: Inventory Management -->
+          <div class="skill-tile">
+            <div class="skill-tile-icon cyan"><i class="fa-solid fa-box"></i></div>
+            <div class="skill-tile-info">
+              <h4>Inventory Management</h4>
+              <div class="star-rating">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill 2: Team Leadership -->
+          <div class="skill-tile">
+            <div class="skill-tile-icon blue"><i class="fa-solid fa-users"></i></div>
+            <div class="skill-tile-info">
+              <h4>Team Leadership</h4>
+              <div class="star-rating">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill 3: Multilingual Communication -->
+          <div class="skill-tile">
+            <div class="skill-tile-icon purple"><i class="fa-solid fa-globe"></i></div>
+            <div class="skill-tile-info">
+              <h4>Multilingual Communication</h4>
+              <div class="star-rating">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill 4: Web App Development -->
+          <div class="skill-tile">
+            <div class="skill-tile-icon magenta"><i class="fa-solid fa-code"></i></div>
+            <div class="skill-tile-info">
+              <h4>Web App Development</h4>
+              <div class="star-rating">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill 5: AI Tool Specialist -->
+          <div class="skill-tile">
+            <div class="skill-tile-icon cyan"><i class="fa-solid fa-microchip"></i></div>
+            <div class="skill-tile-info">
+              <h4>AI Tool Specialist</h4>
+              <div class="star-rating">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill 6: Electrical Troubleshooting -->
+          <div class="skill-tile">
+            <div class="skill-tile-icon amber"><i class="fa-solid fa-bolt"></i></div>
+            <div class="skill-tile-info">
+              <h4>Electrical Troubleshooting</h4>
+              <div class="star-rating">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="skills-footer-pill">
+          <span>SKILLS UNLOCKED</span> <strong>6 / 6</strong>
+        </div>
+      </section>
+
+
+      <!-- ========================================== -->
+      <!-- PANEL 03: AUTOMATION GARAGE -->
+      <!-- ========================================== -->
+      <section class="dash-panel panel-03 cyber-hud-card" id="panel-automation">
+        <div class="panel-header">
+          <div class="panel-badge-num">03</div>
+          <div class="panel-titles">
+            <h3 class="panel-main-title">AUTOMATION GARAGE</h3>
+            <span class="panel-sub-title">BUILDING SMART SOLUTIONS</span>
+          </div>
+        </div>
+
+        <div class="garage-content-wrap">
+          <div class="garage-text-side">
+            <h4 class="garage-proj-title">KHAMER WAREHOUSE<br>MANAGEMENT SYSTEM</h4>
+            <p class="garage-proj-desc">
+              Custom Warehouse Management System Built for Khamer Restaurant to manage inventory, orders and stock efficiently.
             </p>
-            <div class="xp-trophy-badge">
-              <div class="trophy-icon"><i class="fa-solid fa-trophy"></i></div>
-              <div class="trophy-text">
-                <span class="t-sub">TOTAL XP EARNED</span>
-                <span class="t-xp">2,450 XP</span>
+
+            <a href="https://khamer.vercel.app" target="_blank" rel="noopener noreferrer" class="view-proj-btn">
+              <span>▶</span> VIEW PROJECT
+            </a>
+            
+            <a href="https://khamer.vercel.app" target="_blank" rel="noopener noreferrer" class="garage-link-url">
+              <i class="fa-solid fa-link"></i> khamer.vercel.app
+            </a>
+          </div>
+
+          <!-- Cyberpunk Rugged Tactical Laptop Graphic -->
+          <div class="garage-laptop-visual">
+            <div class="cyber-laptop-mockup">
+              <div class="laptop-screen-bezel">
+                <div class="laptop-screen-glass">
+                  <div class="screen-header-bar">
+                    <span class="screen-dot r"></span>
+                    <span class="screen-dot y"></span>
+                    <span class="screen-dot g"></span>
+                    <span class="screen-title">KHAMER WMS // TERMINAL</span>
+                  </div>
+                  <div class="screen-code-body">
+                    <div class="code-line">> INVENTORY TRACKER: ACTIVE</div>
+                    <div class="code-line">> ORDERS PROCESSED: 1420+</div>
+                    <div class="code-line">> WASTE REDUCTION: -28%</div>
+                    <div class="code-line">> STATUS: NORMAL</div>
+                  </div>
+                </div>
+              </div>
+              <div class="laptop-base-chassis">
+                <div class="laptop-keyboard-glow"></div>
+                <div class="laptop-trackpad"></div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- MISSION CARDS GRID -->
-        <div class="missions-grid">
+        <!-- 3 Feature Tags along bottom -->
+        <div class="garage-bottom-tags">
+          <div class="g-tag"><i class="fa-solid fa-brain"></i> AI TOOLS SPECIALIST</div>
+          <div class="g-tag"><i class="fa-solid fa-laptop-code"></i> WEB APP DEVELOPMENT</div>
+          <div class="g-tag"><i class="fa-solid fa-utensils"></i> RESTAURANT AUTOMATION</div>
+        </div>
+      </section>
+
+
+      <!-- ========================================== -->
+      <!-- PANEL 04: LANGUAGE STATION -->
+      <!-- ========================================== -->
+      <section class="dash-panel panel-04 cyber-hud-card" id="panel-languages">
+        <div class="panel-header">
+          <div class="panel-badge-num">04</div>
+          <div class="panel-titles">
+            <h3 class="panel-main-title">LANGUAGE STATION</h3>
+            <span class="panel-sub-title">COMMUNICATION MASTER</span>
+          </div>
+        </div>
+
+        <div class="languages-five-grid">
           
-          <div class="mission-card" onclick="triggerMissionModal(1)">
-            <div class="mission-top">
-              <span class="m-code">MISSION 01</span>
-              <span class="m-xp">+250 XP</span>
+          <!-- Arabic -->
+          <div class="lang-box">
+            <div class="lang-flag-graphic saudi-flag">
+              <span class="flag-symbol">🇸🇦</span>
             </div>
-            <div class="mission-body">
-              <div class="m-icon"><i class="fa-solid fa-clipboard-check"></i></div>
-              <div class="m-info">
-                <h4>Restaurant Operations</h4>
-                <p>Manage daily high-volume restaurant operations, enforce hygiene & quality standards, and optimize dining workflows.</p>
-              </div>
-            </div>
-            <div class="mission-footer">
-              <span class="status-cleared"><i class="fa-solid fa-circle-check"></i> MISSION COMPLETED</span>
-            </div>
+            <h4 class="lang-title">Arabic</h4>
+            <span class="lang-fluency-pill native">NATIVE</span>
           </div>
 
-          <div class="mission-card" onclick="triggerMissionModal(2)">
-            <div class="mission-top">
-              <span class="m-code">MISSION 02</span>
-              <span class="m-xp">+400 XP</span>
+          <!-- English -->
+          <div class="lang-box">
+            <div class="lang-flag-graphic uk-flag">
+              <span class="flag-symbol">🇬🇧</span>
             </div>
-            <div class="mission-body">
-              <div class="m-icon"><i class="fa-solid fa-users-gear"></i></div>
-              <div class="m-info">
-                <h4>Team Leadership & Versatility</h4>
-                <p>Lead the entire service team and step into Cashier, Warehouse Manager, or Head Server responsibilities seamlessly.</p>
-              </div>
-            </div>
-            <div class="mission-footer">
-              <span class="status-cleared"><i class="fa-solid fa-circle-check"></i> MISSION COMPLETED</span>
-            </div>
+            <h4 class="lang-title">English</h4>
+            <span class="lang-fluency-pill fluent">FLUENT</span>
           </div>
 
-          <div class="mission-card highlighted-mission" onclick="triggerMissionModal(3)">
-            <div class="mission-top">
-              <span class="m-code">MISSION 03</span>
-              <span class="m-xp">+500 XP</span>
+          <!-- Hindi -->
+          <div class="lang-box">
+            <div class="lang-flag-graphic india-flag">
+              <span class="flag-symbol">🇮🇳</span>
             </div>
-            <div class="mission-body">
-              <div class="m-icon"><i class="fa-solid fa-boxes-packing"></i></div>
-              <div class="m-info">
-                <h4>Warehouse System Deployment</h4>
-                <p>Architected and launched a custom digital warehouse & stock control system to prevent waste and track supply chain in real time.</p>
-              </div>
-            </div>
-            <div class="mission-footer">
-              <span class="status-cleared"><i class="fa-solid fa-circle-check"></i> SPECIAL OBJECTIVE CLEARED</span>
-            </div>
+            <h4 class="lang-title">Hindi</h4>
+            <span class="lang-fluency-pill fluent">FLUENT</span>
           </div>
 
-          <div class="mission-card" onclick="triggerMissionModal(4)">
-            <div class="mission-top">
-              <span class="m-code">MISSION 04</span>
-              <span class="m-xp">+450 XP</span>
+          <!-- Urdu -->
+          <div class="lang-box">
+            <div class="lang-flag-graphic pak-flag">
+              <span class="flag-symbol">🇵🇰</span>
             </div>
-            <div class="mission-body">
-              <div class="m-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-              <div class="m-info">
-                <h4>Operational Automation</h4>
-                <p>Designed AI-assisted kitchen stock alerts, automated WhatsApp order flows, and dynamic electronic menus.</p>
-              </div>
-            </div>
-            <div class="mission-footer">
-              <span class="status-cleared"><i class="fa-solid fa-circle-check"></i> MISSION COMPLETED</span>
-            </div>
+            <h4 class="lang-title">Urdu</h4>
+            <span class="lang-fluency-pill fluent">FLUENT</span>
           </div>
 
-          <div class="mission-card" onclick="triggerMissionModal(5)">
-            <div class="mission-top">
-              <span class="m-code">MISSION 05</span>
-              <span class="m-xp">+350 XP</span>
+          <!-- Bengali -->
+          <div class="lang-box">
+            <div class="lang-flag-graphic bd-flag">
+              <span class="flag-symbol">🇧🇩</span>
             </div>
-            <div class="mission-body">
-              <div class="m-icon"><i class="fa-solid fa-bolt"></i></div>
-              <div class="m-info">
-                <h4>Technical & Hardware Support</h4>
-                <p>Oversee on-site electrical troubleshooting, equipment preventative maintenance, POS network setups, and smart kitchen sensors.</p>
-              </div>
-            </div>
-            <div class="mission-footer">
-              <span class="status-cleared"><i class="fa-solid fa-circle-check"></i> MISSION COMPLETED</span>
-            </div>
+            <h4 class="lang-title">Bengali</h4>
+            <span class="lang-fluency-pill native">NATIVE</span>
           </div>
 
         </div>
-      </div>
-    </section>
 
-    <!-- 02 SKILL LAB -->
-    <section id="zone-skills" class="zone-section cyber-card" data-zone-id="2">
-      <div class="zone-header">
-        <div class="zone-badge">02</div>
-        <div class="zone-title-group">
-          <h2>SKILL LAB</h2>
-          <span class="zone-sub">UNLOCKABLE ABILITIES & TALENTS</span>
+        <div class="lang-bottom-motto">
+          <span>5 LANGUAGES. ENDLESS POSSIBILITIES.</span>
+          <i class="fa-solid fa-globe"></i>
         </div>
-        <div class="skills-unlocked-pill"><i class="fa-solid fa-lock-open"></i> SKILLS UNLOCKED: 6 / 6</div>
-      </div>
+      </section>
 
-      <div class="skills-grid">
-        
-        <!-- Skill 1 -->
-        <div class="skill-card cyber-glass" onclick="openSkillModal('Inventory Management', '5/5 Stars (98% Proficiency)', 'Deep expertise in FIFO/LIFO tracking, food waste reduction, automated threshold reordering, and supplier logistics coordination.')">
-          <div class="skill-card-top">
-            <div class="skill-icon"><i class="fa-solid fa-box-open"></i></div>
-            <div class="skill-stars">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            </div>
-          </div>
-          <h3 class="skill-name">Inventory Management</h3>
-          <p class="skill-desc">Stock audits, food costing, automated supplier procurement, and zero-waste storage control.</p>
-          <div class="skill-bar-outer">
-            <div class="skill-bar-inner" style="width: 95%;"></div>
+
+      <!-- ========================================== -->
+      <!-- PANEL 05: EDUCATION ARCHIVE -->
+      <!-- ========================================== -->
+      <section class="dash-panel panel-05 cyber-hud-card" id="panel-education">
+        <div class="panel-header">
+          <div class="panel-badge-num">05</div>
+          <div class="panel-titles">
+            <h3 class="panel-main-title">EDUCATION ARCHIVE</h3>
+            <span class="panel-sub-title">YOUR ACADEMIC ACHIEVEMENTS</span>
           </div>
         </div>
 
-        <!-- Skill 2 -->
-        <div class="skill-card cyber-glass" onclick="openSkillModal('Team Leadership', '5/5 Stars (95% Proficiency)', 'Experienced in shift planning, staff cross-training, multilingual conflict resolution, and motivational team guidance under peak rushes.')">
-          <div class="skill-card-top">
-            <div class="skill-icon"><i class="fa-solid fa-users"></i></div>
-            <div class="skill-stars">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            </div>
-          </div>
-          <h3 class="skill-name">Team Leadership</h3>
-          <p class="skill-desc">Shift orchestration, performance coaching, cross-functional role flexibility, and guest satisfaction.</p>
-          <div class="skill-bar-outer">
-            <div class="skill-bar-inner" style="width: 95%;"></div>
-          </div>
-        </div>
-
-        <!-- Skill 3 -->
-        <div class="skill-card cyber-glass" onclick="openSkillModal('Multilingual Communication', '5/5 Stars (100% Mastery)', 'Flawlessly communicating across 5 diverse languages to bridge staff, management, international suppliers, and guests seamlessly.')">
-          <div class="skill-card-top">
-            <div class="skill-icon"><i class="fa-solid fa-globe"></i></div>
-            <div class="skill-stars">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            </div>
-          </div>
-          <h3 class="skill-name">Multilingual Communication</h3>
-          <p class="skill-desc">Arabic, English, Hindi, Urdu, Bengali fluency for global operations and guest relations.</p>
-          <div class="skill-bar-outer">
-            <div class="skill-bar-inner" style="width: 100%;"></div>
-          </div>
-        </div>
-
-        <!-- Skill 4 -->
-        <div class="skill-card cyber-glass" onclick="openSkillModal('Web App Development', '4/5 Stars (85% Proficiency)', 'Developing responsive web interfaces, full-stack management dashboards, APIs, cloud deployments (Vercel, Cloudflare), and database connections.')">
-          <div class="skill-card-top">
-            <div class="skill-icon"><i class="fa-solid fa-code"></i></div>
-            <div class="skill-stars">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
-            </div>
-          </div>
-          <h3 class="skill-name">Web App Development</h3>
-          <p class="skill-desc">HTML5, CSS3/Tailwind, JavaScript, Full-stack web tools, Vercel deployments, and REST integrations.</p>
-          <div class="skill-bar-outer">
-            <div class="skill-bar-inner" style="width: 85%;"></div>
-          </div>
-        </div>
-
-        <!-- Skill 5 -->
-        <div class="skill-card cyber-glass" onclick="openSkillModal('AI Tool Specialist', '5/5 Stars (96% Proficiency)', 'Mastering prompt engineering, workflow automation (n8n, Groq API, Evolution API), and custom AI agents for automated operations.')">
-          <div class="skill-card-top">
-            <div class="skill-icon"><i class="fa-solid fa-microchip"></i></div>
-            <div class="skill-stars">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            </div>
-          </div>
-          <h3 class="skill-name">AI Tool Specialist</h3>
-          <p class="skill-desc">n8n workflows, LLM agents, Groq API, WhatsApp Bots, automated data parsers, and smart business logic.</p>
-          <div class="skill-bar-outer">
-            <div class="skill-bar-inner" style="width: 95%;"></div>
-          </div>
-        </div>
-
-        <!-- Skill 6 -->
-        <div class="skill-card cyber-glass" onclick="openSkillModal('Electrical Troubleshooting', '4/5 Stars (80% Proficiency)', 'Practical knowledge of circuit safety, digital thermostats, induction cookers, pump pressure switches, and hardware diagnostics.')">
-          <div class="skill-card-top">
-            <div class="skill-icon"><i class="fa-solid fa-bolt-lightning"></i></div>
-            <div class="skill-stars">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
-            </div>
-          </div>
-          <h3 class="skill-name">Electrical Troubleshooting</h3>
-          <p class="skill-desc">Commercial kitchen appliance diagnostics, thermostat calibration, wiring safety, and hardware repair.</p>
-          <div class="skill-bar-outer">
-            <div class="skill-bar-inner" style="width: 80%;"></div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 03 AUTOMATION GARAGE -->
-    <section id="zone-automation" class="zone-section cyber-card" data-zone-id="3">
-      <div class="zone-header">
-        <div class="zone-badge">03</div>
-        <div class="zone-title-group">
-          <h2>AUTOMATION GARAGE</h2>
-          <span class="zone-sub">BUILDING SMART DIGITAL SOLUTIONS</span>
-        </div>
-        <div class="garage-tag"><i class="fa-solid fa-server"></i> LIVE CLOUD DEPLOYMENT</div>
-      </div>
-
-      <div class="garage-showcase">
-        <div class="garage-info-col">
-          <div class="hud-chip cyan">FEATURED ARTIFACT</div>
-          <h3 class="project-headline">KHAMER WAREHOUSE MANAGEMENT SYSTEM</h3>
-          <p class="project-summary">
-            A bespoke, high-efficiency warehouse & inventory application custom-built for Khamer Restaurant. Designed to streamline purchase orders, track real-time stock levels, prevent waste, and automate kitchen stock alerts seamlessly.
-          </p>
-
-          <div class="tech-stack-badges">
-            <span class="t-badge"><i class="fa-solid fa-brain"></i> AI TOOLS SPECIALIST</span>
-            <span class="t-badge"><i class="fa-solid fa-laptop-code"></i> WEB APP DEVELOPMENT</span>
-            <span class="t-badge"><i class="fa-solid fa-utensils"></i> RESTAURANT AUTOMATION</span>
-          </div>
-
-          <div class="project-actions">
-            <a href="https://khamer.vercel.app" target="_blank" rel="noopener noreferrer" class="cyber-btn primary-glow">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> VIEW LIVE PROJECT
-            </a>
-            <div class="url-subtext"><i class="fa-solid fa-link"></i> khamer.vercel.app</div>
-          </div>
-        </div>
-
-        <div class="garage-terminal-visual">
-          <div class="terminal-mockup">
-            <div class="terminal-bar">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-url">khamer.vercel.app [PORT 443]</span>
-            </div>
-            <div class="terminal-screen">
-              <div class="code-stream">
-                <span class="c-blue">> INITIALIZE WMS_KERNEL v2.1</span><br>
-                <span class="c-cyan">> AUTH_USER: AMDAUL HOQUE (SUPERVISOR)</span><br>
-                <span class="c-green">> DB_CONNECT: KHAMER_STOCK_POSTGRES [SUCCESS]</span><br>
-                <span class="c-yellow">> SYNCING 142 INVENTORY ITEMS... 100%</span><br>
-                <span class="c-white">> AI PREDICTIVE ORDERING: ENABLED</span><br>
-                <span class="c-green">> SYSTEM STATUS: OPERATIONAL & SECURE</span>
-              </div>
-              <div class="terminal-stats-row">
-                <div class="t-stat"><span>ORDERS</span><strong>1,240+</strong></div>
-                <div class="t-stat"><span>UPTIME</span><strong>99.9%</strong></div>
-                <div class="t-stat"><span>WASTE REDUCTION</span><strong>-28%</strong></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 04 LANGUAGE STATION -->
-    <section id="zone-languages" class="zone-section cyber-card" data-zone-id="4">
-      <div class="zone-header">
-        <div class="zone-badge">04</div>
-        <div class="zone-title-group">
-          <h2>LANGUAGE STATION</h2>
-          <span class="zone-sub">COMMUNICATION MASTER • 5 GLOBAL LANGUAGES</span>
-        </div>
-        <div class="polyglot-tag"><i class="fa-solid fa-earth-asia"></i> INTERNATIONAL MASTERY</div>
-      </div>
-
-      <div class="languages-grid">
-        
-        <!-- Arabic -->
-        <div class="lang-crystal-card" data-lang="Arabic">
-          <div class="lang-flag-glow">
-            <span class="lang-code-tag">SA</span>
-            <div class="flag-icon">🇸🇦</div>
-          </div>
-          <h3 class="lang-name">Arabic</h3>
-          <div class="lang-level native">NATIVE / WORKING FLUENCY</div>
-          <p class="lang-context">Used for daily Saudi customer interactions, local business negotiations, and government / vendor liaison.</p>
-          <div class="crystal-bar"><div class="crystal-fill" style="width: 100%;"></div></div>
-        </div>
-
-        <!-- English -->
-        <div class="lang-crystal-card" data-lang="English">
-          <div class="lang-flag-glow">
-            <span class="lang-code-tag">EN</span>
-            <div class="flag-icon">🇬🇧</div>
-          </div>
-          <h3 class="lang-name">English</h3>
-          <div class="lang-level fluent">PROFESSIONAL FLUENT</div>
-          <p class="lang-context">Used for technical documentation, cloud tool configurations, management reporting, and international trade.</p>
-          <div class="crystal-bar"><div class="crystal-fill" style="width: 95%;"></div></div>
-        </div>
-
-        <!-- Hindi -->
-        <div class="lang-crystal-card" data-lang="Hindi">
-          <div class="lang-flag-glow">
-            <span class="lang-code-tag">HI</span>
-            <div class="flag-icon">🇮🇳</div>
-          </div>
-          <h3 class="lang-name">Hindi</h3>
-          <div class="lang-level fluent">FLUENT SPOKEN & COMPREHENSION</div>
-          <p class="lang-context">Essential for kitchen team coordination, diverse crew supervision, and cross-cultural communication.</p>
-          <div class="crystal-bar"><div class="crystal-fill" style="width: 95%;"></div></div>
-        </div>
-
-        <!-- Urdu -->
-        <div class="lang-crystal-card" data-lang="Urdu">
-          <div class="lang-flag-glow">
-            <span class="lang-code-tag">UR</span>
-            <div class="flag-icon">🇵🇰</div>
-          </div>
-          <h3 class="lang-name">Urdu</h3>
-          <div class="lang-level fluent">FLUENT SPOKEN & COMPREHENSION</div>
-          <p class="lang-context">Facilitating clear operational instructions, staff training, and conflict resolution across multicultural teams.</p>
-          <div class="crystal-bar"><div class="crystal-fill" style="width: 95%;"></div></div>
-        </div>
-
-        <!-- Bengali -->
-        <div class="lang-crystal-card" data-lang="Bengali">
-          <div class="lang-flag-glow">
-            <span class="lang-code-tag">BN</span>
-            <div class="flag-icon">🇧🇩</div>
-          </div>
-          <h3 class="lang-name">Bengali</h3>
-          <div class="lang-level native">NATIVE MOTHER TONGUE</div>
-          <p class="lang-context">Native eloquence in verbal & written communication, cultural nuance, and community leadership.</p>
-          <div class="crystal-bar"><div class="crystal-fill" style="width: 100%;"></div></div>
-        </div>
-
-      </div>
-
-      <div class="lang-quote-banner">
-        <i class="fa-solid fa-quote-left"></i>
-        <span>5 LANGUAGES. ENDLESS POSSIBILITIES. BRIDGING TEAMS AND CULTURES ACROSS THE GLOBE.</span>
-        <i class="fa-solid fa-quote-right"></i>
-      </div>
-    </section>
-
-    <!-- 05 EDUCATION ARCHIVE -->
-    <section id="zone-education" class="zone-section cyber-card" data-zone-id="5">
-      <div class="zone-header">
-        <div class="zone-badge">05</div>
-        <div class="zone-title-group">
-          <h2>EDUCATION ARCHIVE</h2>
-          <span class="zone-sub">ACADEMIC ACHIEVEMENTS & FOUNDATIONAL KNOWLEDGE</span>
-        </div>
-        <div class="archive-tag"><i class="fa-solid fa-certificate"></i> VERIFIED RECORDS</div>
-      </div>
-
-      <div class="education-grid">
-        
-        <!-- HSC CARD -->
-        <div class="edu-card cyber-glass">
-          <div class="edu-top">
-            <div class="edu-icon-badge gold">
-              <i class="fa-solid fa-graduation-cap"></i>
-            </div>
-            <div class="edu-degree">HSC</div>
-          </div>
-          <h3 class="edu-title">Higher Secondary Certificate (HSC) in Accounting</h3>
-          <div class="edu-institution">
-            <i class="fa-solid fa-building-columns"></i> Fazlur Rahman Memorial College of Technology
-          </div>
-          <div class="edu-field">
-            <span class="hud-label">DISCIPLINE:</span> Business Studies & Accounting Principles
-          </div>
-          <div class="edu-status-footer completed">
-            <i class="fa-solid fa-circle-check"></i> STATUS: COMPLETED
-          </div>
-        </div>
-
-        <!-- SSC CARD -->
-        <div class="edu-card cyber-glass">
-          <div class="edu-top">
-            <div class="edu-icon-badge cyan">
-              <i class="fa-solid fa-school"></i>
-            </div>
-            <div class="edu-degree">SSC</div>
-          </div>
-          <h3 class="edu-title">Secondary School Certificate (SSC)</h3>
-          <div class="edu-institution">
-            <i class="fa-solid fa-building-columns"></i> Bharasar High School
-          </div>
-          <div class="edu-field">
-            <span class="hud-label">DISCIPLINE:</span> General Science & Core Curriculum
-          </div>
-          <div class="edu-status-footer completed">
-            <i class="fa-solid fa-circle-check"></i> STATUS: COMPLETED
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 06 CONTACT TERMINAL -->
-    <section id="zone-contact" class="zone-section cyber-card" data-zone-id="6">
-      <div class="zone-header">
-        <div class="zone-badge">06</div>
-        <div class="zone-title-group">
-          <h2>CONTACT TERMINAL</h2>
-          <span class="zone-sub">COMMUNICATION FREQUENCIES & INQUIRIES</span>
-        </div>
-        <div class="comms-ready-tag"><i class="fa-solid fa-tower-broadcast fa-fade"></i> COMMS CHANNELS OPEN</div>
-      </div>
-
-      <div class="contact-terminal-layout">
-        
-        <!-- CONTACT PROFILE CARD -->
-        <div class="contact-card-left cyber-glass">
-          <div class="terminal-avatar-row">
-            <div class="terminal-avatar-box">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Amdaul Hoque" class="terminal-avatar-photo">
-            </div>
-            <div class="terminal-target-info">
-              <div class="hud-label">TRANSMISSION TARGET</div>
-              <h3 class="terminal-name">AMDAUL HOQUE</h3>
-              <span class="terminal-title">Restaurant Supervisor & Automation Specialist</span>
-            </div>
-          </div>
-
-          <div class="contact-details-list">
-            <a href="mailto:ahameddruboo@gmail.com" class="c-detail-item">
-              <div class="c-icon"><i class="fa-solid fa-envelope"></i></div>
-              <div class="c-meta">
-                <span class="hud-label">PRIMARY EMAIL</span>
-                <span class="c-val">ahameddruboo@gmail.com</span>
-              </div>
-              <i class="fa-solid fa-arrow-right c-arrow"></i>
-            </a>
-
-            <a href="tel:+966544575530" class="c-detail-item">
-              <div class="c-icon"><i class="fa-solid fa-phone-volume"></i></div>
-              <div class="c-meta">
-                <span class="hud-label">DIRECT PHONE / WHATSAPP</span>
-                <span class="c-val">+966 544 575 530</span>
-              </div>
-              <i class="fa-solid fa-arrow-right c-arrow"></i>
-            </a>
-
-            <div class="c-detail-item no-link">
-              <div class="c-icon"><i class="fa-solid fa-location-dot"></i></div>
-              <div class="c-meta">
-                <span class="hud-label">CURRENT LOCATION</span>
-                <span class="c-val">Jizan, Saudi Arabia</span>
-              </div>
-            </div>
-          </div>
-
-          <blockquote class="terminal-quote">
-            “Every Operation I Manage. Every Problem I Solve. Brings Me Closer to Building a Better Tomorrow.”
-          </blockquote>
-        </div>
-
-        <!-- INTERACTIVE QUICK ACTION BUTTONS -->
-        <div class="contact-card-right cyber-glass">
-          <h3 class="terminal-action-title">READY TO START A NEW MISSION?</h3>
-          <p class="terminal-action-sub">Select a comms protocol below to initiate direct communication or acquire official resume credentials.</p>
-
-          <div class="terminal-btn-stack">
-            <a href="mailto:ahameddruboo@gmail.com?subject=Career%20Inquiry%20for%20Amdaul%20Hoque" class="terminal-btn primary-glow">
-              <i class="fa-solid fa-paper-plane"></i>
-              <div class="btn-text-group">
-                <strong>EMAIL ME DIRECTLY</strong>
-                <span>ahameddruboo@gmail.com</span>
-              </div>
-            </a>
-
-            <a href="tel:+966544575530" class="terminal-btn secondary-glass">
-              <i class="fa-solid fa-phone"></i>
-              <div class="btn-text-group">
-                <strong>CALL / WHATSAPP</strong>
-                <span>+966 544 575 530</span>
-              </div>
-            </a>
-
-            <button onclick="window.print()" class="terminal-btn secondary-glass">
-              <i class="fa-solid fa-file-arrow-down"></i>
-              <div class="btn-text-group">
-                <strong>DOWNLOAD RESUME (PDF)</strong>
-                <span>Print-Optimized Document</span>
-              </div>
-            </button>
-
-            <button onclick="openCollabModal()" class="terminal-btn gold-glow">
-              <i class="fa-solid fa-handshake"></i>
-              <div class="btn-text-group">
-                <strong>LET'S WORK TOGETHER</strong>
-                <span>Hire or Partner on Automation</span>
-              </div>
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- RPG STATS MODAL -->
-  <div id="stats-modal" class="cyber-modal hidden">
-    <div class="modal-backdrop" onclick="closeStatsModal()"></div>
-    <div class="modal-dialog cyber-card">
-      <div class="modal-header">
-        <div class="modal-title"><i class="fa-solid fa-chart-line"></i> CHARACTER ATTRIBUTES & RPG STATS</div>
-        <button class="close-modal-btn" onclick="closeStatsModal()"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">
-        <div class="rpg-stats-container">
+        <div class="edu-two-cards-grid">
           
-          <div class="stat-row">
-            <span class="stat-name">OPERATIONS</span>
-            <div class="stat-bar-track">
-              <div class="stat-bar-value" style="width: 90%;"></div>
+          <!-- HSC Card -->
+          <div class="edu-item-card">
+            <div class="edu-badge-tag purple">HSC</div>
+            <h4 class="edu-cert-name">Higher Secondary Certificate (HSC) in Accounting</h4>
+            <div class="edu-institute">Fazlur Rahman Memorial College of Technology</div>
+            <div class="edu-status-row">
+              <span class="status-text">STATUS: COMPLETED</span>
+              <div class="status-check-circle"><i class="fa-solid fa-check"></i></div>
             </div>
-            <span class="stat-num">90 / 100</span>
           </div>
 
-          <div class="stat-row">
-            <span class="stat-name">LEADERSHIP</span>
-            <div class="stat-bar-track">
-              <div class="stat-bar-value" style="width: 90%;"></div>
+          <!-- SSC Card -->
+          <div class="edu-item-card">
+            <div class="edu-badge-tag blue">SSC</div>
+            <h4 class="edu-cert-name">Secondary School Certificate (SSC)</h4>
+            <div class="edu-institute">Bharasar High School</div>
+            <div class="edu-status-row">
+              <span class="status-text">STATUS: COMPLETED</span>
+              <div class="status-check-circle"><i class="fa-solid fa-check"></i></div>
             </div>
-            <span class="stat-num">90 / 100</span>
-          </div>
-
-          <div class="stat-row">
-            <span class="stat-name">INVENTORY</span>
-            <div class="stat-bar-track">
-              <div class="stat-bar-value" style="width: 90%;"></div>
-            </div>
-            <span class="stat-num">90 / 100</span>
-          </div>
-
-          <div class="stat-row">
-            <span class="stat-name">AUTOMATION</span>
-            <div class="stat-bar-track">
-              <div class="stat-bar-value" style="width: 80%;"></div>
-            </div>
-            <span class="stat-num">80 / 100</span>
-          </div>
-
-          <div class="stat-row">
-            <span class="stat-name">AI TOOLS</span>
-            <div class="stat-bar-track">
-              <div class="stat-bar-value" style="width: 90%;"></div>
-            </div>
-            <span class="stat-num">90 / 100</span>
-          </div>
-
-          <div class="stat-row">
-            <span class="stat-name">WEB DEVELOPMENT</span>
-            <div class="stat-bar-track">
-              <div class="stat-bar-value" style="width: 70%;"></div>
-            </div>
-            <span class="stat-num">70 / 100</span>
-          </div>
-
-          <div class="stat-row">
-            <span class="stat-name">COMMUNICATION</span>
-            <div class="stat-bar-track">
-              <div class="stat-bar-value" style="width: 100%;"></div>
-            </div>
-            <span class="stat-num">100 / 100</span>
-          </div>
-
-          <div class="stat-row">
-            <span class="stat-name">TECHNICAL SKILLS</span>
-            <div class="stat-bar-track">
-              <div class="stat-bar-value" style="width: 80%;"></div>
-            </div>
-            <span class="stat-num">80 / 100</span>
           </div>
 
         </div>
+      </section>
 
-        <div class="badges-section">
-          <div class="hud-label">UNLOCKED ACHIEVEMENT BADGES</div>
-          <div class="achievement-badges-grid">
-            <div class="badge-item"><i class="fa-solid fa-trophy"></i><span>OPERATIONS MASTER</span></div>
-            <div class="badge-item"><i class="fa-solid fa-gears"></i><span>AUTOMATION BUILDER</span></div>
-            <div class="badge-item"><i class="fa-solid fa-boxes-stacked"></i><span>INVENTORY COMMANDER</span></div>
-            <div class="badge-item"><i class="fa-solid fa-earth-americas"></i><span>POLYGLOT (5 LANG)</span></div>
-            <div class="badge-item"><i class="fa-solid fa-laptop-code"></i><span>DIGITAL BUILDER</span></div>
-            <div class="badge-item"><i class="fa-solid fa-screwdriver-wrench"></i><span>PROBLEM SOLVER</span></div>
+
+      <!-- ========================================== -->
+      <!-- PANEL 06: CONTACT TERMINAL -->
+      <!-- ========================================== -->
+      <section class="dash-panel panel-06 cyber-hud-card" id="panel-contact">
+        <div class="panel-header">
+          <div class="panel-badge-num">06</div>
+          <div class="panel-titles">
+            <h3 class="panel-main-title">CONTACT TERMINAL</h3>
+            <span class="panel-sub-title">LET'S CONNECT</span>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- MISSION / GENERIC MODAL -->
-  <div id="generic-modal" class="cyber-modal hidden">
-    <div class="modal-backdrop" onclick="closeGenericModal()"></div>
-    <div class="modal-dialog cyber-card">
-      <div class="modal-header">
-        <div class="modal-title" id="generic-modal-title">MISSION BRIEFING</div>
-        <button class="close-modal-btn" onclick="closeGenericModal()"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body" id="generic-modal-body"></div>
-    </div>
-  </div>
+        <div class="contact-split-layout">
+          
+          <!-- Left Info Column -->
+          <div class="contact-info-col">
+            <div class="contact-profile-head">
+              <div class="contact-avatar-box">
+                <svg viewBox="0 0 100 100" class="contact-avatar-svg">
+                  <circle cx="50" cy="50" r="48" fill="#111827" stroke="#00f2fe" stroke-width="2" />
+                  <ellipse cx="50" cy="46" rx="20" ry="24" fill="#d99b6c" />
+                  <path d="M28 40 C28 20 40 14 50 14 C60 14 72 20 72 40 C68 28 60 25 50 25 C40 25 32 28 28 40 Z" fill="#18181b" />
+                  <path d="M34 46 C36 64 42 70 50 70 C58 70 64 64 66 46 C62 56 56 62 50 62 C44 62 38 56 34 46 Z" fill="#18181b" />
+                  <circle cx="42" cy="42" r="2" fill="#18181b" />
+                  <circle cx="58" cy="42" r="2" fill="#18181b" />
+                  <path d="M26 84 L38 68 L50 76 L62 68 L74 84 Z" fill="#090b10" stroke="#00f2fe" stroke-width="1" />
+                </svg>
+              </div>
+              <div class="contact-fields-list">
+                <div class="c-field">
+                  <span class="c-field-label">EMAIL</span>
+                  <a href="mailto:ahameddruboo@gmail.com" class="c-field-value">ahameddruboo@gmail.com</a>
+                </div>
+                <div class="c-field">
+                  <span class="c-field-label">PHONE</span>
+                  <a href="tel:+966544575530" class="c-field-value">+966 544 575 530</a>
+                </div>
+                <div class="c-field">
+                  <span class="c-field-label">LOCATION</span>
+                  <span class="c-field-value">Jizan, Saudi Arabia</span>
+                </div>
+              </div>
+            </div>
 
-  <!-- TOAST NOTIFICATION FOR ACHIEVEMENTS & XP -->
-  <div id="game-toast" class="game-toast">
-    <div class="toast-icon"><i class="fa-solid fa-star fa-spin"></i></div>
-    <div class="toast-content">
-      <div class="toast-title" id="toast-title">LEVEL UP!</div>
-      <div class="toast-sub" id="toast-sub">Objective Cleared +500 XP</div>
-    </div>
-  </div>
+            <blockquote class="contact-bottom-quote">
+              “ Every Operation I Manage. Every Problem I Solve.<br>Brings Me Closer to Building a Better Tomorrow. ”
+            </blockquote>
+          </div>
 
-  <!-- FOOTER GAME STATUS -->
-  <footer class="game-footer">
-    <div class="footer-left">
-      <span>AMDAUL HOQUE // CAREER QUEST v3.4.0</span>
-      <span class="sep">•</span>
-      <span>SAUDI ARABIA • RESTAURANT & AUTOMATION</span>
-    </div>
-    <div class="footer-right">
-      <span class="hud-status-led"></span>
-      <span>SYSTEMS OPTIMAL</span>
-    </div>
-  </footer>
+          <!-- Right Action Buttons Column -->
+          <div class="contact-actions-col">
+            <a href="mailto:ahameddruboo@gmail.com" class="c-act-btn email-btn">
+              <i class="fa-solid fa-envelope"></i> <span>EMAIL ME</span>
+            </a>
+            <a href="tel:+966544575530" class="c-act-btn phone-btn">
+              <i class="fa-solid fa-phone"></i> <span>CALL ME</span>
+            </a>
+            <button onclick="window.print()" class="c-act-btn pdf-btn">
+              <i class="fa-solid fa-file-lines"></i> <span>DOWNLOAD RESUME</span>
+            </button>
+            <a href="mailto:ahameddruboo@gmail.com?subject=Collaboration%20Inquiry" class="c-act-btn work-btn gold-glow">
+              <i class="fa-solid fa-handshake"></i> <span>LET'S WORK TOGETHER</span>
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+  </div>
 
   <!-- JAVASCRIPT ENGINE -->
   <script src="script.js"></script>
