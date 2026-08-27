@@ -1,6 +1,6 @@
 /* ==========================================================================
-   AMDAUL HOQUE — AAA GAME UI RESUME & CAREER QUEST STYLESHEET
-   100% FAITHFUL TO THE 3D SPATIAL HOLOGRAPHIC LOBBY MOCKUP
+   AMDAUL HOQUE — AAA 3D GAME UI RESUME & CAREER QUEST STYLESHEET
+   100% FAITHFUL TO THE 3D SCI-FI HOLOGRAM ARENA & DASHBOARD DESIGN
    ========================================================================== */
 
 :root {
@@ -9,23 +9,21 @@
   --bg-cockpit: #040d1e;
   --bg-panel: rgba(6, 17, 36, 0.92);
   --bg-panel-solid: #061124;
-  --bg-card-inner: rgba(10, 26, 54, 0.7);
+  --bg-card-inner: rgba(10, 26, 54, 0.75);
 
   /* Neon Glow Accents */
   --cyan-primary: #00f2fe;
-  --cyan-glow: rgba(0, 242, 254, 0.45);
+  --cyan-glow: rgba(0, 242, 254, 0.5);
   --blue-bright: #0088ff;
-  --blue-glow: rgba(0, 136, 255, 0.35);
+  --blue-glow: rgba(0, 136, 255, 0.4);
   --gold-accent: #ffb800;
-  --gold-glow: rgba(255, 184, 0, 0.45);
+  --gold-glow: rgba(255, 184, 0, 0.5);
   --purple-accent: #a855f7;
-  --purple-glow: rgba(168, 85, 247, 0.45);
+  --purple-glow: rgba(168, 85, 247, 0.5);
   --green-accent: #10b981;
-  --green-glow: rgba(16, 185, 129, 0.45);
-  --teal-accent: #06b6d4;
-  --teal-glow: rgba(6, 182, 212, 0.45);
-  --violet-accent: #8b5cf6;
-  --violet-glow: rgba(139, 92, 246, 0.45);
+  --green-glow: rgba(16, 185, 129, 0.5);
+  --teal-accent: #14b8a6;
+  --teal-glow: rgba(20, 184, 166, 0.5);
 
   /* Borders & Dividers */
   --border-neon: 1px solid rgba(0, 242, 254, 0.35);
@@ -39,7 +37,7 @@
   --font-mono: 'Share Tech Mono', monospace;
 
   /* Shadows */
-  --shadow-hud: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
+  --shadow-hud: 0 8px 32px 0 rgba(0, 0, 0, 0.75);
   --shadow-neon-cyan: 0 0 20px rgba(0, 242, 254, 0.4);
   --shadow-neon-gold: 0 0 25px rgba(255, 184, 0, 0.5);
 }
@@ -63,7 +61,7 @@ html {
 
 body.cyber-body {
   min-height: 100vh;
-  background: radial-gradient(circle at 50% 12%, #0a2046 0%, #040d1e 50%, #01040a 100%);
+  background: radial-gradient(circle at 50% 15%, #0a2046 0%, #040d1e 50%, #01040a 100%);
   background-attachment: fixed;
   overflow-x: hidden;
   position: relative;
@@ -207,16 +205,16 @@ body.cyber-body {
    ========================================================================== */
 .hero-stage-container {
   width: 100%;
-  min-height: 820px;
-  background: radial-gradient(circle at 50% 35%, #0f2c56 0%, #07162e 50%, #020814 100%);
+  min-height: 720px;
+  background: radial-gradient(circle at 50% 45%, #0f2c56 0%, #07162e 50%, #020814 100%);
   border: 1px solid rgba(0, 242, 254, 0.35);
   border-radius: 16px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 45px rgba(0, 136, 255, 0.28);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 136, 255, 0.25);
   position: relative;
   display: grid;
-  grid-template-columns: 60px 340px 1fr 320px;
+  grid-template-columns: 50px 360px 1fr 340px;
   gap: 16px;
-  padding: 20px 24px 30px 24px;
+  padding: 20px 24px;
   margin-bottom: 24px;
   overflow: hidden;
 }
@@ -325,7 +323,7 @@ body.cyber-body {
 
 .player-hero-name {
   font-family: var(--font-display);
-  font-size: 3.2rem;
+  font-size: 3.4rem;
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: 3px;
@@ -380,7 +378,7 @@ body.cyber-body {
 
 .hero-quote {
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 0.96rem;
   font-weight: 600;
   color: #cbd5e1;
   line-height: 1.5;
@@ -390,9 +388,38 @@ body.cyber-body {
   font-style: italic;
 }
 
+.hero-enter-btn {
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.25) 0%, rgba(0, 136, 255, 0.4) 100%);
+  border: 1.5px solid var(--cyan-primary);
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  padding: 14px 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 25px var(--cyan-glow), inset 0 0 15px rgba(0, 242, 254, 0.2);
+  transition: all 0.25s ease;
+  width: fit-content;
+}
+
+.hero-enter-btn:hover {
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.45) 0%, rgba(0, 136, 255, 0.6) 100%);
+  box-shadow: 0 0 35px var(--cyan-primary);
+  transform: translateY(-2px);
+}
+
+.play-triangle {
+  color: var(--cyan-primary);
+  font-size: 0.9rem;
+}
 
 /* ==========================================================================
-   CENTER 3D STAGE & SPATIAL PERSPECTIVE STATIONS (MATCHING IMAGE 2)
+   CENTER 3D SPATIAL ARENA (CHARACTER & 3D ANGLED HOLOGRAMS)
    ========================================================================== */
 .hero-center-stage {
   position: relative;
@@ -411,51 +438,27 @@ body.cyber-body {
   pointer-events: auto;
 }
 
-/* Ceiling Portal Light Ring */
-.ceiling-portal-ring {
-  position: absolute;
-  top: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 220px;
-  height: 60px;
-  z-index: 12;
-  pointer-events: none;
+/* 3D Scene Wrapper with preserve-3d */
+.stage-3d-scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 640px;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
 }
 
-.ceiling-ring-outer {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 2px solid rgba(0, 242, 254, 0.8);
-  box-shadow: 0 0 25px var(--cyan-primary), inset 0 0 15px var(--cyan-primary);
-}
-
-.ceiling-ring-inner {
-  position: absolute;
-  top: 10px; left: 20px; right: 20px; bottom: 10px;
-  border-radius: 50%;
-  border: 1.5px dashed rgba(0, 136, 255, 0.9);
-  animation: rotatePedestal 15s linear infinite;
-}
-
-.ceiling-light-beam {
-  position: absolute;
-  top: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 160px;
-  height: 480px;
-  background: linear-gradient(180deg, rgba(0, 242, 254, 0.18) 0%, rgba(0, 136, 255, 0.05) 70%, transparent 100%);
-  filter: blur(12px);
-}
-
-/* Central Character Visual on Main Pedestal */
+/* Central Character Visual */
 .character-wrapper {
   position: absolute;
-  bottom: 85px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 380px;
-  height: 620px;
+  height: 660px;
   z-index: 20;
   display: flex;
   flex-direction: column;
@@ -464,12 +467,12 @@ body.cyber-body {
   pointer-events: none;
 }
 
-/* Main Glowing Holographic Pedestal */
+/* Glowing Holographic Pedestal */
 .character-pedestal-glow {
   position: absolute;
-  bottom: 8px;
-  width: 340px;
-  height: 95px;
+  bottom: 12px;
+  width: 320px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -477,331 +480,210 @@ body.cyber-body {
 
 .pedestal-disc-inner {
   position: absolute;
-  width: 280px;
-  height: 65px;
+  width: 260px;
+  height: 60px;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(0, 242, 254, 0.45) 0%, rgba(0, 136, 255, 0.18) 70%, transparent 100%);
-  box-shadow: 0 0 35px var(--cyan-glow), inset 0 0 25px var(--cyan-primary);
-  border: 2.5px solid var(--cyan-primary);
+  background: radial-gradient(ellipse, rgba(0, 242, 254, 0.4) 0%, rgba(0, 136, 255, 0.15) 70%, transparent 100%);
+  box-shadow: 0 0 30px var(--cyan-glow), inset 0 0 20px var(--cyan-primary);
+  border: 2px solid var(--cyan-primary);
 }
 
 .pedestal-disc-outer {
   position: absolute;
-  width: 330px;
-  height: 80px;
+  width: 310px;
+  height: 75px;
   border-radius: 50%;
-  border: 2px dashed rgba(0, 242, 254, 0.7);
+  border: 1.5px dashed rgba(0, 242, 254, 0.6);
   animation: rotatePedestal 20s linear infinite;
 }
 
 .pedestal-spotlight {
   position: absolute;
   bottom: 0;
-  width: 180px;
-  height: 30px;
+  width: 160px;
+  height: 25px;
   border-radius: 50%;
   background: var(--cyan-primary);
-  filter: blur(18px);
-  opacity: 0.75;
+  filter: blur(15px);
+  opacity: 0.7;
 }
 
-/* Exact Character Image Cutout */
+@keyframes rotatePedestal {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Exact Character Image */
 .exact-character-img {
   position: relative;
   z-index: 5;
-  height: 550px;
-  max-width: 330px;
+  height: 580px;
+  max-width: 340px;
   object-fit: contain;
   filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 15px rgba(0, 242, 254, 0.35));
   margin-bottom: 25px;
   animation: floatCharacter 4.5s ease-in-out infinite;
 }
 
+@keyframes floatCharacter {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
 /* ==========================================================================
-   SPATIAL HOLOGRAPHIC STATION CARDS (LEFT & RIGHT 3D PERSPECTIVE)
+   3D ANGLED / TILTED HOLOGRAPHIC STATION CARDS (FLOATING AROUND CHARACTER)
    ========================================================================== */
-.spatial-stations-left,
-.spatial-stations-right {
+.holo-3d-card {
   position: absolute;
-  top: 0; bottom: 80px;
-  width: 220px;
-  z-index: 25;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.spatial-stations-left {
-  left: 20px;
-}
-
-.spatial-stations-right {
-  right: 20px;
-}
-
-.spatial-station-unit {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  z-index: 35;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
 }
 
-.spatial-station-unit:hover {
-  transform: translateY(-6px) scale(1.05);
-}
-
-/* Floating Glass Hologram Card with Chamfered Cut Corners */
-.station-floating-card {
-  width: 190px;
-  padding: 12px 14px;
-  background: rgba(6, 18, 42, 0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+/* Floating Card Inner Box */
+.holo-card-inner {
+  background: rgba(4, 15, 34, 0.85);
+  border-radius: 8px;
+  padding: 10px 16px 10px 10px;
   display: flex;
   align-items: center;
   gap: 12px;
-  border-radius: 4px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: relative;
-  z-index: 2;
-  transition: all 0.3s ease;
-  clip-path: polygon(
-    0 12px,
-    12px 0,
-    calc(100% - 12px) 0,
-    100% 12px,
-    100% calc(100% - 12px),
-    calc(100% - 12px) 100%,
-    12px 100%,
-    0 calc(100% - 12px)
-  );
+  overflow: hidden;
+  min-width: 175px;
 }
 
-.card-left-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.st-num-badge {
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  font-weight: 900;
-  border-radius: 3px;
-  padding: 1px 6px;
-  letter-spacing: 1px;
-}
-
-.st-main-icon {
-  font-size: 1.4rem;
+.holo-icon-orb {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
 }
 
-.card-right-col {
+.holo-card-text {
   display: flex;
   flex-direction: column;
 }
 
-.st-line-1 {
+.holo-code {
   font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 900;
-  letter-spacing: 1.2px;
-  color: #ffffff;
-  line-height: 1.2;
-}
-
-.st-line-2 {
-  font-family: var(--font-heading);
   font-size: 0.82rem;
   font-weight: 800;
-  letter-spacing: 1.5px;
-  margin-top: 1px;
-}
-
-/* Individual Station Pedestal Platforms in 3D perspective */
-.station-pedestal-platform {
-  width: 140px;
-  height: 32px;
-  margin-top: -10px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-}
-
-.ped-disc {
-  position: absolute;
-  width: 120px;
-  height: 26px;
-  border-radius: 50%;
-  border: 1.5px solid currentColor;
-}
-
-.ped-glow-core {
-  position: absolute;
-  width: 80px;
-  height: 16px;
-  border-radius: 50%;
-  background: currentColor;
-  filter: blur(8px);
-  opacity: 0.5;
-}
-
-/* Station Color Themes (Cyan, Purple, Teal, Green, Gold, Violet) */
-/* Unit 01: Cyan */
-.cyan-theme .station-floating-card {
-  border: 1.5px solid var(--cyan-primary);
-  box-shadow: 0 0 20px var(--cyan-glow), inset 0 0 15px rgba(0, 242, 254, 0.15);
-}
-.cyan-theme .st-num-badge {
-  background: rgba(0, 242, 254, 0.2);
-  color: var(--cyan-primary);
-  border: 1px solid var(--cyan-primary);
-}
-.cyan-theme .st-main-icon { color: var(--cyan-primary); filter: drop-shadow(0 0 8px var(--cyan-primary)); }
-.cyan-theme .st-line-2 { color: var(--cyan-primary); }
-.cyan-theme .station-pedestal-platform { color: var(--cyan-primary); }
-
-/* Unit 02: Purple */
-.purple-theme .station-floating-card {
-  border: 1.5px solid var(--purple-accent);
-  box-shadow: 0 0 20px var(--purple-glow), inset 0 0 15px rgba(168, 85, 247, 0.15);
-}
-.purple-theme .st-num-badge {
-  background: rgba(168, 85, 247, 0.2);
-  color: var(--purple-accent);
-  border: 1px solid var(--purple-accent);
-}
-.purple-theme .st-main-icon { color: var(--purple-accent); filter: drop-shadow(0 0 8px var(--purple-accent)); }
-.purple-theme .st-line-2 { color: var(--purple-accent); }
-.purple-theme .station-pedestal-platform { color: var(--purple-accent); }
-
-/* Unit 03: Teal */
-.teal-theme .station-floating-card {
-  border: 1.5px solid var(--teal-accent);
-  box-shadow: 0 0 20px var(--teal-glow), inset 0 0 15px rgba(6, 182, 212, 0.15);
-}
-.teal-theme .st-num-badge {
-  background: rgba(6, 182, 212, 0.2);
-  color: var(--teal-accent);
-  border: 1px solid var(--teal-accent);
-}
-.teal-theme .st-main-icon { color: var(--teal-accent); filter: drop-shadow(0 0 8px var(--teal-accent)); }
-.teal-theme .st-line-2 { color: var(--teal-accent); }
-.teal-theme .station-pedestal-platform { color: var(--teal-accent); }
-
-/* Unit 04: Green */
-.green-theme .station-floating-card {
-  border: 1.5px solid var(--green-accent);
-  box-shadow: 0 0 20px var(--green-glow), inset 0 0 15px rgba(16, 185, 129, 0.15);
-}
-.green-theme .st-num-badge {
-  background: rgba(16, 185, 129, 0.2);
-  color: var(--green-accent);
-  border: 1px solid var(--green-accent);
-}
-.green-theme .st-main-icon { color: var(--green-accent); filter: drop-shadow(0 0 8px var(--green-accent)); }
-.green-theme .st-line-2 { color: var(--green-accent); }
-.green-theme .station-pedestal-platform { color: var(--green-accent); }
-
-/* Unit 05: Gold */
-.gold-theme .station-floating-card {
-  border: 1.5px solid var(--gold-accent);
-  box-shadow: 0 0 20px var(--gold-glow), inset 0 0 15px rgba(255, 184, 0, 0.15);
-}
-.gold-theme .st-num-badge {
-  background: rgba(255, 184, 0, 0.2);
-  color: var(--gold-accent);
-  border: 1px solid var(--gold-accent);
-}
-.gold-theme .st-main-icon { color: var(--gold-accent); filter: drop-shadow(0 0 8px var(--gold-accent)); }
-.gold-theme .st-line-2 { color: var(--gold-accent); }
-.gold-theme .station-pedestal-platform { color: var(--gold-accent); }
-
-/* Unit 06: Violet */
-.violet-theme .station-floating-card {
-  border: 1.5px solid var(--violet-accent);
-  box-shadow: 0 0 20px var(--violet-glow), inset 0 0 15px rgba(139, 92, 246, 0.15);
-}
-.violet-theme .st-num-badge {
-  background: rgba(139, 92, 246, 0.2);
-  color: var(--violet-accent);
-  border: 1px solid var(--violet-accent);
-}
-.violet-theme .st-main-icon { color: var(--violet-accent); filter: drop-shadow(0 0 8px var(--violet-accent)); }
-.violet-theme .st-line-2 { color: var(--violet-accent); }
-.violet-theme .station-pedestal-platform { color: var(--violet-accent); }
-
-
-/* ==========================================================================
-   BOTTOM CENTER CTA BUTTON (MATCHING IMAGE 2)
-   ========================================================================== */
-.stage-bottom-cta {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 35;
-  display: flex;
-  justify-content: center;
-}
-
-.cyber-chamfer-btn {
-  background: linear-gradient(180deg, rgba(8, 28, 64, 0.9) 0%, rgba(3, 14, 34, 0.95) 100%);
-  border: 2px solid var(--cyan-primary);
-  padding: 12px 36px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  cursor: pointer;
-  box-shadow: 0 0 30px var(--cyan-glow), inset 0 0 20px rgba(0, 242, 254, 0.25);
-  transition: all 0.25s ease;
-  clip-path: polygon(
-    0 14px,
-    14px 0,
-    calc(100% - 14px) 0,
-    100% 14px,
-    100% calc(100% - 14px),
-    calc(100% - 14px) 100%,
-    14px 100%,
-    0 calc(100% - 14px)
-  );
-}
-
-.cyber-chamfer-btn:hover {
-  background: linear-gradient(180deg, rgba(0, 242, 254, 0.3) 0%, rgba(0, 136, 255, 0.5) 100%);
-  box-shadow: 0 0 45px var(--cyan-primary);
-  transform: translateY(-3px) scale(1.03);
-}
-
-.enter-btn-title {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 900;
-  letter-spacing: 2.5px;
   color: #ffffff;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  letter-spacing: 1px;
+  white-space: nowrap;
 }
 
-.enter-btn-sub {
+.holo-sub-text {
   font-family: var(--font-heading);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--cyan-primary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
+/* Glowing Theme Variations for 3D Cards */
+.cyan-glow {
+  border: 1.5px solid var(--cyan-primary);
+  box-shadow: 0 0 20px var(--cyan-glow), inset 0 0 12px rgba(0, 242, 254, 0.2);
+}
+.cyan-glow .holo-icon-orb { background: rgba(0, 242, 254, 0.2); color: var(--cyan-primary); }
+.cyan-glow .holo-sub-text { color: var(--cyan-primary); }
+
+.purple-glow {
+  border: 1.5px solid var(--purple-accent);
+  box-shadow: 0 0 20px var(--purple-glow), inset 0 0 12px rgba(168, 85, 247, 0.2);
+}
+.purple-glow .holo-icon-orb { background: rgba(168, 85, 247, 0.2); color: var(--purple-accent); }
+.purple-glow .holo-sub-text { color: var(--purple-accent); }
+
+.gold-glow {
+  border: 1.5px solid var(--gold-accent);
+  box-shadow: 0 0 20px var(--gold-glow), inset 0 0 12px rgba(255, 184, 0, 0.2);
+}
+.gold-glow .holo-icon-orb { background: rgba(255, 184, 0, 0.2); color: var(--gold-accent); }
+.gold-glow .holo-sub-text { color: var(--gold-accent); }
+
+.teal-glow {
+  border: 1.5px solid var(--teal-accent);
+  box-shadow: 0 0 20px var(--teal-glow), inset 0 0 12px rgba(20, 184, 166, 0.2);
+}
+.teal-glow .holo-icon-orb { background: rgba(20, 184, 166, 0.2); color: var(--teal-accent); }
+.teal-glow .holo-sub-text { color: var(--teal-accent); }
+
+.green-glow {
+  border: 1.5px solid var(--green-accent);
+  box-shadow: 0 0 20px var(--green-glow), inset 0 0 12px rgba(16, 185, 129, 0.2);
+}
+.green-glow .holo-icon-orb { background: rgba(16, 185, 129, 0.2); color: var(--green-accent); }
+.green-glow .holo-sub-text { color: var(--green-accent); }
 
 /* ==========================================================================
-   RIGHT TOP PLAYER CARD HUD
+   EXACT 3D PERSPECTIVE ANGLES (TILTED INWARD TOWARDS CHARACTER)
    ========================================================================== */
+
+/* Top Left: 01 EXPERIENCE */
+.card-top-left {
+  top: 14%;
+  left: 2%;
+  transform: perspective(900px) rotateY(26deg) rotateX(6deg) translateZ(10px);
+}
+
+/* Mid Left: 02 SKILL LAB */
+.card-mid-left {
+  top: 42%;
+  left: -2%;
+  transform: perspective(900px) rotateY(30deg) rotateX(0deg) translateZ(25px);
+}
+
+/* Bottom Left: 05 EDUCATION ARCHIVE */
+.card-bot-left {
+  top: 70%;
+  left: 4%;
+  transform: perspective(900px) rotateY(22deg) rotateX(-6deg) translateZ(10px);
+}
+
+/* Top Right: 03 AUTOMATION GARAGE */
+.card-top-right {
+  top: 14%;
+  right: 2%;
+  transform: perspective(900px) rotateY(-26deg) rotateX(6deg) translateZ(10px);
+}
+
+/* Mid Right: 04 LANGUAGE STATION */
+.card-mid-right {
+  top: 42%;
+  right: -2%;
+  transform: perspective(900px) rotateY(-30deg) rotateX(0deg) translateZ(25px);
+}
+
+/* Bottom Right: 06 CONTACT TERMINAL */
+.card-bot-right {
+  top: 70%;
+  right: 4%;
+  transform: perspective(900px) rotateY(-22deg) rotateX(-6deg) translateZ(10px);
+}
+
+/* Interactive 3D Hover Effect */
+.holo-3d-card:hover {
+  transform: perspective(900px) rotateY(0deg) rotateX(0deg) scale(1.12) translateZ(60px);
+  z-index: 50;
+}
+
+.holo-3d-card:hover .holo-card-inner {
+  background: rgba(6, 24, 56, 0.95);
+  box-shadow: 0 0 35px var(--cyan-primary), inset 0 0 20px rgba(0, 242, 254, 0.4);
+}
+
+/* Right Top Player Card HUD */
 .hero-right-card {
   align-self: start;
   margin-top: 40px;
@@ -1698,40 +1580,45 @@ body.cyber-body {
 
 
 /* ==========================================================================
-   RESPONSIVE DESIGN (TABLET & MOBILE)
+   RESPONSIVE DESIGN (DESKTOP, LAPTOP, TABLET & SMARTPHONE)
    ========================================================================== */
 @media (max-width: 1400px) {
   .dashboard-grid-container {
     grid-template-columns: 1fr 1fr;
   }
   .hero-stage-container {
-    grid-template-columns: 60px 300px 1fr 280px;
-  }
-  .spatial-stations-left, .spatial-stations-right {
-    width: 180px;
-  }
-  .station-floating-card {
-    width: 160px;
+    grid-template-columns: 50px 300px 1fr 280px;
   }
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 1100px) {
   .hero-stage-container {
     grid-template-columns: 1fr;
     min-height: auto;
-    padding-bottom: 40px;
+    padding: 20px 16px 40px 16px;
   }
   .left-icon-sidebar {
     display: none;
   }
+  .hero-left-intro {
+    padding-top: 60px;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-quote {
+    border-left: none;
+    border-top: 2px solid var(--cyan-primary);
+    border-bottom: 2px solid var(--cyan-primary);
+    padding: 10px 0;
+  }
   .hero-center-stage {
-    min-height: 650px;
+    min-height: 640px;
+    margin: 20px 0;
   }
-  .spatial-stations-left {
-    left: 5px;
-  }
-  .spatial-stations-right {
-    right: 5px;
+  .hero-right-card {
+    margin-top: 0;
+    max-width: 480px;
+    margin: 0 auto;
   }
   .dashboard-grid-container {
     grid-template-columns: 1fr;
@@ -1739,18 +1626,79 @@ body.cyber-body {
 }
 
 @media (max-width: 768px) {
+  .game-dashboard-wrap {
+    padding: 10px 10px 40px 10px;
+  }
+  .hero-stage-container {
+    border-radius: 12px;
+    padding: 14px 10px 30px 10px;
+  }
   .player-hero-name {
-    font-size: 2.4rem;
+    font-size: 2.5rem;
   }
-  .spatial-stations-left, .spatial-stations-right {
-    position: static;
-    width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 20px;
+  .hero-center-stage {
+    min-height: 580px;
   }
+  .character-wrapper {
+    height: 520px;
+  }
+  .exact-character-img {
+    height: 440px;
+  }
+  
+  /* Mobile 3D Angled Hologram Cards - Flanking on Left & Right without covering body */
+  .holo-3d-card {
+    min-width: 135px;
+  }
+  .holo-card-inner {
+    padding: 6px 8px 6px 6px;
+    gap: 6px;
+    min-width: 130px;
+  }
+  .holo-icon-orb {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+  .holo-code {
+    font-size: 0.68rem;
+  }
+  .holo-sub-text {
+    font-size: 0.6rem;
+  }
+
+  .card-top-left {
+    top: 10%;
+    left: -6px;
+    transform: perspective(600px) rotateY(22deg) scale(0.85);
+  }
+  .card-mid-left {
+    top: 40%;
+    left: -12px;
+    transform: perspective(600px) rotateY(25deg) scale(0.85);
+  }
+  .card-bot-left {
+    top: 70%;
+    left: -4px;
+    transform: perspective(600px) rotateY(18deg) scale(0.85);
+  }
+
+  .card-top-right {
+    top: 10%;
+    right: -6px;
+    transform: perspective(600px) rotateY(-22deg) scale(0.85);
+  }
+  .card-mid-right {
+    top: 40%;
+    right: -12px;
+    transform: perspective(600px) rotateY(-25deg) scale(0.85);
+  }
+  .card-bot-right {
+    top: 70%;
+    right: -4px;
+    transform: perspective(600px) rotateY(-18deg) scale(0.85);
+  }
+
   .experience-content-split {
     grid-template-columns: 1fr;
   }
