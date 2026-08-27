@@ -1,6 +1,6 @@
 /**
  * AMDAUL HOQUE — AAA GAME UI RESUME & 3D CAREER QUEST JAVASCRIPT
- * Real-time Three.js particle vortex, audio synthesizer, and HUD navigation
+ * Real-time Three.js particle vortex, audio synthesizer, and 3D spatial station navigation
  */
 
 // ==========================================
@@ -67,7 +67,7 @@ function initThreeBackground() {
   if (!container || typeof THREE === 'undefined') return;
 
   const width = container.clientWidth || 600;
-  const height = container.clientHeight || 600;
+  const height = container.clientHeight || 700;
 
   // Scene
   scene = new THREE.Scene();
@@ -180,13 +180,13 @@ function scrollToPanel(panelId) {
   }
 }
 
-// Hover Sound FX on Interactive Elements
+// Hover Sound FX and Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
   initThreeBackground();
 
-  // Attach sound on buttons and tiles
+  // Attach sound on buttons, spatial stations, and tiles
   const interactiveElems = document.querySelectorAll(
-    '.hero-enter-btn, .hologram-node, .skill-tile, .mission-item, .view-proj-btn, .c-act-btn, .sidebar-icon-btn, .lang-box'
+    '.hero-enter-btn, .cyber-chamfer-btn, .spatial-station-unit, .skill-tile, .mission-item, .view-proj-btn, .c-act-btn, .sidebar-icon-btn, .lang-box, .edu-item-card'
   );
 
   interactiveElems.forEach(el => {
@@ -199,6 +199,13 @@ document.addEventListener('DOMContentLoaded', () => {
       cyberSound.init();
       cyberSound.playBeep(1200, 0.08, 'sine');
     });
+  });
+
+  // "Press Any Key to Start" Keyboard Listener
+  window.addEventListener('keydown', (e) => {
+    if (window.scrollY < 300 && e.key !== 'F5' && e.key !== 'F12') {
+      scrollToDashboard();
+    }
   });
 
   // ScrollSpy for Left Sidebar Icons
