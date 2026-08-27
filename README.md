@@ -1,23 +1,38 @@
-# 🍽️ مطعم خامر (KHAMER RESTAURANT) — Responsive Order Tracking Dashboard & KDS
+# 🎮 AMDAUL HOQUE — 3D Interactive Career Quest & Game UI Resume
 
-এই রিপোজিটরিটি মোবাইল, ট্যাবলেট এবং ডেস্কটপ সব ডিভাইসে সম্পূর্ণ রেসপন্সিভভাবে কাজ করার জন্য অপ্টিমাইজ করা হয়েছে।
+> **Playable 3D Web Experience & AAA Game Interface Portfolio for Amdaul Hoque**  
+> *Restaurant Supervisor • Automation Specialist • Full-Stack Web Developer*  
+> 📍 **Jizan, Saudi Arabia** • ✉️ `ahameddruboo@gmail.com` • 📱 `+966 544 575 530`
 
 ---
 
-## 📱 Mobile-First Responsive Fixes (যা যা ঠিক করা হয়েছে)
+## 🌟 Overview & Core Concept
+Designed from the ground up to replace traditional, boring text resumes with an immersive **AAA Video Game Interface & 3D Interactive Career World**. The visitor explores Amdaul Hoque's career journey, operations expertise, software projects, and multitalented skillset through 6 futuristic game zones:
 
-1. **কোনো ওভারল্যাপিং বা টেক্সট চেপে যাওয়ার সমস্যা নেই:**
-   - মোবাইল স্ক্রিনে ৩-কলামের পরিবর্তে ক্লিন ১-কলাম এবং ২-কলাম গ্রিড লেআউট তৈরি করা হয়েছে।
-   - ৬টি মেট্রিক কার্ড মোবাইলে পরিচ্ছন্ন ২-কলাম কার্ড হিসেবে বিন্যস্ত।
-   - লাইভ অর্ডার কার্ডগুলো মোবাইলে ফুল-উইডথ হিসেবে পরিচ্ছন্নভাবে প্রদর্শিত হয়।
+1. 🛡️ **01 EXPERIENCE HQ** — Career Missions at Khamer Restaurant (Saudi Arabia), XP rewards, and supervisory milestones.
+2. ⚡ **02 SKILL LAB** — Unlockable abilities (Inventory Management, Leadership, AI Automation, Web Development, Electrical Diagnostics).
+3. 🤖 **03 AUTOMATION GARAGE** — Featured deployment: **Khamer Warehouse Management System** ([khamer.vercel.app](https://khamer.vercel.app)).
+4. 🌐 **04 LANGUAGE STATION** — Polyglot mastery across 5 languages (Arabic, English, Hindi, Urdu, Bengali).
+5. 🏆 **05 EDUCATION ARCHIVE** — Academic credentials (HSC in Accounting, SSC).
+6. 📡 **06 CONTACT TERMINAL** — Direct comms channels, email/phone links, and instant resume download.
 
-2. **স্মার্ট সাইডবার এবং বটম নেভিগেশন:**
-   - মোবাইলে সাইডবারটি অফ-ক্যানভাস হিসেবে লুকানো থাকে এবং উপরে থাকা হ্যামবার্গার (☰) মেন্যু বাটনে ক্লিক করলে স্মুথভাবে স্লাইড হয়ে বের হয়।
-   - মোবাইলের নিচে ফ্লোটিং বটম নেভিগেশন বার (🏠 Home · 🧾 Orders · 🍳 Kitchen · 📍 Tracking · ⚙️ More) যুক্ত রয়েছে।
+---
 
-3. **অর্ডার ডিটেইলস ড্রয়ার (Order Details Drawer):**
-   - মোবাইলে কোনো অর্ডারের `[View Order]` চাপলে স্ক্রিনের নিচে বটম-শিট ড্রয়ার আকারে অর্ডার ডিটেইলস এবং টাইমলাইন ওপেন হয়।
-   - ডেস্কটপে এটি ডান পাশের প্যানেলে প্রদর্শিত হয়।
+## 🚀 Key Features
+- **Three.js 3D Virtual Character Hub**: Real-time 3D avatar stage, rotating cybernetic pedestals, volumetric particle vortex, and floating 3D portal hologram stations.
+- **Synthesized Sci-Fi Web Audio SFX**: Audio feedback engine generating realistic laser clicks, portal warps, and level-up chimes.
+- **Glassmorphism Cyber HUD**: Persistent player identity stats, animated XP bar (8750/10000 XP), rank badges, and responsive controls.
+- **RPG Attribute Modal & Achievement Badges**: RPG statistics matrix for operations, leadership, inventory, and automation.
+- **Print / PDF Friendly**: Clean stylesheet print fallback for immediate hardcopy or PDF generation.
 
-4. **ডার্ক ও লাইট থিম + আরবি/ইংরেজি টগল:**
-   - উপরের কন্ট্রোলস থেকে এক ক্লিকেই লাইট/ডার্ক মোড এবং ইংরেজি/আরবি ভাষা পরিবর্তন করা যায়।
+---
+
+## 🛠️ Built With
+- **HTML5 & CSS3** (Custom Glassmorphism, CSS Grids, Holographic animations)
+- **JavaScript (ES6+)**
+- **Three.js** (3D WebGL Scene & Camera Animation)
+- **Web Audio API** (Procedural Sound Synthesizer)
+- **FontAwesome 6** & **Google Fonts** (Orbitron, Rajdhani, Inter, Share Tech Mono)
+
+---
+© 2026 Amdaul Hoque. All Rights Reserved.
