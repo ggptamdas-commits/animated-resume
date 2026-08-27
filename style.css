@@ -1,6 +1,6 @@
 /* ==========================================================================
    AMDAUL HOQUE — AAA GAME UI RESUME & CAREER QUEST STYLESHEET
-   100% FAITHFUL TO THE HIGH-TECH SCI-FI REFERENCE MOCKUP (DESKTOP & MOBILE)
+   100% FAITHFUL TO THE 3D SPATIAL HOLOGRAPHIC LOBBY MOCKUP
    ========================================================================== */
 
 :root {
@@ -9,7 +9,7 @@
   --bg-cockpit: #040d1e;
   --bg-panel: rgba(6, 17, 36, 0.92);
   --bg-panel-solid: #061124;
-  --bg-card-inner: rgba(10, 26, 54, 0.75);
+  --bg-card-inner: rgba(10, 26, 54, 0.7);
 
   /* Neon Glow Accents */
   --cyan-primary: #00f2fe;
@@ -23,6 +23,9 @@
   --green-accent: #10b981;
   --green-glow: rgba(16, 185, 129, 0.45);
   --teal-accent: #06b6d4;
+  --teal-glow: rgba(6, 182, 212, 0.45);
+  --violet-accent: #8b5cf6;
+  --violet-glow: rgba(139, 92, 246, 0.45);
 
   /* Borders & Dividers */
   --border-neon: 1px solid rgba(0, 242, 254, 0.35);
@@ -38,6 +41,7 @@
   /* Shadows */
   --shadow-hud: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
   --shadow-neon-cyan: 0 0 20px rgba(0, 242, 254, 0.4);
+  --shadow-neon-gold: 0 0 25px rgba(255, 184, 0, 0.5);
 }
 
 /* ==========================================================================
@@ -73,13 +77,13 @@ body.cyber-body {
   background-size: 100% 4px;
   pointer-events: none;
   z-index: 999;
-  opacity: 0.25;
+  opacity: 0.3;
 }
 
 .vignette-layer {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle, transparent 65%, rgba(0, 0, 0, 0.85) 100%);
+  background: radial-gradient(circle, transparent 60%, rgba(0, 0, 0, 0.85) 100%);
   pointer-events: none;
   z-index: 998;
 }
@@ -89,7 +93,7 @@ body.cyber-body {
   width: 100%;
   max-width: 1720px;
   margin: 0 auto;
-  padding: 16px 20px 60px 20px;
+  padding: 16px 24px 60px 24px;
   position: relative;
   z-index: 10;
 }
@@ -124,7 +128,7 @@ body.cyber-body {
 }
 
 .panel-mini-sidebar {
-  width: 38px;
+  width: 42px;
   background: rgba(3, 10, 24, 0.85);
   border-right: 1px solid rgba(0, 242, 254, 0.18);
   display: flex;
@@ -135,6 +139,10 @@ body.cyber-body {
   color: #64748b;
   font-size: 0.85rem;
   flex-shrink: 0;
+}
+
+.panel-mini-sidebar i {
+  transition: color 0.2s ease;
 }
 
 .panel-mini-sidebar i:first-child {
@@ -199,16 +207,16 @@ body.cyber-body {
    ========================================================================== */
 .hero-stage-container {
   width: 100%;
-  min-height: 740px;
-  background: radial-gradient(circle at 50% 45%, #0f2c56 0%, #07162e 50%, #020814 100%);
+  min-height: 820px;
+  background: radial-gradient(circle at 50% 35%, #0f2c56 0%, #07162e 50%, #020814 100%);
   border: 1px solid rgba(0, 242, 254, 0.35);
   border-radius: 16px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 136, 255, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 45px rgba(0, 136, 255, 0.28);
   position: relative;
   display: grid;
-  grid-template-columns: 50px 340px 1fr 310px;
-  gap: 14px;
-  padding: 20px 20px;
+  grid-template-columns: 60px 340px 1fr 320px;
+  gap: 16px;
+  padding: 20px 24px 30px 24px;
   margin-bottom: 24px;
   overflow: hidden;
 }
@@ -216,8 +224,8 @@ body.cyber-body {
 /* Brand Header */
 .brand-header {
   position: absolute;
-  top: 20px;
-  left: 24px;
+  top: 22px;
+  left: 30px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -225,8 +233,8 @@ body.cyber-body {
 }
 
 .brand-icon-box {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 8px;
   background: rgba(0, 242, 254, 0.15);
   border: 1.5px solid var(--cyan-primary);
@@ -238,8 +246,8 @@ body.cyber-body {
 }
 
 .brand-svg-icon {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 
 .brand-titles {
@@ -249,7 +257,7 @@ body.cyber-body {
 
 .brand-main {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 900;
   letter-spacing: 2px;
   color: #ffffff;
@@ -258,7 +266,7 @@ body.cyber-body {
 
 .brand-sub {
   font-family: var(--font-heading);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--cyan-primary);
   letter-spacing: 1.8px;
@@ -275,8 +283,8 @@ body.cyber-body {
 }
 
 .sidebar-icon-btn {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 8px;
   background: rgba(8, 24, 52, 0.7);
   border: 1px solid rgba(0, 242, 254, 0.25);
@@ -284,7 +292,7 @@ body.cyber-body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.95rem;
+  font-size: 1rem;
   text-decoration: none;
   transition: all 0.25s ease;
 }
@@ -300,7 +308,7 @@ body.cyber-body {
 
 /* Left Profile Intro Text Block */
 .hero-left-intro {
-  padding-top: 80px;
+  padding-top: 84px;
   display: flex;
   flex-direction: column;
   z-index: 30;
@@ -308,7 +316,7 @@ body.cyber-body {
 
 .welcome-tag {
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #94a3b8;
   letter-spacing: 2px;
@@ -322,7 +330,7 @@ body.cyber-body {
   line-height: 1.05;
   letter-spacing: 3px;
   color: #ffffff;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
 }
 
@@ -363,7 +371,7 @@ body.cyber-body {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .hero-location i {
@@ -378,11 +386,14 @@ body.cyber-body {
   line-height: 1.5;
   border-left: 2px solid var(--cyan-primary);
   padding-left: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 26px;
   font-style: italic;
 }
 
-/* Center 3D Stage & Character Area */
+
+/* ==========================================================================
+   CENTER 3D STAGE & SPATIAL PERSPECTIVE STATIONS (MATCHING IMAGE 2)
+   ========================================================================== */
 .hero-center-stage {
   position: relative;
   width: 100%;
@@ -390,145 +401,62 @@ body.cyber-body {
   display: flex;
   align-items: center;
   justify-content: center;
+  perspective: 1200px;
 }
 
 #three-canvas-wrap {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 5;
+  z-index: 10;
   pointer-events: auto;
 }
 
-/* Side Hologram Stations (Grouped Columns matching Image 2) */
-.stage-side-group {
+/* Ceiling Portal Light Ring */
+.ceiling-portal-ring {
   position: absolute;
-  top: 45%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  z-index: 25;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 60px;
+  z-index: 12;
+  pointer-events: none;
 }
 
-.stage-side-group.left-stations {
-  left: 10px;
+.ceiling-ring-outer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 242, 254, 0.8);
+  box-shadow: 0 0 25px var(--cyan-primary), inset 0 0 15px var(--cyan-primary);
 }
 
-.stage-side-group.right-stations {
-  right: 10px;
+.ceiling-ring-inner {
+  position: absolute;
+  top: 10px; left: 20px; right: 20px; bottom: 10px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(0, 136, 255, 0.9);
+  animation: rotatePedestal 15s linear infinite;
 }
 
-/* Hologram Station Cards */
-.holo-station-card {
-  width: 140px;
-  background: rgba(4, 14, 32, 0.82);
-  border-radius: 8px;
-  padding: 8px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  cursor: pointer;
-  backdrop-filter: blur(8px);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+.ceiling-light-beam {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 480px;
+  background: linear-gradient(180deg, rgba(0, 242, 254, 0.18) 0%, rgba(0, 136, 255, 0.05) 70%, transparent 100%);
+  filter: blur(12px);
 }
 
-.holo-station-card:hover {
-  transform: scale(1.08) translateY(-2px);
-}
-
-.station-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.st-num {
-  font-family: var(--font-display);
-  font-size: 0.72rem;
-  font-weight: 800;
-  opacity: 0.9;
-}
-
-.st-icon-box {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-}
-
-.st-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.st-title {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: 0.8px;
-}
-
-.st-sub {
-  font-family: var(--font-heading);
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: #94a3b8;
-  letter-spacing: 0.8px;
-}
-
-/* Station Color Schemes (Exact Match with Image 2) */
-.holo-cyan {
-  border: 1px solid var(--cyan-primary);
-  box-shadow: 0 0 14px rgba(0, 242, 254, 0.25);
-}
-.holo-cyan .st-num { color: var(--cyan-primary); }
-.holo-cyan .st-icon-box { background: rgba(0, 242, 254, 0.18); color: var(--cyan-primary); }
-.holo-cyan:hover { box-shadow: 0 0 24px var(--cyan-primary); }
-
-.holo-purple {
-  border: 1px solid var(--purple-accent);
-  box-shadow: 0 0 14px rgba(168, 85, 247, 0.25);
-}
-.holo-purple .st-num { color: var(--purple-accent); }
-.holo-purple .st-icon-box { background: rgba(168, 85, 247, 0.18); color: var(--purple-accent); }
-.holo-purple:hover { box-shadow: 0 0 24px var(--purple-accent); }
-
-.holo-teal {
-  border: 1px solid var(--teal-accent);
-  box-shadow: 0 0 14px rgba(6, 182, 212, 0.25);
-}
-.holo-teal .st-num { color: var(--teal-accent); }
-.holo-teal .st-icon-box { background: rgba(6, 182, 212, 0.18); color: var(--teal-accent); }
-.holo-teal:hover { box-shadow: 0 0 24px var(--teal-accent); }
-
-.holo-green {
-  border: 1px solid var(--green-accent);
-  box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
-}
-.holo-green .st-num { color: var(--green-accent); }
-.holo-green .st-icon-box { background: rgba(16, 185, 129, 0.18); color: var(--green-accent); }
-.holo-green:hover { box-shadow: 0 0 24px var(--green-accent); }
-
-.holo-gold {
-  border: 1px solid var(--gold-accent);
-  box-shadow: 0 0 14px rgba(255, 184, 0, 0.25);
-}
-.holo-gold .st-num { color: var(--gold-accent); }
-.holo-gold .st-icon-box { background: rgba(255, 184, 0, 0.18); color: var(--gold-accent); }
-.holo-gold:hover { box-shadow: 0 0 24px var(--gold-accent); }
-
-/* Central Character Visual on Holographic Pedestal */
+/* Central Character Visual on Main Pedestal */
 .character-wrapper {
   position: absolute;
-  bottom: 0;
-  width: 360px;
-  height: 640px;
-  z-index: 15;
+  bottom: 85px;
+  width: 380px;
+  height: 620px;
+  z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -536,12 +464,12 @@ body.cyber-body {
   pointer-events: none;
 }
 
-/* Glowing Holographic Pedestal */
+/* Main Glowing Holographic Pedestal */
 .character-pedestal-glow {
   position: absolute;
-  bottom: 20px;
-  width: 300px;
-  height: 80px;
+  bottom: 8px;
+  width: 340px;
+  height: 95px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -549,104 +477,331 @@ body.cyber-body {
 
 .pedestal-disc-inner {
   position: absolute;
-  width: 240px;
-  height: 55px;
+  width: 280px;
+  height: 65px;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(0, 242, 254, 0.4) 0%, rgba(0, 136, 255, 0.15) 70%, transparent 100%);
-  box-shadow: 0 0 30px var(--cyan-glow), inset 0 0 20px var(--cyan-primary);
-  border: 2px solid var(--cyan-primary);
+  background: radial-gradient(ellipse, rgba(0, 242, 254, 0.45) 0%, rgba(0, 136, 255, 0.18) 70%, transparent 100%);
+  box-shadow: 0 0 35px var(--cyan-glow), inset 0 0 25px var(--cyan-primary);
+  border: 2.5px solid var(--cyan-primary);
 }
 
 .pedestal-disc-outer {
   position: absolute;
-  width: 290px;
-  height: 70px;
+  width: 330px;
+  height: 80px;
   border-radius: 50%;
-  border: 1.5px dashed rgba(0, 242, 254, 0.6);
+  border: 2px dashed rgba(0, 242, 254, 0.7);
   animation: rotatePedestal 20s linear infinite;
 }
 
 .pedestal-spotlight {
   position: absolute;
   bottom: 0;
-  width: 140px;
-  height: 20px;
+  width: 180px;
+  height: 30px;
   border-radius: 50%;
   background: var(--cyan-primary);
-  filter: blur(14px);
+  filter: blur(18px);
   opacity: 0.75;
 }
 
-@keyframes rotatePedestal {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Exact Character Cutout Image */
+/* Exact Character Image Cutout */
 .exact-character-img {
   position: relative;
   z-index: 5;
-  height: 570px;
+  height: 550px;
   max-width: 330px;
   object-fit: contain;
   filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 15px rgba(0, 242, 254, 0.35));
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   animation: floatCharacter 4.5s ease-in-out infinite;
 }
 
-@keyframes floatCharacter {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-/* Bottom Centered Enter Career Button (Matches Image 2) */
-.stage-bottom-cta {
+/* ==========================================================================
+   SPATIAL HOLOGRAPHIC STATION CARDS (LEFT & RIGHT 3D PERSPECTIVE)
+   ========================================================================== */
+.spatial-stations-left,
+.spatial-stations-right {
   position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 30;
+  top: 0; bottom: 80px;
+  width: 220px;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.hero-enter-btn {
-  background: linear-gradient(135deg, rgba(0, 242, 254, 0.25) 0%, rgba(0, 136, 255, 0.45) 100%);
-  border: 2px solid var(--cyan-primary);
-  border-radius: 10px;
-  color: #ffffff;
-  padding: 12px 32px;
+.spatial-stations-left {
+  left: 20px;
+}
+
+.spatial-stations-right {
+  right: 20px;
+}
+
+.spatial-station-unit {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 4px;
   cursor: pointer;
-  box-shadow: 0 0 25px var(--cyan-glow), inset 0 0 15px rgba(0, 242, 254, 0.25);
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.hero-enter-btn:hover {
-  background: linear-gradient(135deg, rgba(0, 242, 254, 0.5) 0%, rgba(0, 136, 255, 0.7) 100%);
-  box-shadow: 0 0 35px var(--cyan-primary);
-  transform: translateY(-2px);
+.spatial-station-unit:hover {
+  transform: translateY(-6px) scale(1.05);
+}
+
+/* Floating Glass Hologram Card with Chamfered Cut Corners */
+.station-floating-card {
+  width: 190px;
+  padding: 12px 14px;
+  background: rgba(6, 18, 42, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 4px;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+  clip-path: polygon(
+    0 12px,
+    12px 0,
+    calc(100% - 12px) 0,
+    100% 12px,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    12px 100%,
+    0 calc(100% - 12px)
+  );
+}
+
+.card-left-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.st-num-badge {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 900;
+  border-radius: 3px;
+  padding: 1px 6px;
+  letter-spacing: 1px;
+}
+
+.st-main-icon {
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-right-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.st-line-1 {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.st-line-2 {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  margin-top: 1px;
+}
+
+/* Individual Station Pedestal Platforms in 3D perspective */
+.station-pedestal-platform {
+  width: 140px;
+  height: 32px;
+  margin-top: -10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.ped-disc {
+  position: absolute;
+  width: 120px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+}
+
+.ped-glow-core {
+  position: absolute;
+  width: 80px;
+  height: 16px;
+  border-radius: 50%;
+  background: currentColor;
+  filter: blur(8px);
+  opacity: 0.5;
+}
+
+/* Station Color Themes (Cyan, Purple, Teal, Green, Gold, Violet) */
+/* Unit 01: Cyan */
+.cyan-theme .station-floating-card {
+  border: 1.5px solid var(--cyan-primary);
+  box-shadow: 0 0 20px var(--cyan-glow), inset 0 0 15px rgba(0, 242, 254, 0.15);
+}
+.cyan-theme .st-num-badge {
+  background: rgba(0, 242, 254, 0.2);
+  color: var(--cyan-primary);
+  border: 1px solid var(--cyan-primary);
+}
+.cyan-theme .st-main-icon { color: var(--cyan-primary); filter: drop-shadow(0 0 8px var(--cyan-primary)); }
+.cyan-theme .st-line-2 { color: var(--cyan-primary); }
+.cyan-theme .station-pedestal-platform { color: var(--cyan-primary); }
+
+/* Unit 02: Purple */
+.purple-theme .station-floating-card {
+  border: 1.5px solid var(--purple-accent);
+  box-shadow: 0 0 20px var(--purple-glow), inset 0 0 15px rgba(168, 85, 247, 0.15);
+}
+.purple-theme .st-num-badge {
+  background: rgba(168, 85, 247, 0.2);
+  color: var(--purple-accent);
+  border: 1px solid var(--purple-accent);
+}
+.purple-theme .st-main-icon { color: var(--purple-accent); filter: drop-shadow(0 0 8px var(--purple-accent)); }
+.purple-theme .st-line-2 { color: var(--purple-accent); }
+.purple-theme .station-pedestal-platform { color: var(--purple-accent); }
+
+/* Unit 03: Teal */
+.teal-theme .station-floating-card {
+  border: 1.5px solid var(--teal-accent);
+  box-shadow: 0 0 20px var(--teal-glow), inset 0 0 15px rgba(6, 182, 212, 0.15);
+}
+.teal-theme .st-num-badge {
+  background: rgba(6, 182, 212, 0.2);
+  color: var(--teal-accent);
+  border: 1px solid var(--teal-accent);
+}
+.teal-theme .st-main-icon { color: var(--teal-accent); filter: drop-shadow(0 0 8px var(--teal-accent)); }
+.teal-theme .st-line-2 { color: var(--teal-accent); }
+.teal-theme .station-pedestal-platform { color: var(--teal-accent); }
+
+/* Unit 04: Green */
+.green-theme .station-floating-card {
+  border: 1.5px solid var(--green-accent);
+  box-shadow: 0 0 20px var(--green-glow), inset 0 0 15px rgba(16, 185, 129, 0.15);
+}
+.green-theme .st-num-badge {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--green-accent);
+  border: 1px solid var(--green-accent);
+}
+.green-theme .st-main-icon { color: var(--green-accent); filter: drop-shadow(0 0 8px var(--green-accent)); }
+.green-theme .st-line-2 { color: var(--green-accent); }
+.green-theme .station-pedestal-platform { color: var(--green-accent); }
+
+/* Unit 05: Gold */
+.gold-theme .station-floating-card {
+  border: 1.5px solid var(--gold-accent);
+  box-shadow: 0 0 20px var(--gold-glow), inset 0 0 15px rgba(255, 184, 0, 0.15);
+}
+.gold-theme .st-num-badge {
+  background: rgba(255, 184, 0, 0.2);
+  color: var(--gold-accent);
+  border: 1px solid var(--gold-accent);
+}
+.gold-theme .st-main-icon { color: var(--gold-accent); filter: drop-shadow(0 0 8px var(--gold-accent)); }
+.gold-theme .st-line-2 { color: var(--gold-accent); }
+.gold-theme .station-pedestal-platform { color: var(--gold-accent); }
+
+/* Unit 06: Violet */
+.violet-theme .station-floating-card {
+  border: 1.5px solid var(--violet-accent);
+  box-shadow: 0 0 20px var(--violet-glow), inset 0 0 15px rgba(139, 92, 246, 0.15);
+}
+.violet-theme .st-num-badge {
+  background: rgba(139, 92, 246, 0.2);
+  color: var(--violet-accent);
+  border: 1px solid var(--violet-accent);
+}
+.violet-theme .st-main-icon { color: var(--violet-accent); filter: drop-shadow(0 0 8px var(--violet-accent)); }
+.violet-theme .st-line-2 { color: var(--violet-accent); }
+.violet-theme .station-pedestal-platform { color: var(--violet-accent); }
+
+
+/* ==========================================================================
+   BOTTOM CENTER CTA BUTTON (MATCHING IMAGE 2)
+   ========================================================================== */
+.stage-bottom-cta {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 35;
+  display: flex;
+  justify-content: center;
+}
+
+.cyber-chamfer-btn {
+  background: linear-gradient(180deg, rgba(8, 28, 64, 0.9) 0%, rgba(3, 14, 34, 0.95) 100%);
+  border: 2px solid var(--cyan-primary);
+  padding: 12px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  box-shadow: 0 0 30px var(--cyan-glow), inset 0 0 20px rgba(0, 242, 254, 0.25);
+  transition: all 0.25s ease;
+  clip-path: polygon(
+    0 14px,
+    14px 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    14px 100%,
+    0 calc(100% - 14px)
+  );
+}
+
+.cyber-chamfer-btn:hover {
+  background: linear-gradient(180deg, rgba(0, 242, 254, 0.3) 0%, rgba(0, 136, 255, 0.5) 100%);
+  box-shadow: 0 0 45px var(--cyan-primary);
+  transform: translateY(-3px) scale(1.03);
 }
 
 .enter-btn-title {
   font-family: var(--font-display);
   font-size: 1.15rem;
   font-weight: 900;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
 
 .enter-btn-sub {
   font-family: var(--font-heading);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
+  letter-spacing: 2px;
   color: var(--cyan-primary);
-  letter-spacing: 1.5px;
 }
 
-/* Right Top Player Card HUD */
+
+/* ==========================================================================
+   RIGHT TOP PLAYER CARD HUD
+   ========================================================================== */
 .hero-right-card {
   align-self: start;
   margin-top: 40px;
@@ -1543,258 +1698,71 @@ body.cyber-body {
 
 
 /* ==========================================================================
-   RESPONSIVE DESIGN (TABLET & MOBILE) — 100% NON-OVERLAPPING LOBBY
+   RESPONSIVE DESIGN (TABLET & MOBILE)
    ========================================================================== */
 @media (max-width: 1400px) {
   .dashboard-grid-container {
     grid-template-columns: 1fr 1fr;
   }
   .hero-stage-container {
-    grid-template-columns: 50px 300px 1fr 280px;
+    grid-template-columns: 60px 300px 1fr 280px;
   }
-  .holo-station-card {
-    width: 125px;
+  .spatial-stations-left, .spatial-stations-right {
+    width: 180px;
+  }
+  .station-floating-card {
+    width: 160px;
   }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1150px) {
   .hero-stage-container {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: 1fr;
     min-height: auto;
-    padding: 16px 16px 30px 16px;
-    gap: 20px;
+    padding-bottom: 40px;
   }
   .left-icon-sidebar {
     display: none;
   }
-  .hero-left-intro {
-    padding-top: 50px;
-    text-align: center;
-    align-items: center;
-  }
-  .hero-quote {
-    border-left: none;
-    border-top: 1px solid var(--cyan-primary);
-    border-bottom: 1px solid var(--cyan-primary);
-    padding: 8px 12px;
-  }
   .hero-center-stage {
-    min-height: 640px;
-    width: 100%;
-    margin: 10px 0;
+    min-height: 650px;
   }
-  .hero-right-card {
-    margin-top: 0;
-    width: 100%;
+  .spatial-stations-left {
+    left: 5px;
+  }
+  .spatial-stations-right {
+    right: 5px;
   }
   .dashboard-grid-container {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 650px) {
-  .game-dashboard-wrap {
-    padding: 10px 10px 40px 10px;
-  }
-
-  .hero-stage-container {
-    padding: 14px 10px 24px 10px;
-    border-radius: 12px;
-  }
-
-  .brand-header {
-    top: 14px;
-    left: 14px;
-  }
-
-  .brand-main {
-    font-size: 0.95rem;
-  }
-
-  .brand-sub {
-    font-size: 0.62rem;
-  }
-
-  /* Top Intro Text on Mobile (Clear of Character Face) */
-  .hero-left-intro {
-    padding-top: 46px;
-    margin-bottom: 4px;
-    align-items: center;
-    text-align: center;
-  }
-
-  .welcome-tag {
-    font-size: 0.8rem;
-  }
-
+@media (max-width: 768px) {
   .player-hero-name {
-    font-size: 2rem;
-    letter-spacing: 1.5px;
-    margin-bottom: 8px;
-    line-height: 1.1;
+    font-size: 2.4rem;
   }
-
-  .spec-line {
-    font-size: 0.82rem;
-    justify-content: center;
-  }
-
-  .hero-location {
-    font-size: 0.8rem;
-    margin-bottom: 6px;
-    justify-content: center;
-  }
-
-  .hero-quote {
-    font-size: 0.78rem;
-    line-height: 1.35;
-    padding: 4px 8px;
-    margin-bottom: 0;
-    max-width: 320px;
-  }
-
-  /* Center 3D Stage on Mobile - Matching Image 2 */
-  .hero-center-stage {
-    min-height: 560px;
-    position: relative;
+  .spatial-stations-left, .spatial-stations-right {
+    position: static;
     width: 100%;
-    margin-top: 6px;
-  }
-
-  /* Character firmly centered with head clearly visible */
-  .character-wrapper {
-    width: 100%;
-    height: 500px;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .exact-character-img {
-    height: 440px;
-    max-width: 220px;
-    margin-bottom: 25px;
-  }
-
-  .character-pedestal-glow {
-    bottom: 15px;
-    width: 220px;
-    height: 55px;
-  }
-
-  .pedestal-disc-inner {
-    width: 180px;
-    height: 40px;
-  }
-
-  .pedestal-disc-outer {
-    width: 215px;
-    height: 50px;
-  }
-
-  /* Side Stations on Mobile - Docked Cleanly to Outer Left & Right Edges */
-  .stage-side-group {
-    top: 44%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 12px;
-    z-index: 25;
+    margin-bottom: 20px;
   }
-
-  .stage-side-group.left-stations {
-    left: 0;
-  }
-
-  .stage-side-group.right-stations {
-    right: 0;
-  }
-
-  .holo-station-card {
-    width: 88px;
-    padding: 5px 6px;
-    border-radius: 6px;
-    background: rgba(3, 10, 24, 0.9);
-  }
-
-  .st-num {
-    font-size: 0.6rem;
-  }
-
-  .st-icon-box {
-    width: 22px;
-    height: 22px;
-    font-size: 0.68rem;
-    border-radius: 4px;
-  }
-
-  .st-title {
-    font-size: 0.58rem;
-    letter-spacing: 0.3px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .st-sub {
-    font-size: 0.5rem;
-    letter-spacing: 0.3px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* Bottom Enter Button on Mobile (Stationed at Bottom below Pedestal) */
-  .stage-bottom-cta {
-    bottom: 0px;
-    width: 90%;
-    max-width: 280px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .hero-enter-btn {
-    padding: 8px 14px;
-    width: 100%;
-  }
-
-  .enter-btn-title {
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-  }
-
-  .enter-btn-sub {
-    font-size: 0.58rem;
-    letter-spacing: 0.6px;
-  }
-
-  /* Bottom Panels on Mobile */
-  .dash-panel {
-    flex-direction: column;
-  }
-
-  .panel-mini-sidebar {
-    display: none;
-  }
-
   .experience-content-split {
     grid-template-columns: 1fr;
   }
-
-  .skills-2x3-grid {
-    grid-template-columns: 1fr;
-  }
-
   .garage-content-wrap {
     grid-template-columns: 1fr;
   }
-
   .languages-five-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
   .edu-two-cards-grid {
     grid-template-columns: 1fr;
   }
-
   .contact-split-layout {
     grid-template-columns: 1fr;
   }
