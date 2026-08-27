@@ -41,7 +41,7 @@
     <!-- ==================================================== -->
     <header class="hero-stage-container" id="hero-stage">
       
-      <!-- Top Left Brand Badge -->
+      <!-- Top Left Brand Header -->
       <div class="brand-header">
         <div class="brand-icon-box">
           <svg class="brand-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -56,16 +56,7 @@
         </div>
       </div>
 
-      <!-- Top Right Status / Menu Icon -->
-      <div class="top-right-status">
-        <div class="hud-menu-bars">
-          <span class="bar-line"></span>
-          <span class="bar-line short"></span>
-          <span class="bar-line"></span>
-        </div>
-      </div>
-
-      <!-- Left Vertical Sidebar Strip -->
+      <!-- Left Vertical Sidebar Strip (Desktop) -->
       <aside class="left-icon-sidebar">
         <a href="#hero-stage" class="sidebar-icon-btn active" title="Hub Home" data-target="hero-stage"><i class="fa-solid fa-house"></i></a>
         <a href="#panel-experience" class="sidebar-icon-btn" title="01 Experience HQ" data-target="panel-experience"><i class="fa-solid fa-user"></i></a>
@@ -91,10 +82,6 @@
         <blockquote class="hero-quote">
           “ Managing Operations. Leading Teams.<br>Building Smart Solutions. ”
         </blockquote>
-
-        <button class="hero-enter-btn" id="enter-btn" onclick="scrollToDashboard()">
-          <span class="play-triangle">▶</span> ENTER MY CAREER
-        </button>
       </div>
 
       <!-- Center 3D Stage / Character Visual & Hologram Nodes -->
@@ -102,7 +89,46 @@
         <!-- 3D Canvas Background -->
         <div id="three-canvas-wrap"></div>
 
-        <!-- Character Visual on Pedestal -->
+        <!-- Left Side Hologram Stations (01, 02, 03) -->
+        <div class="stage-side-group left-stations">
+          <!-- Station 01: Experience HQ -->
+          <div class="holo-station-card holo-cyan" onclick="scrollToPanel('panel-experience')">
+            <div class="station-header">
+              <span class="st-num">01</span>
+              <div class="st-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+            </div>
+            <div class="st-text">
+              <strong class="st-title">EXPERIENCE</strong>
+              <span class="st-sub">HQ MISSIONS</span>
+            </div>
+          </div>
+
+          <!-- Station 02: Skill Lab -->
+          <div class="holo-station-card holo-purple" onclick="scrollToPanel('panel-skills')">
+            <div class="station-header">
+              <span class="st-num">02</span>
+              <div class="st-icon-box"><i class="fa-solid fa-brain"></i></div>
+            </div>
+            <div class="st-text">
+              <strong class="st-title">SKILL LAB</strong>
+              <span class="st-sub">ABILITIES</span>
+            </div>
+          </div>
+
+          <!-- Station 03: Automation Garage -->
+          <div class="holo-station-card holo-teal" onclick="scrollToPanel('panel-automation')">
+            <div class="station-header">
+              <span class="st-num">03</span>
+              <div class="st-icon-box"><i class="fa-solid fa-robot"></i></div>
+            </div>
+            <div class="st-text">
+              <strong class="st-title">AUTOMATION</strong>
+              <span class="st-sub">GARAGE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Central Character Visual on Holographic Pedestal -->
         <div class="character-wrapper">
           <div class="character-pedestal-glow">
             <div class="pedestal-disc-inner"></div>
@@ -114,76 +140,52 @@
           <img src="https://i.postimg.cc/Y9nzFJPT/Segment-20260827-155624995.png" alt="Amdaul Hoque" class="exact-character-img">
         </div>
 
-        <!-- 6 FLOATING HOLOGRAPHIC STATION NODES AROUND CHARACTER -->
-        <!-- Node 01: Experience HQ -->
-        <div class="hologram-node node-01" onclick="scrollToPanel('panel-experience')">
-          <div class="holo-icon-ring">
-            <i class="fa-solid fa-shield-halved"></i>
+        <!-- Right Side Hologram Stations (04, 05, 06) -->
+        <div class="stage-side-group right-stations">
+          <!-- Station 04: Language Station -->
+          <div class="holo-station-card holo-green" onclick="scrollToPanel('panel-languages')">
+            <div class="station-header">
+              <span class="st-num">04</span>
+              <div class="st-icon-box"><i class="fa-solid fa-globe"></i></div>
+            </div>
+            <div class="st-text">
+              <strong class="st-title">LANGUAGE</strong>
+              <span class="st-sub">STATION</span>
+            </div>
           </div>
-          <div class="holo-text">
-            <span class="holo-num">01</span>
-            <span class="holo-title">EXPERIENCE</span>
-            <span class="holo-sub">HQ MISSIONS</span>
+
+          <!-- Station 05: Education Archive -->
+          <div class="holo-station-card holo-gold" onclick="scrollToPanel('panel-education')">
+            <div class="station-header">
+              <span class="st-num">05</span>
+              <div class="st-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
+            </div>
+            <div class="st-text">
+              <strong class="st-title">EDUCATION</strong>
+              <span class="st-sub">ARCHIVE</span>
+            </div>
+          </div>
+
+          <!-- Station 06: Contact Terminal -->
+          <div class="holo-station-card holo-purple" onclick="scrollToPanel('panel-contact')">
+            <div class="station-header">
+              <span class="st-num">06</span>
+              <div class="st-icon-box"><i class="fa-solid fa-envelope"></i></div>
+            </div>
+            <div class="st-text">
+              <strong class="st-title">CONTACT</strong>
+              <span class="st-sub">TERMINAL</span>
+            </div>
           </div>
         </div>
 
-        <!-- Node 02: Skill Lab -->
-        <div class="hologram-node node-02" onclick="scrollToPanel('panel-skills')">
-          <div class="holo-icon-ring">
-            <i class="fa-solid fa-brain"></i>
-          </div>
-          <div class="holo-text">
-            <span class="holo-num">02</span>
-            <span class="holo-title">SKILL LAB</span>
-          </div>
-        </div>
-
-        <!-- Node 03: Automation Garage -->
-        <div class="hologram-node node-03" onclick="scrollToPanel('panel-automation')">
-          <div class="holo-icon-ring">
-            <i class="fa-solid fa-robot"></i>
-          </div>
-          <div class="holo-text">
-            <span class="holo-num">03</span>
-            <span class="holo-title">AUTOMATION</span>
-            <span class="holo-sub">GARAGE</span>
-          </div>
-        </div>
-
-        <!-- Node 04: Language Station -->
-        <div class="hologram-node node-04" onclick="scrollToPanel('panel-languages')">
-          <div class="holo-icon-ring">
-            <i class="fa-solid fa-globe"></i>
-          </div>
-          <div class="holo-text">
-            <span class="holo-num">04</span>
-            <span class="holo-title">LANGUAGE</span>
-            <span class="holo-sub">STATION</span>
-          </div>
-        </div>
-
-        <!-- Node 05: Education Archive -->
-        <div class="hologram-node node-05" onclick="scrollToPanel('panel-education')">
-          <div class="holo-icon-ring">
-            <i class="fa-solid fa-book-open"></i>
-          </div>
-          <div class="holo-text">
-            <span class="holo-num">05</span>
-            <span class="holo-title">EDUCATION</span>
-            <span class="holo-sub">ARCHIVE</span>
-          </div>
-        </div>
-
-        <!-- Node 06: Contact Terminal -->
-        <div class="hologram-node node-06" onclick="scrollToPanel('panel-contact')">
-          <div class="holo-icon-ring">
-            <i class="fa-solid fa-envelope"></i>
-          </div>
-          <div class="holo-text">
-            <span class="holo-num">06</span>
-            <span class="holo-title">CONTACT</span>
-            <span class="holo-sub">TERMINAL</span>
-          </div>
+        <!-- Bottom Centered Enter Career Button (Matches Image 2) -->
+        <div class="stage-bottom-cta">
+          <button class="hero-enter-btn" id="enter-btn" onclick="scrollToDashboard()">
+            <div class="enter-btn-glitch"></div>
+            <span class="enter-btn-title">ENTER MY CAREER</span>
+            <span class="enter-btn-sub">PRESS ANY KEY OR TAP TO START</span>
+          </button>
         </div>
       </div>
 
@@ -428,7 +430,7 @@
               <div class="skill-tile-info">
                 <h4>Web App Development</h4>
                 <div class="star-rating">
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
                 </div>
               </div>
             </div>
