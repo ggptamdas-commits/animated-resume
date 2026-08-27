@@ -56,10 +56,19 @@
         </div>
       </div>
 
+      <!-- Top Right Status / Menu Icon -->
+      <div class="top-right-status">
+        <div class="hud-menu-bars">
+          <span class="bar-line"></span>
+          <span class="bar-line short"></span>
+          <span class="bar-line"></span>
+        </div>
+      </div>
+
       <!-- Left Vertical Sidebar Strip -->
       <aside class="left-icon-sidebar">
         <a href="#hero-stage" class="sidebar-icon-btn active" title="Hub Home" data-target="hero-stage"><i class="fa-solid fa-house"></i></a>
-        <a href="#panel-experience" class="sidebar-icon-btn" title="01 Experience HQ" data-target="panel-experience"><i class="fa-solid fa-user-shield"></i></a>
+        <a href="#panel-experience" class="sidebar-icon-btn" title="01 Experience HQ" data-target="panel-experience"><i class="fa-solid fa-user"></i></a>
         <a href="#panel-skills" class="sidebar-icon-btn" title="02 Skill Lab" data-target="panel-skills"><i class="fa-solid fa-briefcase"></i></a>
         <a href="#panel-automation" class="sidebar-icon-btn" title="03 Automation Garage" data-target="panel-automation"><i class="fa-solid fa-gauge-high"></i></a>
         <a href="#panel-contact" class="sidebar-icon-btn" title="06 Contact Terminal" data-target="panel-contact"><i class="fa-solid fa-screwdriver-wrench"></i></a>
@@ -93,131 +102,16 @@
         <!-- 3D Canvas Background -->
         <div id="three-canvas-wrap"></div>
 
-        <!-- 2D High-Fidelity Character Render Overlay -->
+        <!-- Character Visual on Pedestal -->
         <div class="character-wrapper">
-          <div class="character-pedestal-glow"></div>
-          <div class="character-figure-art">
-            <svg class="char-svg" viewBox="0 0 400 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="skinGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#e0a370" />
-                  <stop offset="100%" stop-color="#b87b4b" />
-                </linearGradient>
-                <linearGradient id="hairGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#1c1917" />
-                  <stop offset="100%" stop-color="#09090b" />
-                </linearGradient>
-                <linearGradient id="shirtGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#242834" />
-                  <stop offset="60%" stop-color="#12151c" />
-                  <stop offset="100%" stop-color="#090b10" />
-                </linearGradient>
-                <linearGradient id="pantGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#181b22" />
-                  <stop offset="100%" stop-color="#0a0c10" />
-                </linearGradient>
-                <linearGradient id="shoeGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#ffffff" />
-                  <stop offset="85%" stop-color="#e2e8f0" />
-                  <stop offset="100%" stop-color="#94a3b8" />
-                </linearGradient>
-                <filter id="neonGlowPedestal" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="8" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              <!-- PEDESTAL BASE RINGS -->
-              <ellipse cx="200" cy="740" rx="170" ry="32" fill="#00f2fe" fill-opacity="0.15" filter="url(#neonGlowPedestal)" />
-              <ellipse cx="200" cy="740" rx="140" ry="24" stroke="#00f2fe" stroke-width="3" fill="none" opacity="0.9" />
-              <ellipse cx="200" cy="740" rx="100" ry="18" stroke="#0088ff" stroke-width="2" stroke-dasharray="8 6" fill="none" opacity="0.8" />
-              <ellipse cx="200" cy="740" rx="60" ry="12" fill="#00f2fe" fill-opacity="0.3" />
-
-              <!-- SHOES (Crisp White Low-Tops with Cyan/Dark Accents) -->
-              <!-- Left Shoe -->
-              <path d="M142 715 C132 715 125 725 125 733 C125 741 142 745 168 745 C180 745 185 738 185 731 C185 723 178 718 168 716 Z" fill="url(#shoeGrad)" />
-              <path d="M130 735 Q150 740 180 735" stroke="#00f2fe" stroke-width="2" fill="none" />
-              <path d="M125 736 C125 742 142 746 168 746 C182 746 185 741 185 736 Z" fill="#0f172a" />
-              <!-- Right Shoe -->
-              <path d="M232 716 C222 718 215 723 215 731 C215 738 220 745 232 745 C258 745 275 741 275 733 C275 725 268 715 258 715 Z" fill="url(#shoeGrad)" />
-              <path d="M220 735 Q250 740 270 735" stroke="#00f2fe" stroke-width="2" fill="none" />
-              <path d="M215 736 C215 741 218 746 232 746 C258 746 275 742 275 736 Z" fill="#0f172a" />
-
-              <!-- TROUSERS / LEGS (Tailored Black Chinos) -->
-              <path d="M152 410 L138 718 L175 718 L194 455 L206 455 L225 718 L262 718 L248 410 Z" fill="url(#pantGrad)" />
-              <line x1="200" y1="440" x2="200" y2="475" stroke="#090b10" stroke-width="2" />
-              <!-- Crease details -->
-              <path d="M154 440 L146 690" stroke="#252a36" stroke-width="1.5" opacity="0.6" />
-              <path d="M246 440 L254 690" stroke="#252a36" stroke-width="1.5" opacity="0.6" />
-
-              <!-- BELT & WAISTBAND -->
-              <rect x="150" y="402" width="100" height="14" rx="2" fill="#0b0e14" />
-              <rect x="190" y="401" width="20" height="16" rx="2" fill="#d4af37" stroke="#453810" stroke-width="1" />
-              <rect x="194" y="405" width="12" height="8" rx="1" fill="#1e2430" />
-
-              <!-- TORSO / BLACK DRESS SHIRT (Long Sleeves Rolled Up to Elbows, Open Top Collar) -->
-              <path d="M142 215 C132 235 125 285 128 355 L148 355 L150 410 L250 410 L252 355 L272 355 C275 285 268 235 258 215 C242 205 220 200 200 200 C180 200 158 205 142 215 Z" fill="url(#shirtGrad)" />
-              
-              <!-- Shirt Placket & Buttons -->
-              <path d="M196 232 L196 410 L204 410 L204 232 Z" fill="#181c26" />
-              <circle cx="200" cy="275" r="2.5" fill="#475569" />
-              <circle cx="200" cy="315" r="2.5" fill="#475569" />
-              <circle cx="200" cy="355" r="2.5" fill="#475569" />
-              <circle cx="200" cy="390" r="2.5" fill="#475569" />
-
-              <!-- V-Neck / Open Collar & Neckline (Skin Reveal) -->
-              <path d="M188 200 L200 242 L212 200 Z" fill="url(#skinGrad)" />
-              <!-- Collar Wings -->
-              <path d="M178 198 L196 235 L190 238 L168 204 Z" fill="#2d3342" stroke="#12151c" stroke-width="1" />
-              <path d="M222 198 L204 235 L210 238 L232 204 Z" fill="#2d3342" stroke="#12151c" stroke-width="1" />
-
-              <!-- ARMS (Upper sleeves in black shirt, Forearms in skin tone, Hands resting naturally) -->
-              <!-- Left Arm -->
-              <path d="M142 215 C130 240 120 280 122 340 L144 342 C146 295 150 255 158 230 Z" fill="url(#shirtGrad)" />
-              <!-- Left Rolled Sleeve Cuff -->
-              <rect x="120" y="338" width="26" height="12" rx="3" fill="#2d3342" stroke="#090b10" stroke-width="1" />
-              <!-- Left Forearm (Skin) -->
-              <path d="M124 350 L118 430 C118 445 125 455 130 455 L140 455 C144 445 142 410 142 350 Z" fill="url(#skinGrad)" />
-              <!-- Left Hand -->
-              <path d="M118 435 C116 450 120 468 126 470 C132 472 136 460 138 445 Z" fill="url(#skinGrad)" />
-
-              <!-- Right Arm -->
-              <path d="M258 215 C270 240 280 280 278 340 L256 342 C254 295 250 255 242 230 Z" fill="url(#shirtGrad)" />
-              <!-- Right Rolled Sleeve Cuff -->
-              <rect x="254" y="338" width="26" height="12" rx="3" fill="#2d3342" stroke="#090b10" stroke-width="1" />
-              <!-- Right Forearm (Skin) -->
-              <path d="M276 350 L282 430 C282 445 275 455 270 455 L260 455 C256 445 258 410 258 350 Z" fill="url(#skinGrad)" />
-              <!-- Right Hand -->
-              <path d="M282 435 C284 450 280 468 274 470 C268 472 264 460 262 445 Z" fill="url(#skinGrad)" />
-
-              <!-- NECK -->
-              <path d="M188 170 L188 205 L212 205 L212 170 Z" fill="url(#skinGrad)" />
-
-              <!-- HEAD & FACE -->
-              <!-- Face Shape -->
-              <path d="M178 125 C178 100 222 100 222 125 C222 155 214 175 200 178 C186 175 178 155 178 125 Z" fill="url(#skinGrad)" />
-
-              <!-- Beard & Mustache (Well-Groomed Trimmed Dark Beard) -->
-              <path d="M180 138 C182 165 190 176 200 177 C210 176 218 165 220 138 C216 150 210 162 200 163 C190 162 184 150 180 138 Z" fill="url(#hairGrad)" />
-              <path d="M190 148 Q200 144 210 148 Q200 152 190 148 Z" fill="url(#hairGrad)" />
-              <path d="M196 154 Q200 152 204 154 Q200 158 196 154 Z" fill="url(#hairGrad)" />
-
-              <!-- Eyes & Eyebrows -->
-              <path d="M184 125 Q190 121 195 124" stroke="#09090b" stroke-width="3" stroke-linecap="round" fill="none" />
-              <path d="M205 124 Q210 121 216 125" stroke="#09090b" stroke-width="3" stroke-linecap="round" fill="none" />
-              <circle cx="190" cy="130" r="2.2" fill="#18181b" />
-              <circle cx="210" cy="130" r="2.2" fill="#18181b" />
-              <!-- Nose -->
-              <path d="M199 128 L197 140 L203 140" stroke="#a16237" stroke-width="1.8" stroke-linecap="round" fill="none" />
-
-              <!-- HAIR (Modern Fade & Pompadour Cut) -->
-              <path d="M174 122 C172 90 188 78 200 78 C212 78 228 90 226 122 C222 110 215 105 200 105 C185 105 178 110 174 122 Z" fill="url(#hairGrad)" />
-              <path d="M180 88 C185 75 210 72 220 84 C210 78 195 80 180 88 Z" fill="#27272a" />
-            </svg>
+          <div class="character-pedestal-glow">
+            <div class="pedestal-disc-inner"></div>
+            <div class="pedestal-disc-outer"></div>
+            <div class="pedestal-spotlight"></div>
           </div>
+          
+          <!-- Exact Segmented Character Image -->
+          <img src="https://i.postimg.cc/Y9nzFJPT/Segment-20260827-155624995.png" alt="Amdaul Hoque" class="exact-character-img">
         </div>
 
         <!-- 6 FLOATING HOLOGRAPHIC STATION NODES AROUND CHARACTER -->
@@ -297,23 +191,7 @@
       <aside class="hero-right-card cyber-hud-card">
         <div class="hud-top-player">
           <div class="player-avatar-circle">
-            <div class="avatar-inner-art">
-              <svg viewBox="0 0 100 100" class="avatar-svg">
-                <circle cx="50" cy="50" r="48" fill="#111827" stroke="#00f2fe" stroke-width="2.5" />
-                <!-- Avatar Face -->
-                <ellipse cx="50" cy="46" rx="20" ry="24" fill="#d99b6c" />
-                <!-- Hair -->
-                <path d="M28 40 C28 20 40 14 50 14 C60 14 72 20 72 40 C68 28 60 25 50 25 C40 25 32 28 28 40 Z" fill="#18181b" />
-                <!-- Beard -->
-                <path d="M34 46 C36 64 42 70 50 70 C58 70 64 64 66 46 C62 56 56 62 50 62 C44 62 38 56 34 46 Z" fill="#18181b" />
-                <path d="M42 54 Q50 50 58 54" stroke="#18181b" stroke-width="2" fill="none" />
-                <!-- Eyes -->
-                <circle cx="42" cy="42" r="2" fill="#18181b" />
-                <circle cx="58" cy="42" r="2" fill="#18181b" />
-                <!-- Black Collar -->
-                <path d="M26 84 L38 68 L50 76 L62 68 L74 84 Z" fill="#090b10" stroke="#00f2fe" stroke-width="1" />
-              </svg>
-            </div>
+            <img src="https://i.postimg.cc/Y9nzFJPT/Segment-20260827-155624995.png" alt="Amdaul Hoque Avatar" class="avatar-photo-crop">
             <div class="avatar-status-dot"></div>
           </div>
           <div class="player-name-col">
@@ -373,104 +251,115 @@
       <!-- PANEL 01: EXPERIENCE HQ -->
       <!-- ========================================== -->
       <section class="dash-panel panel-01 cyber-hud-card" id="panel-experience">
-        <div class="panel-header">
-          <div class="panel-badge-num">01</div>
-          <div class="panel-titles">
-            <h3 class="panel-main-title">EXPERIENCE HQ</h3>
-            <span class="panel-sub-title">CAREER MISSIONS</span>
-          </div>
+        <!-- Integrated Mini Left Icon Strip -->
+        <div class="panel-mini-sidebar">
+          <i class="fa-solid fa-house"></i>
+          <i class="fa-solid fa-user"></i>
+          <i class="fa-solid fa-briefcase"></i>
+          <i class="fa-solid fa-gauge-high"></i>
+          <i class="fa-solid fa-screwdriver-wrench"></i>
         </div>
 
-        <div class="experience-content-split">
-          <!-- Company & Role Sub-Card -->
-          <div class="exp-company-card">
-            <div class="exp-company-header">
-              <h4 class="exp-role">Restaurant Supervisor &<br>Automation Specialist</h4>
-              <div class="exp-restaurant"><i class="fa-solid fa-store"></i> Khamer Restaurant, Saudi Arabia</div>
-              <div class="exp-dates"><i class="fa-regular fa-calendar"></i> Dec 2023 – Present</div>
-            </div>
-            
-            <!-- Restaurant Background Ambience Visual -->
-            <div class="restaurant-visual-box">
-              <div class="restaurant-photo-overlay"></div>
-              <div class="xp-trophy-banner">
-                <div class="trophy-gold-icon"><i class="fa-solid fa-trophy"></i></div>
-                <div class="trophy-xp-data">
-                  <span class="trophy-tag">TOTAL XP EARNED</span>
-                  <strong class="trophy-num">2450 XP</strong>
-                </div>
-              </div>
+        <div class="panel-main-content">
+          <div class="panel-header">
+            <div class="panel-badge-num">01</div>
+            <div class="panel-titles">
+              <h3 class="panel-main-title">EXPERIENCE HQ</h3>
+              <span class="panel-sub-title">CAREER MISSIONS</span>
             </div>
           </div>
 
-          <!-- Missions List -->
-          <div class="exp-missions-list">
-            
-            <!-- Mission 1 -->
-            <div class="mission-item">
-              <div class="m-icon-box cyan"><i class="fa-solid fa-utensils"></i></div>
-              <div class="m-details">
-                <div class="m-heading">
-                  <span class="m-num-tag">MISSION 01</span>
-                  <h5>Restaurant Operations</h5>
-                </div>
-                <p>Manage daily restaurant operations and lead the service team.</p>
+          <div class="experience-content-split">
+            <!-- Company & Role Sub-Card -->
+            <div class="exp-company-card">
+              <div class="exp-company-header">
+                <h4 class="exp-role">Restaurant Supervisor &<br>Automation Specialist</h4>
+                <div class="exp-restaurant"><i class="fa-solid fa-store"></i> Khamer Restaurant, Saudi Arabia</div>
+                <div class="exp-dates"><i class="fa-regular fa-calendar"></i> Dec 2023 – Present</div>
               </div>
-              <div class="m-xp-badge">+250 XP</div>
+              
+              <!-- Restaurant Background Ambience Visual -->
+              <div class="restaurant-visual-box">
+                <div class="restaurant-photo-overlay"></div>
+                <div class="xp-trophy-banner">
+                  <div class="trophy-gold-icon"><i class="fa-solid fa-trophy"></i></div>
+                  <div class="trophy-xp-data">
+                    <span class="trophy-tag">TOTAL XP EARNED</span>
+                    <strong class="trophy-num">2450 XP</strong>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- Mission 2 -->
-            <div class="mission-item">
-              <div class="m-icon-box green"><i class="fa-solid fa-users-gear"></i></div>
-              <div class="m-details">
-                <div class="m-heading">
-                  <span class="m-num-tag">MISSION 02</span>
-                  <h5>Team Leadership</h5>
+            <!-- Missions List -->
+            <div class="exp-missions-list">
+              
+              <!-- Mission 1 -->
+              <div class="mission-item">
+                <div class="m-icon-box cyan"><i class="fa-solid fa-utensils"></i></div>
+                <div class="m-details">
+                  <div class="m-heading">
+                    <span class="m-num-tag">MISSION 01</span>
+                    <h5>Restaurant Operations</h5>
+                  </div>
+                  <p>Manage daily restaurant operations and lead the service team.</p>
                 </div>
-                <p>Lead the service team and step into Cashier, Warehouse Manager or Server responsibilities.</p>
+                <div class="m-xp-badge">+250 XP</div>
               </div>
-              <div class="m-xp-badge">+400 XP</div>
-            </div>
 
-            <!-- Mission 3 -->
-            <div class="mission-item highlight">
-              <div class="m-icon-box gold"><i class="fa-solid fa-boxes-stacked"></i></div>
-              <div class="m-details">
-                <div class="m-heading">
-                  <span class="m-num-tag">MISSION 03</span>
-                  <h5>Warehouse System</h5>
+              <!-- Mission 2 -->
+              <div class="mission-item">
+                <div class="m-icon-box green"><i class="fa-solid fa-users-gear"></i></div>
+                <div class="m-details">
+                  <div class="m-heading">
+                    <span class="m-num-tag">MISSION 02</span>
+                    <h5>Team Leadership</h5>
+                  </div>
+                  <p>Lead the service team and step into Cashier, Warehouse Manager or Server responsibilities.</p>
                 </div>
-                <p>Developed and deployed a specialized warehouse management application.</p>
+                <div class="m-xp-badge">+400 XP</div>
               </div>
-              <div class="m-xp-badge">+500 XP</div>
-            </div>
 
-            <!-- Mission 4 -->
-            <div class="mission-item">
-              <div class="m-icon-box purple"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-              <div class="m-details">
-                <div class="m-heading">
-                  <span class="m-num-tag">MISSION 04</span>
-                  <h5>Operational Automation</h5>
+              <!-- Mission 3 -->
+              <div class="mission-item highlight">
+                <div class="m-icon-box gold"><i class="fa-solid fa-boxes-stacked"></i></div>
+                <div class="m-details">
+                  <div class="m-heading">
+                    <span class="m-num-tag">MISSION 03</span>
+                    <h5>Warehouse System</h5>
+                  </div>
+                  <p>Developed and deployed a specialized warehouse management application.</p>
                 </div>
-                <p>Designed AI-assisted tools for kitchen stock tracking and digital menus.</p>
+                <div class="m-xp-badge">+500 XP</div>
               </div>
-              <div class="m-xp-badge">+450 XP</div>
-            </div>
 
-            <!-- Mission 5 -->
-            <div class="mission-item">
-              <div class="m-icon-box blue"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-              <div class="m-details">
-                <div class="m-heading">
-                  <span class="m-num-tag">MISSION 05</span>
-                  <h5>Technical Support</h5>
+              <!-- Mission 4 -->
+              <div class="mission-item">
+                <div class="m-icon-box purple"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <div class="m-details">
+                  <div class="m-heading">
+                    <span class="m-num-tag">MISSION 04</span>
+                    <h5>Operational Automation</h5>
+                  </div>
+                  <p>Designed AI-assisted tools for kitchen stock tracking and digital menus.</p>
                 </div>
-                <p>Handle on-site electrical maintenance and basic technical troubleshooting.</p>
+                <div class="m-xp-badge">+450 XP</div>
               </div>
-              <div class="m-xp-badge">+350 XP</div>
-            </div>
 
+              <!-- Mission 5 -->
+              <div class="mission-item">
+                <div class="m-icon-box blue"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <div class="m-details">
+                  <div class="m-heading">
+                    <span class="m-num-tag">MISSION 05</span>
+                    <h5>Technical Support</h5>
+                  </div>
+                  <p>Handle on-site electrical maintenance and basic technical troubleshooting.</p>
+                </div>
+                <div class="m-xp-badge">+350 XP</div>
+              </div>
+
+            </div>
           </div>
         </div>
       </section>
@@ -480,86 +369,97 @@
       <!-- PANEL 02: SKILL LAB -->
       <!-- ========================================== -->
       <section class="dash-panel panel-02 cyber-hud-card" id="panel-skills">
-        <div class="panel-header">
-          <div class="panel-badge-num">02</div>
-          <div class="panel-titles">
-            <h3 class="panel-main-title">SKILL LAB</h3>
-            <span class="panel-sub-title">UNLOCK YOUR ABILITIES</span>
-          </div>
+        <!-- Integrated Mini Left Icon Strip -->
+        <div class="panel-mini-sidebar">
+          <i class="fa-solid fa-house"></i>
+          <i class="fa-solid fa-user"></i>
+          <i class="fa-solid fa-briefcase"></i>
+          <i class="fa-solid fa-gauge-high"></i>
+          <i class="fa-solid fa-screwdriver-wrench"></i>
         </div>
 
-        <div class="skills-2x3-grid">
-          
-          <!-- Skill 1: Inventory Management -->
-          <div class="skill-tile">
-            <div class="skill-tile-icon cyan"><i class="fa-solid fa-box"></i></div>
-            <div class="skill-tile-info">
-              <h4>Inventory Management</h4>
-              <div class="star-rating">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
+        <div class="panel-main-content">
+          <div class="panel-header">
+            <div class="panel-badge-num">02</div>
+            <div class="panel-titles">
+              <h3 class="panel-main-title">SKILL LAB</h3>
+              <span class="panel-sub-title">UNLOCK YOUR ABILITIES</span>
             </div>
           </div>
 
-          <!-- Skill 2: Team Leadership -->
-          <div class="skill-tile">
-            <div class="skill-tile-icon blue"><i class="fa-solid fa-users"></i></div>
-            <div class="skill-tile-info">
-              <h4>Team Leadership</h4>
-              <div class="star-rating">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <div class="skills-2x3-grid">
+            
+            <!-- Skill 1: Inventory Management -->
+            <div class="skill-tile">
+              <div class="skill-tile-icon cyan"><i class="fa-solid fa-box"></i></div>
+              <div class="skill-tile-info">
+                <h4>Inventory Management</h4>
+                <div class="star-rating">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Skill 3: Multilingual Communication -->
-          <div class="skill-tile">
-            <div class="skill-tile-icon purple"><i class="fa-solid fa-globe"></i></div>
-            <div class="skill-tile-info">
-              <h4>Multilingual Communication</h4>
-              <div class="star-rating">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <!-- Skill 2: Team Leadership -->
+            <div class="skill-tile">
+              <div class="skill-tile-icon blue"><i class="fa-solid fa-users"></i></div>
+              <div class="skill-tile-info">
+                <h4>Team Leadership</h4>
+                <div class="star-rating">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Skill 4: Web App Development -->
-          <div class="skill-tile">
-            <div class="skill-tile-icon magenta"><i class="fa-solid fa-code"></i></div>
-            <div class="skill-tile-info">
-              <h4>Web App Development</h4>
-              <div class="star-rating">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            <!-- Skill 3: Multilingual Communication -->
+            <div class="skill-tile">
+              <div class="skill-tile-icon purple"><i class="fa-solid fa-globe"></i></div>
+              <div class="skill-tile-info">
+                <h4>Multilingual Communication</h4>
+                <div class="star-rating">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Skill 5: AI Tool Specialist -->
-          <div class="skill-tile">
-            <div class="skill-tile-icon cyan"><i class="fa-solid fa-microchip"></i></div>
-            <div class="skill-tile-info">
-              <h4>AI Tool Specialist</h4>
-              <div class="star-rating">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <!-- Skill 4: Web App Development -->
+            <div class="skill-tile">
+              <div class="skill-tile-icon magenta"><i class="fa-solid fa-code"></i></div>
+              <div class="skill-tile-info">
+                <h4>Web App Development</h4>
+                <div class="star-rating">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Skill 6: Electrical Troubleshooting -->
-          <div class="skill-tile">
-            <div class="skill-tile-icon amber"><i class="fa-solid fa-bolt"></i></div>
-            <div class="skill-tile-info">
-              <h4>Electrical Troubleshooting</h4>
-              <div class="star-rating">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+            <!-- Skill 5: AI Tool Specialist -->
+            <div class="skill-tile">
+              <div class="skill-tile-icon cyan"><i class="fa-solid fa-microchip"></i></div>
+              <div class="skill-tile-info">
+                <h4>AI Tool Specialist</h4>
+                <div class="star-rating">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
               </div>
             </div>
+
+            <!-- Skill 6: Electrical Troubleshooting -->
+            <div class="skill-tile">
+              <div class="skill-tile-icon amber"><i class="fa-solid fa-bolt"></i></div>
+              <div class="skill-tile-info">
+                <h4>Electrical Troubleshooting</h4>
+                <div class="star-rating">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-        </div>
-
-        <div class="skills-footer-pill">
-          <span>SKILLS UNLOCKED</span> <strong>6 / 6</strong>
+          <div class="skills-footer-pill">
+            <span>SKILLS UNLOCKED</span> <strong>6 / 6</strong>
+          </div>
         </div>
       </section>
 
@@ -568,62 +468,73 @@
       <!-- PANEL 03: AUTOMATION GARAGE -->
       <!-- ========================================== -->
       <section class="dash-panel panel-03 cyber-hud-card" id="panel-automation">
-        <div class="panel-header">
-          <div class="panel-badge-num">03</div>
-          <div class="panel-titles">
-            <h3 class="panel-main-title">AUTOMATION GARAGE</h3>
-            <span class="panel-sub-title">BUILDING SMART SOLUTIONS</span>
-          </div>
+        <!-- Integrated Mini Left Icon Strip -->
+        <div class="panel-mini-sidebar">
+          <i class="fa-solid fa-house"></i>
+          <i class="fa-solid fa-user"></i>
+          <i class="fa-solid fa-briefcase"></i>
+          <i class="fa-solid fa-gauge-high"></i>
+          <i class="fa-solid fa-screwdriver-wrench"></i>
         </div>
 
-        <div class="garage-content-wrap">
-          <div class="garage-text-side">
-            <h4 class="garage-proj-title">KHAMER WAREHOUSE<br>MANAGEMENT SYSTEM</h4>
-            <p class="garage-proj-desc">
-              Custom Warehouse Management System Built for Khamer Restaurant to manage inventory, orders and stock efficiently.
-            </p>
-
-            <a href="https://khamer.vercel.app" target="_blank" rel="noopener noreferrer" class="view-proj-btn">
-              <span>▶</span> VIEW PROJECT
-            </a>
-            
-            <a href="https://khamer.vercel.app" target="_blank" rel="noopener noreferrer" class="garage-link-url">
-              <i class="fa-solid fa-link"></i> khamer.vercel.app
-            </a>
+        <div class="panel-main-content">
+          <div class="panel-header">
+            <div class="panel-badge-num">03</div>
+            <div class="panel-titles">
+              <h3 class="panel-main-title">AUTOMATION GARAGE</h3>
+              <span class="panel-sub-title">BUILDING SMART SOLUTIONS</span>
+            </div>
           </div>
 
-          <!-- Cyberpunk Rugged Tactical Laptop Graphic -->
-          <div class="garage-laptop-visual">
-            <div class="cyber-laptop-mockup">
-              <div class="laptop-screen-bezel">
-                <div class="laptop-screen-glass">
-                  <div class="screen-header-bar">
-                    <span class="screen-dot r"></span>
-                    <span class="screen-dot y"></span>
-                    <span class="screen-dot g"></span>
-                    <span class="screen-title">KHAMER WMS // TERMINAL</span>
-                  </div>
-                  <div class="screen-code-body">
-                    <div class="code-line">> INVENTORY TRACKER: ACTIVE</div>
-                    <div class="code-line">> ORDERS PROCESSED: 1420+</div>
-                    <div class="code-line">> WASTE REDUCTION: -28%</div>
-                    <div class="code-line">> STATUS: NORMAL</div>
+          <div class="garage-content-wrap">
+            <div class="garage-text-side">
+              <h4 class="garage-proj-title">KHAMER WAREHOUSE<br>MANAGEMENT SYSTEM</h4>
+              <p class="garage-proj-desc">
+                Custom Warehouse Management System Built for Khamer Restaurant to manage inventory, orders and stock efficiently.
+              </p>
+
+              <a href="https://khamer.vercel.app" target="_blank" rel="noopener noreferrer" class="view-proj-btn">
+                <span>▶</span> VIEW PROJECT
+              </a>
+              
+              <a href="https://khamer.vercel.app" target="_blank" rel="noopener noreferrer" class="garage-link-url">
+                <i class="fa-solid fa-link"></i> khamer.vercel.app
+              </a>
+            </div>
+
+            <!-- Cyberpunk Rugged Tactical Laptop Graphic -->
+            <div class="garage-laptop-visual">
+              <div class="cyber-laptop-mockup">
+                <div class="laptop-screen-bezel">
+                  <div class="laptop-screen-glass">
+                    <div class="screen-header-bar">
+                      <span class="screen-dot r"></span>
+                      <span class="screen-dot y"></span>
+                      <span class="screen-dot g"></span>
+                      <span class="screen-title">KHAMER WMS // TERMINAL</span>
+                    </div>
+                    <div class="screen-code-body">
+                      <div class="code-line">> INVENTORY: ACTIVE</div>
+                      <div class="code-line">> ORDERS: 1420+</div>
+                      <div class="code-line">> WASTE REDUCTION: -28%</div>
+                      <div class="code-line">> STATUS: NORMAL</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="laptop-base-chassis">
-                <div class="laptop-keyboard-glow"></div>
-                <div class="laptop-trackpad"></div>
+                <div class="laptop-base-chassis">
+                  <div class="laptop-keyboard-glow"></div>
+                  <div class="laptop-trackpad"></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- 3 Feature Tags along bottom -->
-        <div class="garage-bottom-tags">
-          <div class="g-tag"><i class="fa-solid fa-brain"></i> AI TOOLS SPECIALIST</div>
-          <div class="g-tag"><i class="fa-solid fa-laptop-code"></i> WEB APP DEVELOPMENT</div>
-          <div class="g-tag"><i class="fa-solid fa-utensils"></i> RESTAURANT AUTOMATION</div>
+          <!-- 3 Feature Tags along bottom -->
+          <div class="garage-bottom-tags">
+            <div class="g-tag"><i class="fa-solid fa-brain"></i> AI TOOLS SPECIALIST</div>
+            <div class="g-tag"><i class="fa-solid fa-laptop-code"></i> WEB APP DEVELOPMENT</div>
+            <div class="g-tag"><i class="fa-solid fa-utensils"></i> RESTAURANT AUTOMATION</div>
+          </div>
         </div>
       </section>
 
@@ -632,66 +543,77 @@
       <!-- PANEL 04: LANGUAGE STATION -->
       <!-- ========================================== -->
       <section class="dash-panel panel-04 cyber-hud-card" id="panel-languages">
-        <div class="panel-header">
-          <div class="panel-badge-num">04</div>
-          <div class="panel-titles">
-            <h3 class="panel-main-title">LANGUAGE STATION</h3>
-            <span class="panel-sub-title">COMMUNICATION MASTER</span>
-          </div>
+        <!-- Integrated Mini Left Icon Strip -->
+        <div class="panel-mini-sidebar">
+          <i class="fa-solid fa-house"></i>
+          <i class="fa-solid fa-user"></i>
+          <i class="fa-solid fa-briefcase"></i>
+          <i class="fa-solid fa-gauge-high"></i>
+          <i class="fa-solid fa-screwdriver-wrench"></i>
         </div>
 
-        <div class="languages-five-grid">
-          
-          <!-- Arabic -->
-          <div class="lang-box">
-            <div class="lang-flag-graphic saudi-flag">
-              <span class="flag-symbol">🇸🇦</span>
+        <div class="panel-main-content">
+          <div class="panel-header">
+            <div class="panel-badge-num">04</div>
+            <div class="panel-titles">
+              <h3 class="panel-main-title">LANGUAGE STATION</h3>
+              <span class="panel-sub-title">COMMUNICATION MASTER</span>
             </div>
-            <h4 class="lang-title">Arabic</h4>
-            <span class="lang-fluency-pill native">NATIVE</span>
           </div>
 
-          <!-- English -->
-          <div class="lang-box">
-            <div class="lang-flag-graphic uk-flag">
-              <span class="flag-symbol">🇬🇧</span>
+          <div class="languages-five-grid">
+            
+            <!-- Arabic -->
+            <div class="lang-box">
+              <div class="lang-flag-graphic saudi-flag">
+                <span class="flag-symbol">🇸🇦</span>
+              </div>
+              <h4 class="lang-title">Arabic</h4>
+              <span class="lang-fluency-pill native">NATIVE</span>
             </div>
-            <h4 class="lang-title">English</h4>
-            <span class="lang-fluency-pill fluent">FLUENT</span>
+
+            <!-- English -->
+            <div class="lang-box">
+              <div class="lang-flag-graphic uk-flag">
+                <span class="flag-symbol">🇬🇧</span>
+              </div>
+              <h4 class="lang-title">English</h4>
+              <span class="lang-fluency-pill fluent">FLUENT</span>
+            </div>
+
+            <!-- Hindi -->
+            <div class="lang-box">
+              <div class="lang-flag-graphic india-flag">
+                <span class="flag-symbol">🇮🇳</span>
+              </div>
+              <h4 class="lang-title">Hindi</h4>
+              <span class="lang-fluency-pill fluent">FLUENT</span>
+            </div>
+
+            <!-- Urdu -->
+            <div class="lang-box">
+              <div class="lang-flag-graphic pak-flag">
+                <span class="flag-symbol">🇵🇰</span>
+              </div>
+              <h4 class="lang-title">Urdu</h4>
+              <span class="lang-fluency-pill fluent">FLUENT</span>
+            </div>
+
+            <!-- Bengali -->
+            <div class="lang-box">
+              <div class="lang-flag-graphic bd-flag">
+                <span class="flag-symbol">🇧🇩</span>
+              </div>
+              <h4 class="lang-title">Bengali</h4>
+              <span class="lang-fluency-pill native">NATIVE</span>
+            </div>
+
           </div>
 
-          <!-- Hindi -->
-          <div class="lang-box">
-            <div class="lang-flag-graphic india-flag">
-              <span class="flag-symbol">🇮🇳</span>
-            </div>
-            <h4 class="lang-title">Hindi</h4>
-            <span class="lang-fluency-pill fluent">FLUENT</span>
+          <div class="lang-bottom-motto">
+            <span>5 LANGUAGES. ENDLESS POSSIBILITIES.</span>
+            <i class="fa-solid fa-globe"></i>
           </div>
-
-          <!-- Urdu -->
-          <div class="lang-box">
-            <div class="lang-flag-graphic pak-flag">
-              <span class="flag-symbol">🇵🇰</span>
-            </div>
-            <h4 class="lang-title">Urdu</h4>
-            <span class="lang-fluency-pill fluent">FLUENT</span>
-          </div>
-
-          <!-- Bengali -->
-          <div class="lang-box">
-            <div class="lang-flag-graphic bd-flag">
-              <span class="flag-symbol">🇧🇩</span>
-            </div>
-            <h4 class="lang-title">Bengali</h4>
-            <span class="lang-fluency-pill native">NATIVE</span>
-          </div>
-
-        </div>
-
-        <div class="lang-bottom-motto">
-          <span>5 LANGUAGES. ENDLESS POSSIBILITIES.</span>
-          <i class="fa-solid fa-globe"></i>
         </div>
       </section>
 
@@ -700,38 +622,49 @@
       <!-- PANEL 05: EDUCATION ARCHIVE -->
       <!-- ========================================== -->
       <section class="dash-panel panel-05 cyber-hud-card" id="panel-education">
-        <div class="panel-header">
-          <div class="panel-badge-num">05</div>
-          <div class="panel-titles">
-            <h3 class="panel-main-title">EDUCATION ARCHIVE</h3>
-            <span class="panel-sub-title">YOUR ACADEMIC ACHIEVEMENTS</span>
-          </div>
+        <!-- Integrated Mini Left Icon Strip -->
+        <div class="panel-mini-sidebar">
+          <i class="fa-solid fa-house"></i>
+          <i class="fa-solid fa-user"></i>
+          <i class="fa-solid fa-briefcase"></i>
+          <i class="fa-solid fa-gauge-high"></i>
+          <i class="fa-solid fa-screwdriver-wrench"></i>
         </div>
 
-        <div class="edu-two-cards-grid">
-          
-          <!-- HSC Card -->
-          <div class="edu-item-card">
-            <div class="edu-badge-tag purple">HSC</div>
-            <h4 class="edu-cert-name">Higher Secondary Certificate (HSC) in Accounting</h4>
-            <div class="edu-institute">Fazlur Rahman Memorial College of Technology</div>
-            <div class="edu-status-row">
-              <span class="status-text">STATUS: COMPLETED</span>
-              <div class="status-check-circle"><i class="fa-solid fa-check"></i></div>
+        <div class="panel-main-content">
+          <div class="panel-header">
+            <div class="panel-badge-num">05</div>
+            <div class="panel-titles">
+              <h3 class="panel-main-title">EDUCATION ARCHIVE</h3>
+              <span class="panel-sub-title">YOUR ACADEMIC ACHIEVEMENTS</span>
             </div>
           </div>
 
-          <!-- SSC Card -->
-          <div class="edu-item-card">
-            <div class="edu-badge-tag blue">SSC</div>
-            <h4 class="edu-cert-name">Secondary School Certificate (SSC)</h4>
-            <div class="edu-institute">Bharasar High School</div>
-            <div class="edu-status-row">
-              <span class="status-text">STATUS: COMPLETED</span>
-              <div class="status-check-circle"><i class="fa-solid fa-check"></i></div>
+          <div class="edu-two-cards-grid">
+            
+            <!-- HSC Card -->
+            <div class="edu-item-card">
+              <div class="edu-badge-tag purple">HSC</div>
+              <h4 class="edu-cert-name">Higher Secondary Certificate (HSC) in Accounting</h4>
+              <div class="edu-institute">Fazlur Rahman Memorial College of Technology</div>
+              <div class="edu-status-row">
+                <span class="status-text">STATUS: COMPLETED</span>
+                <div class="status-check-circle"><i class="fa-solid fa-check"></i></div>
+              </div>
             </div>
-          </div>
 
+            <!-- SSC Card -->
+            <div class="edu-item-card">
+              <div class="edu-badge-tag blue">SSC</div>
+              <h4 class="edu-cert-name">Secondary School Certificate (SSC)</h4>
+              <div class="edu-institute">Bharasar High School</div>
+              <div class="edu-status-row">
+                <span class="status-text">STATUS: COMPLETED</span>
+                <div class="status-check-circle"><i class="fa-solid fa-check"></i></div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
@@ -740,67 +673,70 @@
       <!-- PANEL 06: CONTACT TERMINAL -->
       <!-- ========================================== -->
       <section class="dash-panel panel-06 cyber-hud-card" id="panel-contact">
-        <div class="panel-header">
-          <div class="panel-badge-num">06</div>
-          <div class="panel-titles">
-            <h3 class="panel-main-title">CONTACT TERMINAL</h3>
-            <span class="panel-sub-title">LET'S CONNECT</span>
-          </div>
+        <!-- Integrated Mini Left Icon Strip -->
+        <div class="panel-mini-sidebar">
+          <i class="fa-solid fa-house"></i>
+          <i class="fa-solid fa-user"></i>
+          <i class="fa-solid fa-briefcase"></i>
+          <i class="fa-solid fa-gauge-high"></i>
+          <i class="fa-solid fa-screwdriver-wrench"></i>
         </div>
 
-        <div class="contact-split-layout">
-          
-          <!-- Left Info Column -->
-          <div class="contact-info-col">
-            <div class="contact-profile-head">
-              <div class="contact-avatar-box">
-                <svg viewBox="0 0 100 100" class="contact-avatar-svg">
-                  <circle cx="50" cy="50" r="48" fill="#111827" stroke="#00f2fe" stroke-width="2" />
-                  <ellipse cx="50" cy="46" rx="20" ry="24" fill="#d99b6c" />
-                  <path d="M28 40 C28 20 40 14 50 14 C60 14 72 20 72 40 C68 28 60 25 50 25 C40 25 32 28 28 40 Z" fill="#18181b" />
-                  <path d="M34 46 C36 64 42 70 50 70 C58 70 64 64 66 46 C62 56 56 62 50 62 C44 62 38 56 34 46 Z" fill="#18181b" />
-                  <circle cx="42" cy="42" r="2" fill="#18181b" />
-                  <circle cx="58" cy="42" r="2" fill="#18181b" />
-                  <path d="M26 84 L38 68 L50 76 L62 68 L74 84 Z" fill="#090b10" stroke="#00f2fe" stroke-width="1" />
-                </svg>
+        <div class="panel-main-content">
+          <div class="panel-header">
+            <div class="panel-badge-num">06</div>
+            <div class="panel-titles">
+              <h3 class="panel-main-title">CONTACT TERMINAL</h3>
+              <span class="panel-sub-title">LET'S CONNECT</span>
+            </div>
+          </div>
+
+          <div class="contact-split-layout">
+            
+            <!-- Left Info Column -->
+            <div class="contact-info-col">
+              <div class="contact-profile-head">
+                <div class="contact-avatar-box">
+                  <img src="https://i.postimg.cc/Y9nzFJPT/Segment-20260827-155624995.png" alt="Amdaul Hoque Avatar" class="contact-avatar-img">
+                </div>
+                <div class="contact-fields-list">
+                  <div class="c-field">
+                    <span class="c-field-label">EMAIL</span>
+                    <a href="mailto:ahameddruboo@gmail.com" class="c-field-value">ahameddruboo@gmail.com</a>
+                  </div>
+                  <div class="c-field">
+                    <span class="c-field-label">PHONE</span>
+                    <a href="tel:+966544575530" class="c-field-value">+966 544 575 530</a>
+                  </div>
+                  <div class="c-field">
+                    <span class="c-field-label">LOCATION</span>
+                    <span class="c-field-value">Jizan, Saudi Arabia</span>
+                  </div>
+                </div>
               </div>
-              <div class="contact-fields-list">
-                <div class="c-field">
-                  <span class="c-field-label">EMAIL</span>
-                  <a href="mailto:ahameddruboo@gmail.com" class="c-field-value">ahameddruboo@gmail.com</a>
-                </div>
-                <div class="c-field">
-                  <span class="c-field-label">PHONE</span>
-                  <a href="tel:+966544575530" class="c-field-value">+966 544 575 530</a>
-                </div>
-                <div class="c-field">
-                  <span class="c-field-label">LOCATION</span>
-                  <span class="c-field-value">Jizan, Saudi Arabia</span>
-                </div>
-              </div>
+
+              <blockquote class="contact-bottom-quote">
+                “ Every Operation I Manage. Every Problem I Solve.<br>Brings Me Closer to Building a Better Tomorrow. ”
+              </blockquote>
             </div>
 
-            <blockquote class="contact-bottom-quote">
-              “ Every Operation I Manage. Every Problem I Solve.<br>Brings Me Closer to Building a Better Tomorrow. ”
-            </blockquote>
-          </div>
+            <!-- Right Action Buttons Column -->
+            <div class="contact-actions-col">
+              <a href="mailto:ahameddruboo@gmail.com" class="c-act-btn email-btn">
+                <i class="fa-solid fa-envelope"></i> <span>EMAIL ME</span>
+              </a>
+              <a href="tel:+966544575530" class="c-act-btn phone-btn">
+                <i class="fa-solid fa-phone"></i> <span>CALL ME</span>
+              </a>
+              <button onclick="window.print()" class="c-act-btn pdf-btn">
+                <i class="fa-solid fa-file-lines"></i> <span>DOWNLOAD RESUME</span>
+              </button>
+              <a href="mailto:ahameddruboo@gmail.com?subject=Collaboration%20Inquiry" class="c-act-btn work-btn gold-glow">
+                <i class="fa-solid fa-handshake"></i> <span>LET'S WORK TOGETHER</span>
+              </a>
+            </div>
 
-          <!-- Right Action Buttons Column -->
-          <div class="contact-actions-col">
-            <a href="mailto:ahameddruboo@gmail.com" class="c-act-btn email-btn">
-              <i class="fa-solid fa-envelope"></i> <span>EMAIL ME</span>
-            </a>
-            <a href="tel:+966544575530" class="c-act-btn phone-btn">
-              <i class="fa-solid fa-phone"></i> <span>CALL ME</span>
-            </a>
-            <button onclick="window.print()" class="c-act-btn pdf-btn">
-              <i class="fa-solid fa-file-lines"></i> <span>DOWNLOAD RESUME</span>
-            </button>
-            <a href="mailto:ahameddruboo@gmail.com?subject=Collaboration%20Inquiry" class="c-act-btn work-btn gold-glow">
-              <i class="fa-solid fa-handshake"></i> <span>LET'S WORK TOGETHER</span>
-            </a>
           </div>
-
         </div>
       </section>
 
