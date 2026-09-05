@@ -1,38 +1,64 @@
-# 🎮 AMDAUL HOQUE — 3D Interactive Career Quest & Game UI Resume
+# Jack -- 3D Creator Portfolio
 
-> **Playable 3D Web Experience & AAA Game Interface Portfolio for Amdaul Hoque**  
-> *Restaurant Supervisor • Automation Specialist • Full-Stack Web Developer*  
-> 📍 **Jizan, Saudi Arabia** • ✉️ `ahameddruboo@gmail.com` • 📱 `+966 544 575 530`
+A high-performance, dark-themed 3D Creator landing page built for **Jack**, powered by **React 18**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**.
 
----
-
-## 🌟 Overview & Core Concept
-Designed from the ground up to replace traditional, boring text resumes with an immersive **AAA Video Game Interface & 3D Interactive Career World**. The visitor explores Amdaul Hoque's career journey, operations expertise, software projects, and multitalented skillset through 6 futuristic game zones:
-
-1. 🛡️ **01 EXPERIENCE HQ** — Career Missions at Khamer Restaurant (Saudi Arabia), XP rewards, and supervisory milestones.
-2. ⚡ **02 SKILL LAB** — Unlockable abilities (Inventory Management, Leadership, AI Automation, Web Development, Electrical Diagnostics).
-3. 🤖 **03 AUTOMATION GARAGE** — Featured deployment: **Khamer Warehouse Management System** ([khamer.vercel.app](https://khamer.vercel.app)).
-4. 🌐 **04 LANGUAGE STATION** — Polyglot mastery across 5 languages (Arabic, English, Hindi, Urdu, Bengali).
-5. 🏆 **05 EDUCATION ARCHIVE** — Academic credentials (HSC in Accounting, SSC).
-6. 📡 **06 CONTACT TERMINAL** — Direct comms channels, email/phone links, and instant resume download.
+## 🌟 Live Demo & Preview
+Hosted on GitHub Pages:
+[https://ggptamdas-commits.github.io/animated-resume/](https://ggptamdas-commits.github.io/animated-resume/)
 
 ---
 
-## 🚀 Key Features
-- **Three.js 3D Virtual Character Hub**: Real-time 3D avatar stage, rotating cybernetic pedestals, volumetric particle vortex, and floating 3D portal hologram stations.
-- **Synthesized Sci-Fi Web Audio SFX**: Audio feedback engine generating realistic laser clicks, portal warps, and level-up chimes.
-- **Glassmorphism Cyber HUD**: Persistent player identity stats, animated XP bar (8750/10000 XP), rank badges, and responsive controls.
-- **RPG Attribute Modal & Achievement Badges**: RPG statistics matrix for operations, leadership, inventory, and automation.
-- **Print / PDF Friendly**: Clean stylesheet print fallback for immediate hardcopy or PDF generation.
+## 🎨 Design & Style Specifications
+- **Theme**: Dark aesthetic with `#0C0C0C` background across html, body, and all wrappers.
+- **Typography**: [Kanit (Google Fonts)](https://fonts.google.com/specimen/Kanit) weights 300 through 900.
+- **Heading Accents**: `.hero-heading` gradient text (`linear-gradient(180deg, #646973 0%, #BBCCD7 100%)`).
+- **Section Order**:
+  1. **HeroSection**: Full viewport height, custom navbar, massive responsive heading (`text-[14vw]` to `[17.5vw]`), magnetic 3D portrait, and value proposition statement with the signature `ContactButton`.
+  2. **MarqueeSection**: Dual-row scroll-driven infinite gallery with 21 interactive GIFs from motionsites.ai.
+  3. **AboutSection**: Corner-floating 3D elements, gradient title, and scroll-linked character-by-character reveal typography (`AnimatedText`).
+  4. **ServicesSection**: High-contrast white card (`#FFFFFF`) with 5 core creative service verticals: 3D Modeling, Rendering, Motion Design, Branding, Web Design.
+  5. **ProjectsSection**: 3 sticky-stacking interactive project cards that scale down dynamically upon scroll, featuring custom dual-column responsive image grids for *Nextlevel Studio*, *Aura Brand Identity*, and *Solaris Digital*.
 
 ---
 
-## 🛠️ Built With
-- **HTML5 & CSS3** (Custom Glassmorphism, CSS Grids, Holographic animations)
-- **JavaScript (ES6+)**
-- **Three.js** (3D WebGL Scene & Camera Animation)
-- **Web Audio API** (Procedural Sound Synthesizer)
-- **FontAwesome 6** & **Google Fonts** (Orbitron, Rajdhani, Inter, Share Tech Mono)
+## 🚀 Reusable Components Included
+- `ContactButton`: Rounded pill with signature multi-stop gradient (`linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)`), dual inner glow shadows, and inset border.
+- `LiveProjectButton`: Ghost button with `#D7E2EA` border and hover tint.
+- `FadeIn`: Framer Motion view-triggered entrance animations with configurable delays, offsets, and bezier curves.
+- `Magnet`: Mouse-following interactive magnetic hover effect with configurable padding and strength.
+- `AnimatedText`: Character-by-character scroll progress opacity animator.
 
 ---
-© 2026 Amdaul Hoque. All Rights Reserved.
+
+## 💻 Tech Stack & Dependencies
+- **React** `^18.3.1`
+- **React DOM** `^18.3.1`
+- **Framer Motion** `^12.38.0`
+- **Lucide React** `^0.344.0`
+- **Tailwind CSS** `^3.4.1`
+- **Vite** `^5.3.4`
+- **TypeScript** `^5.2.2`
+
+---
+
+## 🛠️ Local Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/ggptamdas-commits/animated-resume.git
+
+# Navigate into the project folder
+cd animated-resume
+
+# Install dependencies
+npm install
+
+# Start Vite local development server
+npm run dev
+
+# Build production bundle
+npm run build
+
+# Preview production build
+npm run preview
+```
