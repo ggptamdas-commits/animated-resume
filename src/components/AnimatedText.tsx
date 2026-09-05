@@ -9,7 +9,7 @@ interface AnimatedTextProps {
 interface CharProps {
   char: string;
   progress: MotionValue<number>;
-  range: [number, number];
+  range: number[];
 }
 
 const Character: React.FC<CharProps> = ({ char, progress, range }) => {
@@ -17,7 +17,7 @@ const Character: React.FC<CharProps> = ({ char, progress, range }) => {
   return (
     <span className="relative inline-block">
       <span className="opacity-0 select-none">{char}</span>
-      <motion.span style={{ opacity }} className="absolute inset-0 select-none">
+      <motion.span style={{ opacity }} className="absolute inset-0 select-none pointer-events-none">
         {char}
       </motion.span>
     </span>
