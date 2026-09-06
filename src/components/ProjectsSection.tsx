@@ -93,7 +93,7 @@ export const ProjectsSection: React.FC = () => {
           </h3>
         </FadeIn>
 
-        {/* Contact Info Pills */}
+        {/* Contact Info Pills: Strictly from CV */}
         <FadeIn delay={0.2} y={20} className="flex flex-wrap justify-center gap-4 w-full">
           <a
             href="tel:+966544575530"
@@ -115,29 +115,6 @@ export const ProjectsSection: React.FC = () => {
             <i className="fa-solid fa-location-dot text-rose-400"></i>
             <span>Jizan, Saudi Arabia</span>
           </div>
-
-          <a
-            href="https://wa.me/966544575530"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold uppercase tracking-wider px-6 py-3 text-xs sm:text-sm transition-all shadow-lg flex items-center gap-2"
-          >
-            <i className="fa-brands fa-whatsapp text-sm"></i>
-            <span>WhatsApp</span>
-          </a>
-        </FadeIn>
-
-        {/* View / Print Full Minimalist Resume */}
-        <FadeIn delay={0.3} y={20} className="pt-4">
-          <a
-            href="./resume.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-sky-400 text-sky-300 hover:bg-sky-400/10 font-bold uppercase tracking-wider text-xs sm:text-sm transition-all shadow-md"
-          >
-            <i className="fa-solid fa-file-pdf"></i>
-            <span>View / Print Minimalist Resume</span>
-          </a>
         </FadeIn>
 
         <p className="text-[#D7E2EA]/50 text-xs pt-8 uppercase tracking-widest font-normal">

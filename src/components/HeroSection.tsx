@@ -18,14 +18,6 @@ export const HeroSection: React.FC = () => {
             <a href="#skills" className="hover:text-sky-300 transition-colors duration-200 cursor-pointer">Skills</a>
             <a href="#experience" className="hover:text-sky-300 transition-colors duration-200 cursor-pointer">Experience</a>
             <a href="#contact" className="hover:text-sky-300 transition-colors duration-200 cursor-pointer">Contact</a>
-            <a
-              href="./resume.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-block px-3.5 py-1.5 rounded-full border border-sky-400/50 text-sky-300 hover:bg-sky-400/10 text-xs font-semibold tracking-wider transition-colors"
-            >
-              Print CV
-            </a>
           </div>
         </nav>
       </FadeIn>
@@ -70,14 +62,10 @@ export const HeroSection: React.FC = () => {
       <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end w-full px-6 md:px-10 pb-7 sm:pb-8 md:pb-10 z-20 gap-4 sm:gap-0">
         <FadeIn delay={0.35} y={20}>
           <div className="text-center sm:text-left">
-            <p
-              className="text-sky-400 font-bold uppercase tracking-wider text-sm sm:text-base md:text-xl"
-            >
+            <p className="text-sky-400 font-bold uppercase tracking-wider text-sm sm:text-base md:text-xl">
               RESTAURANT SUPERVISOR
             </p>
-            <p
-              className="text-[#D7E2EA]/80 font-light uppercase tracking-wide text-xs sm:text-sm mt-1"
-            >
+            <p className="text-[#D7E2EA]/80 font-light uppercase tracking-wide text-xs sm:text-sm mt-1">
               Jizan, Saudi Arabia · +966544575530
             </p>
           </div>
@@ -86,13 +74,11 @@ export const HeroSection: React.FC = () => {
         <FadeIn delay={0.5} y={20}>
           <div className="flex items-center gap-3">
             <a
-              href="https://wa.me/966544575530"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-3 text-xs sm:text-sm font-semibold tracking-wider uppercase transition-transform duration-200 hover:scale-105 inline-flex items-center gap-2 shadow-lg"
+              href="tel:+966544575530"
+              className="rounded-full border border-sky-400/50 hover:bg-sky-400/10 text-sky-300 px-5 py-3 text-xs sm:text-sm font-semibold tracking-wider uppercase transition-transform duration-200 hover:scale-105 inline-flex items-center gap-2 shadow-lg"
             >
-              <i className="fa-brands fa-whatsapp text-base"></i>
-              <span>WhatsApp</span>
+              <i className="fa-solid fa-phone text-sm"></i>
+              <span>+966544575530</span>
             </a>
             <ContactButton label="Contact Me" />
           </div>

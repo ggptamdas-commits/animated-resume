@@ -1,7 +1,6 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
 import { AnimatedText } from './AnimatedText';
-import { ContactButton } from './ContactButton';
 
 export const AboutSection: React.FC = () => {
   return (
@@ -31,17 +30,16 @@ export const AboutSection: React.FC = () => {
 
         <div className="h-12 sm:h-16 w-full" />
 
-        {/* Education & Languages side-by-side */}
-        <div id="education" className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 w-full text-left">
-          {/* EDUCATION */}
+        {/* EDUCATION */}
+        <div id="education" className="w-full text-left max-w-3xl">
           <FadeIn delay={0.2} y={30} className="p-6 sm:p-8 rounded-3xl bg-[#14181F] border border-[#2B5B84]/40 shadow-xl">
-            <div className="flex items-center gap-3 mb-5 border-b border-[#2B5B84]/30 pb-3">
+            <div className="flex items-center gap-3 mb-6 border-b border-[#2B5B84]/30 pb-3">
               <i className="fa-solid fa-graduation-cap text-sky-400 text-lg"></i>
               <h3 className="font-heading font-bold text-lg sm:text-xl uppercase text-white tracking-wider">
                 Education
               </h3>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div className="border-l-2 border-sky-400 pl-4">
                 <h4 className="font-semibold text-sm sm:text-base text-sky-200">
                   Higher Secondary Certificate (HSC) in Accounting
@@ -60,31 +58,7 @@ export const AboutSection: React.FC = () => {
               </div>
             </div>
           </FadeIn>
-
-          {/* LANGUAGES */}
-          <FadeIn delay={0.3} y={30} className="p-6 sm:p-8 rounded-3xl bg-[#14181F] border border-[#2B5B84]/40 shadow-xl">
-            <div className="flex items-center gap-3 mb-5 border-b border-[#2B5B84]/30 pb-3">
-              <i className="fa-solid fa-language text-emerald-400 text-lg"></i>
-              <h3 className="font-heading font-bold text-lg sm:text-xl uppercase text-white tracking-wider">
-                Languages (5 Languages)
-              </h3>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              {['Arabic', 'English', 'Hindi', 'Urdu', 'Bengali'].map((lang) => (
-                <div key={lang} className="p-3.5 rounded-xl bg-[#0C0C0C]/60 border border-slate-700/50 flex items-center gap-2.5">
-                  <span className="w-2 h-2 rounded-full bg-sky-400"></span>
-                  <span className="font-bold text-sky-200 text-sm">{lang}</span>
-                </div>
-              ))}
-            </div>
-          </FadeIn>
         </div>
-
-        <div className="h-12 sm:h-16 w-full" />
-
-        <FadeIn delay={0.4} y={20}>
-          <ContactButton label="Contact Me" />
-        </FadeIn>
       </div>
     </section>
   );
