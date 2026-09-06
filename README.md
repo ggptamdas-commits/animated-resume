@@ -1,36 +1,25 @@
-# AMDAUL HOQUE — Restaurant Supervisor
+# AMDAUL HOQUE — Restaurant Supervisor & Automation Specialist
 
-Cinematic, interactive 3D portfolio website for **AMDAUL HOQUE**, Restaurant Supervisor & Automation Specialist in Jizan, Saudi Arabia.
+Interactive, high-performance Dark Cyber-Green portfolio website for **AMDAUL HOQUE**, Restaurant Supervisor & Automation Specialist based in Jizan, Saudi Arabia.
 
-Built with **React**, **TypeScript**, **Tailwind CSS**, **Framer Motion**, and **Lucide React**.
+Hosted live on GitHub Pages and Vercel.
 
 ---
 
-## 📋 Professional Credentials (From CV)
+## 🚀 Design System & Highlights
+- **Theme**: Premium Dark Aesthetic (`#0d1116`) with Vibrant Neon Green Accent (`#00df8f`).
+- **Typography**: Modern Sans-Serif (Space Grotesk & Inter).
+- **Interactive Badge**: Physics-based drag & floating ID badge with lanyard mechanism in the Hero section.
+- **3D Card Stack**: Interactive stacked deck in Recent Works with smooth easing (`ease: [0.32, 0.72, 0, 1]`) and responsive heights.
+- **Stages of Operations**: Smooth accordion breakdown of restaurant and digital workflows.
+- **Toolkit**: Glassmorphic chip array with neon green hover glows.
 
+---
+
+## 📋 Professional Credentials
 - **Name:** AMDAUL HOQUE
-- **Designation:** RESTAURANT SUPERVISOR
-- **Phone:** +966544575530
-- **Email:** ahameddruboo@gmail.com
+- **Designation:** Restaurant Supervisor & Automation Specialist
 - **Location:** Jizan, Saudi Arabia
-
-### About Me
-Experienced Restaurant Supervisor with a background in Warehouse Management. Expert in inventory control, team leadership, and social media management using AI tools. Fluent in 5 languages (Arabic, English, Hindi, Urdu, Bengali), allowing for seamless communication with international customers and diverse teams.
-
-### Core Skills
-- **01 — Inventory Management:** Restaurant inventory management and inventory control.
-- **02 — Team Leadership:** Manage daily operations and lead the service team, stepping in as Cashier, Warehouse Manager, or Server during staff shortages.
-- **03 — Multilingual:** Arabic, English, Hindi, Urdu, Bengali.
-- **04 — Web App Development:** Developed and deployed a specialized warehouse management application: khamer.vercel.app.
-- **05 — Ai Tool Specialist:** Designed AI assisted tools for kitchen stock tracking and modern digital menus to streamline restaurant workflows.
-- **06 — Electrical Troubleshooting:** Handle on-site electrical maintenance and basic technical problem-solving.
-
-### Experience
-**Khamer Restaurant, Saudi Arabia** | *Dec 2023 – Present*
-- Manage daily operations and lead the service team, stepping in as Cashier, Warehouse Manager, or Server during staff shortages.
-- Developed and deployed a specialized warehouse management application: [khamer.vercel.app](https://khamer.vercel.app).
-- Designed AI assisted tools for kitchen stock tracking and modern digital menus to streamline restaurant workflows.
-
-### Education
-- **Bharasar High School** — Higher Secondary Certificate (HSC) in Accounting
-- **Fazlur Rahman Memorial College of Technology** — Secondary School Certificate (SSC)
+- **Contact:** +966 54 457 5530 | ahameddruboo@gmail.com
+- **Live Platform:** [khamer.vercel.app](https://khamer.vercel.app)
+- **Languages:** Arabic, English, Hindi, Urdu, Bengali (5 Fluent Languages)

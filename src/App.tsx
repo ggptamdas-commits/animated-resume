@@ -1,23 +1,19 @@
 import React from 'react';
-import { HeroSection } from './components/HeroSection';
-import { MarqueeSection } from './components/MarqueeSection';
-import { AboutSection } from './components/AboutSection';
-import { ServicesSection } from './components/ServicesSection';
-import { ProjectsSection } from './components/ProjectsSection';
-import { EducationSection } from './components/EducationSection';
-import { ContactSection } from './components/ContactSection';
+import { Navbar } from './components/Navbar';
+import { Hero } from './components/Hero';
+import { About } from './components/About';
+import { RecentWorks } from './components/RecentWorks';
+import { Services } from './components/Services';
 import { Footer } from './components/Footer';
 
 export const App: React.FC = () => {
   return (
-    <div className="bg-[#0C0C0C] min-h-screen text-[#D7E2EA] font-['Kanit'] w-full" style={{ overflowX: 'clip' }}>
-      <HeroSection />
-      <MarqueeSection />
-      <AboutSection />
-      <ServicesSection />
-      <ProjectsSection />
-      <EducationSection />
-      <ContactSection />
+    <div className="min-h-screen bg-[#0d1116] text-white font-sans overflow-x-clip select-none">
+      <Navbar />
+      <Hero />
+      <About />
+      <RecentWorks />
+      <Services />
       <Footer />
     </div>
   );

@@ -7,19 +7,19 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Kanit', 'sans-serif'],
+        sans: ['"Space Grotesk"', 'Inter', 'sans-serif'],
+        display: ['"Space Grotesk"', 'sans-serif'],
       },
       colors: {
         dark: {
-          900: '#0C0C0C',
-          800: '#141414',
-          700: '#1C1C1C',
-          600: '#2A2A2A',
+          bg: '#0d1116',
+          surface: '#14181f',
+          card: '#14181f',
+          border: 'rgba(255, 255, 255, 0.1)',
         },
-        metallic: {
-          gold: '#BA8C63',
-          bronze: '#966F48',
-          amber: '#D4AF37',
+        neon: {
+          green: '#00df8f',
+          dark: '#00b373',
         },
       },
     },
