@@ -3,7 +3,23 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { FadeIn } from './FadeIn';
 import { ExternalLink } from 'lucide-react';
 
-const EXPERIENCE_CARDS = [
+interface ExperienceCardItem {
+  id: string;
+  number: string;
+  title: string;
+  company: string;
+  date: string;
+  description: string;
+  bullets?: string[];
+  link?: string;
+  images: {
+    col1Top: string;
+    col1Bottom: string;
+    col2: string;
+  };
+}
+
+const EXPERIENCE_CARDS: ExperienceCardItem[] = [
   {
     id: '01',
     number: '01',
@@ -62,7 +78,7 @@ const EXPERIENCE_CARDS = [
 ];
 
 interface CardProps {
-  card: (typeof EXPERIENCE_CARDS)[0];
+  card: ExperienceCardItem;
   index: number;
   totalCards: number;
 }
@@ -71,7 +87,7 @@ const ExperienceStickyCard: React.FC<CardProps> = ({ card, index, totalCards }) 
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start end', 'start start'],
+    offset: ['start end', 'start start'] as any,
   });
 
   const targetScale = 1 - (totalCards - 1 - index) * 0.03;
